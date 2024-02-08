@@ -1,0 +1,9 @@
+/* Estilo para elementos con la clase 'texto-negrita' */
+.texto-negrita {
+    font-weight: bold;
+}
+
+
+p1{
+    font-weight: bold;  
+}   
