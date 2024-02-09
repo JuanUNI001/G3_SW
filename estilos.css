@@ -1,9 +1,30 @@
 /* Estilo para elementos con la clase 'texto-negrita' */
 .texto-negrita {
     font-weight: bold;
+    color: #930379;
 }
+
 body {
     background-color: #f082e3; 
-    color: #ffffff; 
-    }
-    
+    color: #ffffff;
+    font-family: 'Barbie', cursive;
+}
+h1{
+    color: #bf0e9e; 
+}
+h2{
+    color: #dd28bc; 
+}
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    color: #e082c4; 
+}
+
+.styled-table td, 
+.styled-table th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
