@@ -7,7 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MesaMaestra</title>
     <link rel="icon" href="resources\imagenes\icono.ico" type="image/x-icon">
-
+    
+    <!-- CSS que hace que la imagen sea un bloque y establece los margenes izquierdo y derecho automaticamente a "auto"-->
+    <style>
+        .imagen-centrada {
+            display: block; /* Hace que la imagen sea un bloque */
+            margin-left: auto; /* Margen izquierdo automático */
+            margin-right: auto; /* Margen derecho automático */
+        }
+    </style>
 </head>
 <body>
     <h1>MesaMaestra</h1>
@@ -19,10 +27,6 @@
     los usuarios pueden inscribirse a las competiciones.</p>
     <p>Además, los jugadores menos experimentados necesitan una forma de aprender, para ello tenemos un apartado de anuncios
     de profesores, en los que los usuarios pueden contactar y contratar a un maestro a través de un chat en línea.</p>
-        
-    <h3>Sobre nosotros:</h3>
-    
-    
-    <img src="resources\imagenes\icono.png" title="Logotipo">
+    <img class="imagen-centrada" src="resources\imagenes\icono.png" title="Logotipo" width="200">
 </body>
 </html>
