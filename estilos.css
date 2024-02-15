@@ -13,6 +13,9 @@ h1{
 h2{
     color: #dd28bc; 
 }
+a{
+    color:#000000;
+}
 .styled-table {
     border-collapse: collapse;
     width: 100%;
