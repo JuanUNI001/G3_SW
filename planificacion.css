@@ -2,15 +2,29 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+body {
+    background-color: #f082e3; 
+    color: #ffffff;
+    font-family: 'Barbie', cursive;
+}
+h1{
+    color: #bf0e9e; 
+}
+h2{
+    color: #dd28bc; 
+}
+a{
+    color:#000000;
+}
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #010000;
     padding: 8px;
     text-align: center;
 }
 th {
-    background-color: #f2f2f2;
+    background-color: #d3c8c8;
 }
 .task {
-    background-color: #e694e6;
+    background-color: #deb6e6;
     color: white;
 }
