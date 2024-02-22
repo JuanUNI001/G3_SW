@@ -3,15 +3,15 @@
     font-weight: bold;
 }
 body {
-    background-color: #f082e3; 
+    background-color: #abcddd; 
     color: #ffffff;
     font-family: 'Barbie', cursive;
 }
 h1{
-    color: #bf0e9e; 
+    color: #2281cf; 
 }
 h2{
-    color: #dd28bc; 
+    color: #2858dd; 
 }
 a{
     color:#000000;
@@ -20,7 +20,7 @@ a{
     border-collapse: collapse;
     width: 100%;
     background-color: white;
-    color: #e082c4; 
+    color: #729ab4; 
 }
 
 .styled-table td, 

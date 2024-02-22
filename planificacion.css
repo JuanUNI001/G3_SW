@@ -3,15 +3,15 @@ table {
     border-collapse: collapse;
 }
 body {
-    background-color: #f082e3; 
+    background-color: #abcddd; 
     color: #ffffff;
     font-family: 'Barbie', cursive;  
 }
 h1{
-    color: #bf0e9e; 
+    color: #2281cf; 
 }
 h2{
-    color: #dd28bc; 
+    color: #2858dd; 
 }
 a{
     color:#000000;
@@ -20,11 +20,12 @@ th, td {
     border: 1px solid #010000;
     padding: 8px;
     text-align: center;
+    background-color: #44a5aa;
 }
 th {
-    background-color: #d3c8c8;
+    background-color: #2f86b9;
 }
 .task {
-    background-color: #deb6e6;
+    background-color: #7bc0c4;
     color: white;
 }
