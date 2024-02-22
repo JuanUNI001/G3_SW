@@ -3,11 +3,14 @@
     font-weight: bold;
 }
 body {
-    background-color: #abcddd; 
+    background-color: #87b4c9; 
     color: #ffffff;
     font-family: 'Barbie', cursive;
 }
 h1{
+    color: #2281cf; 
+}
+header{
     color: #2281cf; 
 }
 h2{
