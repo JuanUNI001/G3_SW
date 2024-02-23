@@ -1,75 +1,70 @@
 <!DOCTYPE html>
-
-
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos.css">
-
-    <title>Formulario de Contacto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="estilos.css">
+  <title>Formulario de Contacto</title>
 </head>
-
 <body>
-    
-    <header>
-        <nav>Navegación
-            <ul>
-                <li><a href="index.html ">Página Principal</a></li>
-                <li><a href="detalles.html">Detalles</a></li>
-                <li><a href="bocetos.html">Bocetos</a></li>
-                <li><a href="miembros.html">Miembros</a></li>
-                <li><a href="planificacion.html">Planificación</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <h1>Formulario de Contacto</h1>
-        <form action="mailto:elcorreoquequieres@correo.com">
-            <p>
-                <label for="nombre">Nombre:</label>
-            </p>
-            <p>
-                <input type="text" id="nombre" name="nombre" required>
-            </p>
-            <p>
-                <label for="email">Email de Contacto:</label>
-            </p>
-            <p>
-    
-                <input type="email" id="email" name="email" required>
-    
-            </p>
-            <p>
-                <input type="radio" id="evaluacion" name="motivo" value="Evaluacion" required>
-                <label for="evaluacion">Evaluación</label>
-            </p>
-            <p>
-                <input type="radio" id="sugerencias" name="motivo" value="Sugerencias" required>
-                <label for="sugerencias">Sugerencias</label>
-            </p>
-            <p>
-                <input type="radio" id="criticas" name="motivo" value="Criticas" required>
-                <label for="criticas">Críticas</label>
-            </p>
-            <p>
-                <input type="checkbox" id="terminos" name="terminos" required>
-                <label for="terminos">Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</label>
-            </p>
-            <p>
-                <label for="consulta">Consulta:</label>
-            </p>
-            <p>
-                <textarea id="consulta" name="consulta" rows="4" cols="50" required></textarea>
-            </p>
-    
-            <input type="submit" value="Enviar">
-        </form>
-    </main>
-    
+  <header>
+    <h1>Contacto</h1>
+    <nav>
+      Navegación
+      <ul>
+        <li>
+          <a href="index.html">Página Principal</a>
+        </li>
+        <li>
+          <a href="detalles.html">Detalles</a>
+        </li>
+        <li>
+          <a href="bocetos.html">Bocetos</a>
+        </li>
+        <li>
+          <a href="miembros.html">Miembros</a>
+        </li>
+        <li>
+          <a href="planificacion.html">Planificación</a>
+        </li>
+        <li>
+          <a href="contacto.html">Contacto</a>
+        </li>
+      </ul>
+    </nav>
+    <form onsubmit="return enviarCorreo()">
+      <p><label for="nombre">Nombre:</label></p>
+      <p><input type="text" id="nombre" name="nombre" required=""></p>
+      <p><label for="email">Email de Contacto:</label></p>
+      <p><input type="email" id="email" name="email" required=""></p>
+      <p><input type="radio" id="evaluacion" name="motivo" value="Evaluacion" required=""> <label for="evaluacion">Evaluación</label></p>
+      <p><input type="radio" id="sugerencias" name="motivo" value="Sugerencias" required=""> <label for="sugerencias">Sugerencias</label></p>
+      <p><input type="radio" id="criticas" name="motivo" value="Críticas" required=""> <label for="criticas">Críticas</label></p>
+      <p><input type="checkbox" id="terminos" name="terminos" required=""> <label for="terminos">Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</label></p>
+      <p><label for="consulta">Consulta:</label></p>
+      <p>
+      <textarea id="consulta" name="consulta" rows="4" cols="50" required=""></textarea></p><input type="submit" value="Enviar">
+    </form>
+    <script>
+        function enviarCorreo() {
+            var nombre = document.getElementById("nombre").value;
+            var email = document.getElementById("email").value;
+            var motivo = document.querySelector('input[name="motivo"]:checked').value;
+            var consulta = document.getElementById("consulta").value;
+        
+            var asunto = motivo + " - " + nombre;
+            var cuerpoMensaje = "Motivo: " + motivo + "\n";
+            cuerpoMensaje += "Email de contacto: " + email+ "\n";
+            cuerpoMensaje += "Consulta: " + consulta;
+        
+            var mailtoLink = "mailto:mesaMaestra@gmail.com"+
+                             "?subject=" + encodeURIComponent(asunto) +
+                             "&body=" + encodeURIComponent(cuerpoMensaje);
+        
+            window.location.href = mailtoLink;
+            return false; // Para evitar que el formulario se envíe normalmente
+        }
+    </script>
+  </header>
 </body>
-
 </html>
