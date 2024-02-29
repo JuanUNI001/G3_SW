@@ -1,0 +1,19 @@
+1. Profesores : Aqui se mostrarán los diferentes profesores anunciados en la página web
+2. Login : para el inicio de sesión. Se solicitarán el usuario y la contraseña
+3. Usuarios no registrados : tienen acceso a los articulos pero no a los eventos y al foro de profesores
+4. usuarios registrados : tiene acceso a articulos, foro, eventos y chat con los profesores
+5. Articulos : muestra los diferentes articulos, juento con una descripcion, el precio y la posiblidad de metor al carrito con una cantidad
+6. Eventos : los eventos tienen un identificador, con un foro y el tipo de evento
+7. Foro : permite a los usuarios registrados escribir comentarios a los que el resto tiene acceso y pueden reaccionar o comentar
+8. Chat : es un chat privado entre distintos usuarios  que esten agregados como amigos 
+10. Carrito : aqui se encuentran los artículos que el usuario ha añadido a la cesta 
+11. Chat Profesores : donde el usuario registrado puede mantener conversacion con el profesor
+12. Registro : el usuario puede pone los datos para poder registrarse (nombre de usuario, correo electrónico, contraseña y dirección)
+13. Página principal : es la 
+14. Articulos seleccionados : donde aparecen el artículo seleccionado junto con las reseñas, la descripción y la valoración de los clientes
+15. Logout : cerrar sesión
+17. Cabecera : donde estarán los diferentes módulos (usuario, carrito, profesores, foro, eventos, artículos)
+18. Pie de página : donde se incluirá nuestro contacto
+19. Sidebar derecho : carrito, pedido y mi perfil de usuario
+20. Sidebar izquierdo : aqui estarán los diferentes módulos: profesores, artículos, eventos y el foro  
+
