@@ -5,7 +5,7 @@ body {
 div#contenedor {
 	width: 900px;
 	margin: auto;
-	border: 1px solid black;
+	border: 1px solid rgb(159, 34, 205);
 	background-color: #aaaaaa;
 	margin-top: 30px;
 }
@@ -63,7 +63,8 @@ main {
 	float: left;
 	min-height: 600px;
 	width: 500px;
-	background-color: white;
+	background-color: rgb(229, 112, 211);
+	color: rgb(33, 32, 32);
 }
 
 footer	 {
