@@ -21,6 +21,7 @@
         <main>
             <article>
             <h1>Catálogo de Productos</h1>
+            
                 <?php
                 //Aqui lo que vamos a hacer es recoger un array de los articulos
                 $productos = array(
@@ -34,14 +35,19 @@
 
                 );
 
-                //los recorremos y motramos
+                //los recorremos y motramos 
+                //Hay q tener en cuenta que los articulos no estan en un array sino en una BBDD y hay que obtener su info desde ahi
+                
                 foreach ($productos as $producto) {
                     echo '<div class="producto">';
+                    echo '<a href="caracteristicasProducto.php?id_producto=' ./* $producto["id"] .*/ '">';
                     echo '<img src="' . $producto["imagen"] . '" alt="' . $producto["nombre"] . '">';
                     echo '<div class="producto_nombre">' . $producto["nombre"] . '</div>';
+                    echo '</a>';
                     echo '</div>';
                 }
                 ?>
+                
                 </article>
             </main>
         
