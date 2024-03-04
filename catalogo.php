@@ -8,49 +8,44 @@
     <title>Catalogo</title>
 </head>
 <body>
-
+<?php 
+include ("conexionBBDD.php"); 
+?>
 <div id="contenedor">
     <?php
     require('cabecera.php');
     require('sidebarIzq.php');
     ?>
 
-    
-        
-
-        <main>
-            <article>
+    <main>
+        <article>
             <h1>Catálogo de Productos</h1>
             
-                <?php
-                //Aqui lo que vamos a hacer es recoger un array de los articulos
-                $productos = array(
-                    array("nombre" => "Preguntados", "imagen" => "images/preguntados.jpg"),
-                    array("nombre" => "Parchís y oca, 2 en 1", "imagen" => "images/parchis_oca.jpg"),
-                    array("nombre" => "Quien es quien", "imagen" => "images/quien.jpg"),
-                    array("nombre" => "Érase una vez", "imagen" => "images/erase.jpg"),
-                    array("nombre" => "Laberinto", "imagen" => "images/laberinto.jpg"),
-                    array("nombre" => "Exploding Kittens", "imagen" => "images/explodingKittens.jpg"),
-                    array("nombre" => "Cluedo", "imagen" => "images/cluedo.jpg"),
+            <?php
+            // Consulta SQL para obtener los productos
+            $sql = "SELECT id, nombre, descripción, precio, imagen, valoración FROM productos";
+            $result = $conexion->query($sql); // Aquí se cambia $conn por $conexion
 
-                );
-
-                //los recorremos y motramos 
-                //Hay q tener en cuenta que los articulos no estan en un array sino en una BBDD y hay que obtener su info desde ahi
-                
-                foreach ($productos as $producto) {
+            if ($result->num_rows > 0) {
+                // Mostrar cada producto
+                while ($row = $result->fetch_assoc()) {
                     echo '<div class="producto">';
-                    echo '<a href="caracteristicasProducto.php?id_producto=' ./* $producto["id"] .*/ '">';
-                    echo '<img src="' . $producto["imagen"] . '" alt="' . $producto["nombre"] . '">';
-                    echo '<div class="producto_nombre">' . $producto["nombre"] . '</div>';
+                    echo '<a href="caracteristicasProducto.php?id_producto=' . $row["id"] . '">';
+                    echo '<img src="' . $row["imagen"] . '" alt="' . $row["nombre"] . '">';
+                    echo '<div class="producto_nombre">' . $row["nombre"] . '</div>';
                     echo '</a>';
+                    echo '<div class="producto_descripcion">' . $row["descripción"] . '</div>';
+                    echo '<div class="producto_precio"><strong>Precio:</strong> $' . $row["precio"] . '</div>';
+                    echo '<div class="producto_valoracion"><strong>Valoración:</strong> $: ' . $row["valoración"] . '</div>';
+                    
                     echo '</div>';
                 }
-                ?>
-                
-                </article>
-            </main>
-        
+            } else {
+                echo "No se encontraron productos.";
+            }
+            ?>
+        </article>
+    </main>
 
     <?php
     include('sidebarDer.php');
