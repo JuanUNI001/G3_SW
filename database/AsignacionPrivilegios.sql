@@ -1,0 +1,3 @@
+--esto es recomendacion del profesor pero no tengo muy claro de que hay que hacer aqui
+--puede que poner los keys
+--creacion de usuario,bd y asignacion de privilegios (correo del profe)
