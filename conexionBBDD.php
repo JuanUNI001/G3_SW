@@ -1,16 +1,16 @@
 <?php
-    $server = 'localhost';
-    $usuario = 'root';
-    $password = 'wlodkowska';
-    $db = 'mesamaestrabbdd';
+$server = 'localhost';
+$usuario = 'root';
+$password = ''; 
+$dbname = 'productos'; 
 
-    $conexion = new mysqli($server,$usuario,$password,$db);
+// Establecer la conexión
+$conexion = new mysqli($server, $usuario, $password, $dbname);
 
-    if($conexion->connect_errno){
-        die('ERROR CONEXION BBDD'. $conexion->connect_errno);
-    }
-    else{
-        echo'CONECTADO';
-    }
-
+// Verificar si hay errores de conexión
+if ($conexion->connect_error) {
+    die('<strong>No pudo conectarse:</strong> ' . $conexion->connect_error);
+} else {
+    echo 'Conectado satisfactoriamente al servidor'; 
+}
 ?>
