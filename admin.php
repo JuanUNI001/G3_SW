@@ -25,15 +25,13 @@ session_start();
 	<article>
 	<?php
 		if (!isset($_SESSION["esAdmin"])) {
-	?>
-		<h1>Acceso denegado!</h1>
-		<p>No tienes permisos suficientes para administrar la web.</p>
-	<?php
-		} else {
-	?>
-		<h1>Consola de administración</h1>
-		<p>Aquí estarían todos los controles de administración</p>
-	<?php
+			echo '<h1>Acceso denegado!</h1>';
+			echo '<p>No tienes permisos suficientes para administrar la web.</p>';
+			
+		}else{
+			echo '<h1>Consola de administración</h1>';
+			echo'<p>Aquí estarían todos los controles de administración</p>';
+			echo'<ul> <li><a href="add_producto.php">Crear Producto</a></li> </ul>';
 		}
 	?>
 	</article>
