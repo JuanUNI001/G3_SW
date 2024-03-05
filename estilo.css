@@ -1,5 +1,6 @@
 body {
 	background-color: #CDCDCD;
+	font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 div#contenedor {
@@ -13,12 +14,12 @@ div#contenedor {
 header {
 	padding: 30px;
 	height: 100px;
-	background-color: #c77dc2;
-	color: rgb(220, 97, 206);
+	background-color: #e8f17ea4;
+	color: rgb(10, 10, 10);
 }
 
 header a, header a:visited {
-	color: rgb(195, 81, 205);
+	color: rgb(16, 16, 16);
 	font-weight: bold;
 	text-decoration: none;
 } 
@@ -35,7 +36,7 @@ nav {
 	float: left;
 	width: 170px;
 	height: 400px;
-	background-color: #e1a0da;
+	background-color: #a0cee1;
 }
 
 nav a, nav a:visited {
@@ -55,7 +56,7 @@ aside {
 	float: right;
 	width: 170px;
 	height: 400px;
-	background-color: #d49fcf;
+	background-color: #a0cee1;
 }
 
 main {
@@ -63,7 +64,7 @@ main {
 	float: left;
 	min-height: 600px;
 	width: 500px;
-	background-color: rgb(220, 142, 208);
+	background-color: rgb(161, 213, 157);
 	color: rgb(33, 32, 32);
 }
 
