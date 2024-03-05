@@ -2,7 +2,7 @@
 
 <div class="sidebar-section" id="usuario">
         <h2>Usuario</h2>
-        <p><a href="usuario.php" target="_self">Ver perfil</a></p>
+        <p><a href="verPerfil.php" target="_self">Ver perfil</a></p>
     </div>
 
     <!--AQUI HAY QUE HACER LO DEL CARRO QUE EXPLICO EN CLASE-->
