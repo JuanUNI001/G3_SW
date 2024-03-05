@@ -10,7 +10,5 @@ $conexion = new mysqli($server, $usuario, $password, $dbname);
 // Verificar si hay errores de conexión
 if ($conexion->connect_error) {
     die('<strong>No pudo conectarse:</strong> ' . $conexion->connect_error);
-} else {
-    echo 'Conectado satisfactoriamente al servidor'; 
 }
 ?>

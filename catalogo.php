@@ -31,13 +31,10 @@ include ("conexionBBDD.php");
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="producto">';
                     echo '<a href="caracteristicasProducto.php?id_producto=' . $row["id"] . '">';
-                    echo '<img src="' . $row["imagen"] . '" alt="' . $row["nombre"] . '">';
+                    echo '<img src="' . $row["imagen"] . '" alt="' . $row["nombre"] . '" class="producto_imagen">';
                     echo '<div class="producto_nombre">' . $row["nombre"] . '</div>';
                     echo '</a>';
-                    echo '<div class="producto_descripcion">' . $row["descripción"] . '</div>';
-                    echo '<div class="producto_precio"><strong>Precio:</strong> $' . $row["precio"] . '</div>';
-                    echo '<div class="producto_valoracion"><strong>Valoración:</strong> $: ' . $row["valoración"] . '</div>';
-                    
+                    echo '<div class="producto_precio"><strong>Precio:</strong> ' . $row["precio"] . ' €</div>';                    
                     echo '</div>';
                 }
             } else {

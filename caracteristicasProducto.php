@@ -1,32 +1,76 @@
-<?php
-// Conexión a la base de datos (si es necesario)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles del Producto</title>
+    <link rel="stylesheet" type="text/css" href="estilo.css" />
+    <link rel="stylesheet" type="text/css" href="imagenes.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        /* Puedes agregar estilos adicionales si es necesario */
+    </style>
+</head>
+<body>
+    <?php 
+    include("conexionBBDD.php");
 
-    if (isset($_GET['id_producto'])) {
+    // Verifica si se ha recibido el ID del producto
+    if(isset($_GET['id_producto'])) {
         $id_producto = $_GET['id_producto'];
 
-        // Aquí realizar consultas a la base de datos para obtener información detallada del producto, reseñas, comentarios, etc
+        // Consulta SQL para obtener la información del producto seleccionado
+        $sql = "SELECT id, nombre, descripción, precio, imagen, valoración, num_valoraciones FROM productos WHERE id = $id_producto";
+        $result = $conexion->query($sql);
 
-        // Ejemplo de salida de las características del producto
-        $producto = array(
-            "nombre" => "Preguntados",
-            "imagen" => "images/preguntados.jpg",
-            "descripcion" => "Este es un juego de preguntas y respuestas muy divertido.",
-            "precio" => "$19.99"
-        );
-        $reseñas = array(
-            array("usuario" => "Usuario1", "comentario" => "¡Me encanta este juego!"),
-            array("usuario" => "Usuario2", "comentario" => "Es muy entretenido."),
-            
-        );
+        if ($result->num_rows > 0) {
+            $producto = $result->fetch_assoc(); // Obtiene los datos del producto
+            ?>
+            <div id="contenedor">
+                <?php require('cabecera.php'); ?>
+                <?php require('sidebarIzq.php'); ?>
 
-        echo "<h2>" . $producto['nombre'] . "</h2>";
-        echo "<img src='" . $producto['imagen'] . "' alt='" . $producto['nombre'] . "'>";
-        echo "<p><strong>Precio:</strong> " . $producto['precio'] . "</p>";
-        echo "<p><strong>Descripción:</strong> " . $producto['descripcion'] . "</p>";
+                <main>
+                    <article>
+                        <div class="producto_detalle">
+                            <img src="<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>" class="detalle_imagen">
+                            <h2><?php echo $producto['nombre']; ?></h2>
+                            <p><?php echo $producto['descripción']; ?></p>
+                            <p><strong>Precio:</strong> $<?php echo $producto['precio']; ?></p>
+                            
+                            <p><strong>Valoración:</strong> 
+                                    <?php
+                                    $valoracion = $producto['valoración'];
+                                    $valoracion_rounded = round($valoracion * 2) / 2; //redondeamos la valoracion pq no podemos hacer mitades
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($valoracion_rounded >= $i) {
+                                            echo '<span class="star">&#9733;</span>'; // Spawnea una estrella llena
+                                        } else {
+                                            echo '<span class="star">&#9734;</span>'; // Spawnea una estrella vacía
+                                        }
+                                    }
+                                    ?>
+                                
+                            / <?php echo $producto['num_valoraciones']; ?>valoraciones</p>
+                            <form action="agregar_al_carrito.php" method="post">
+                            <p>Cantidad:
+                                <input type="number" id="cantidad" name="cantidad" value="1" min="1" style="width: 50px;">
+                                <input type="hidden" name="id_producto" value="<?php echo $producto['id']; ?>">
+                                <input type="submit" value="Agregar al carrito">
+                            </p>
+                            </form>
+                        </div>
+                    </article>
+                </main>
 
-        echo "<h3>Reseñas y Comentarios</h3>";
-        foreach ($reseñas as $resena) {
-            echo "<p>" . $resena['usuario'] . ": " . $resena['comentario'] . "</p>";
+                <?php include('sidebarDer.php'); ?>
+                <?php include('pie.php'); ?>
+            </div>
+            <?php
+        } else {
+            echo "Producto no encontrado.";
         }
+    } else {
+        echo "ID del producto no especificado.";
     }
-?>
+    ?>
+</body>
+</html>

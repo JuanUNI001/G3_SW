@@ -6,25 +6,25 @@ div#contenedor {
 	width: 900px;
 	margin: auto;
 	border: 1px solid rgb(159, 34, 205);
-	background-color: #aaaaaa;
+	background-color: #cf88d7;
 	margin-top: 30px;
 }
 
 header {
 	padding: 30px;
 	height: 100px;
-	background-color: #303030;
-	color: white;
+	background-color: #c77dc2;
+	color: rgb(220, 97, 206);
 }
 
 header a, header a:visited {
-	color: white;
+	color: rgb(195, 81, 205);
 	font-weight: bold;
 	text-decoration: none;
 } 
 
 header a:hover {
-	color: red;
+	color: rgb(224, 13, 140);
 	font-weight: bold;
 	text-decoration: underline;
 } 
@@ -35,17 +35,17 @@ nav {
 	float: left;
 	width: 170px;
 	height: 400px;
-	background-color: #dddddd;
+	background-color: #e1a0da;
 }
 
 nav a, nav a:visited {
-	color: red;
+	color: rgb(224, 13, 140);;
 	font-weight: bold;
 	text-decoration: none;
 } 
 
 nav a:hover {
-	color: red;
+	color: rgb(224, 13, 140);;
 	text-decoration: underline;
 } 
 
@@ -55,7 +55,7 @@ aside {
 	float: right;
 	width: 170px;
 	height: 400px;
-	background-color: #dddddd;
+	background-color: #d49fcf;
 }
 
 main {
@@ -63,15 +63,15 @@ main {
 	float: left;
 	min-height: 600px;
 	width: 500px;
-	background-color: rgb(229, 112, 211);
+	background-color: rgb(220, 142, 208);
 	color: rgb(33, 32, 32);
 }
 
 footer	 {
 	clear: both;
 	padding: 20px;
-	background-color: #303030;
-	color: white;
+	background-color: #db22ad;
+	color: rgb(219, 176, 216);
 	text-align: center;
 }
 
@@ -95,9 +95,9 @@ fieldset div {
 }
 
 legend {
-	color: #fff;
-	background: #303030;
-	border: 1px solid black;
+	color: #8115d9;
+	background: #f4a0e5;
+	border: 1px solid rgb(237, 9, 229);
 	padding: 2px 6px;
 } 
 
@@ -147,4 +147,8 @@ a.boton {
 
 a.deshabilitado {
 	color: rgba(16, 16, 16, 0.3);
+}
+.star {
+    color: orange; /* Color de las estrellas */
+    font-size: 20px; /* Tamaño de las estrellas */
 }
