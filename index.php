@@ -1,38 +1,12 @@
 <?php
 
-//Inicio del procesamiento
-session_start();
+require_once 'includes/config.php';
 
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
-</head>
+$tituloPagina = 'Portada';
 
-<body>
+$contenidoPrincipal=<<<EOS
+<h1>Página principal</h1>
+	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+EOS;
 
-<div id="contenedor">
-
-<?php
-	require('includes/views/cabecera.php');
-	require('includes/views/sidebarIzq.php');
-?>
-	<main>
-		<article>
-			<h1>Página principal</h1>
-			<p> Aquí está el contenido público, visible para todos los usuarios. </p>
-		</article>
-	</main>
-<?php
-
-	require('includes/views/sidebarDer.php');
-	require('includes/views/pie.php');
-
-?>
-</div>
-
-</body>
-</html>
+require 'includes/vistas/comun/layout.php';
