@@ -24,8 +24,8 @@ session_destroy();
 
 <div id="contenedor">
 <?php
-	require('/G3_SW/includes/views/cabecera.php');
-	require('/G3_SW/includes/views/sidebarIzq.php');
+	require('cabecera.php');
+	require('sidebarIzq.php');
 ?>
 
 <main>
@@ -34,8 +34,8 @@ session_destroy();
 	</article>
 </main>
 <?php
-	require('/G3_SW/includes/views/sidebarDer.php');
-	require('/G3_SW/includes/views/pie.php');
+	require('sidebarDer.php');
+	require('pie.php');
 ?>
 </div>
 
