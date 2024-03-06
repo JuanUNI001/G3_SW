@@ -1,41 +1,11 @@
 <?php
+require_once 'includes/config.php';
 
-//Inicio del procesamiento
-session_start();
+$tituloPagina = 'Profesores';
 
-?>
- 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Profesores</title>
-</head>
+$contenidoPrincipal=<<<EOS
+	<h1>Profesor 1</h1>
+	<p>Descripción</p>
+EOS;
 
-<body>
-
-<div id="contenedor">
-
-<?php
-	require('cabecera.php');
-	require('sidebarIzq.php');
-?>
-
-<main>
-	<article>
-
-		<h1>Profesor1</h1>
-		<p>descripcion </p>
-
-</main>
-<?php
-
-	require('sidebarDer.php');
-	require('pie.php');
-
-?>
-</div>
-
-</body>
-</html>
+require 'includes/vistas/comun/layout.php';

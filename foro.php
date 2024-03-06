@@ -1,41 +1,11 @@
 <?php
+require_once 'includes/config.php';
 
-//Inicio del procesamiento
-session_start();
+$tituloPagina = 'Foro';
 
-?>
- 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Foro</title>
-</head>
+$contenidoPrincipal=<<<EOS
+	<h1>Discusión 1</h1>
+	<p>Comentario1</p>
+EOS;
 
-<body>
-
-<div id="contenedor">
-
-<?php
-	require('cabecera.php');
-	require('sidebarIzq.php');
-?>
-
-<main>
-	<article>
-
-		<h1>Discusión1</h1>
-		<p>comentarios </p>
-
-</main>
-<?php
-
-	require('/G3_SW/includes/views/sidebarDer.php');
-	require('/G3_SW/includes/views/pie.php');
-
-?>
-</div>
-
-</body>
-</html>
+require 'includes/vistas/comun/layout.php';

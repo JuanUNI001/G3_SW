@@ -8,13 +8,13 @@ define('RUTA_APP', '/G3_SW');
 define('RUTA_IMGS', RUTA_APP . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
-define('INSTALADA', false);
+define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
-//define('BD_NAME', '');
-//define('BD_USER', 'ejercicio02');
-//define('BD_PASS', 'ejercicio02');
+define('BD_NAME', '');
+define('BD_USER', 'ejercicio02');
+define('BD_PASS', 'ejercicio02');
 
 /* */
 /* Utilidades básicas de la aplicación */
@@ -41,7 +41,7 @@ date_default_timezone_set('Europe/Madrid');
 /* */
 /* Clases y Traits de la aplicación */
 /* */
-//require_once 'src/Arrays.php';
+require_once 'src/Arrays.php';
 //require_once 'src/traits/MagicProperties.php';
 
 /* */

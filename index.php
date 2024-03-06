@@ -2,7 +2,7 @@
 
 require_once 'includes/config.php';
 
-$tituloPagina = 'Portada';
+$tituloPagina = 'Pagina principal';
 
 $contenidoPrincipal=<<<EOS
 <h1>Página principal</h1>
