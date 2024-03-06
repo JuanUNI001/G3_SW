@@ -1,9 +1,12 @@
 <nav id="sidebarIzq">
 	<h3>Navegación</h3>
 	<ul>
-		<li><a href="index.php">Inicio</a></li>
-		<li><a href="contenido.php">Ver contenido</a></li>
-		<li><a href="admin.php">Administrar</a></li>
-		<li><a href="catalogo.php">Ver catálogo</a></li>
+		<li><a href="/G3_SW/index.php">Inicio</a></li>
+		<li><a href="/G3_SW/contenido.php">Ver contenido</a></li>
+		<li><a href="/G3_SW/admin.php">Administrar</a></li>
+		<li><a href="/G3_SW/includes/views/tienda.php">Tienda</a></li>
+		<li><a href="/G3_SW/includes/views/foro.php">Foro</a></li>
+		<li><a href="/G3_SW/includes/views/eventos.php">Eventos</a></li>
+		<li><a href="/G3_SW/includes/views/profesores.php">Profesores</a></li>
 	</ul>
 </nav>
