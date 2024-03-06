@@ -8,10 +8,10 @@ $password = $_POST['password'] ?? null;
 
 // Se puede utilizar == para comparar cadenas por igualdad ya que hace comparación byte a byte
 if ($username == null) {
-	echo 'Error campo "name" no se ha rellenado correctamente'
+	echo 'Error campo "name" no se ha rellenado correctamente';
 
 } else if ($password == null) {
-	echo 'Error campo "contraseña" no se ha rellenado correctamente'
+	echo 'Error campo "contraseña" no se ha rellenado correctamente';
 
 } else if ($username=='user' && $password=='userpass') {
 	$_SESSION['login'] = true;
