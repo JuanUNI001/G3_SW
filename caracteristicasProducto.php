@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Detalles del Producto</title>
-    <link rel="stylesheet" type="text/css" href="estilo.css" />
+    <link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
     <link rel="stylesheet" type="text/css" href="imagenes.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
