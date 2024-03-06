@@ -27,7 +27,7 @@ if ($username == null) {
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
+<link rel="stylesheet" type="text/css" href="G3_SW/includes/views/estilo.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Portada</title>
 </head>
@@ -37,8 +37,8 @@ if ($username == null) {
 <div id="contenedor">
 
 <?php
-	require('cabecera.php');
-	require('sidebarIzq.php');
+	require('../views/cabecera.php');
+	require('../views/sidebarIzq.php');
 ?>
 
 <main>
@@ -54,8 +54,8 @@ if ($username == null) {
 </main>
 
 <?php
-	require('sidebarDer.php');
-	require('pie.php');
+	require('../views/sidebarDer.php');
+	require('../views/views/pie.php');
 ?>
 </div>
 

@@ -25,7 +25,7 @@ session_start();
 	<article>
 		<h1>Acceso al sistema</h1>
 
-		<form action="procesarLogin.php" method="POST">
+		<form action="/G3_SW/includes/logic/procesarLogin.php" method="POST">
 		<fieldset>
 			<legend>Usuario y contraseña</legend>
 			<div><label>Name:</label> <input type="text" name="username" /></div>

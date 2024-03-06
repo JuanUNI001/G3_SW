@@ -13,8 +13,8 @@ include ("conexionBBDD.php");
 ?>
 <div id="contenedor">
     <?php
-    require('cabecera.php');
-    require('sidebarIzq.php');
+    require('/G3_SW/includes/views/cabecera.php');
+    require('/G3_SW/includes/views/sidebarIzq.php');
     ?>
 
     <main>
@@ -45,8 +45,8 @@ include ("conexionBBDD.php");
     </main>
 
     <?php
-    include('sidebarDer.php');
-    include('pie.php');
+    include('/G3_SW/includes/views/sidebarDer.php');
+    include('/G3_SW/includes/views/pie.php');
     ?>
 </div>
 

@@ -17,8 +17,8 @@ session_start();
 <div id="contenedor">
 
 <?php
-	require('cabecera.php');
-	require('sidebarIzq.php');
+	require('includes/views/cabecera.php');
+	require('includes/views/sidebarIzq.php');
 ?>
 	<main>
 		<article>
@@ -28,8 +28,8 @@ session_start();
 	</main>
 <?php
 
-	require('sidebarDer.php');
-	require('pie.php');
+	require('includes/views/sidebarDer.php');
+	require('includes/views/pie.php');
 
 ?>
 </div>

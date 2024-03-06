@@ -10,8 +10,8 @@
 <div id="contenedor">
 
 <?php
-    require('cabecera.php');
-    require('sidebarIzq.php');
+    require('/G3_SW/includes/views/cabecera.php');
+    require('/G3_SW/includes/views/sidebarIzq.php');
 ?>
 
 <main>
@@ -43,8 +43,8 @@
 </main>
 
 <?php
-    require('sidebarDer.php');
-    require('pie.php');
+    require('/G3_SW/includes/views/sidebarDer.php');
+    require('/G3_SW/includes/views/pie.php');
 ?>
 </div>
 

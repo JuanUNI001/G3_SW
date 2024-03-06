@@ -25,8 +25,8 @@
             $producto = $result->fetch_assoc(); // Obtiene los datos del producto
             ?>
             <div id="contenedor">
-                <?php require('cabecera.php'); ?>
-                <?php require('sidebarIzq.php'); ?>
+                <?php require('/G3_SW/includes/views/cabecera.php'); ?>
+                <?php require('/G3_SW/includes/views/sidebarIzq.php'); ?>
 
                 <main>
                     <article>
@@ -61,8 +61,8 @@
                     </article>
                 </main>
 
-                <?php include('sidebarDer.php'); ?>
-                <?php include('pie.php'); ?>
+                <?php include('/G3_SW/includes/views/sidebarDer.php'); ?>
+                <?php include('/G3_SW/includes/views/pie.php'); ?>
             </div>
             <?php
         } else {
