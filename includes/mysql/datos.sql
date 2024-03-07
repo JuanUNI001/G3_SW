@@ -1,5 +1,5 @@
 -- Volcado de datos para la tabla `productos`
---3 SQL: PARA CREACION DE TABLAS, DATOS
+-- SQL: PARA CREACION DE TABLAS, DATOS
 
 INSERT INTO `productos` (`nombre`, `precio`, `descripción`, `id`, `imagen`, `valoración`) VALUES
 ('Parchís y Oca, 2 en 1', 19.99, 'Juego de parchís por un lateral y la oca por el otro. Genial juego para disfrutar en familia o con amigos', 1, 'images/parchis_oca.jpg', 4.50),
