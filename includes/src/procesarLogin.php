@@ -24,40 +24,16 @@ if ($username == null) {
 }
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
-</head>
-
-<body>
-
-<div id="contenedor">
 
 <?php
-	require('../views/cabecera.php');
-	require('../views/sidebarIzq.php');
-?>
 
-<main>
-	<article>
-<?php if (isset($_SESSION['login'])) { ?>
-	<h1>Bienvenido<?= $_SESSION['nombre'] ?></h1>
-	<p>Usa el menú de la izquierda para navegar.</p>
-<?php } else { ?>
-	<h1>ERROR</h1>
-	<p>El usuario o contraseña no son válidos.</p>
-<?php } ?>
-	</article>
-</main>
+require_once '/G3_SW/includes/config.php';
 
-<?php
-	require('../views/sidebarDer.php');
-	require('../views/views/pie.php');
-?>
-</div>
+$tituloPagina = 'Pagina principal';
 
-</body>
-</html>
+$contenidoPrincipal=<<<EOS
+<h1>Página principal</h1>
+	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+EOS;
+
+require '/G3_SW/includes/vistas/comun/layout.php';
