@@ -23,11 +23,7 @@ if ($username == null) {
 	$_SESSION['esAdmin'] = true;
 }
 
-?>
-
-<?php
-
-require_once '/G3_SW/includes/config.php';
+require_once 'includes/config.php';
 
 $tituloPagina = 'Pagina principal';
 
@@ -36,4 +32,4 @@ $contenidoPrincipal=<<<EOS
 	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
 EOS;
 
-require '/G3_SW/includes/vistas/comun/layout.php';
+require 'includes/vistas/comun/layout.php';
