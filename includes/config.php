@@ -54,9 +54,9 @@ require_once 'src/mensajes/memoria/Mensaje.php';
 /*
  * Configuramos e inicializamos la sesión para todas las peticiones
  */
-session_start([
+/*session_start([
 	'cookie_path' => RUTA_APP, // Para evitar problemas si tenemos varias aplicaciones en htdocs
-]);
+]);*/
 
 /* */
 /* Inicialización de las clases que simulan una BD en memoria */

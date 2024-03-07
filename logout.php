@@ -10,34 +10,16 @@ unset($_SESSION['nombre']);
 
 
 session_destroy();
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Logout</title>
-</head>
+require_once 'includes/config.php';
+//require_once 'includes/vistas/helpers/usuarios.php';
 
-<body>
+//logout();
 
-<div id="contenedor">
-<?php
-	require('cabecera.php');
-	require('sidebarIzq.php');
-?>
+$tituloPagina = 'Logout';
 
-<main>
-	<article>
-		<h1>Hasta pronto!</h1>
-	</article>
-</main>
-<?php
-	require('sidebarDer.php');
-	require('pie.php');
-?>
-</div>
+$contenidoPrincipal=<<<EOS
+	<h1>Hasta pronto!</h1>
+EOS;
 
-</body>
-</html>
+require 'includes/vistas/comun/layout.php';
