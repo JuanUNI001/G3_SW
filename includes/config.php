@@ -10,7 +10,7 @@ define('RUTA_IMGS', __DIR__ . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
 define('RUTA_VISTAS', __DIR__ . '/vistas/comun');
-define('INSTALADA', true);
+define('INSTALADA', false);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
@@ -44,32 +44,32 @@ date_default_timezone_set('Europe/Madrid');
 /* Clases y Traits de la aplicación */
 /* */
 require_once 'src/Arrays.php';
-//require_once 'src/traits/MagicProperties.php';
+require_once 'src/traits/MagicProperties.php';
 
 /* */
 /* Clases que simulan una BD almacenando los datos en memoria */
-/*
+
 require_once 'src/usuarios/memoria/Usuario.php';
 require_once 'src/mensajes/memoria/Mensaje.php';
-*/
+
 
 /*
  * Configuramos e inicializamos la sesión para todas las peticiones
  */
-/*session_start([
+session_start([
 	'cookie_path' => RUTA_APP, // Para evitar problemas si tenemos varias aplicaciones en htdocs
-]);*/
+]);
 
-/* */
+
 /* Inicialización de las clases que simulan una BD en memoria */
-/*
+
 Usuario::init();
 Mensaje::init();
-*/
+
 
 /* */
 /* Clases que usan una BD para almacenar el estado */
 /* */
-//require_once 'src/BD.php';
-//require_once 'src/usuarios/bd/Usuario.php';
-//require_once 'src/mensajes/bd/Mensaje.php';
+require_once 'src/BD.php';
+require_once 'src/usuarios/bd/Usuario.php';
+require_once 'src/mensajes/bd/Mensaje.php';
