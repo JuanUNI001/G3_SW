@@ -1,9 +1,14 @@
+
+
 <!DOCTYPE html>
 <html>
+<?php
+require_once '../config.php';
+?>
 <head>
     <title>Catálogo de Productos</title>
-    <link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="imagenes.css">
+    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/imagenes.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Catalogo</title>
 </head>
@@ -13,8 +18,8 @@ include ("conexionBBDD.php");
 ?>
 <div id="contenedor">
     <?php
-    require('/G3_SW/includes/views/cabecera.php');
-    require('/G3_SW/includes/views/sidebarIzq.php');
+    require(RUTA_VISTAS . '/cabecera.php');
+    require(RUTA_VISTAS . '/sidebarIzq.php');
     ?>
 
     <main>
@@ -31,7 +36,7 @@ include ("conexionBBDD.php");
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="producto">';
                     echo '<a href="caracteristicasProducto.php?id_producto=' . $row["id"] . '">';
-                    echo '<img src="' . $row["imagen"] . '" alt="' . $row["nombre"] . '" class="producto_imagen">';
+                    echo '<img src="' . RUTA_APP . '/' . $row["imagen"] . '" alt="' . $row["nombre"] . '" class="producto_imagen">';
                     echo '<div class="producto_nombre">' . $row["nombre"] . '</div>';
                     echo '</a>';
                     echo '<div class="producto_precio"><strong>Precio:</strong> ' . $row["precio"] . ' €</div>';                    
@@ -45,8 +50,8 @@ include ("conexionBBDD.php");
     </main>
 
     <?php
-    include('/G3_SW/includes/views/sidebarDer.php');
-    include('/G3_SW/includes/views/pie.php');
+    include(RUTA_VISTAS . '/sidebarDer.php');
+    include(RUTA_VISTAS . '/pie.php');
     ?>
 </div>
 

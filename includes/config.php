@@ -4,17 +4,18 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', '/G3_SW');
-define('RUTA_IMGS', RUTA_APP . '/images');
+define('RUTA_APP', '/Practica2/G3_SW');
+define('RUTA_IMGS', __DIR__ . '/images/');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
+define('RUTA_VISTAS', __DIR__ . '/vistas/comun');
 define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
 define('BD_NAME', '');
-define('BD_USER', 'ejercicio02');
-define('BD_PASS', 'ejercicio02');
+define('BD_USER', 'root');
+define('BD_PASS', '');
 
 /* */
 /* Utilidades básicas de la aplicación */
