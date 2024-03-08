@@ -1,14 +1,19 @@
-<?php
+<?php 
+
+
+
+require_once __DIR__ . '/../traits/MagicProperties.php'; 
+
 
 class Producto
 {
     use MagicProperties;
-
+   
     public const MAX_SIZE = 400;
 
-    public static function crea($idProducto, $nombre, $precio, $descripción, $imagen, $valoración, $num_valoraciones)
+    public static function crea($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
     {
-        $m = new Producto($idProducto, $nombre, $precio, $descripción, $imagen, $valoración, $num_valoraciones);
+        $m = new Producto($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
         return $m;
     }
     public static function buscaPorId($idProducto)
@@ -164,6 +169,38 @@ class Producto
     
         return $result;
     }
+    public static function listarProducto()
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = sprintf("SELECT * FROM productos");
+            
+        
+        $rs = $conn->query($query);
+        $productos = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $producto = new Producto(
+                    $fila['idProducto'],
+                    $fila['nombre'],
+                    $fila['precio'],
+                    $fila['descripción'],
+                    $fila['imagen'],
+                    $fila['valoración'],
+                    $fila['num_valoraciones'],
+                    
+                );
+                $productos[] = $producto; 
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $productos;
+    }
+
+   
     
 
     private static function borra($producto)

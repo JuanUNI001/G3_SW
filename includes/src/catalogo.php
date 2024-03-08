@@ -26,26 +26,7 @@ include ("conexionBBDD.php");
         <article>
             <h1>Catálogo de Productos</h1>
             
-            <?php
-            // Consulta SQL para obtener los productos
-            $sql = "SELECT id, nombre, descripción, precio, imagen, valoración FROM productos";
-            $result = $conexion->query($sql); // Aquí se cambia $conn por $conexion
-
-            if ($result->num_rows > 0) {
-                // Mostrar cada producto
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="producto">';
-                    echo '<a href="caracteristicasProducto.php?id_producto=' . $row["id"] . '">';
-                    echo '<img src="' . RUTA_APP . '/' . $row["imagen"] . '" alt="' . $row["nombre"] . '" class="producto_imagen">';
-                    echo '<div class="producto_nombre">' . $row["nombre"] . '</div>';
-                    echo '</a>';
-                    echo '<div class="producto_precio"><strong>Precio:</strong> ' . $row["precio"] . ' €</div>';                    
-                    echo '</div>';
-                }
-            } else {
-                echo "No se encontraron productos.";
-            }
-            ?>
+           
         </article>
     </main>
 
