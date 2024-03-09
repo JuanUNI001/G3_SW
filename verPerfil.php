@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'includes/config.php';
-require_once 'includes/vistas/comun/verPerfil.php';
+require_once 'includes/vistas/helpers/verPerfil.php';
 
 $tituloPagina = 'Pagina principal';
 
