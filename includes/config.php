@@ -5,7 +5,8 @@
 
 // Parámetros de configuración generales
 //define('RUTA_APP', '/Practica2/G3_SW');
-define('RUTA_APP', '/G3_SW');
+define('RUTA_APP', '/G3_SW/G3_SW');
+//define('RUTA_APP', '/G3_SW');
 define('RUTA_IMGS', __DIR__ . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
@@ -14,7 +15,7 @@ define('INSTALADA', false);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
-define('BD_NAME', '');
+define('BD_NAME', 'mesamaestra');
 define('BD_USER', 'root');
 define('BD_PASS', '');
 
