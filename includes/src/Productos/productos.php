@@ -1,9 +1,9 @@
 <?php 
 
 
-
+namespace includes\src\Productos;
 require_once __DIR__ . '/../traits/MagicProperties.php'; 
-
+require_once __DIR__ . '/../BD.php'; 
 
 class Producto
 {
@@ -11,7 +11,7 @@ class Producto
    
     public const MAX_SIZE = 400;
 
-    public static function crea($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
+    public  function __construct($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
     {
         $m = new Producto($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
         return $m;
