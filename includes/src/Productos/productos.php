@@ -19,9 +19,9 @@ class Producto
     public static function buscaPorId($idProducto)
     {
         $result = null;
-
+    
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM productos P WHERE P.id = %d;', $id);
+        $query = sprintf('SELECT * FROM productos P WHERE P.id = %d;', $idProducto); 
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             while ($fila = $rs->fetch_assoc()) {
@@ -31,6 +31,7 @@ class Producto
         }
         return $result;
     }
+    
     public static function buscaPorNombre($nombreProducto = '')
     {
         $result = [];
