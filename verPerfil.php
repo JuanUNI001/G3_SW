@@ -6,6 +6,6 @@ require_once 'includes/vistas/helpers/verPerfil.php';
 
 $tituloPagina = 'Pagina principal';
 
-$contenidoPrincipal =  contenidoPerfil();
+$contenidoPrincipal =  mostrar_contenidoPerfil();
 
 require 'includes/vistas/comun/layout.php';

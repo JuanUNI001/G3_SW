@@ -1,14 +1,18 @@
 <?php
-function contenidoPerfil()
+function mostrar_contenidoPerfil()
 {
-    $contenidoMensaje;
+    $contenido;
     if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-		$nombre = $_SESSION['nombre'];
-		$status = "Usuario corriente";
-		if($_SESSION['esAdmin']){
+		//$nombre = $_SESSION['nombre'];
+		$nombre = "UserName";
+		//$status = "Usuario corriente";
+		/*if($_SESSION['esAdmin']){
 			$status = "Administrador";
-		}
-		$contenidoMensaje=<<<EOS
+		}*/
+		$status = "Rol de mi usuario (Regular, profesor u administrador)";
+		$correo = "usermail@gmail.com";
+		$direccion = 28005;
+		$contenido=<<<EOS
 		<article>
 			<h2>Nombre de usuario:</h2>
 			<p>$nombre</p>
@@ -19,18 +23,18 @@ function contenidoPerfil()
 		</article>
 		<article>
 			<h2>Correo electrónico:</h2>
-			<p> </p>
+			<p>$correo</p>
 		</article>
 		<article>
-			<h2>Dirección:</h2>
-			<p> </p>
+			<h2>Dirección postal:</h2>
+			<p>$direccion</p>
 		</article>
 		EOS;
 	} else {
-        $contenidoMensaje=<<<EOS
+        $contenido=<<<EOS
         <h2>Aviso:</h2>
-        <p>Todavía no te has registrado. <a href='/G3_SW/loginView.php'>Login</a></p>
+        <p>Todavía no te has registrado. <a href='/G3_SW/loginView.php'>Registrate aquí</a></p>
         EOS;
 	}
-    return $contenidoMensaje;
+    return $contenido;
 }
