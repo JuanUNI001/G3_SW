@@ -7,9 +7,10 @@
 
 /* Estilo para imágenes de productos */
 .producto_imagen {
-    max-width: 100%; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
+    max-width: 80%; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
     height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
     display: block; /* Evita espacio adicional debajo de la imagen */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
 }
 
 .eliminador_Producto {

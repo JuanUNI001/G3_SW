@@ -9,7 +9,7 @@
 </head>
 <body>
     <?php 
-    require_once("conexionBBDD.php");
+    require_once("BBDD.php");
 
     // Verifica si se ha recibido el ID del producto
     if(isset($_GET['id_producto'])) {

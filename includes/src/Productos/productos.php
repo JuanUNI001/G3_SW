@@ -80,7 +80,7 @@ class Producto
         return $this->precio;
     }
     
-    public function getDescripcion()
+    public function descripcion()
     {
         return $this->descripcion;
     }
@@ -321,4 +321,25 @@ class Producto
     
         return $result;
     }
+
+    private static function elimina($id_producto)
+    {
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "DELETE FROM productos WHERE id = %d",
+            $id_producto
+        );
+        $result = $conn->query($query);
+
+        if (!$result) {
+            error_log($conn->error);
+        } else if ($conn->affected_rows != 1) {
+            error_log("No se ha eliminado ningún producto.");
+        }
+
+        return $result;
+    }
+
 }
