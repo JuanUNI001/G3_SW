@@ -336,7 +336,7 @@ class Producto
         return $result;
     }
 
-    private static function elimina($id_producto)
+    /*private static function elimina($id_producto)
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
@@ -355,5 +355,6 @@ class Producto
 
         return $result;
     }
+*/
 
 }
