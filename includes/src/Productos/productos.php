@@ -6,7 +6,7 @@ class Producto
     const MAX_SIZE = 500;
     
     use MagicProperties;
-    private $idProducto;
+    private $id;
 
     private $nombre;
 
@@ -19,9 +19,12 @@ class Producto
     private $valoración;
 
     private $num_valoraciones;
-    private function __construct($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones, $id = null)
+
+    private $cantidad;
+
+    private function __construct($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $this->idProducto = intval($idProducto);
+        $this->id = intval($id);
         $this->nombre = $nombre;
         $this->precio = floatval($precio);
         $this->descripción = $descripcion;
@@ -30,9 +33,9 @@ class Producto
         $this->num_valoraciones = intval($num_valoraciones);
         $this->id = $id !== null ? intval($id) : null;
     }
-    public  function crea($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
+    public  function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $m = new Producto($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
+        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
     }
     public static function listarProductoPrueba()
@@ -65,9 +68,13 @@ class Producto
         }
         return $productos;
     }
+    public function Id()
+    {
+        return $this->id;
+    }
     public function getIdProducto()
     {
-        return $this->idProducto;
+        return $this->id;
     }
     
     public function getNombre()
@@ -93,6 +100,10 @@ class Producto
     public function getValoracion()
     {
         return $this->valoracion;
+    }
+    public function getCantidad()
+    {
+        return $this->cantidad;
     }
     
     public function getNumValoraciones()
