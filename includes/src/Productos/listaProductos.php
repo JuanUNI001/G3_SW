@@ -39,6 +39,11 @@ function visualizaProducto($producto, $tipo=null)
         </a>
         <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
     </div>
+    <div class="eliminador_Producto">
+        <img src="/G3_SW/images/eliminar_producto.png" alt="Eliminar Producto" onclick="eliminarProducto()">
+    </div>
+
+
     EOF;
 
     return $html;
