@@ -1,5 +1,5 @@
 <?php
-
+require_once 'src/traits/MagicProperties.php';
 class Usuario
 {
 
