@@ -1,10 +1,6 @@
 <?php 
 
 
-namespace includes\src\Productos;
-require_once __DIR__ . '/../traits/MagicProperties.php'; 
-require_once __DIR__ . '/../BD.php'; 
-
 class Producto
 {
     use MagicProperties;
