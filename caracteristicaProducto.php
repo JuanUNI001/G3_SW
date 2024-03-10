@@ -16,9 +16,9 @@
     require_once 'includes/src/Productos/productos.php';
 
     if(isset($_GET['id_producto'])) {
-        $idProducto = $_GET['id_producto'];
+        $id_producto = $_GET['id_producto'];
 
-        $producto = Producto::buscaPorId($idProducto);
+        $producto = Producto::buscaPorId($id_producto);
 
     // Verificar si se encontró el producto
     if ($producto) {
@@ -29,7 +29,7 @@
         $html = '<div class="producto_detalles">';
         $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="detalle_imagen">';
         $html .= '<h2>' . $producto->getNombre() . '</h2>';
-        $html .= '<p>' . $producto->getDescripcion() . '</p>';
+        $html .= '<p>' . $producto->descripcion() . '</p>';
         $html .= '<p><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</p>';
         $html .= '</div>';
 

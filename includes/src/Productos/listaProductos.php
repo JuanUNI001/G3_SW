@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/productos.php';
 require_once __DIR__.'/../../config.php';
-require_once __DIR__.'/caracteristicaProducto.php';
+require_once __DIR__.'../../../../caracteristicaProducto.php';
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +21,16 @@ function listaproductos()
 
     $html = "<div class='productos'>";
 
+    $html = <<<EOF
+
+    <div class="editar_Producto">
+        <a href="/G3_SW/EditorProductoView.php">
+        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="100" height="100"">
+        </a>   
+    </div>
+
+    EOF;
+
     foreach ($productos as $producto) {
         $html .= visualizaProducto($producto);
     }
@@ -32,20 +42,15 @@ function visualizaProducto($producto, $tipo=null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
     $html = <<<EOF
+    <p>Editar productos</p>
     <div >
-    <a href="/G3_SW/caracteristicaProducto.php?id_producto=' . $producto->IdProducto() . '">
-            <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
-            <div class="producto_nombre">{$producto->getNombre()}</div>
+
+    <a href="/G3_SW/caracteristicaProducto.php?id_producto=2">
+
+        <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
+        <div class="producto_nombre">{$producto->getNombre()}</div>
         </a>
         <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
-    </div>
-        <div class="editar_Producto">
-        <a href="/G3_SW/EditorProductoView.php">
-        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto"">
-        </a>   
-    </div>
-
-
     EOF;
 
     return $html;

@@ -89,7 +89,7 @@ class Producto
     
     public function descripcion()
     {
-        return $this->descripcion;
+        return $this->descripción;
     }
     
     public function getImagen()
