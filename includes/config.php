@@ -61,3 +61,4 @@ require_once 'src/traits/MagicProperties.php';
 require_once 'src/BD.php';
 require_once 'src/usuarios/bd/Usuario.php';
 require_once 'src/mensajes/bd/Mensaje.php';
+
