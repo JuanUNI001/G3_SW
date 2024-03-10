@@ -31,15 +31,21 @@ function listaproductos()
 function visualizaProducto($producto, $tipo=null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
+    $html = <<<EOF
+    <div >
+    <a href="' . RUTA_APP . '/includes/src/Productos/caracteristicaProducto.php?id_producto=' . $producto->getIdProducto() . '">            <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
+            <div class="producto_nombre">{$producto->getNombre()}</div>
+        </a>
+        <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
+    </div>
+        <div class="editar_Producto">
+        <a href="/G3_SW/EditorProductoView.php">
+        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto"">
+        </a>   
+    </div>
 
-    // Construir el HTML directamente aquí sin usar HEREDOC
-    $html = '<div>
-                <a href="' . RUTA_APP . '/includes/src/Productos/caracteristicaProducto.php?id_producto=' . $producto->getIdProducto() . '">
-                    <img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen">
-                    <div class="producto_nombre">' . $producto->getNombre() . '</div>
-                </a>
-                <div class="producto_precio"><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</div>
-            </div>';
+
+    EOF;
 
     return $html;
 }

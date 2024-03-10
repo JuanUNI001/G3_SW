@@ -4,8 +4,8 @@
 /* */
 
 // Parámetros de configuración generales
-//define('RUTA_APP', '/Practica2/G3_SW');
-define('RUTA_APP', '/G3_SW-1');
+
+define('RUTA_APP', '/G3_SW');
 
 define('RUTA_IMGS', RUTA_APP . '/');
 define('RUTA_CSS', RUTA_APP . '/css');
@@ -61,3 +61,4 @@ require_once 'src/traits/MagicProperties.php';
 require_once 'src/BD.php';
 require_once 'src/usuarios/bd/Usuario.php';
 require_once 'src/mensajes/bd/Mensaje.php';
+
