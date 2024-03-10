@@ -1,9 +1,11 @@
 <?php
 namespace includes\src\Productos;
 
-
-require_once __DIR__ . '\productos.php'; // Ruta relativa al directorio actual
+require_once 'productos.php'
+/*require_once __DIR__ . '\productos.php'; // Ruta relativa al directorio actual
 echo __DIR__ . '\productos.php'; // Ruta relativa al directorio actual
+*/
+
 function listaproductos()
 {
    
