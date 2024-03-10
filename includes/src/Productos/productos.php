@@ -80,7 +80,7 @@ class Producto
         return $this->precio;
     }
     
-    public function getDescripcion()
+    public function descripcion()
     {
         return $this->descripcion;
     }
