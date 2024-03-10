@@ -5,7 +5,7 @@
 
 // Parámetros de configuración generales
 //define('RUTA_APP', '/Practica2/G3_SW');
-define('RUTA_APP', '/G3_SW');
+define('RUTA_APP', '/G3_SW-1');
 
 define('RUTA_IMGS', __DIR__ . '/images');
 define('RUTA_CSS', RUTA_APP . '/css');

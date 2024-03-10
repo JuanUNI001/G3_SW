@@ -10,6 +10,9 @@ INSERT INTO `Roles` (`id`, `nombre`) VALUES
 (1, 'admin'),
 (2, 'user');
 
+INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `nombre`, `password`) VALUES
+(1, 'admin', 'Administrador', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS'),
+(2, 'user', 'Usuario', '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG');
 
 INSERT INTO `RolesUsuario` (`usuario`, `rol`) VALUES
 (1, 1),
@@ -20,9 +23,6 @@ INSERT INTO `RolesUsuario` (`usuario`, `rol`) VALUES
   user: userpass
   admin: adminpass
 */
-INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `nombre`, `password`) VALUES
-(1, 'admin', 'Administrador', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS'),
-(2, 'user', 'Usuario', '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG');
 
 SET @INICIO := NOW();
 INSERT INTO `Mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`) VALUES

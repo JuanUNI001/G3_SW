@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/../../traits/MagicProperties.php'; 
 
 class Mensaje
 {
-    use MagicProperties;
+   
 
     public const MAX_SIZE = 140;
 
