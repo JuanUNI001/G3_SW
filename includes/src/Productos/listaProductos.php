@@ -1,6 +1,5 @@
 <?php
 
-
 require_once 'Productos.php';
 
  function listaproductos()
@@ -20,7 +19,7 @@ function visualizaProducto($producto, $tipo=null)
 {
     $html = <<<EOF
     <div class="Producto">
-    <a href="caracteristicasProducto.php?id_producto={$producto->getIdProducto()}">
+    <a href="../caracteristicasProducto.php?id_producto={$producto->getIdProducto()}">
        
     <img src="../../../{$producto->getImagen()}" alt="{$producto->getNombre()}" class="producto_imagen">
         <div class="producto_nombre">{$producto->getNombre()}</div>

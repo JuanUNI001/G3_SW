@@ -3,6 +3,8 @@
 
 class Producto
 {
+    const MAX_SIZE = 500;
+    
     use MagicProperties;
     private $idProducto;
 
