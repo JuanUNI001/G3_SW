@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Detalles del Producto</title>
-    <link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="imagenes.css">
+    <link rel="stylesheet" type="text/css" href="/G3_SW/css/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="/G3_SW/css/imagenes.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
         /* Puedes agregar estilos adicionales si es necesario */
@@ -11,11 +11,14 @@
 </head>
 <body>
     <?php 
-      
-    if(isset($_GET['id_producto'])) {
-        $id_producto = $_GET['id_producto'];
+    
+    require_once 'includes/config.php';
+    require_once 'includes/src/Productos/productos.php';
 
-        $producto = Producto::buscarPorId($idProducto);
+    if(isset($_GET['id_producto'])) {
+        $idProducto = $_GET['id_producto'];
+
+        $producto = Producto::buscaPorId($idProducto);
 
     // Verificar si se encontró el producto
     if ($producto) {

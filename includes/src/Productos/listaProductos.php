@@ -33,7 +33,8 @@ function visualizaProducto($producto, $tipo=null)
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
     $html = <<<EOF
     <div >
-    <a href="' . RUTA_APP . '/includes/src/Productos/caracteristicaProducto.php?id_producto=' . $producto->IdProducto() . '">            <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
+    <a href="/G3_SW/caracteristicaProducto.php?id_producto=' . $producto->IdProducto() . '">
+            <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
             <div class="producto_nombre">{$producto->getNombre()}</div>
         </a>
         <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
