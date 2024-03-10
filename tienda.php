@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/src/Productos/listaProductos.php';
+require_once 'includes/config.php';
+require_once 'includes/src/Productos/listaProductos.php';
 
 
-$productos = listadoproductosPrueba();
+$productos = listaproductos();
 $tituloPagina = 'Tienda';
 $contenidoPrincipal=<<<EOF
   	<h1>Registro de subasta</h1>

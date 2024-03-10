@@ -5,13 +5,11 @@
     <link rel="stylesheet" type="text/css" href="/G3_SW/includes/views/estilo.css" />
     <link rel="stylesheet" type="text/css" href="imagenes.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-        /* Puedes agregar estilos adicionales si es necesario */
-    </style>
+
 </head>
 <body>
     <?php 
-    include("conexionBBDD.php");
+    require_once("conexionBBDD.php");
 
     // Verifica si se ha recibido el ID del producto
     if(isset($_GET['id_producto'])) {
@@ -25,8 +23,8 @@
             $producto = $result->fetch_assoc(); // Obtiene los datos del producto
             ?>
             <div id="contenedor">
-                <?php require('/G3_SW/includes/views/cabecera.php'); ?>
-                <?php require('/G3_SW/includes/views/sidebarIzq.php'); ?>
+                <?php require_once('/includes/src/vistas/comun/cabecera.php'); ?>
+                <?php require_once('/includes/src/vistas/comun/sidebarIzq.php'); ?>
 
                 <main>
                     <article>
@@ -61,8 +59,8 @@
                     </article>
                 </main>
 
-                <?php include('/G3_SW/includes/views/sidebarDer.php'); ?>
-                <?php include('/G3_SW/includes/views/pie.php'); ?>
+                <?php require_once('/includes/src/vistas/comun/sidebarDer.php'); ?>
+                <?php require_once('/includes/src/vistas/comun/pie.php'); ?>
             </div>
             <?php
         } else {

@@ -1,9 +1,10 @@
 <?php 
 
-require_once __DIR__.'/../BD.php';
-require_once __DIR__.'/../traits/MagicProperties.php';
+
 class Producto
 {
+    const MAX_SIZE = 500;
+    
     use MagicProperties;
     private $idProducto;
 

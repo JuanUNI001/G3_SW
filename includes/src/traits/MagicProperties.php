@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Añade métodos mágicos para que las propiedades utilicen getters y setters.
  * Si existen métodos <code>setPropiedad(x)</code> y <code>getPropiedad()</code> se puede hacer:
