@@ -1,9 +1,10 @@
 <?php
-require_once 'src/traits/MagicProperties.php';
+require_once __DIR__ . '/../../traits/MagicProperties.php'; 
+
 class Usuario
 {
 
-    use MagicProperties;
+    
 
     public const ADMIN_ROLE = 1;
 
