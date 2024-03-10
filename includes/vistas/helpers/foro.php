@@ -1,8 +1,6 @@
 <?php
 
-
 function mostrarListaForos(){
-
     $listaforos = <<<EOS
     <div>
         <h1>Bienvenido al Foro</h1>
@@ -15,7 +13,7 @@ function mostrarListaForos(){
 
         <fieldset>
             <legend>Amantes del Ajedrez</legend>
-            <p>AlvaroAjedrez--  ¿Cual es la mejor apertura?</p>
+            <p>AlvaroAjedrez---¿Cual es la mejor apertura?</p>
             <p>...</p>
         </fieldset>
 

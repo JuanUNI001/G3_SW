@@ -15,25 +15,25 @@ function mostrar_contenidoPerfil()
 		$contenido=<<<EOS
 		<article>
 			<h2>Nombre de usuario:</h2>
-			<p>$nombre</p>
+			<p>$nombre.</p>
 		</article>
 		<article>
 			<h2>Tipo de usuario:</h2>
-			<p>$status</p>
+			<p>$status.</p>
 		</article>
 		<article>
 			<h2>Correo electrónico:</h2>
-			<p>$correo</p>
+			<p>$correo.</p>
 		</article>
 		<article>
 			<h2>Dirección postal:</h2>
-			<p>$direccion</p>
+			<p>$direccion.</p>
 		</article>
 		EOS;
 	} else {
         $contenido=<<<EOS
         <h2>Aviso:</h2>
-        <p>Todavía no te has registrado. <a href='/G3_SW/loginView.php'>Registrate aquí</a></p>
+        <p>Todavía no te has registrado.</p>
         EOS;
 	}
     return $contenido;
