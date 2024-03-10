@@ -9,7 +9,7 @@ function mostrarSaludo() {
 }
 ?>
 <header>
-	<h1>Mi gran página web</h1>
+	<h1>MesaMaestra</h1>
 	<div class="saludo">
 	<?php
 		mostrarSaludo();

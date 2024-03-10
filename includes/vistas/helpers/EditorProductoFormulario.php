@@ -1,14 +1,14 @@
 <?php
 
-function buildFormularioEditorProducto($nombreActual='', $nombreNuevo='', $precioNuevo='', $eliminar='')
+function buildFormularioEditorProducto($nombre='', $precioNuevo='', $descripcionNueva='', $eliminar='')
 {
     return <<<EOS
     <form id="formLogin" action="procesarEdicion.php" method="POST">
         <fieldset>
 
-            <div><label>Nombre producto:</label> <input type="text" name="username" value="$nombreActual" /></div>
-            <div><label>Nuevo nombre:</label> <input type="text" name="password" password="$nombreNuevo" /></div>
-            <div><label>precio:</label> <input type="text" name="password" password="$precioNuevo" /></div>
+            <div><label>Nombre producto:</label> <input type="text" name="nombre" value="$nombre" /></div>
+            <div><label>Precio nuevo:</label> <input type="text" name="nombreNuevo" password="$precioNuevo" /></div>
+            <div><label>Descripcion nueva:</label> <input type="text" name="descripcionNueva" password="$descripcionNueva" /></div>
             <div>
                 <input type="checkbox" id="eliminar" name="eliminar" value="1" $eliminar>
                 <label for="eliminar">Eliminar</label>

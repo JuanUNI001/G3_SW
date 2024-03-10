@@ -12,23 +12,29 @@ function mostrar_contenidoPerfil()
 		$status = "Rol de mi usuario (Regular, profesor u administrador)";
 		$correo = "usermail@gmail.com";
 		$direccion = 28005;
-		$contenido=<<<EOS
-		<article>
-			<h2>Nombre de usuario:</h2>
+		$contenido =<<<EOS
+		<section>
+		<h2> Informacion sobre mi perfil</h2>
+			<article>
+			<h3>Nombre de usuario:</h3>
 			<p>$nombre.</p>
-		</article>
-		<article>
-			<h2>Tipo de usuario:</h2>
-			<p>$status.</p>
-		</article>
-		<article>
-			<h2>Correo electrónico:</h2>
-			<p>$correo.</p>
-		</article>
-		<article>
-			<h2>Dirección postal:</h2>
-			<p>$direccion.</p>
-		</article>
+			</article>
+
+			<article>
+				<h3>Tipo de usuario:</h3>
+				<p>$status.</p>
+			</article>
+
+			<article>
+				<h3>Correo electrónico:</h3>
+				<p>$correo.</p>
+			</article>
+			
+			<article>
+				<h3>Dirección postal:</h3>
+				<p>$direccion.</p>
+			</article>
+		</section>
 		EOS;
 	} else {
         $contenido=<<<EOS
