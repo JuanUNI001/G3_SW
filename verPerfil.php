@@ -2,10 +2,10 @@
 session_start();
 
 require_once 'includes/config.php';
-require_once 'includes/vistas/comun/verPerfil.php';
+require_once 'includes/vistas/helpers/verPerfil.php';
 
-$tituloPagina = 'Pagina principal';
+$tituloPagina = 'Ver_Perfil';
 
-$contenidoPrincipal =  contenidoPerfil();
+$contenidoPrincipal =  mostrar_contenidoPerfil();
 
 require 'includes/vistas/comun/layout.php';
