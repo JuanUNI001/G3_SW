@@ -1,8 +1,8 @@
 <?php 
 
-require_once __DIR__.'/../BD.php';
-require_once __DIR__.'/../traits/MagicProperties.php';
-class Producto
+require_once __DIR__.'/includes/src/BD.php';
+require_once __DIR__.'/includes/src/traits/MagicProperties.php';
+class ProductoPr
 {
     use MagicProperties;
     private $idProducto;
@@ -31,7 +31,7 @@ class Producto
     }
     public  function crea($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
     {
-        $m = new Producto($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
+        $m = new ProductoPr($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
         return $m;
     }
     public static function listarProductoPrueba()
@@ -46,7 +46,7 @@ class Producto
         $productos = array(); 
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $producto = new Producto(
+                $producto = new ProductoPr(
                     $fila['id'],
                     $fila['nombre'],
                     $fila['precio'],

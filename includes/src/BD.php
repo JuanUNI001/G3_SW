@@ -1,5 +1,5 @@
 <?php
-namespace includes\src;
+
 /**
  * Funciones de utilidad para acceso a la base de datos.
  */

@@ -1,11 +1,11 @@
 <?php
-namespace includes\src\Productos;
 
-require_once 'Productos.php';
 
- function listaproductos()
+require_once 'productos.php';
+
+ function listadoproductosPrueba()
 {
-    $productos = producto::listarProducto();
+    $productos = Producto::listarProductoPrueba();
 
     $html = "<div class='productos'>";
 
@@ -16,18 +16,21 @@ require_once 'Productos.php';
     $html .= "</div>";
     return $html;
 }
-
- function visualizaProducto($producto, $tipo=null)
+function visualizaProducto($producto, $tipo=null)
 {
     $html = <<<EOF
-    <div class="producto">
-        <a href="caracteristicasProducto.php?id_producto={$producto->getIdProducto()}">
-            <img src="{$producto->getImagen()}" alt="{$producto->getNombre()}" class="producto_imagen">
-            <div class="producto_nombre">{$producto->getNombre()}</div>
-        </a>
-        <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
+    <div class="Producto">
+    <a href="caracteristicasProducto.php?id_producto={$producto->getIdProducto()}">
+       
+    <img src="../../../{$producto->getImagen()}" alt="{$producto->getNombre()}" class="producto_imagen">
+        <div class="producto_nombre">{$producto->getNombre()}</div>
+    </a>
+    <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
+    
     </div>
-EOF;
+
+
+    EOF;
 
     return $html;
 }
