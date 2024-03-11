@@ -33,7 +33,7 @@ class Producto
         $this->num_valoraciones = intval($num_valoraciones);
         $this->id = $id !== null ? intval($id) : null;
     }
-    public  function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
+    public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
         $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
@@ -89,7 +89,7 @@ class Producto
     
     public function descripcion()
     {
-        return $this->descripcion;
+        return $this->descripción;
     }
     
     public function getImagen()
@@ -102,7 +102,7 @@ class Producto
     }
     public function getValoracion()
     {
-        return $this->valoracion;
+        return $this->valoración;
     }
     public function getCantidad()
     {
@@ -190,7 +190,7 @@ class Producto
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             while ($fila = $rs->fetch_assoc()) {
-                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones'], $fila['cantidad']);
             }
             $rs->free();
         }
@@ -212,7 +212,7 @@ class Producto
         $rs = $conn->query($query);
         if ($rs) {
             while($fila = $rs->fetch_assoc()) {
-            $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+            $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones'], $fila['cantidad']);
             }
             $rs->free();
         }
@@ -311,7 +311,7 @@ class Producto
     }
 
 
-    private static function actualiza($producto)
+    public static function actualiza($producto)
     {
         $result = false;
     
@@ -320,7 +320,7 @@ class Producto
             "UPDATE productos P SET nombre = '%s', precio = %f, descripción = '%s', imagen = '%s', valoración = %f, num_valoraciones = %d WHERE P.id = %d",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
-            $conn->real_escape_string($producto->descripcion),
+            $conn->real_escape_string($producto->descripción),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
             $producto->num_valoraciones,
@@ -336,7 +336,7 @@ class Producto
         return $result;
     }
 
-    private static function elimina($id_producto)
+    public static function elimina($id_producto)
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
@@ -355,5 +355,6 @@ class Producto
 
         return $result;
     }
+
 
 }

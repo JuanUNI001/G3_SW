@@ -4,12 +4,11 @@
 session_start();
 
 require_once 'includes/config.php';
+require_once 'includes/vistas/helpers/profesores.php';
+
 
 $tituloPagina = 'Profesores';
 
-$contenidoPrincipal=<<<EOS
-	<h1>Profesor 1</h1>
-	<p>Descripción</p>
-EOS;
+$contenidoPrincipal = mostrarProfesores();
 
 require 'includes/vistas/comun/layout.php';
