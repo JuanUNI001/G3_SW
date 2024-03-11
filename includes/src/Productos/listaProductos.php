@@ -45,9 +45,9 @@ function visualizaProducto($producto, $tipo=null)
     <p>Editar productos</p>
     <div >
 
-    <a href="/G3_SW/caracteristicaProducto.php?id_producto=2">
-
-        <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
+    <a href=/G3_SW/caracteristicaProducto.php?id_producto=$producto->IdProducto()>
+   
+        <img src="{$imagenPath}" alt="{$producto->getNombre()}"class="producto_imagen">
         <div class="producto_nombre">{$producto->getNombre()}</div>
         </a>
         <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
