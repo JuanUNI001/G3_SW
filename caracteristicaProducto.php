@@ -1,45 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detalles del Producto</title>
-    <link rel="stylesheet" type="text/css" href="/G3_SW/css/estilo.css" />
-    <link rel="stylesheet" type="text/css" href="/G3_SW/css/imagenes.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-        /* Puedes agregar estilos adicionales si es necesario */
-    </style>
-</head>
-<body>
-    <?php 
-    
+<?php 
+// Si INCLUSION_CHECK no está definido, significa que este script se está ejecutando directamente
+if (!defined('INCLUSION_CHECK')) {
+    // Define INCLUSION_CHECK para evitar la doble inclusión
+    define('INCLUSION_CHECK', true);
+
+    // Incluye los archivos necesarios
     require_once 'includes/config.php';
     require_once 'includes/src/Productos/productos.php';
 
+    // Define el título de la página
+    $tituloPagina = 'Características Producto';
+
+    // Incluye el CSS necesario
+    echo '<link rel="stylesheet" type="text/css" href="css/Imagenes.css">';
+
+    // Inicializa la variable de contenido principal
+    $contenidoPrincipal = '';
+
+    // Verifica si se ha proporcionado un ID de producto
     if(isset($_GET['id_producto'])) {
         $id_producto = $_GET['id_producto'];
 
+        // Busca el producto por su ID
         $producto = Producto::buscaPorId($id_producto);
 
-    // Verificar si se encontró el producto
-    if ($producto) {
-        // Obtener la ruta completa de la imagen
-        $imagenPath = RUTA_IMGS . $producto->getImagen();
+        // Verifica si se encontró el producto
+        if ($producto) {
+            // Construye el HTML para mostrar los detalles del producto
+            $imagenPath = RUTA_IMGS . $producto->getImagen();
+            $html = '<div class="producto_detalles">';
+            $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="detalle_imagen">';
+            $html .= '<h2>' . $producto->getNombre() . '</h2>';
+            $html .= '<p>' . $producto->descripcion() . '</p>';
+            $html .= '<p><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</p>';
+            $html .= '<p><strong>Valoración:</strong> ';
+            $valoracion = $producto->getValoracion();
+            $valoracion_rounded = round($valoracion * 2) / 2;
+            for ($i = 1; $i <= 5; $i++) {
+                if ($valoracion_rounded >= $i) {
+                    $html .= '<span class="star">&#9733;</span>'; // Estrella llena
+                } else {
+                    $html .= '<span class="star">&#9734;</span>'; // Estrella vacía
+                }
+            }
+            $html .= ' / ' . $producto->getNumValoraciones() . ' valoraciones</p>';
+            $html .= '<form action="agregar_al_carrito.php" method="post">';
+            $html .= '<p>Cantidad: ';
+            $html .= '<input type="number" id="cantidad" name="cantidad" value="1" min="1" style="width: 50px;">';
+            $html .= '<input type="hidden" name="id_producto" value="' . $id_producto . '">';
+            $html .= ' <input type="submit" value="Agregar al carrito">';
+            $html .= '</p></form>';
+            $html .= '</div>'; // Cierre del div producto_detalles
 
-        // Construir el HTML para mostrar los detalles del producto
-        $html = '<div class="producto_detalles">';
-        $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="detalle_imagen">';
-        $html .= '<h2>' . $producto->getNombre() . '</h2>';
-        $html .= '<p>' . $producto->descripcion() . '</p>';
-        $html .= '<p><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</p>';
-        $html .= '</div>';
-
-        // Imprimir los detalles del producto
-        echo $html;
-    } else {
-        // Si no se encuentra el producto, mostrar un mensaje de error
-        echo "Producto no encontrado.";
+            // Guarda el HTML en la variable $contenidoPrincipal
+            $contenidoPrincipal = $html;
+        } else {
+            // Si no se encuentra el producto, muestra un mensaje de error
+            $contenidoPrincipal = 'Producto no encontrado.';
+        }
     }
-} 
-    ?>
-</body>
-</html>
+
+    // Incluye el layout para darle estructura a la página
+    require 'includes/vistas/comun/layout.php';
+}
+else {
+    // Si INCLUSION_CHECK está definido, este script se está incluyendo desde otro archivo
+    // En este caso, no hace nada y deja que el script que lo incluyó maneje el contenido
+}
+?>
