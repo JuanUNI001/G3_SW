@@ -18,7 +18,13 @@ function listaproductos()
     $productos = Producto::listarProductoPrueba();
 
     $html = "<div class='productos'>";
-
+    $html .= <<<EOF
+    <div class="editar_Producto">
+        <a href="/G3_SW/EditorProductoView.php">
+        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="100" height="100">
+        </a>   
+    </div>
+EOF;
     foreach ($productos as $producto) {
         $html .= visualizaProducto($producto);
     }
