@@ -2,9 +2,16 @@
 if (!defined('INCLUSION_CHECK')) {
     define('INCLUSION_CHECK', true);
 
+<<<<<<< HEAD
+require_once 'Productos.php';
+require_once '../includes/vistas/helpers/autorizacion.php';
+require_once __DIR__ . '/../../config.php';
+?>
+=======
     require_once __DIR__.'/productos.php';
     require_once __DIR__.'/../../config.php';
     require_once __DIR__.'../../../../caracteristicaProducto.php';
+>>>>>>> main
 
     $tituloPagina = 'Características Producto';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
@@ -36,6 +43,22 @@ EOF;
 function visualizaProducto($producto, $tipo = null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
+<<<<<<< HEAD
+    $html = <<<EOF
+    <div >
+        <a href="/G3_SW/includes/src/Productos/caracteristicasProducto.php?id_producto={}">
+            <img src="{$imagenPath}" alt="{$producto->getNombre()}" class="producto_imagen">
+            <div class="producto_nombre">{$producto->getNombre()}</div>
+        </a>
+        <div class="producto_precio"><strong>Precio:</strong> {$producto->getPrecio()} €</div>
+    </div>
+    <div class="eliminador_Producto">
+        <img src="/G3_SW/images/eliminar_producto.png" alt="Eliminar Producto" onclick="eliminarProducto()">
+    </div>
+
+
+    EOF;
+=======
     $html = '<div class="producto">';
     $html .= '<a href="/G3_SW/caracteristicaProducto.php?id_producto=' . $producto->getIdProducto() . '">';
     $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen">';
@@ -43,6 +66,7 @@ function visualizaProducto($producto, $tipo = null)
     $html .= '</a>';
     $html .= '<div class="producto_precio"><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</div>';
     $html .= '</div>';
+>>>>>>> main
 
     return $html;
 }
