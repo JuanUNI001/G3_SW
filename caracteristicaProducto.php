@@ -1,8 +1,5 @@
 <?php 
 // Si INCLUSION_CHECK no está definido, significa que este script se está ejecutando directamente
-if (!defined('INCLUSION_CHECK')) {
-    // Define INCLUSION_CHECK para evitar la doble inclusión
-    define('INCLUSION_CHECK', true);
 
     // Incluye los archivos necesarios
     require_once 'includes/config.php';
@@ -62,9 +59,5 @@ if (!defined('INCLUSION_CHECK')) {
 
     // Incluye el layout para darle estructura a la página
     require 'includes/vistas/comun/layout.php';
-}
-else {
-    // Si INCLUSION_CHECK está definido, este script se está incluyendo desde otro archivo
-    // En este caso, no hace nada y deja que el script que lo incluyó maneje el contenido
-}
+
 ?>

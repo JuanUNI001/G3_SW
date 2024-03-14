@@ -31,6 +31,7 @@ class Producto
         $this->imagen = $imagen;
         $this->valoracion = floatval($valoracion);
         $this->num_valoraciones = intval($num_valoraciones);
+        $this->cantidad = intval($cantidad);
         $this->id = $id !== null ? intval($id) : null;
     }
     public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
@@ -137,6 +138,10 @@ class Producto
     public function setImagen($nuevaImagen)
     {
         $this->imagen = $nuevaImagen;
+    }
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
     }
     public function guarda()
     {
@@ -291,13 +296,14 @@ class Producto
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones) VALUES ('%s', %f, '%s', '%s', %f, %d)",
+            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones, cantidad) VALUES ('%s', %f, '%s', '%s', %f, %d, %d)",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
-            $producto->num_valoraciones
+            $producto->num_valoraciones,
+            $producto->cantidad
         );
         $result = $conn->query($query);
         if ($result) {
