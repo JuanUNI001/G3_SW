@@ -362,11 +362,5 @@ class Producto
         return $result;
     }
 
-<<<<<<< HEAD
-    
-    }
-    
-=======
->>>>>>> main
 
 }

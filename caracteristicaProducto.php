@@ -9,7 +9,7 @@
     $tituloPagina = 'Características Producto';
 
     // Incluye el CSS necesario
-    echo '<link rel="stylesheet" type="text/css" href="css/Imagenes.css">';
+    echo '<link rel="stylesheet" type="text/css" href="css/imagenes.css">';
 
     // Inicializa la variable de contenido principal
     $contenidoPrincipal = '';
