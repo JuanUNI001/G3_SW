@@ -1,6 +1,5 @@
 <?php
-if (!defined('INCLUSION_CHECK')) {
-    define('INCLUSION_CHECK', true);
+
 
 <<<<<<< HEAD
 require_once 'Productos.php';
@@ -18,7 +17,7 @@ require_once __DIR__ . '/../../config.php';
     $contenidoPrincipal = listaproductos();
 
    
-}
+
 
 function listaproductos()
 {

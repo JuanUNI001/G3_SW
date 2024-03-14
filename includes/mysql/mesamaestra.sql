@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-03-2024 a las 13:53:48
+-- Tiempo de generación: 14-03-2024 a las 10:05:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,6 +47,30 @@ INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`)
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id_pedido` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos_productos`
+--
+
+CREATE TABLE `pedidos_productos` (
+  `id_pedido` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -65,7 +89,7 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `valoración`, `num_valoraciones`, `cantidad`) VALUES
+INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `valoracion`, `num_valoraciones`, `cantidad`) VALUES
 ('Parchís y Oca, 2 en 1', 19.99, 'Juego de parchís por un lateral y la oca por el otro. Genial juego para disfrutar en familia o con amigos', 1, 'images/parchis_oca.png', 4.50, 451, 565),
 ('Preguntados', 19.99, 'Juego de mesa Preguntados. El juego viral de móvil ya tiene juego físico. Disfruta con tus amigos con las nuevas preguntas del momento.\r\n', 2, 'images/preguntados.png', 4.76, 124, 12),
 ('Quién es quién', 15.75, 'Juego Quién es quién. ¿Sabrías adivinar qué personaje es tu oponente con solo preguntas de si y no? \r\nPonte a prueba', 3, 'images/quien.png', 3.75, 45, 2),
@@ -147,6 +171,20 @@ ALTER TABLE `mensajes`
   ADD KEY `Mensajes_autor` (`autor`);
 
 --
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id_pedido`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Indices de la tabla `pedidos_productos`
+--
+ALTER TABLE `pedidos_productos`
+  ADD PRIMARY KEY (`id_pedido`,`id_producto`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -183,6 +221,12 @@ ALTER TABLE `mensajes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -204,6 +248,19 @@ ALTER TABLE `usuarios`
 ALTER TABLE `mensajes`
   ADD CONSTRAINT `Mensajes_autor` FOREIGN KEY (`autor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Mensajes_mensaje` FOREIGN KEY (`idMensajePadre`) REFERENCES `mensajes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `pedidos_productos`
+--
+ALTER TABLE `pedidos_productos`
+  ADD CONSTRAINT `pedidos_productos_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
+  ADD CONSTRAINT `pedidos_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
 
 --
 -- Filtros para la tabla `rolesusuario`
