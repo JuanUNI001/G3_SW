@@ -53,10 +53,10 @@ INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`)
 CREATE TABLE `productos` (
   `nombre` varchar(30) NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `descripción` varchar(400) NOT NULL,
+  `descripcion` varchar(400) NOT NULL,
   `id` int(11) NOT NULL,
   `imagen` varchar(40) NOT NULL,
-  `valoración` decimal(4,2) DEFAULT NULL,
+  `valoracion` decimal(4,2) DEFAULT NULL,
   `num_valoraciones` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -65,7 +65,7 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`nombre`, `precio`, `descripción`, `id`, `imagen`, `valoración`, `num_valoraciones`, `cantidad`) VALUES
+INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `valoracion`, `num_valoraciones`, `cantidad`) VALUES
 ('Parchís y Oca, 2 en 1', 19.99, 'Juego de parchís por un lateral y la oca por el otro. Genial juego para disfrutar en familia o con amigos', 1, 'images/parchis_oca.png', 4.50, 451, 565),
 ('Preguntados', 19.99, 'Juego de mesa Preguntados. El juego viral de móvil ya tiene juego físico. Disfruta con tus amigos con las nuevas preguntas del momento.\r\n', 2, 'images/preguntados.png', 4.76, 124, 12),
 ('Quién es quién', 15.75, 'Juego Quién es quién. ¿Sabrías adivinar qué personaje es tu oponente con solo preguntas de si y no? \r\nPonte a prueba', 3, 'images/quien.png', 3.75, 45, 2),
