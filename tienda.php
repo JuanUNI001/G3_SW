@@ -7,7 +7,7 @@ require_once 'includes/src/Productos/listaProductos.php';
 $productos = listaproductos();
 $tituloPagina = 'Tienda';
 $contenidoPrincipal=<<<EOF
-  	<h1>Registro de subasta</h1>
+  	<h1>Tienda</h1>
     $productos
 EOF;
 

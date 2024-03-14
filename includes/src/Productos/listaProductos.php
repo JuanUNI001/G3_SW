@@ -1,27 +1,37 @@
 <?php
+if (!defined('INCLUSION_CHECK')) {
+    define('INCLUSION_CHECK', true);
 
+<<<<<<< HEAD
 require_once 'Productos.php';
 require_once '../includes/vistas/helpers/autorizacion.php';
 require_once __DIR__ . '/../../config.php';
 ?>
+=======
+    require_once __DIR__.'/productos.php';
+    require_once __DIR__.'/../../config.php';
+    require_once __DIR__.'../../../../caracteristicaProducto.php';
+>>>>>>> main
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu título de página</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo RUTA_CSS ?>/imagenes.css">
+    $tituloPagina = 'Características Producto';
+    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+    $contenidoPrincipal = listaproductos();
 
-</head>
-<body>
-<?php
- function listaproductos()
+   
+}
+
+function listaproductos()
 {
     $productos = Producto::listarProductoPrueba();
 
     $html = "<div class='productos'>";
-
+    $html .= <<<EOF
+    <div class="editar_Producto">
+        <a href="/G3_SW/EditorProductoView.php">
+        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="100" height="100">
+        </a>   
+    </div>
+EOF;
     foreach ($productos as $producto) {
         $html .= visualizaProducto($producto);
     }
@@ -29,9 +39,11 @@ require_once __DIR__ . '/../../config.php';
     $html .= "</div>";
     return $html;
 }
-function visualizaProducto($producto, $tipo=null)
+
+function visualizaProducto($producto, $tipo = null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
+<<<<<<< HEAD
     $html = <<<EOF
     <div >
         <a href="/G3_SW/includes/src/Productos/caracteristicasProducto.php?id_producto={}">
@@ -46,6 +58,15 @@ function visualizaProducto($producto, $tipo=null)
 
 
     EOF;
+=======
+    $html = '<div class="producto">';
+    $html .= '<a href="/G3_SW/caracteristicaProducto.php?id_producto=' . $producto->getIdProducto() . '">';
+    $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen">';
+    $html .= '<div class="producto_nombre">' . $producto->getNombre() . '</div>';
+    $html .= '</a>';
+    $html .= '<div class="producto_precio"><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</div>';
+    $html .= '</div>';
+>>>>>>> main
 
     return $html;
 }

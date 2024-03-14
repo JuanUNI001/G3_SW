@@ -149,7 +149,4 @@ a.boton {
 a.deshabilitado {
 	color: rgba(16, 16, 16, 0.3);
 }
-.star {
-    color: orange; /* Color de las estrellas */
-    font-size: 20px; /* Tamaño de las estrellas */
-}
+
