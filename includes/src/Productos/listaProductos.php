@@ -1,22 +1,19 @@
 <?php
 
-
     require_once __DIR__.'/productos.php';
     require_once __DIR__.'/../../config.php';
     require_once __DIR__.'../../../../caracteristicaProducto.php';
-
     $tituloPagina = 'Características Producto';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
     $contenidoPrincipal = listaproductos();
-
    
-
 
 function listaproductos()
 {
     $productos = Producto::listarProductoPrueba();
 
     $html = "<div class='productos'>";
+
     $html .= <<<EOF
     <div class="editar_Producto">
         <a href="/G3_SW/EditorProductoView.php">
@@ -27,11 +24,9 @@ function listaproductos()
     foreach ($productos as $producto) {
         $html .= visualizaProducto($producto);
     }
-
     $html .= "</div>";
     return $html;
 }
-
 function visualizaProducto($producto, $tipo = null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
@@ -42,7 +37,6 @@ function visualizaProducto($producto, $tipo = null)
     $html .= '</a>';
     $html .= '<div class="producto_precio"><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</div>';
     $html .= '</div>';
-
     return $html;
 }
 
