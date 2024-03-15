@@ -11,4 +11,4 @@ $contenidoPrincipal=<<<EOS
 $htmlFormLogin
 EOS;
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

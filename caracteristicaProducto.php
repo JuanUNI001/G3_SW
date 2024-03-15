@@ -1,6 +1,5 @@
 <?php 
-// Si INCLUSION_CHECK no está definido, significa que este script se está ejecutando directamente
-
+    
     // Incluye los archivos necesarios
     require_once 'includes/config.php';
     require_once 'includes/src/Productos/productos.php';
@@ -55,9 +54,10 @@
             // Si no se encuentra el producto, muestra un mensaje de error
             $contenidoPrincipal = 'Producto no encontrado.';
         }
+        require_once 'includes/vistas/comun/layout.php';
     }
 
     // Incluye el layout para darle estructura a la página
-    require 'includes/vistas/comun/layout.php';
+    
 
 ?>

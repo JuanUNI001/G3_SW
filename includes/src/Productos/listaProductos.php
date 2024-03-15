@@ -23,7 +23,7 @@ function listaproductos()
         <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="100" height="100">
         </a>   
     </div>
-EOF;
+    EOF;
     foreach ($productos as $producto) {
         $html .= visualizaProducto($producto);
     }
@@ -45,4 +45,5 @@ function visualizaProducto($producto, $tipo = null)
 
     return $html;
 }
+
 ?>
