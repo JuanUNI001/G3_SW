@@ -1,5 +1,12 @@
 <?php 
-
+require_once __DIR__.'/../BD.php';
+$bdDatosConexion = array(
+    'host' => BD_HOST,
+    'bd' => BD_NAME,
+    'user' => BD_USER,
+    'pass' => BD_PASS
+);
+BD::getInstance()->init($bdDatosConexion);
 
 class Pedidos_producto
 {
@@ -105,12 +112,18 @@ class Pedidos_producto
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM pedidos_productos P WHERE P.id_pedido = %d;', $id_pedido); 
-        $rs = $conn->query($query);
-        if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {
+        $rs = null;
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
                 $result = new Pedidos_producto($fila['id_pedido'], $fila['id_producto'], $fila['cantidad']);
             }
-            $rs->free();
+        }
+       finally {
+            if ($rs != null) {
+                $rs->free();
+            }
         }
         return $result;
     }
@@ -121,12 +134,18 @@ class Pedidos_producto
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM pedidos_productos P WHERE P.id_producto = %d;', $id_producto); 
-        $rs = $conn->query($query);
-        if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {
+        $rs = null;
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
                 $result = new Pedidos_producto($fila['id_pedido'], $fila['id_producto'], $fila['cantidad']);
+            }          
+        }
+        finally {
+            if ($rs != null) {
+                $rs->free();
             }
-            $rs->free();
         }
         return $result;
     }   
@@ -176,25 +195,7 @@ class Pedidos_producto
         return $result;
     }
 
-    public static function elimina($id_pedido)
-    {
-        $result = false;
-        $conn = BD::getInstance()->getConexionBd();
-
-        $query = sprintf(
-            "DELETE FROM pedidos_productos WHERE id_pedido = %d",
-            $id_producto
-        );
-        $result = $conn->query($query);
-
-        if (!$result) {
-            error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("No se ha eliminado ningún pedido_producto.");
-        }
-
-        return $result;
-    }
+    
 
 
 }
