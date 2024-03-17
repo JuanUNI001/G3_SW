@@ -1,17 +1,5 @@
+
 <?php
-
-
-    require_once __DIR__.'/productos.php';
-    require_once __DIR__.'/../../config.php';
-    require_once __DIR__.'../../../../caracteristicaProducto.php';
-
-    $tituloPagina = 'Características Producto';
-    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-    $contenidoPrincipal = listaproductos();
-
-   
-
-
 function listaproductos()
 {
     $productos = Producto::listarProductoPrueba();
@@ -46,3 +34,17 @@ function visualizaProducto($producto, $tipo = null)
     return $html;
 }
 ?>
+<?php
+
+
+    require_once __DIR__.'/Producto.php';
+    require_once __DIR__.'/../../config.php';
+    require_once __DIR__.'../../../../caracteristicaProducto.php';
+
+    $tituloPagina = 'Características Producto';
+    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+    $contenidoPrincipal = listaproductos();
+
+?> 
+
+

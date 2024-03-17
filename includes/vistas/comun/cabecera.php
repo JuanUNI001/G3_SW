@@ -1,10 +1,11 @@
 
+
+<?php
+	require_once 'cabeceraAuxSaludo.php';
+?>
 <header>
 	<h1>MesaMaestra</h1>
 	<div class="saludo">
-	<?php
-		require_once 'cabeceraAuxSaludo.php';
-		mostrarSaludo();
-	?>
+	<?= mostrarSaludo() ?>
 	</div>
 </header>

@@ -74,10 +74,7 @@ class Producto
         }
         return $productos;
     }
-    public function Id()
-    {
-        return $this->id;
-    }
+    
     public function getIdProducto()
     {
         return $this->id;
@@ -93,7 +90,7 @@ class Producto
         return $this->precio;
     }
     
-    public function descripcion()
+    public function getDescripcion()
     {
         return $this->descripcion;
     }
@@ -102,10 +99,7 @@ class Producto
     {
         return $this->imagen;
     }
-    public function Imagen()
-    {
-        return $this->imagen;
-    }
+    
     public function getValoracion()
     {
         return $this->valoracion;
