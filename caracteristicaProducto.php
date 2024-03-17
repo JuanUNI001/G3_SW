@@ -30,7 +30,7 @@
                     <p>{$producto->getDescripcion()}</p>
                     <p><strong>Precio:</strong> {$producto->getPrecio()} €</p>
                     <p><strong>Valoración:</strong> ";
-EOF;
+                EOF;
             for ($i = 1; $i <= 5; $i++) {
                 $contenidoPrincipal .= ($valoracion_rounded >= $i) ? '<span class="star">&#9733;</span>' : '<span class="star">&#9734;</span>';
             }
@@ -39,7 +39,18 @@ EOF;
                         <p>Cantidad: <input type='number' id='cantidad' name='cantidad' value='1' min='1' style='width: 50px;'>
                         <input type='hidden' name='id_producto' value='$id_producto'> <input type='submit' value='Agregar al carrito'></p>
                     </form>
-                </div>"; 
+                </div>";
+            
+            $contenidoPrincipal .=<<<EOF
+                <div class="editar_Producto">
+                <a href="/G3_SW/EditorProductoView.php">
+                <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                </a>   
+                </div>
+                EOF; 
+
+
+                    
         } else {
             $contenidoPrincipal = 'Producto no encontrado.';
         }
