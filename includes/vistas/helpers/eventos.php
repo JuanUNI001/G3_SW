@@ -4,7 +4,7 @@
 function mostrarEventos(){
 
     $listaEventos = <<<EOS
-        <h1>Listado de los Eventos mas actuales</h1>
+        <h1>Eventos mas actuales</h1>
         <div>
             <fieldset>
                 <legend>Torneo de Póker</legend>
@@ -20,7 +20,7 @@ function mostrarEventos(){
 
             <fieldset>
             <legend>Torneo de Pokemon Perla</legend>
-            <p>Ubicacion: Reccindo de Ifema, Madrid</p>
+            <p>Ubicacion: Recinto de Ifema, Madrid</p>
             <p>Plazas restantes: 31</p>
             </fieldset>
             <p>...</p>

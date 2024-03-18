@@ -31,3 +31,7 @@
     text-align: center;
     margin-top: 5px;
 }
+.star {
+    color: orange; /* Color de las estrellas */
+    font-size: 20px; /* Tamaño de las estrellas */
+}

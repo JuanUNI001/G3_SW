@@ -6,33 +6,36 @@ class Producto
     const MAX_SIZE = 500;
     
     use MagicProperties;
-    private $idProducto;
+    private $id;
 
     private $nombre;
 
     private $precio;
 
-    private $descripción;
+    private $descripcion;
 
     private $imagen;
 
-    private $valoración;
+    private $valoracion;
 
     private $num_valoraciones;
-    private function __construct($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones, $id = null)
+
+    private $cantidad;
+
+    private function __construct($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $this->idProducto = intval($idProducto);
+        $this->id = intval($id);
         $this->nombre = $nombre;
         $this->precio = floatval($precio);
-        $this->descripción = $descripcion;
+        $this->descripcion = $descripcion;
         $this->imagen = $imagen;
-        $this->valoración = floatval($valoracion);
+        $this->valoracion = floatval($valoracion);
         $this->num_valoraciones = intval($num_valoraciones);
         $this->id = $id !== null ? intval($id) : null;
     }
-    public  function crea($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones)
+    public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $m = new Producto($idProducto, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones);
+        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
     }
     public static function listarProductoPrueba()
@@ -51,9 +54,9 @@ class Producto
                     $fila['id'],
                     $fila['nombre'],
                     $fila['precio'],
-                    $fila['descripción'],
+                    $fila['descripcion'],
                     $fila['imagen'],
-                    $fila['valoración'],
+                    $fila['valoracion'],
                     $fila['num_valoraciones'],
                     $fila['cantidad'],
                 );
@@ -65,9 +68,13 @@ class Producto
         }
         return $productos;
     }
+    public function Id()
+    {
+        return $this->id;
+    }
     public function getIdProducto()
     {
-        return $this->idProducto;
+        return $this->id;
     }
     
     public function getNombre()
@@ -89,10 +96,17 @@ class Producto
     {
         return $this->imagen;
     }
-    
+    public function Imagen()
+    {
+        return $this->imagen;
+    }
     public function getValoracion()
     {
         return $this->valoracion;
+    }
+    public function getCantidad()
+    {
+        return $this->cantidad;
     }
     
     public function getNumValoraciones()
@@ -176,7 +190,7 @@ class Producto
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             while ($fila = $rs->fetch_assoc()) {
-                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
             }
             $rs->free();
         }
@@ -198,7 +212,7 @@ class Producto
         $rs = $conn->query($query);
         if ($rs) {
             while($fila = $rs->fetch_assoc()) {
-            $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+            $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
             }
             $rs->free();
         }
@@ -244,7 +258,7 @@ class Producto
         $rs = $conn->query($query);
         if ($rs) {
             while($fila = $rs->fetch_assoc()) {
-                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones']);
             }
             $rs->free();
         }
@@ -257,12 +271,12 @@ class Producto
     
         $conn = BD::getInstance()->getConexionBd();
     
-        $query = sprintf("SELECT * FROM productos WHERE valoración >= %f", floatval($valoracionMinima));
+        $query = sprintf("SELECT * FROM productos WHERE valoracion >= %f", floatval($valoracionMinima));
     
         $rs = $conn->query($query);
         if ($rs) {
             while($fila = $rs->fetch_assoc()) {
-                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripción'], $fila['imagen'], $fila['valoración'], $fila['num_valoraciones']);
+                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones']);
             }
             $rs->free();
         }
@@ -277,7 +291,7 @@ class Producto
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO productos (nombre, precio, descripción, imagen, valoración, num_valoraciones) VALUES ('%s', %f, '%s', '%s', %f, %d)",
+            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones) VALUES ('%s', %f, '%s', '%s', %f, %d)",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
@@ -297,13 +311,13 @@ class Producto
     }
 
 
-    private static function actualiza($producto)
+    public static function actualiza($producto)
     {
         $result = false;
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE productos P SET nombre = '%s', precio = %f, descripción = '%s', imagen = '%s', valoración = %f, num_valoraciones = %d WHERE P.id = %d",
+            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d WHERE P.id = %d",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
@@ -322,7 +336,7 @@ class Producto
         return $result;
     }
 
-    private static function elimina($id_producto)
+    public static function elimina($id_producto)
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
@@ -342,8 +356,11 @@ class Producto
         return $result;
     }
 
+<<<<<<< HEAD
     
     }
     
+=======
+>>>>>>> main
 
 }
