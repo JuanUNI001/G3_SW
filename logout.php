@@ -11,4 +11,4 @@ $contenidoPrincipal=<<<EOS
 	<h1>Hasta pronto!</h1>
 EOS;
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

@@ -12,4 +12,4 @@ $contenidoPrincipal=<<<EOS
 	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
 EOS;
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

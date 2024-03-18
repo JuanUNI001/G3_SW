@@ -4,7 +4,7 @@
 session_start();
 
 require_once 'includes/config.php';
-require_once 'includes/src/Productos/productos.php';
+require_once 'includes/src/Productos/Producto.php';
 
 $nombre= $_POST['nombre'] ?? null;
 $id= $_POST['id'] ?? null;
@@ -48,4 +48,4 @@ $contenidoPrincipal=<<<EOS
 	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
 EOS;
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

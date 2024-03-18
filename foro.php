@@ -9,4 +9,4 @@ $tituloPagina = 'Foro';
 
 $contenidoPrincipal = mostrarListaForos();
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

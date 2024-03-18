@@ -1,7 +1,8 @@
 <?php
 
-function buildFormularioEditorProducto($nombre='',$id='', $precioNuevo='', $descripcionNueva='', $eliminar='')
+function buildFormularioEditorProducto($nombre='',$id='', $precioNuevo='', $descripcionNueva='',$eliminar='')
 {
+    
     return <<<EOS
     <form id="formLogin" action="procesarEdicion.php" method="POST">
         <fieldset>

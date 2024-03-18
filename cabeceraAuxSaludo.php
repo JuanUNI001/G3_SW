@@ -1,10 +1,13 @@
 <?php
-function mostrarSaludo() {
-	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-		echo "Bienvenido, " . $_SESSION['nombre'] . ".<a href='/G3_SW/logout.php'>(salir)</a>";
 
+function mostrarSaludo() {
+	$rutaApp = RUTA_APP;
+	$html='';
+	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
+		$html.= "Bienvenido, {$_SESSION['nombre']} <a href='{$rutaApp}/logout.php'>(salir)</a>";
 	} else {
-		echo "Usuario desconocido. <a href='/G3_SW/loginView.php'>Login</a>";
+		$html.= "Usuario desconocido. <a href='{$rutaApp}/loginView.php'>Login</a> <a href='{$rutaApp}/registro.php'>Registro</a>";
 	}
+	return $html;
 }
 ?>

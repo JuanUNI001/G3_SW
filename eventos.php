@@ -6,4 +6,4 @@ $tituloPagina = 'Eventos';
 
 $contenidoPrincipal = mostrarEventos();
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

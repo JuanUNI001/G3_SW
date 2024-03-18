@@ -11,8 +11,8 @@
 <div id="contenedor">
 <?php
 
-require('cabecera.php');
-require('sidebarIzq.php');
+require_once('cabecera.php');
+require_once('sidebarIzq.php');
 
 ?>
 <main>
@@ -22,8 +22,8 @@ require('sidebarIzq.php');
 </main>
 <?php
 
-require('sidebarDer.php');
-require('pie.php');
+require_once('sidebarDer.php');
+require_once('pie.php');
 
 ?>
 </div>
