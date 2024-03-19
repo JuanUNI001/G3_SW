@@ -4,7 +4,7 @@
 session_start();
 
 require_once 'includes/config.php';
-require_once 'includes/src/Productos/productos.php';
+require_once 'includes/src/Productos/Producto.php';
 
 $nombre= $_POST['nombre'] ?? null;
 $id= $_POST['id'] ?? null;
