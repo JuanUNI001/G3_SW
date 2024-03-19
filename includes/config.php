@@ -19,46 +19,37 @@ define('BD_NAME', 'mesamaestra');
 define('BD_USER', 'root');
 define('BD_PASS', '');
 
-/* */
-/* Utilidades básicas de la aplicación */
-/* */
-
-require_once __DIR__.'/src/Utils.php';
-
-/* */
-/* Inicialización de la aplicación */
-/* */
-
-if (!INSTALADA) {
-	Utils::paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');
-}
-
-/* */
-/* Configuración de Codificación y timezone */
-/* */
-
+/**
+ * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
+ */
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
-/* */
-/* Clases y Traits de la aplicación */
-/* */
-require_once 'src/Arrays.php';
-require_once 'src/traits/MagicProperties.php';
+spl_autoload_register(function ($clase) {
+      
+    $prefix = 'es\\ucm\\fdi\\aw\\';
+       
+    $base_dir = __DIR__ . '/';
+      
+    $len = strlen($prefix);
+    if (strncmp($prefix, $clase, $len) !== 0) {       
+        return;
+    }
+    
+    $relative_class = substr($clase, $len);
+    
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    if (file_exists($file)) {
+        require $file;
+    }
+});
+// Inicializa la aplicación
+$app = es\ucm\fdi\aw\src\BD::getInstance();
+$app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
 
-/*
- * Configuramos e inicializamos la sesión para todas las peticiones
+/**
+ * @see http://php.net/manual/en/function.register-shutdown-function.php
+ * @see http://php.net/manual/en/language.types.callable.php
  */
-/*session_start([
-	'cookie_path' => RUTA_APP, // Para evitar problemas si tenemos varias aplicaciones en htdocs
-]);*/
-
-
-/* */
-/* Clases que usan una BD para almacenar el estado */
-/* */
-require_once 'src/BD.php';
-require_once 'src/usuarios/bd/Usuario.php';
-require_once 'src/mensajes/bd/Mensaje.php';
-
+register_shutdown_function([$app, 'shutdown']);

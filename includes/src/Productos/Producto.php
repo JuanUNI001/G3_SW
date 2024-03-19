@@ -1,5 +1,5 @@
 <?php 
-
+use es\ucm\fdi\aw\src\BD;
 require_once __DIR__.'/../BD.php';
 $bdDatosConexion = array(
     'host' => BD_HOST,

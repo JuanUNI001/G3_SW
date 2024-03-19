@@ -78,12 +78,11 @@ class FormularioRegistro extends Formulario
         }
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::buscaUsuario($nombreUsuario);
-	
+            $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::buscaUsuario($nombreUsuario);	
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = Usuario::crea($nombreUsuario, $password, $nombre, Usuario::USER_ROLE);
+                $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::crea($nombreUsuario, $password, $nombre, \es\ucm\fdi\aw\src\usuarios\Usuario::USER_ROLE);
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
             }

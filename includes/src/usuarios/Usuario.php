@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../traits/MagicProperties.php'; 
-
+namespace es\ucm\fdi\aw\src\usuarios;
+use es\ucm\fdi\aw\src\BD;
 class Usuario
 {
 
@@ -28,7 +28,7 @@ class Usuario
 
     public static function buscaUsuario($nombreUsuario)
     {
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = \es\ucm\fdi\aw\src\BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario='%s'", $conn->real_escape_string($nombreUsuario));
         $rs = $conn->query($query);
         $result = false;
