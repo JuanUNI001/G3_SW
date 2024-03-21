@@ -1,9 +1,11 @@
 <?php
 namespace es\ucm\fdi\aw;
 
+require_once 'includes/src/Productos/Producto.php';
 
 class FormularioEdicion extends Formulario
 {
+    public $id;
     public $nombre;
     public $precio;
     public $descripcion;
@@ -95,7 +97,9 @@ class FormularioEdicion extends Formulario
         if ( ! $imagen || empty($imagen) ) {
             $this->errores['imagen'] = 'La imagen no puede estar vacía.';
         }
-        
+
+        $eliminar = isset($_POST['eliminar']) && $_POST['eliminar'] === '1';
+
         if (count($this->errores) === 0) {
            /* $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::login($nombreUsuario, $password);
         
@@ -106,6 +110,16 @@ class FormularioEdicion extends Formulario
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['esAdmin'] = $usuario->tieneRol(\es\ucm\fdi\aw\src\usuarios\Usuario::ADMIN_ROLE);
+            }*/
+
+            /*if ($eliminar)
+            {
+                Producto::elimina($id);
+            } else
+            {
+                $prodActual = Producto::buscaPorId($id);
+                $producto = Producto::crea($id, $nombre, $precioNuevo, $descripcionNueva, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$prodActual->getCantidad());
+                Producto::actualiza($producto);
             }*/
         }
     }
