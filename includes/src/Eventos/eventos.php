@@ -19,9 +19,9 @@ class Evento
 
     private $descripcionEvento;
 
-    private $fechaEvento;
+   // private $fechaEvento;
 
-    private $lugarEvento;
+   // private $lugarEvento;
 
     //podria hacer falta una descripcion del toreneo
 

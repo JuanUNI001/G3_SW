@@ -6,7 +6,7 @@ function listaeventos()
 {
     $eventos = Evento::listarEventos();
 
-    $html = "<div class='productos'>";
+    $html = "<div class='eventos'>";
 
     foreach ($eventos as $evento) {
         $html .= visualizaEvento($evento);
@@ -19,12 +19,17 @@ function listaeventos()
 function visualizaEvento($evento, $tipo = null)
 {
     $html = '<div class="Evento">';
-    //$html .= '<a href="/G3_SW/eventos.php?id_evento=' . $evento->getIdEvento() . '">';
-   // $html .= '<div class="producto_nombre">' . $evento->getNombreTorneo() . '</div>';
-
+    //$html .= '<a href="/G3_SW/eventos.php?id_evento=' . $evento['id'] . '">';
+    //$html .= '<div class="Evento_imagen">';
+    //$html .= '</div>';
+    //$html .= '<div class="Evento_nombre">' . $evento['nombreTorneo'] . '</div>';
+    //$html .= '<div class="Evento_descripcion">' . $evento['descripcionEvento'] . '</div>';
+    //$html .= '</a>';
+    //$html .= '</div>';
 
     return $html;
 }
+
 ?>
 <?php
 
