@@ -45,7 +45,7 @@ class FormularioLogin extends Formulario
         $correo = trim($datos['correo'] ?? '');
         $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $correo || empty($correo) ) {
-            $this->errores['correo'] = 'El nombre de usuario no puede estar vacío';
+            $this->errores['correo'] = 'El correo de usuario no puede estar vacío';
         }
         
         $password = trim($datos['password'] ?? '');
@@ -55,15 +55,16 @@ class FormularioLogin extends Formulario
         }
         
         if (count($this->errores) === 0) {
-            $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::login($correo, $password);
+            $usuario = Usuario::login($correo, $password);
         
             if (!$usuario) {
                 $this->errores[] = "El usuario o el password no coinciden";
             } else {
-                $_SESSION['correo'] = $usuario->getCorreo();
+                $usuario = Usuario::buscaUsuario($correo);
+                $_SESSION['correo'] = $correo;
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['esAdmin'] = $usuario->tieneRol(\es\ucm\fdi\aw\src\usuarios\Usuario::ADMIN_ROLE);
+                $_SESSION['rol'] = Usuario::rolUsuario($usuario);
             }
         }
     }

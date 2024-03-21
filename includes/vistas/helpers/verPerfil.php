@@ -10,8 +10,8 @@ function mostrar_contenidoPerfil()
 		/*if($_SESSION['esAdmin']){
 			$status = "Administrador";
 		}*/
-		$status = "Rol de mi usuario (Regular, profesor u administrador)";
-		$correo = "usermail@gmail.com";
+		$status = $_SESSION['rol'];
+		$correo = $_SESSION['correo'];
 		$direccion = 28005;
 		$contenido =<<<EOS
 		<section>
