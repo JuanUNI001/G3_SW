@@ -6,7 +6,7 @@ class Evento
 {
     const MAX_SIZE = 500;
     
-    use MagicProperties;
+    //use MagicProperties;
     private $idTorneo;
 
     private $inscritos;
