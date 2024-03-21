@@ -4,13 +4,20 @@ require_once 'includes/config.php';
 require_once 'includes/src/Productos/Producto.php';
 
 $form = new es\ucm\fdi\aw\FormularioEdicion();
-$htmlFormLogin = $form->gestiona();
+
 
 $tituloPagina = 'Editor Producto';
 
 $id_producto = $_GET['id_producto'];
 $producto = Producto::buscaPorId($id_producto);
 $nombre = $producto->getNombre();
+
+$form->nombre = $nombre;
+$form->precio = $producto->getPrecio();
+$form->descripcion = $producto->getDescripcion();
+$form->imagen = $producto->getImagen();
+
+$htmlFormLogin = $form->gestiona();
 
 $contenidoPrincipal=<<<EOS
     <h1>
