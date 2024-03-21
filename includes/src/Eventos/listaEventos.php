@@ -29,9 +29,9 @@ function visualizaEvento($evento, $tipo = null)
 <?php
 
 
-    require_once __DIR__.'/Evento.php';
+    require_once __DIR__.'/eventos.php';
     require_once __DIR__.'/../../config.php';
-    require_once __DIR__.'../../../../caracteristicaProducto.php';
+   
 
     $tituloPagina = 'Eventos';
     $contenidoPrincipal = listaEventos();
