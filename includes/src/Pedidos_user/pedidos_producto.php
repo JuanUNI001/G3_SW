@@ -15,13 +15,11 @@ class Pedidos_producto
     
     use MagicProperties;
     
-
     private $id_pedido;
 
     private $id_producto;
 
     private $cantidad;
-
 
     private function __construct($id_pedido, $id_producto, $cantidad)
     {

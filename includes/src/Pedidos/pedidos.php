@@ -1,5 +1,5 @@
-<?php 
-use es\ucm\fdi\aw\src\Pedidos_user\pedidos_producto;
+<?php
+use es\ucm\fdi\aw\src\BD;
 
 class Pedido
 {  
