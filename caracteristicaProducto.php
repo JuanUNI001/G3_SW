@@ -45,6 +45,15 @@
                 HTML;
             }
 
+            $contenidoPrincipal .=<<<EOF
+            <div class="editar_Producto">
+                <a href="/G3_SW/EditorProductoView.php?id_producto={$producto->getIdProducto()}">
+                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                </a>   
+            </div>
+            EOF; 
+             
+
             $contenidoPrincipal .= "</div>";
 
             
