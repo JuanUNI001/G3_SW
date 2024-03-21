@@ -1,5 +1,6 @@
 <?php 
 
+use es\ucm\fdi\aw\src\BD;
 
 class Evento
 {
@@ -133,5 +134,32 @@ class Evento
         }
         return $result;
     }
+
+    public static function listarEventos()
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = sprintf("SELECT * FROM eventos");
+            
+        
+        $rs = $conn->query($query);
+        $eventos = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $evento = new Evento(
+                    $fila['idTorneo'],
+                    $fila['inscritos'],
+                    $fila['categoria'],
+                    $fila['numJugadores'],
+                    $fila['nombreTorneo']
+                );
+                $eventos[] = $evento; 
+            }
+            $rs->free();
+        }
+        return $eventos;
+    }
+    
 
 }
