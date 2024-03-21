@@ -1,8 +1,14 @@
 <?php
 namespace es\ucm\fdi\aw;
 
+
 class FormularioEdicion extends Formulario
 {
+    public $nombre;
+    public $precio;
+    public $descripcion;
+    public $imagen;
+
     public function __construct() {
         parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
     }
@@ -10,10 +16,17 @@ class FormularioEdicion extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         // Se reutiliza el nombre de usuario introducido previamente o se deja en blanco
-        $nombreProducto = $datos['nombreProducto'] ?? '';
+        /*$nombreProducto = $datos['nombreProducto'] ?? '';
         $precio = $datos['precio'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
         $imagen = $datos['imagen'] ?? '';
+        $eliminar = 0;*/
+
+        $nombreProducto = $this->nombre;
+        $precio = $this->precio;
+        $descripcion = $this->descripcion;
+        $imagen = $this->imagen;
+        $eliminar = 0;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -31,18 +44,22 @@ class FormularioEdicion extends Formulario
             </div>
             <div>
                 <label for="precio">Precio del producto:</label>
-                <input id="precio" type="text" name="precio" />
+                <input id="precio" type="text" name="precio" value="$precio"/>
                 {$erroresCampos['precio']}
             </div>
             <div>
+                <label for="imagen">Imagen del producto:</label>
+                <input id="imagen" type="text" name="imagen" value="$imagen"/>
+                {$erroresCampos['imagen']}
+            </div>
+            <div>
                 <label for="descripcion">Descripcion del producto:</label>
-                <input id="descripcion" type="text" name="descripcion" />
+                <textarea id="descripcion" name="descripcion" rows="4" cols="50">$descripcion</textarea>
                 {$erroresCampos['descripcion']}
             </div>
             <div>
-                <label for="imagen">Imagen del producto:</label>
-                <input id="imagen" type="text" name="imagen" />
-                {$erroresCampos['imagen']}
+                <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
+                <label for="eliminar">Eliminar</label>
             </div>
             <div>
                 <button type="submit" name="login">Entrar</button>
