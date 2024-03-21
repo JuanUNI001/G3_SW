@@ -17,20 +17,27 @@ class Evento
 
     private $nombreTorneo;
 
+    private $descripcionEvento;
+
+    private $fechaEvento;
+
+    private $lugarEvento;
+
     //podria hacer falta una descripcion del toreneo
 
-    private function __construct($idTorneo, $inscritos, $categoria, $numJugadores, $nombreTorneo)
+    private function __construct($idTorneo, $inscritos, $categoria, $numJugadores, $nombreTorneo,$descripcionEvento)
     {
         $this->idTorneo = intval($idTorneo);
         $this->inscritos = intval($inscritos);
         $this->categoria = $categoria;
         $this->numJugadores = $numJugadores;
         $this->nombreTorneo = $nombreTorneo;
+        $this->descripcionEvento = $descripcionEvento;
     
     }
 
-    public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo){
-        $NuevoEvento = new Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo);
+    public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento){
+        $NuevoEvento = new Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento);
         return $NuevoEvento;
 
     }
@@ -58,6 +65,10 @@ class Evento
     {
         return $this->numJugadores;
     }
+
+    public function getDescripcion(){
+        return $this->descripcionEvento;
+    }
     
     public function setId($id){
         $this->idTorneo = $id;
@@ -75,17 +86,22 @@ class Evento
         $this->numJugadores = $numJugadores;
     }
 
+    public function setDescripcion($descripcionEvento){
+        $this->descripcionEvento = $descripcionEvento;
+
+    }
     private static function inserta($evento)
     {
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO eventos (idTorneo, inscritos, categoria, numJugadores, nombreTorneo) VALUES ('%s', %f, '%s', '%s', %f, %d)",
+            "INSERT INTO eventos (idTorneo, inscritos, categoria, numJugadores, nombreTorneo, descripcionEvento) VALUES ('%s', %f, '%s', '%s', %f, %d)",
             $conn->real_escape_string($evento->inscritos),
             $evento->numJugadores,
             $conn->real_escape_string($evento->categoria),
             $conn->real_escape_string($evento->nombreTorneo),
+
 
         );
         $result = $conn->query($query);
@@ -152,7 +168,8 @@ class Evento
                     $fila['inscritos'],
                     $fila['categoria'],
                     $fila['numJugadores'],
-                    $fila['nombreTorneo']
+                    $fila['nombreTorneo'],
+                    $fila['descripcionEvento']
                 );
                 $eventos[] = $evento; 
             }
