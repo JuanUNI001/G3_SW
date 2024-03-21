@@ -1,11 +1,18 @@
 <?php 
+use es\ucm\fdi\aw\src\BD;
 
-
+$bdDatosConexion = array(
+    'host' => BD_HOST,
+    'bd' => BD_NAME,
+    'user' => BD_USER,
+    'pass' => BD_PASS
+);
+BD::getInstance()->init($bdDatosConexion);
 class Producto
 {
     const MAX_SIZE = 500;
     
-    use MagicProperties;
+   
     private $id;
 
     private $nombre;
@@ -31,11 +38,12 @@ class Producto
         $this->imagen = $imagen;
         $this->valoracion = floatval($valoracion);
         $this->num_valoraciones = intval($num_valoraciones);
+        $this->cantidad = intval($cantidad);
         $this->id = $id !== null ? intval($id) : null;
     }
     public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
+        $m = new  es\ucm\fdi\aw\Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
     }
     public static function listarProductoPrueba()
@@ -63,15 +71,10 @@ class Producto
                 $productos[] = $producto; 
             }
             $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $productos;
     }
-    public function Id()
-    {
-        return $this->id;
-    }
+    
     public function getIdProducto()
     {
         return $this->id;
@@ -87,7 +90,7 @@ class Producto
         return $this->precio;
     }
     
-    public function descripcion()
+    public function getDescripcion()
     {
         return $this->descripcion;
     }
@@ -96,10 +99,7 @@ class Producto
     {
         return $this->imagen;
     }
-    public function Imagen()
-    {
-        return $this->imagen;
-    }
+    
     public function getValoracion()
     {
         return $this->valoracion;
@@ -138,6 +138,10 @@ class Producto
     {
         $this->imagen = $nuevaImagen;
     }
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+    }
     public function guarda()
     {
         if (!$this->id) {
@@ -163,23 +167,20 @@ class Producto
     }
 
 
-    public static function borraPorId($idProducto)
+    public static function borraPorId($id_producto)
     {
-        if (!$idProducto) {
+        if (!$id_producto) {
             return false;
-        }
-        $result = false;
-
+        } 
+        
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM productos WHERE id = %d", $idProducto);
-        $result = $conn->query($query);
-        if (!$result) {
-            error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("Se han borrado '$conn->affected_rows' !");
-        }
 
-        return $result;
+        $query = sprintf(
+            "DELETE FROM productos WHERE id = %d",
+            $id_producto
+        );
+        $conn->query($query);
+
     }
     public static function buscaPorId($idProducto)
     {
@@ -187,14 +188,19 @@ class Producto
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM productos P WHERE P.id = %d;', $idProducto); 
-        $rs = $conn->query($query);
-        if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {
+        $rs = null;
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
                 $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
             }
-            $rs->free();
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
         }
-        return $result;
+        return $result; 
     }
     
     public static function buscaPorNombre($nombreProducto = '')
@@ -208,27 +214,46 @@ class Producto
         );
 
         $query .= ' ORDER BY P.precio DESC';
-
-        $rs = $conn->query($query);
-        if ($rs) {
-            while($fila = $rs->fetch_assoc()) {
-            $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            while($fila) {
+                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
             }
-            $rs->free();
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
         }
-
-        return $result;
+        return $result;        
     }
     public function actualizarValoracion($nuevaValoracion) {
         $nuevaValoracionTotal = ($this->valoracion * $this->num_valoraciones) + $nuevaValoracion;
-
         $nuevoNumValoraciones = $this->num_valoraciones + 1;
-
         $nuevaValoracionPromedio = $nuevaValoracionTotal / $nuevoNumValoraciones;
-
-        $this->valoracion = $nuevaValoracionPromedio;
-        $this->num_valoraciones = $nuevoNumValoraciones;
+    
+        // Actualizar en la base de datos
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE productos SET valoracion = %f, num_valoraciones = %d WHERE id = %d",
+            $nuevaValoracionPromedio,
+            $nuevoNumValoraciones,
+            $this->id
+        );
+    
+        try {
+            $result = $conn->query($query);
+            if ($result) {              
+                $this->valoracion = $nuevaValoracionPromedio;
+                $this->num_valoraciones = $nuevoNumValoraciones;
+            }
+        
+        } finally {
+          
+        }
     }
+    
+    
+    
 
     public static function contarProductos()
     {
@@ -291,23 +316,25 @@ class Producto
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones) VALUES ('%s', %f, '%s', '%s', %f, %d)",
+            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones, cantidad) VALUES ('%s', %f, '%s', '%s', %f, %d, %d)",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
-            $producto->num_valoraciones
+            $producto->num_valoraciones,
+            $producto->cantidad
         );
-        $result = $conn->query($query);
-        if ($result) {
-            $producto->id = $conn->insert_id;
+        try {
+            $conn->query($query);
+            $usuario->id = $conn->insert_id;
             $result = $producto;
-        } else {
-            error_log($conn->error);
+            return $result;
+        } catch( \mysqli_sql_exception $e) {
+            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
+                throw new ProductoYaExistenteException("Ya existe el producto {$producto->nombre}");
+            }
         }
-
-        return $result;
     }
 
 
@@ -326,41 +353,11 @@ class Producto
             $producto->num_valoraciones,
             $producto->id
         );
-        $result = $conn->query($query);
-        if (!$result) {
-            error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("Se han actualizado '$conn->affected_rows' !");
-        }
-    
+        $result = $conn->query($query);        
         return $result;
     }
-
-    public static function elimina($id_producto)
-    {
-        $result = false;
-        $conn = BD::getInstance()->getConexionBd();
-
-        $query = sprintf(
-            "DELETE FROM productos WHERE id = %d",
-            $id_producto
-        );
-        $result = $conn->query($query);
-
-        if (!$result) {
-            error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("No se ha eliminado ningún producto.");
-        }
-
-        return $result;
-    }
-
-<<<<<<< HEAD
     
-    }
     
-=======
->>>>>>> main
+
 
 }

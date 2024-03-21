@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../traits/MagicProperties.php'; 
-
+namespace es\ucm\fdi\aw\src\usuarios;
+use es\ucm\fdi\aw\src\BD;
 class Usuario
 {
 
@@ -10,32 +10,32 @@ class Usuario
 
     public const USER_ROLE = 2;
 
-    public static function login($nombreUsuario, $password)
+    public static function login($correo, $password)
     {
-        $usuario = self::buscaUsuario($nombreUsuario);
+        $usuario = self::buscaUsuario($correo);
         if ($usuario && $usuario->compruebaPassword($password)) {
             return self::cargaRoles($usuario);
         }
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $nombre, $rol)
+    public static function crea($rolUser,$nombre, $password, $correo )
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre);
-        $user->añadeRol($rol);
+        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo);
+        $user->añadeRol($rolUser);
         return $user->guarda();
     }
 
-    public static function buscaUsuario($nombreUsuario)
+    public static function buscaUsuario($correo)
     {
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario='%s'", $conn->real_escape_string($nombreUsuario));
+        $conn = \es\ucm\fdi\aw\src\BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['nombre'], $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['password'], $fila['nombre'], $fila['correo'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -53,7 +53,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['nombre'], $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['password'], $fila['nombre'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -96,10 +96,11 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, nombre, password) VALUES ('%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->nombreUsuario)
+        $query=sprintf("INSERT INTO Usuarios(rolUser, nombre, password, correo) VALUES ('%s', '%s', '%s','%s')"
+            , $conn->real_escape_string($usuario->rolUser)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->correo)
         );
         if ( $conn->query($query) ) {
             $usuario->id = $conn->insert_id;
@@ -130,10 +131,11 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', nombre='%s', password='%s' WHERE U.id=%d"
-            , $conn->real_escape_string($usuario->nombreUsuario)
+        $query=sprintf("UPDATE Usuarios U SET rolUser = '%s', nombre='%s', password='%s', correo='%s' WHERE U.id=%d"
+            , $conn->real_escape_string($usuario->rolUser)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->correo)
             , $usuario->id
         );
         if ( $conn->query($query) ) {
@@ -187,7 +189,7 @@ class Usuario
 
     private $id;
 
-    private $nombreUsuario;
+    private $rolUser;
 
     private $password;
 
@@ -195,10 +197,12 @@ class Usuario
 
     private $roles;
 
-    private function __construct($nombreUsuario, $password, $nombre, $id = null, $roles = [])
+    private $correo;
+    
+    private function __construct($rol,$nombre, $password, $correo,  $id = null, $roles = [])
     {
         $this->id = $id;
-        $this->nombreUsuario = $nombreUsuario;
+        $this->rolUser = $rol;
         $this->password = $password;
         $this->nombre = $nombre;
         $this->roles = $roles;
@@ -209,9 +213,9 @@ class Usuario
         return $this->id;
     }
 
-    public function getNombreUsuario()
+    public function getrolUser()
     {
-        return $this->nombreUsuario;
+        return $this->rolUser;
     }
 
     public function getNombre()
@@ -246,7 +250,10 @@ class Usuario
     {
         $this->password = self::hashPassword($nuevoPassword);
     }
-    
+    public function cambiaRol($rolUser)
+    {
+        $this->password = self::hashPassword($nuevoPassword);
+    }
     public function guarda()
     {
         if ($this->id !== null) {

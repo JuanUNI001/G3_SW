@@ -1,9 +1,15 @@
 <?php
 
 require_once 'includes/config.php';
-require_once 'includes/vistas/helpers/eventos.php';
+require_once 'includes/src/Productos/listaEventos.php';
+
+
+
+$eventos = listaeventos();
 $tituloPagina = 'Eventos';
+$contenidoPrincipal=<<<EOF
+    $eventos
+EOF;
 
-$contenidoPrincipal = mostrarEventos();
-
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';
+?>

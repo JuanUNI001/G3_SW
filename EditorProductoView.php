@@ -1,14 +1,23 @@
 <?php
 
 require_once 'includes/config.php';
-require_once 'includes/vistas/helpers/EditorProductoFormulario.php';
+require_once 'includes/src/Productos/Producto.php';
+
+$form = new es\ucm\fdi\aw\FormularioEdicion();
+$htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Editor Producto';
 
-$htmlFormLogin = buildFormularioEditorProducto();
+$id_producto = $_GET['id_producto'];
+$producto = Producto::buscaPorId($id_producto);
+$nombre = $producto->getNombre();
+
 $contenidoPrincipal=<<<EOS
-<h1>Acceso al sistema</h1>
-$htmlFormLogin
+    <h1>
+        <p>Modificando datos de producto</p>
+        <p> $nombre</p>
+    </h1>
+    $htmlFormLogin
 EOS;
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';

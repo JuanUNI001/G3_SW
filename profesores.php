@@ -11,4 +11,4 @@ $tituloPagina = 'Profesores';
 
 $contenidoPrincipal = mostrarProfesores();
 
-require 'includes/vistas/comun/layout.php';
+require_once 'includes/vistas/comun/layout.php';
