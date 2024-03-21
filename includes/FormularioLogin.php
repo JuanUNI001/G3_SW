@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
-
+use \es\ucm\fdi\aw\src\usuarios\Usuario;
 class FormularioLogin extends Formulario
 {
     public function __construct() {
@@ -10,11 +10,11 @@ class FormularioLogin extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         // Se reutiliza el nombre de usuario introducido previamente o se deja en blanco
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
+        $correo = $datos['correo'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'password'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['correo', 'password'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -22,9 +22,9 @@ class FormularioLogin extends Formulario
         <fieldset>
             <legend>Usuario y contraseña</legend>
             <div>
-                <label for="nombreUsuario">Nombre de usuario:</label>
-                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
-                {$erroresCampos['nombreUsuario']}
+                <label for="correo">Correo de usuario:</label>
+                <input id="correo" type="text" name="correo" value="$correo" />
+                {$erroresCampos['correo']}
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -42,10 +42,10 @@ class FormularioLogin extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombreUsuario || empty($nombreUsuario) ) {
-            $this->errores['nombreUsuario'] = 'El nombre de usuario no puede estar vacío';
+        $correo = trim($datos['correo'] ?? '');
+        $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ( ! $correo || empty($correo) ) {
+            $this->errores['correo'] = 'El nombre de usuario no puede estar vacío';
         }
         
         $password = trim($datos['password'] ?? '');
@@ -55,7 +55,7 @@ class FormularioLogin extends Formulario
         }
         
         if (count($this->errores) === 0) {
-            $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::login($nombreUsuario, $password);
+            $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::login($correo, $password);
         
             if (!$usuario) {
                 $this->errores[] = "El usuario o el password no coinciden";

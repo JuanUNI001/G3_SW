@@ -29,7 +29,7 @@
                 <h2>{$producto->getNombre()}</h2>
                 <p>{$producto->getDescripcion()}</p>
                 <p><strong>Precio:</strong> {$producto->getPrecio()} €</p>
-                <p><strong>Valoración: </strong>
+                <p><strong>Valoración: {$producto->getValoracion()}   </strong>
             EOF;
             for ($i = 1; $i <= 5; $i++) {
                 $contenidoPrincipal .= ($valoracion_rounded >= $i) ? '<span class="star">&#9733;</span>' : '<span class="star">&#9734;</span>';

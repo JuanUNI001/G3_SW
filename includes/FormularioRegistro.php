@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
-
+use \es\ucm\fdi\aw\src\usuarios\Usuario;
 class FormularioRegistro extends Formulario
 {
     public function __construct() {
@@ -9,26 +9,28 @@ class FormularioRegistro extends Formulario
     
     protected function generaCamposFormulario(&$datos)
     {
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
+        $rolUser = $datos['rolUser'] ?? '';
         $nombre = $datos['nombre'] ?? '';
+        $correo = $datos['correo'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['rolUser', 'nombre', 'password', 'password2', 'correo'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
             <legend>Datos para el registro</legend>
-            <div>
-                <label for="nombreUsuario">Nombre de usuario:</label>
-                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
-                {$erroresCampos['nombreUsuario']}
-            </div>
+            
             <div>
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
                 {$erroresCampos['nombre']}
+            </div>
+            <div>
+                <label for="correo">Correo electrónico:</label>
+                <input id="correo" type="text" name="correo" value="$correo" />
+                {$erroresCampos['correo']}
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -39,6 +41,13 @@ class FormularioRegistro extends Formulario
                 <label for="password2">Reintroduce el password:</label>
                 <input id="password2" type="password" name="password2" />
                 {$erroresCampos['password2']}
+            </div>
+            <div>
+                <label for="rol_usuario">Selecciona tu rol:</label><br>
+                <input id="usuario" type="radio" name="rol" value="Usuario" required />
+                <label for="usuario">Usuario</label><br>
+                <input id="profesor" type="radio" name="rol" value="Profesor" />
+                <label for="profesor">Profesor</label>
             </div>
             <div>
                 <button type="submit" name="registro">Registrar</button>
@@ -52,12 +61,8 @@ class FormularioRegistro extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombreUsuario || mb_strlen($nombreUsuario) < 5) {
-            $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
-        }
+        $rolUser = $datos['rolUser'] ?? '';
+      
 
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -76,15 +81,22 @@ class FormularioRegistro extends Formulario
         if ( ! $password2 || $password != $password2 ) {
             $this->errores['password2'] = 'Los passwords deben coincidir';
         }
-
+        $correo = trim($datos['correo'] ?? '');
+        $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
+        
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            $this->errores['correo'] = 'El correo electrónico proporcionado no tiene un formato válido.';
+        }
         if (count($this->errores) === 0) {
-            $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::buscaUsuario($nombreUsuario);	
+            $usuario = Usuario::buscaUsuario($correo);	
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::crea($nombreUsuario, $password, $nombre, \es\ucm\fdi\aw\src\usuarios\Usuario::USER_ROLE);
+               
+                $usuario = Usuario::crea($rolUser, $nombre, $password, $correo, Usuario::USER_ROLE);
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
+                
             }
         }
     }
