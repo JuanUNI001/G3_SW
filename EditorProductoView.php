@@ -1,7 +1,6 @@
 <?php
 
-require_once 'includes/config.php';
-require_once 'includes/src/Productos/Producto.php';
+require_once 'includes/config.php'; 
 
 $form = new es\ucm\fdi\aw\FormularioEdicion();
 
@@ -12,6 +11,7 @@ $id_producto = $_GET['id_producto'];
 $producto = Producto::buscaPorId($id_producto);
 $nombre = $producto->getNombre();
 
+$form->id = $id_producto;
 $form->nombre = $nombre;
 $form->precio = $producto->getPrecio();
 $form->descripcion = $producto->getDescripcion();
