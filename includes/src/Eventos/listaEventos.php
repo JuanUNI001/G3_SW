@@ -19,8 +19,8 @@ function listaeventos()
 function visualizaEvento($evento, $tipo = null)
 {
     $html = '<div class="Evento">';
-    $html .= '<a href="/G3_SW/Evento.php?id_evento=' . $evento->getIdEvento() . '">';
-    $html .= '<div class="producto_nombre">' . $evento->getNombre() . '</div>';
+    //$html .= '<a href="/G3_SW/eventos.php?id_evento=' . $evento->getIdEvento() . '">';
+   // $html .= '<div class="producto_nombre">' . $evento->getNombreTorneo() . '</div>';
 
 
     return $html;
