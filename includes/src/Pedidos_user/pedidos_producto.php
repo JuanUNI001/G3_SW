@@ -15,13 +15,11 @@ class Pedidos_producto
     
     use MagicProperties;
     
-
     private $id_pedido;
 
     private $id_producto;
 
     private $cantidad;
-
 
     private function __construct($id_pedido, $id_producto, $cantidad)
     {
@@ -64,6 +62,7 @@ class Pedidos_producto
     {
         $this->cantidad = $cantidad;
     }
+
     public function guarda()
     {
         if (!$this->id_pedido) {
@@ -88,7 +87,6 @@ class Pedidos_producto
         return self::borraPorId($pedido_producto->id_pedido);
     }
 
-
     public static function borraPorId($id_pedido)
     {
         if (!$id_pedido) {
@@ -107,21 +105,24 @@ class Pedidos_producto
 
         return $result;
     }
+
     public static function buscaPorIdPedido_Producto($id_pedido)
     {
-        $result = null;
+        $result[] = null;
     
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM pedidos_productos P WHERE P.id_pedido = %d;', $id_pedido); 
+        $query = sprintf('SELECT id_producto, cantidad FROM pedidos_productos P WHERE P.id_pedido = %d;', $id_pedido); 
         $rs = null;
         try{
             $rs = $conn->query($query);
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new Pedidos_producto($fila['id_pedido'], $fila['id_producto'], $fila['cantidad']);
-            }
+           while($fila = $rs->fetch_assoc()){
+
+                $id_prod = $fila['id_producto'];
+                $cant = $fila['cantidad'];
+                $result[$id_prod] = $cant;
+           }
         }
-       finally {
+        finally {
             if ($rs != null) {
                 $rs->free();
             }
@@ -151,10 +152,18 @@ class Pedidos_producto
         return $result;
     }   
     
-
-    private static function inserta($pedidos_producto)
+    private static function inserta($pedido_producto)
     {
         $result = false;
+
+        $datos_pedido = buscaPorIdPedido_Producto($pedido_producto->id_pedido);
+
+        if($datos_pedido != null && !empty($datos_pedido) && $datos_pedido[$pedido_producto->id_producto] != null){
+
+            $pedido_producto->cantidad += $datos_pedido[$pedido_producto->id_producto];
+            //$datos_pedido[$pedido_producto->id_producto]+= $pedido_producto->cantidad;
+            return = actualiza($pedido_producto);
+        }
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
@@ -173,7 +182,6 @@ class Pedidos_producto
 
         return $result;
     }
-
 
     public static function actualiza($pedidos_producto)
     {
@@ -195,8 +203,4 @@ class Pedidos_producto
     
         return $result;
     }
-
-    
-
-
 }
