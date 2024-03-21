@@ -23,7 +23,7 @@ class Evento
 
    // private $lugarEvento;
 
-   //$estado
+   //$estado (finalizado)
 
    //$premio
 
@@ -141,17 +141,15 @@ class Evento
         return $result;
     }
 
-    public static function buscaPorId($idProducto)
+    public static function buscaPorId($idEvento)
     {
         $result = null;
     
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM productos P WHERE P.id = %d;', $idProducto); 
+        $query = sprintf('SELECT * FROM eventos P WHERE P.id = %d;', $idEvento); 
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {
-                $result = new Producto($fila['idTorneo'], $fila['nombreTorneo'], $fila['precio']);
-            }
+            
             $rs->free();
         }
         return $result;
