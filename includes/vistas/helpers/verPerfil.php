@@ -4,13 +4,14 @@ function mostrar_contenidoPerfil()
     $contenido;
     if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
 		//$nombre = $_SESSION['nombre'];
-		$nombre = "UserName";
+		$nombre =$_SESSION['nombre'];
+		
 		//$status = "Usuario corriente";
 		/*if($_SESSION['esAdmin']){
 			$status = "Administrador";
 		}*/
-		$status = "Rol de mi usuario (Regular, profesor u administrador)";
-		$correo = "usermail@gmail.com";
+		$status = $_SESSION['rol'];
+		$correo = $_SESSION['correo'];
 		$direccion = 28005;
 		$contenido =<<<EOS
 		<section>
