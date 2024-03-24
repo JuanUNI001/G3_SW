@@ -1,19 +1,12 @@
 <?php 
+namespace es\ucm\fdi\aw\src\Pedidos_user;
 use es\ucm\fdi\aw\src\BD;
-require_once __DIR__.'/../BD.php';
-$bdDatosConexion = array(
-    'host' => BD_HOST,
-    'bd' => BD_NAME,
-    'user' => BD_USER,
-    'pass' => BD_PASS
-);
-BD::getInstance()->init($bdDatosConexion);
 
 class Pedidos_producto
 {
     const MAX_SIZE = 500;
     
-    use MagicProperties;
+    
     
     private $id_pedido;
 
@@ -129,7 +122,27 @@ class Pedidos_producto
         }
         return $result;
     }
-    
+    public static function buscaPorIdPedidoProducto($id_pedido, $id_producto)
+    {
+        $result = null;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT * FROM pedidos_productos P WHERE P.id_pedido = %d AND P.id_producto = %d;', $id_pedido, $id_producto); 
+        $rs = null;
+        try {
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Pedidos_producto($fila['id_pedido'], $fila['id_producto'], $fila['cantidad']);
+            }          
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
+        }
+        return $result;
+    }
+
     public static function buscaPorIdProducto_Pedido($id_producto)
     {
         $result = null;
@@ -156,32 +169,31 @@ class Pedidos_producto
     {
         $result = false;
 
-        $datos_pedido = buscaPorIdPedido_Producto($pedido_producto->id_pedido);
+        $datos_pedido = self::buscaPorIdPedido_Producto($pedido_producto->id_pedido);
 
         if($datos_pedido != null && !empty($datos_pedido) && $datos_pedido[$pedido_producto->id_producto] != null){
-
             $pedido_producto->cantidad += $datos_pedido[$pedido_producto->id_producto];
-            //$datos_pedido[$pedido_producto->id_producto]+= $pedido_producto->cantidad;
-            return = actualiza($pedido_producto);
+            return self::actualiza($pedido_producto);
         }
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO pedidos_productos (id_pedido, id_producto, cantidad) VALUES ('%d', %d, '%d')",
-            $pedidos_producto->id_pedido,
-            $pedidos_producto->id_producto,
-            $pedidos_producto->cantidad
+            $pedido_producto->id_pedido,
+            $pedido_producto->id_producto,
+            $pedido_producto->cantidad
         );
         $result = $conn->query($query);
         if ($result) {
-            $pedidos_producto->id_pedido = $conn->insert_id;
-            $result = $pedidos_producto;
+            $pedido_producto->id_pedido = $conn->insert_id;
+            $result = $pedido_producto;
         } else {
             error_log($conn->error);
         }
 
         return $result;
     }
+
 
     public static function actualiza($pedidos_producto)
     {
@@ -194,6 +206,7 @@ class Pedidos_producto
             $pedidos_producto->id_producto,
             $pedidos_producto->cantidad
         );
+        
         $result = $conn->query($query);
         if (!$result) {
             error_log($conn->error);

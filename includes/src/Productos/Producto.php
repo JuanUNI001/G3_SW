@@ -1,5 +1,6 @@
 <?php 
-use es\ucm\fdi\aw\src\BD;
+namespace es\ucm\fdi\aw\src\Productos;
+use \es\ucm\fdi\aw\src\BD;
 
 $bdDatosConexion = array(
     'host' => BD_HOST,
@@ -147,11 +148,19 @@ class Producto
         if (!$this->id) {
             self::inserta($this);
         } else {
-            self::actualiza($this);
+            // Actualiza la información del producto en la base de datos
+            $result = self::actualiza($this);
+            // Actualiza la cantidad del producto en la base de datos
+            $resultCantidad = self::actualizaCantidad($this->id, $this->cantidad);
+            // Verifica si ambas operaciones fueron exitosas
+            if ($result && $resultCantidad) {
+                return $this;
+            } else {
+                return false;
+            }
         }
-
-        return $this;
     }
+
     
     public function borrate()
     {
@@ -227,6 +236,26 @@ class Producto
         }
         return $result;        
     }
+    public static function actualizaCantidad($id_producto, $nueva_cantidad)
+    {
+        $result = false;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE productos SET cantidad = %d WHERE id = %d",
+            $nueva_cantidad,
+            $id_producto
+        );
+        $result = $conn->query($query);
+        if (!$result) {
+            error_log($conn->error);
+        } else if ($conn->affected_rows != 1) {
+            error_log("Se han actualizado '$conn->affected_rows' filas!");
+        }
+
+        return $result;
+    }
+
     public function actualizarValoracion($nuevaValoracion) {
         $nuevaValoracionTotal = ($this->valoracion * $this->num_valoraciones) + $nuevaValoracion;
         $nuevoNumValoraciones = $this->num_valoraciones + 1;

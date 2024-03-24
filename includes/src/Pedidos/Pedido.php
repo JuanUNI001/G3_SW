@@ -1,9 +1,12 @@
 <?php
+namespace es\ucm\fdi\aw\src\Pedidos;
 use es\ucm\fdi\aw\src\BD;
+use \DateTime;
+
+
 
 class Pedido
 {  
-    use MagicProperties;
     
     private $id_pedido;
 
@@ -15,18 +18,18 @@ class Pedido
 
     private function __construct($id_pedido, $id_user, $estado)
     {
-        $this->id = intval($id_pedido);
+        $this->id_pedido = intval($id_pedido);
         $this->id_user = intval($id_user);
         $this->estado = $estado;
-        $fecha = new DateTime();
+        $fecha = new \DateTime();
         $fecha = $fecha->format('Y-m-d H:i:s');
-        $this->id = $id_pedido !== null ? intval($id_pedido) : null;
+        $this->id_pedido = $id_pedido !== null ? intval($id_pedido) : null;
         $this->id_user = $id_user !== null ? intval($id_user) : null;
     }
 
-    public static function crea($id_pedido, $id_user, $id_user)
+    public static function crea($id_pedido, $id_user, $estado)
     {
-        $p = new Pedido($id_pedido, $id_user, $id_user);
+        $p = new Pedido($id_pedido, $id_user, $estado);
         return $p;
     }
     
@@ -108,7 +111,22 @@ class Pedido
 
         return $result;
     }
-
+    public static function buscarPedidoPorEstadoUsuario($estado, $id_usuario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT * FROM pedidos WHERE estado = "%s" AND id_user = %d', $estado, $id_usuario);
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows > 0) {
+            // Si se encuentra un pedido en el estado y usuario especificados, devolver el primero encontrado
+            $pedido = $result->fetch_assoc();
+            return Pedido::crea($pedido['id_pedido'], $pedido['id_user'], $pedido['estado']);
+        } else {
+            // Si no se encuentra ningún pedido, devolver null
+            return null;
+        }
+    }
+    
     public static function buscarPedidosPorUser($id_user)
     {
         $result[] = null;
@@ -117,7 +135,7 @@ class Pedido
         $query = sprintf('SELECT * FROM pedidos P WHERE P.id_user = %d;', $id_user); 
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {´
+            while ($fila = $rs->fetch_assoc()) {
                 if ($fila) {
                     $result = $fila['id_pedido'];
                 }         
@@ -169,14 +187,13 @@ class Pedido
     $conn = BD::getInstance()->getConexionBd();
 
     // Formatear la fecha correctamente
-    $fechaFormateada = $pedido->fecha->format('Y-m-d H:i:s');
-
+    
     $query = sprintf(
         "INSERT INTO pedidos (id_pedido, id_user, estado, fecha) VALUES ('%d', %d, '%s', '%s')",
         $pedido->id_pedido,
         $pedido->id_user,
         $conn->real_escape_string($pedido->estado),
-        $fechaFormateada 
+        $pedido->fecha->format('Y-m-d H:i:s')
     );
 
     try {
@@ -200,7 +217,7 @@ class Pedido
         $query = sprintf(
             "UPDATE pedidos P SET estado = '%s' WHERE P.id = %d",
             $pedido->estado,
-            $pedido->fecha->format('Y-m-d H:i:s');
+            $pedido->fecha->format('Y-m-d H:i:s')
         );
         $result = $conn->query($query);
         if (!$result) {
@@ -215,11 +232,11 @@ class Pedido
     public static function actualizaFecha($pedido)
     {
         $result = false;
-    
+
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE pedidos P SET estado = '%s' WHERE P.id = %d",
-            $pedido->fecha,
+            "UPDATE pedidos P SET fecha = '%s' WHERE P.id = %d",
+            $pedido->fecha->format('Y-m-d H:i:s'),
             $pedido->id_pedido
         );
         $result = $conn->query($query);
@@ -228,9 +245,10 @@ class Pedido
         } else if ($conn->affected_rows != 1) {
             error_log("Se han actualizado '$conn->affected_rows' !");
         }
-    
+
         return $result;
     }
+
 
     public static function elimina($id_pedido)
     {
