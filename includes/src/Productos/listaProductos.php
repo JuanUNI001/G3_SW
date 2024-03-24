@@ -1,4 +1,8 @@
-
+<?php
+    use \es\ucm\fdi\aw\src\Productos\Producto;
+    require_once __DIR__.'/../../config.php';
+    require_once __DIR__.'../../../../caracteristicaProducto.php';
+?>
 <?php
 function listaproductos()
 {
@@ -31,9 +35,7 @@ function visualizaProducto($producto, $tipo = null)
 <?php
 
 
-    require_once __DIR__.'/Producto.php';
-    require_once __DIR__.'/../../config.php';
-    require_once __DIR__.'../../../../caracteristicaProducto.php';
+    
 
     $tituloPagina = 'Características Producto';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';

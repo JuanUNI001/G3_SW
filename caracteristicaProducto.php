@@ -1,7 +1,7 @@
 <?php
     // Incluye los archivos necesarios
     require_once 'includes/config.php';
-    require_once 'includes/src/Productos/Producto.php';
+    use \es\ucm\fdi\aw\src\Productos\Producto;
 
     // Define el título de la página
     $tituloPagina = 'Características Producto';
@@ -36,9 +36,16 @@
             }
             $contenidoPrincipal .= " / {$producto->getNumValoraciones()} valoraciones</p>";
 
+            // Verifica si hay stock del producto
+            if ($producto->getCantidad() > 0) {
+                $contenidoPrincipal .= "<p class='stock verde'>En stock</p>";
+            } else {
+                $contenidoPrincipal .= "<p class='stock rojo'>Sin stock</p>";
+            }
+            
             if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
                 $contenidoPrincipal .= <<<HTML
-                    <form action='agregar_al_carrito.php' method='post'>
+                    <form action='/G3_SW/includes/agregar_al_carrito.php' method='post'>
                         <p>Cantidad: <input type='number' id='cantidad' name='cantidad' value='1' min='1' style='width: 50px;'>
                         <input type='hidden' name='id_producto' value='$id_producto'> <input type='submit' value='Agregar al carrito'></p>
                     </form>
@@ -52,11 +59,9 @@
                 </a>   
             </div>
             EOF; 
-             
 
             $contenidoPrincipal .= "</div>";
 
-            
         } else {
             $contenidoPrincipal = 'Producto no encontrado.';
         }
@@ -64,3 +69,33 @@
     }
 
 ?>
+
+<?php if (isset($_GET['added']) && $_GET['added'] === 'true'): ?>
+    <!-- Agrega un contenedor para la ventana modal -->
+    <div id="myModal" class="modal" style="display: block;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message">Producto añadido correctamente al carrito.</p>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if (isset($_GET['added']) && $_GET['added'] === 'false'): ?>
+    <!-- Agrega un contenedor para la ventana modal -->
+    <div id="myModal" class="modal" style="display: block;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message">Producto sin la cantidad solicitada en stock.</p>
+        </div>
+    </div>
+<?php endif; ?>
+<!-- Scripts JavaScript -->
+<script>
+    // Obtener la ventana modal y el botón de cierre
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Cerrar la ventana modal cuando se hace clic en el botón de cierre
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>
