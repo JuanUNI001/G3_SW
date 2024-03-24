@@ -58,7 +58,7 @@ class Pedidos_producto
 
     public function guarda()
     {
-        if (!$this->id_pedido) {
+        if (Pedidos_producto::buscaPorIdPedidoProducto($this->id_pedido, $this->id_producto) == null) {
             self::inserta($this);
         } else {
             self::actualiza($this);
@@ -169,9 +169,9 @@ class Pedidos_producto
     {
         $result = false;
 
-        $datos_pedido = self::buscaPorIdPedido_Producto($pedido_producto->id_pedido);
+        $datos_pedido = Pedidos_producto::buscaPorIdPedido_Producto($pedido_producto->id_pedido);
 
-        if($datos_pedido != null && !empty($datos_pedido) && $datos_pedido[$pedido_producto->id_producto] != null){
+        if($datos_pedido[0] != null){
             $pedido_producto->cantidad += $datos_pedido[$pedido_producto->id_producto];
             return self::actualiza($pedido_producto);
         }
@@ -198,22 +198,25 @@ class Pedidos_producto
     public static function actualiza($pedidos_producto)
     {
         $result = false;
-    
+
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE pedidos_productos P SET id_pedido = %d, id_producto = %d, cantidad = %d",
+            "UPDATE pedidos_productos P SET id_pedido = %d, id_producto = %d, cantidad = %d WHERE P.id_pedido = %d AND P.id_producto = %d",
             $pedidos_producto->id_pedido,
             $pedidos_producto->id_producto,
-            $pedidos_producto->cantidad
+            $pedidos_producto->cantidad,
+            $pedidos_producto->id_pedido,
+            $pedidos_producto->id_producto
         );
-        
+
         $result = $conn->query($query);
         if (!$result) {
             error_log($conn->error);
         } else if ($conn->affected_rows != 1) {
             error_log("Se han actualizado '$conn->affected_rows' !");
         }
-    
+
         return $result;
     }
+
 }
