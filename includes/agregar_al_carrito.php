@@ -42,7 +42,7 @@ if ($id_producto && is_numeric($id_producto) && $cantidad && is_numeric($cantida
 
     // Verifica si el usuario ya tiene un pedido en estado "carrito"
     $pedido_existente = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
-
+    $id_pedido = null;
     // Si el usuario no tiene un pedido "carrito", crea uno nuevo
     if (!$pedido_existente) {
         $pedido = Pedido::crea(null, $id_usuario, 'carrito');
@@ -52,7 +52,13 @@ if ($id_producto && is_numeric($id_producto) && $cantidad && is_numeric($cantida
         // Si el usuario ya tiene un pedido "carrito", obtiene su ID
         $id_pedido = $pedido_existente->getIdPedido();
     }
-    
+    // Calcular el precio total del pedido
+    $precio_producto = $producto->getPrecio(); // Obtener el precio del producto
+    $precio_total_pedido = $pedido_existente->getPrecioTotal() + ($precio_producto * $cantidad);
+
+    // Actualizar el precio total del pedido en la tabla de pedidos
+    $pedido_existente->setPrecioTotal($precio_total_pedido);
+    $pedido_existente->guarda();
     // Verifica si el producto ya está en el pedido
     $producto_existente = Pedidos_producto::buscaPorIdPedidoProducto($id_pedido, $id_producto);
 
@@ -66,9 +72,9 @@ if ($id_producto && is_numeric($id_producto) && $cantidad && is_numeric($cantida
         $pedidos_producto = Pedidos_producto::crea($id_pedido, $id_producto, $cantidad);
         $pedidos_producto->guarda();
     }
-    $nueva_cantidad = $producto->getCantidad() - $cantidad;
-    $producto->actualizaCantidad($id_producto,$nueva_cantidad);
-    $producto->guarda();
+    //$nueva_cantidad = $producto->getCantidad() - $cantidad;
+    //$producto->actualizaCantidad($id_producto,$nueva_cantidad);
+    //$producto->guarda();
     // Redirige al usuario de vuelta a la página del producto con un mensaje de éxito
     header('Location: /G3_SW/caracteristicaProducto.php?id_producto=' . $id_producto . '&added=true');
     exit();
