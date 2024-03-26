@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `mensajes`
 --
 
-CREATE TABLE `mensajes` (
+CREATE TABLE IF NOT EXISTS `mensajes`  (
   `id` int(11) NOT NULL,
   `autor` int(11) NOT NULL,
   `mensaje` varchar(140) NOT NULL,

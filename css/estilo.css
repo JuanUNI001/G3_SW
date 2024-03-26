@@ -102,6 +102,20 @@ legend {
 	padding: 2px 6px;
 } 
 
+.terminado {
+	color: #e61212;
+	background: #eeeded;
+	border: 1px solid rgb(0, 0, 0);
+	padding: 2px 6px;
+}
+
+.abierto {
+	color: #09f372;
+	background: #eeeded;
+	border: 1px solid rgb(0, 0, 0);
+	padding: 2px 6px;
+}
+
 label {
 	text-align: right;
 	margin-right: 0.5em;
