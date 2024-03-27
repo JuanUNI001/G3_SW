@@ -26,7 +26,12 @@
     margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
 }
 
-
+.carrito_imagen {
+    max-width: 25%; /* La imagen ocupará como máximo el 25% del ancho del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+    display: block; /* Evita espacio adicional debajo de la imagen */
+    margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+}
 .producto_nombre {
     text-align: center;
     margin-top: 5px;

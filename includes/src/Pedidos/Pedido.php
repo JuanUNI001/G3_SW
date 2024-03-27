@@ -16,26 +16,23 @@ class Pedido
 
     private $fecha;
 
-    private $precio;
+    private $total;
 
-    private function __construct($id_pedido, $id_user, $estado)
+    private function __construct($id_pedido, $id_user, $estado, $fecha, $total)
     {
-        $this->id_pedido = intval($id_pedido);
-        $this->id_user = intval($id_user);
+        $this->id_pedido = $id_pedido;
+        $this->id_user = $id_user;
         $this->estado = $estado;
-        $this->fecha = new \DateTime(); // Corregido aquí
-        $this->fecha = $this->fecha->format('Y-m-d H:i:s'); // Y aquí también
-        $this->id_pedido = $id_pedido !== null ? intval($id_pedido) : null;
-        $this->id_user = $id_user !== null ? intval($id_user) : null;
+        $this->fecha = $fecha;
+        $this->total = $total;
     }
 
-
-    public static function crea($id_pedido, $id_user, $estado)
+    public static function crea($id_pedido,$id_user, $estado, $total)
     {
-        $p = new Pedido($id_pedido, $id_user, $estado);
-        return $p;
+        $fechaActual = new DateTime();
+        $fechaFormateada = $fechaActual->format('Y-m-d');
+        return new Pedido($id_pedido, $id_user, $estado, $fechaFormateada, $total);
     }
-    
     public function getIdPedido()
     {
         return $this->id_pedido;
@@ -56,7 +53,7 @@ class Pedido
         return $this->fecha;
     }
     public function getPrecioTotal(){
-        return $this->precio;
+        return $this->total;
     }
     public function setId($id_pedido)
     {
@@ -73,7 +70,7 @@ class Pedido
         $this->estado = $nuevoEstado;
     }
     public function setPrecioTotal($nuevoPrecio){
-        $this->precio = $nuevoPrecio;
+        $this->total = $nuevoPrecio;
     }
     
     
@@ -114,13 +111,11 @@ class Pedido
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM pedidos WHERE estado = "%s" AND id_user = %d', $estado, $id_usuario);
         $result = $conn->query($query);
-    
+
         if ($result && $result->num_rows > 0) {
-            // Si se encuentra un pedido en el estado y usuario especificados, devolver el primero encontrado
             $pedido = $result->fetch_assoc();
-            return Pedido::crea($pedido['id_pedido'], $pedido['id_user'], $pedido['estado']);
+            return new Pedido($pedido['id_pedido'], $pedido['id_user'], $pedido['estado'], $pedido['fecha'], $pedido['total']);
         } else {
-            // Si no se encuentra ningún pedido, devolver null
             return null;
         }
     }
@@ -180,32 +175,31 @@ class Pedido
 
     private static function inserta($pedido)
     {
-    $result = false;
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
 
-    $conn = BD::getInstance()->getConexionBd();
+        // Utiliza comillas simples para la fecha y no para el precio
+        $query = sprintf(
+            "INSERT INTO pedidos (id_user, estado, fecha, total) VALUES (%d, '%s', '%s', %f)",
+            $pedido->id_user,
+            $conn->real_escape_string($pedido->estado),
+            $pedido->fecha,
+            $pedido->total
+        );        
 
-    // Formatear la fecha correctamente
-    
-    $query = sprintf(
-    "INSERT INTO pedidos (id_pedido, id_user, estado, fecha) VALUES (%d, %d, '%s', '%s')",
-    $pedido->id_pedido,
-    $pedido->id_user,
-    $conn->real_escape_string($pedido->estado),
-    $pedido->fecha
-);
-
-
-    try {
-        $conn->query($query);
-        $result = true;
-    } catch( \mysqli_sql_exception $e) {
-        if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-            throw new PedidoYaExistenteException("Ya existe el pedido {$pedido->id_pedido}");
+        try {
+            $conn->query($query);
+            $result = true;
+        } catch (\mysqli_sql_exception $e) {
+            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
+                throw new PedidoYaExistenteException("Ya existe el pedido {$pedido->id_pedido}");
+            }
         }
+
+        return $result;
     }
-    
-    return $result;
-    }
+
+
 
 
     public static function actualizaEstado($pedido)
@@ -239,7 +233,7 @@ class Pedido
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Pedido($fila['id_pedido'], $fila['id_user'], $fila['estado'], $fila['fecha']);
+                $result = new Pedido($fila['id_pedido'], $fila['id_user'], $fila['estado'], $fila['fecha'], $fila['total']);
             }
         } finally {
             if ($rs != null) {
@@ -249,7 +243,34 @@ class Pedido
         
         return $result;
     }
-
+    public static function crearDesdeArray($fila) {
+        $idPedido = $fila['id_pedido'];
+        $idUsuario = $fila['id_user'];
+        $estado = $fila['estado'];
+        $fecha = $fila['fecha'];
+        $total = $fila['total'];
+        // Aquí puedes incluir más campos si es necesario
+    
+        return new Pedido($idPedido, $idUsuario, $estado, $fecha, $total);
+    }
+    public static function getUltimoPedidoUsuario($id_usuario) {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        // Consulta SQL para obtener el último pedido del usuario
+        $query = "SELECT * FROM pedidos WHERE id_user = $id_usuario ORDER BY fecha DESC LIMIT 1";
+    
+        $rs = $conn->query($query);
+    
+        if ($rs && $rs->num_rows > 0) {
+            // Si se encontró un pedido, crear un objeto Pedido y devolverlo
+            $fila = $rs->fetch_assoc();
+            return Pedido::crearDesdeArray($fila);
+        } else {
+            // Si no se encontró ningún pedido, devolver null
+            return null;
+        }
+    }
+    
     public function guarda()
     {
         if (!$this->id_pedido) {
@@ -267,7 +288,7 @@ class Pedido
         }
 
         // Actualiza el precio total del pedido
-        if (!self::actualizaPrecioTotal($this->id_pedido, $this->precio)) {
+        if (!self::actualizaPrecioTotal($this->id_pedido, $this->total)) {
             // Manejar el caso en el que la actualización del precio total falla
             return false;
         }

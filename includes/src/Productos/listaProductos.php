@@ -32,10 +32,7 @@ function visualizaProducto($producto, $tipo = null)
     return $html;
 }
 ?>
-<?php
-
-
-    
+<?php  
 
     $tituloPagina = 'Características Producto';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
