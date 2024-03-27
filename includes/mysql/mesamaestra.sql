@@ -53,7 +53,9 @@ INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`)
 CREATE TABLE `pedidos` (
   `id_pedido` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL
+  `estado` varchar(255) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `total` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -115,7 +117,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `nombre`) VALUES
 (1, 'admin'),
-(2, 'user');
+(2, 'user'),
+(3, 'profesor');
 
 -- --------------------------------------------------------
 
@@ -123,9 +126,12 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `rolesusuario`
 --
 
-CREATE TABLE `rolesusuario` (
-  `usuario` int(11) NOT NULL,
-  `rol` int(11) NOT NULL
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `password` varchar(70) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `rolUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -139,20 +145,6 @@ INSERT INTO `rolesusuario` (`usuario`, `rol`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `nombreUsuario` varchar(30) NOT NULL,
-  `password` varchar(70) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
 
 INSERT INTO `usuarios` (`id`, `nombreUsuario`, `password`, `nombre`) VALUES
 (1, 'admin', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador'),
@@ -193,22 +185,18 @@ ALTER TABLE `productos`
 --
 -- Indices de la tabla `roles`
 --
+--
+-- Indices de la tabla `roles`
+--
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `rolesusuario`
---
-ALTER TABLE `rolesusuario`
-  ADD PRIMARY KEY (`usuario`,`rol`),
-  ADD KEY `rol` (`rol`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombreUsuario` (`nombreUsuario`);
+  ADD KEY `fk_rolUser` (`rolUser`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -224,19 +212,19 @@ ALTER TABLE `mensajes`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Restricciones para tablas volcadas

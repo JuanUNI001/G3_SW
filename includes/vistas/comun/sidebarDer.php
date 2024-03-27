@@ -11,6 +11,6 @@
     </div>
 
     <div class="sidebar-section" id="pedidos">
-        <p><a href="mostrarPedidiosAnteriores.php" target="_self">Pedidos anteriores</a></p>
+        <p><a href="/G3_SW/includes/vistas/helpers/mostrarPedidiosAnteriores.php" target="_self">Pedidos anteriores</a></p>
     </div>	
 </aside>

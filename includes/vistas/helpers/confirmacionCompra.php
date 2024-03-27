@@ -4,7 +4,7 @@ require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos_user\Pedidos_producto;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
-
+use \es\ucm\fdi\aw\src\productos\Producto;
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     // Redirige al usuario a la página de inicio de sesión si no ha iniciado sesión
     header('Location: /G3_SW/loginView.php');
@@ -23,11 +23,16 @@ $ultimoPedido = Pedido::getUltimoPedidoUsuario($id_usuario);
 if ($ultimoPedido) {
     // Mostrar mensaje de confirmación de compra
     $mensajeConfirmacion = "¡Compra realizada con éxito!";
+
+    $detallesProductos = Pedidos_producto::buscaPorIdPedido_Producto($ultimoPedido->getIdPedido());
+
     $listaProductos = '<ul>';
-    foreach ($detallesProductos as $detalle) {
-        $nombreProducto = $detalle->getNombreProducto(); // Asegúrate de tener este método en tu clase Pedidos_producto
-        $cantidadProducto = $detalle->getCantidad(); // Asegúrate de tener este método en tu clase Pedidos_producto
-        $listaProductos .= "<li>$nombreProducto - Cantidad: $cantidadProducto</li>";
+    foreach ($detallesProductos as $idProducto => $cantidad) {
+        $producto = Producto::buscaPorId($idProducto); // Suponiendo que tienes una clase Producto y un método buscaPorId para obtener el nombre del producto
+        if ($producto) {
+            $nombreProducto = $producto->getNombre();
+            $listaProductos .= "<li>$nombreProducto -> Cantidad: $cantidad</li>";
+        }
     }
     $listaProductos .= '</ul>';
 
