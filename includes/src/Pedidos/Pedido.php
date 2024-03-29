@@ -1,9 +1,9 @@
 <?php
 namespace es\ucm\fdi\aw\src\Pedidos;
-use es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\Productos\Producto;
+
 use \DateTime;
-
-
 
 class Pedido
 {  
@@ -137,6 +137,91 @@ class Pedido
         }
     }
     
+    public static function eliminarProducto($idPedido, $idProducto)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        // Obtener el precio del producto a eliminar
+        $producto = Producto::buscaPorId($idProducto);
+        if (!$producto) {
+            return false; // Producto no encontrado
+        }
+    
+        $precioProducto = $producto->getPrecio();
+    
+        // Obtener la cantidad del producto en el pedido
+        $query = sprintf("SELECT cantidad FROM pedidos_productos WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows === 1) {
+            $cantidad = $result->fetch_assoc()['cantidad'];
+            
+            // Eliminar el producto del pedido
+            $query = sprintf("DELETE FROM pedidos_productos WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+            $conn->query($query);
+    
+            // Verificar si no hay ningún artículo restante en el pedido
+            $query = sprintf("SELECT COUNT(*) AS num_articulos FROM pedidos_productos WHERE id_pedido = %d", $idPedido);
+            $result = $conn->query($query);
+            $numArticulos = $result->fetch_assoc()['num_articulos'];
+    
+            if ($numArticulos == 0) {
+                // No hay ningún artículo restante en el pedido, eliminar el pedido
+                $query = sprintf("DELETE FROM pedidos WHERE id_pedido = %d", $idPedido);
+                $conn->query($query);
+            }
+    
+            // Actualizar el precio total del pedido
+            $nuevoTotal = self::actualizaPrecioTotal($idPedido, -$precioProducto * $cantidad);
+    
+            return $nuevoTotal;
+        }
+    
+        return false; // No se encontró el producto en el pedido
+    }
+    
+
+    public static function actualizarCantidad($idPedido, $idProducto, $nuevaCantidad)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Verificar si la nueva cantidad es válida
+        if ($nuevaCantidad <= 0) {
+            return false; // Cantidad no válida
+        }
+
+        // Obtener el precio del producto
+        $producto = Producto::buscaPorId($idProducto);
+        if (!$producto) {
+            return false; // Producto no encontrado
+        }
+        $precioProducto = $producto->getPrecio();
+
+        // Obtener la cantidad actual del producto en el pedido
+        $query = sprintf("SELECT cantidad FROM pedidos_producto WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+        $result = $conn->query($query);
+
+        if ($result && $result->num_rows === 1) {
+            $cantidadActual = $result->fetch_assoc()['cantidad'];
+
+            // Calcular la diferencia en el total basada en la nueva cantidad
+            $diferenciaCantidad = $nuevaCantidad - $cantidadActual;
+            $diferenciaPrecioTotal = $diferenciaCantidad * $precioProducto;
+
+            // Actualizar la cantidad del producto en el pedido
+            $query = sprintf("UPDATE pedidos_producto SET cantidad = %d WHERE id_pedido = %d AND id_producto = %d", $nuevaCantidad, $idPedido, $idProducto);
+            $conn->query($query);
+
+            // Actualizar el precio total del pedido
+            $nuevoTotal = self::actualizaPrecioTotal($idPedido, $diferenciaPrecioTotal);
+
+            return $nuevoTotal;
+        }
+
+        return false; // No se encontró el producto en el pedido
+    }
+   
+
     public static function buscarPedidosPorUser($id_user)
     {
         $result[] = null;
@@ -336,24 +421,20 @@ class Pedido
         return $result;
     }
     
-    public static function actualizaPrecioTotal($id_pedido, $nuevo_precio_total)
+    public static function actualizarPrecioTotalPedido($idPedido, $ajustePrecioTotal)
     {
-        $result = false;
-
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE pedidos SET total = %f WHERE id_pedido = %d",
-            $nuevo_precio_total,
-            $id_pedido
-        );
+        
+        // Actualizar el precio total del pedido en la tabla 'pedidos'
+        $query = sprintf("UPDATE pedidos SET total = total + %f WHERE id_pedido = %d", $ajustePrecioTotal, $idPedido);
         $result = $conn->query($query);
+        
         if (!$result) {
             error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("Se han actualizado '$conn->affected_rows' filas!");
+            return false; // Error al ejecutar la consulta
         }
-
-        return $result;
+        
+        return true; // Éxito al actualizar el precio total del pedido
     }
 
     public static function actualizaFecha($pedido)

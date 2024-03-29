@@ -41,23 +41,29 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             $imagenPath = RUTA_IMGS . $producto->getImagen();
             $precioProducto = $producto->getPrecio();
             $precioTotal = $precioProducto * $cantidad;
-
+            $pedido = Pedido::buscaPorId($idPedido);
+            $total = $pedido->getPrecioTotal();
             // Construir el href con la URL proporcionada
-            $href = "/G3_SW/caracteristicaProducto.php?id_producto=" . $producto->getIdProducto();
-
-            // Agregar el enlace al contenido principal
+            $href = "/G3_SW/caracteristicaProducto.php?idProducto=" . $producto->getIdProducto();
+            $direccion_eliminar = '/G3_SW/includes/src/Pedidos/eliminar_producto.php?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;
+            $direccion_actualizar = '/G3_SW/includes/src/Pedidos/actualizar_cantidad.php?idPedido=' . $idPedido . '&idProducto=' . $idProducto . '&nuevaCantidad=';            // Agregar el enlace al contenido principal
             $contenidoPrincipal .= <<<EOF
-            <div class="producto_detalles">
-                <a href="$href">
-                    <img src="$imagenPath" alt="{$producto->getNombre()}" class="carrito_imagen">
-                </a>
-                <div>
-                    <p>{$producto->getNombre()}</p>
-                    <p>Cantidad: $cantidad</p>
-                    <p>Precio total: \$$precioTotal</p>
+                <div class="producto_detalles">
+                    <a href="$href">
+                        <img src="$imagenPath" alt="{$producto->getNombre()}" class="carrito_imagen">
+                    </a>
+                    <div>
+                        <p>{$producto->getNombre()}</p>
+                        <p>Cantidad: 
+                            <input type='number' id='cantidad_$idProducto' name='cantidad' value='$cantidad' min='1' style='width: 50px;'>
+                            {$producto->getPrecio()} €
+                        </p>
+                        <p>Total: {$precioTotal} €</p>
+                        <button onclick="window.location.href='$direccion_eliminar'">Eliminar</button>
+                        <button onclick="window.location.href='$direccion_actualizar' + document.getElementById('cantidad_$idProducto').value">Actualizar</button>
+                    </div>
                 </div>
-            </div>
-            <hr> <!-- Línea horizontal -->
+                <hr> <!-- Línea horizontal -->
             EOF;
         } 
         
@@ -68,7 +74,8 @@ $pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
 if ($pedido_carrito) {
     $contenidoPrincipal .= <<<EOF
     <div>
-        <button onclick="location.href='/G3_SW/includes/comprar.php'" type="button">Comprar</button>
+      
+        <button onclick="location.href='/G3_SW/includes/comprar.php'" type="button">Comprar</button>    Total compra: {$total} €
     </div>
     EOF;
 }
@@ -79,7 +86,7 @@ else{
     </div>
     EOF;
 }
-// Imprimir el contenido principal
+
 
 require_once 'vistas/comun/layout.php';
-?>
+?>    

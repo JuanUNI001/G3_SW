@@ -1,6 +1,8 @@
 <?php 
 namespace es\ucm\fdi\aw\src\Pedidos_user;
 use es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\Productos\Producto;
+use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 
 class Pedidos_producto
 {
@@ -142,7 +144,32 @@ class Pedidos_producto
         }
         return $result;
     }
+    public static function ajustarCantidadProducto($idPedido, $idProducto, $nuevaCantidad)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Obtener la cantidad anterior del producto en el pedido
+        $query = sprintf("SELECT cantidad FROM pedidos_productos WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+        $result = $conn->query($query);
+        
+        if ($result && $result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            $cantidadAnterior = $row['cantidad'];
+            
+            // Actualizar la cantidad del producto en el pedido
+            $query = sprintf("UPDATE pedidos_productos SET cantidad = %d WHERE id_pedido = %d AND id_producto = %d", $nuevaCantidad, $idPedido, $idProducto);
+            $conn->query($query);
+            
+            // Calcular la diferencia de cantidad
+            $diferenciaCantidad = $nuevaCantidad - $cantidadAnterior;
+            
+            return $diferenciaCantidad; // Devolver la diferencia en la cantidad
+        }
+        
+        return false; // No se pudo encontrar el producto en el pedido
+    }
 
+    
     public static function buscaPorIdProducto_Pedido($id_producto)
     {
         $result = null;

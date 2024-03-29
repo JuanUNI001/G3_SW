@@ -38,9 +38,9 @@
 
             // Verifica si hay stock del producto
             if ($producto->getCantidad() > 0) {
-                $contenidoPrincipal .= "<p class='stock verde'>En stock     ({$producto->getNumValoraciones()} unidades)</p>";
+                $contenidoPrincipal .= "<p class='stock verde'>En stock     ({$producto->getCantidad()} unidades)</p>";
             } else {
-                $contenidoPrincipal .= "<p class='stock rojo'>Sin stock     ({$producto->getNumValoraciones()} unidades) </p>";
+                $contenidoPrincipal .= "<p class='stock rojo'>Sin stock     ({$producto->getCantidad()} unidades) </p>";
             }
             
             if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
