@@ -123,7 +123,7 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rolesusuario`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -135,20 +135,14 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `rolesusuario`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `rolesusuario` (`usuario`, `rol`) VALUES
-(1, 1),
-(1, 2),
-(2, 2);
-
--- --------------------------------------------------------
-
-
-INSERT INTO `usuarios` (`id`, `nombreUsuario`, `password`, `nombre`) VALUES
+INSERT INTO `usuarios` (`id`, `rolUser`, `password`, `nombre`) VALUES
 (1, 'admin', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador'),
 (2, 'user', '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'Usuario');
+
+-- --------------------------------------------------------
 
 --
 -- Índices para tablas volcadas
@@ -250,13 +244,6 @@ ALTER TABLE `pedidos_productos`
   ADD CONSTRAINT `pedidos_productos_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
   ADD CONSTRAINT `pedidos_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
 
---
--- Filtros para la tabla `rolesusuario`
---
-ALTER TABLE `rolesusuario`
-  ADD CONSTRAINT `RolesUsuario_rol` FOREIGN KEY (`rol`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `RolesUsuario_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

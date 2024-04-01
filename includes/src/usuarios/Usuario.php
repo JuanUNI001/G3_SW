@@ -5,8 +5,6 @@ use es\ucm\fdi\aw\src\BD;
 class Usuario
 {
 
-    
-
     public const ADMIN_ROLE = 1;
 
     public const USER_ROLE = 2;
