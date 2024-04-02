@@ -172,7 +172,7 @@ class Pedido
             }
     
             // Actualizar el precio total del pedido
-            $nuevoTotal = self::actualizaPrecioTotal($idPedido, -$precioProducto * $cantidad);
+            $nuevoTotal = self::actualizarPrecioTotalPedido($idPedido, -$precioProducto * $cantidad);
     
             return $nuevoTotal;
         }
@@ -390,7 +390,7 @@ class Pedido
         }
 
         // Actualiza el precio total del pedido
-        if (!self::actualizaPrecioTotal($this->id_pedido, $this->total)) {
+        if (!self::actualizarPrecioTotalPedido($this->id_pedido, $this->total)) {
             // Manejar el caso en el que la actualización del precio total falla
             return false;
         }
