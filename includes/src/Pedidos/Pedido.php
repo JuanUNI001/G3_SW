@@ -359,7 +359,7 @@ class Pedido
         $conn = BD::getInstance()->getConexionBd();
     
         // Consulta SQL para obtener el último pedido del usuario
-        $query = "SELECT * FROM pedidos WHERE id_user = $id_usuario ORDER BY fecha DESC LIMIT 1";
+        $query = "SELECT * FROM pedidos WHERE id_user = $id_usuario ORDER BY id_pedido DESC LIMIT 1";
     
         $rs = $conn->query($query);
     
