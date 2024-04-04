@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `mensajes`
 --
 
-CREATE TABLE `mensajes` (
+CREATE TABLE IF NOT EXISTS `mensajes`  (
   `id` int(11) NOT NULL,
   `autor` int(11) NOT NULL,
   `mensaje` varchar(140) NOT NULL,
@@ -273,3 +273,73 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost
+-- Tiempo de generación: 26-03-2024 a las 13:23:08
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `mesamaestra`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `eventos`
+--
+
+CREATE TABLE `eventos` (
+  `idEvento` int(11) NOT NULL,
+  `inscritos` int(11) DEFAULT NULL,
+  `categoria` varchar(255) DEFAULT NULL,
+  `numJugadores` int(11) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `lugar` varchar(255) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `premio` varchar(255) DEFAULT NULL,
+  `ganador` varchar(255) DEFAULT NULL,
+  `tasaInscripcion` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`idEvento`, `inscritos`, `categoria`, `numJugadores`, `nombre`, `descripcion`, `fecha`, `lugar`, `estado`, `premio`, `ganador`, `tasaInscripcion`) VALUES
+(1, 10, 'Deportes', 50, 'Ajedrez', 'Torneo de ajedrez', '2024-04-10', 'Estadio Municipal', 'Abierto', 'Play station 5', NULL, 20.00),
+(2, 5, 'Cultura', 50, 'Quizz cultura general', 'Quizz y Concierto de jazz en vivo', '2024-05-15', 'Teatro Municipal', 'Abierto', 'Entradas VIP a Karol G', NULL, 10.00),
+(3, 50, 'Deportes', 100, 'Circo del Sol', 'Torneo de monopoli del circo del sol', '2024-06-20', 'Gran Carpa', 'Terminado', 'Switch', 'Juan Pérez', 50.00),
+(4, 8, 'Deportes', 40, 'En busca del tesoro', 'Ginkana por madrid', '2024-07-05', 'Plaza de Sol', 'Abierto', 'Premio en efectivo', NULL, 15.00);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`idEvento`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
