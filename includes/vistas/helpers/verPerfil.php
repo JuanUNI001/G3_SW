@@ -4,7 +4,8 @@ function mostrar_contenidoPerfil()
     $contenido;
     if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
 		//$nombre = $_SESSION['nombre'];
-		$nombre = "UserName";
+		$nombre =$_SESSION['nombre'];
+		
 		//$status = "Usuario corriente";
 		/*if($_SESSION['esAdmin']){
 			$status = "Administrador";
