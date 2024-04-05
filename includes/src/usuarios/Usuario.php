@@ -20,7 +20,7 @@ class Usuario
         return false;
     }
     
-    public static function crea($rolUser,$nombre, $password, $correo )
+    public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
         $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo);
         
@@ -36,7 +36,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['id'], $fila['avatar']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -54,7 +54,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],  $fila['id'],  $fila['avatar']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],  $fila['avatar'],  $fila['id']);
             }
             $rs->free();
         } else {
