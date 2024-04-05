@@ -2,11 +2,14 @@
     use \es\ucm\fdi\aw\src\Productos\Producto;
     require_once __DIR__.'/../../config.php';
     require_once __DIR__.'../../../../caracteristicaProducto.php';
+    $tituloPagina = 'Características Producto';
+    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+    $contenidoPrincipal = listaproductos();
 ?>
 <?php
 function listaproductos()
 {
-    $productos = Producto::listarProductoPrueba();
+    $productos = Producto::listarProducto();
 
     $html = "<div class='productos'>";
 
@@ -32,12 +35,5 @@ function visualizaProducto($producto, $tipo = null)
     return $html;
 }
 ?>
-<?php  
-
-    $tituloPagina = 'Características Producto';
-    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-    $contenidoPrincipal = listaproductos();
-
-?> 
 
 

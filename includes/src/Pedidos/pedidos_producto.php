@@ -1,8 +1,8 @@
 <?php 
-namespace es\ucm\fdi\aw\src\Pedidos_user;
+namespace es\ucm\fdi\aw\src\Pedidos;
 use es\ucm\fdi\aw\src\BD;
 use \es\ucm\fdi\aw\src\Productos\Producto;
-use \es\ucm\fdi\aw\src\Pedidos\Pedido;
+
 
 class Pedidos_producto
 {

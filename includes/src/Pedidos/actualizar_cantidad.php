@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__.'/../../config.php';
-use es\ucm\fdi\aw\src\Pedidos\Pedido;
+use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
+use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use es\ucm\fdi\aw\src\Productos\Producto;
-use es\ucm\fdi\aw\src\Pedidos_user\Pedidos_producto;
+
 
 // Verificar si se recibieron los datos esperados por GET
 if (isset($_GET['idPedido']) && isset($_GET['idProducto']) && isset($_GET['nuevaCantidad'])) {

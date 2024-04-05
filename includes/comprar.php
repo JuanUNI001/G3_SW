@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 
+use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
-use \es\ucm\fdi\aw\src\Pedidos_user\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Carrito\Carrito;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;

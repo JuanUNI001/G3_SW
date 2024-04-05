@@ -131,16 +131,21 @@ CREATE TABLE `usuarios` (
   `password` varchar(70) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
-  `rolUser` int(11) NOT NULL
+  `rolUser` int(11) NOT NULL,
+  `valoracion` float DEFAULT NULL,
+  `precio` float DEFAULT NULL,
+  `avatar` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
+INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valoracion`, `precio`, `avatar`) VALUES
+(1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, NULL),
+(2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, NULL),
+(3, '$2y$10$l2H/VbMmJMadMfOvL38rVO4rHkOw36S/BRhU4EYrRPwqWxwKn3PJ2', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 25.25, 'images/JoshTyler.png');
 
-INSERT INTO `usuarios` (`id`, `rolUser`, `password`, `nombre`) VALUES
-(1, 'admin', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador'),
-(2, 'user', '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'Usuario');
+
 
 -- --------------------------------------------------------
 
