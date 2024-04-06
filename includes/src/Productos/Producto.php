@@ -47,7 +47,7 @@ class Producto
         $m = new  es\ucm\fdi\aw\Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
     }
-    public static function listarProductoPrueba()
+    public static function listarProducto()
     {
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";

@@ -26,7 +26,12 @@
     margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
 }
 
-
+.carrito_imagen {
+    max-width: 25%; /* La imagen ocupará como máximo el 25% del ancho del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+    display: block; /* Evita espacio adicional debajo de la imagen */
+    margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+}
 .producto_nombre {
     text-align: center;
     margin-top: 5px;
@@ -41,7 +46,29 @@
     border: 1px solid transparent;
     border-radius: 4px;
 }
+/* Estilos para el contenedor de profesores */
+.profesor {
+    border: 1px solid #ccc; /* Borde del contenedor */
+    padding: 10px; /* Espacio interno del contenedor */
+    margin-bottom: 20px; /* Margen inferior entre profesores */
+    background-color: #f9f9f9; /* Color de fondo del contenedor */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
 
+/* Estilos para la imagen del profesor */
+.profesor_avatar {
+    width: 70px; /* Ancho de la imagen */
+    height: 70px; /* Altura de la imagen */
+    border-radius: 50%; /* Hacer la imagen redonda (puedes ajustar el porcentaje según tus necesidades) */
+    margin-right: 20px; /* Margen derecho para separar la imagen del contenido */
+    float: left; /* Flotar la imagen a la izquierda para que el contenido se alinee a su derecha */
+}
+
+/* Estilos para la información del profesor */
+.profesor_info {
+    overflow: hidden; /* Limpiar el float de la imagen */
+}
 /*****************************************/
 /* Estilos para la ventana modal */
 .modal {

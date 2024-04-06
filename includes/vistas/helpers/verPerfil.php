@@ -10,7 +10,7 @@ function mostrar_contenidoPerfil()
 		/*if($_SESSION['esAdmin']){
 			$status = "Administrador";
 		}*/
-		$status = $_SESSION['rol'];
+		$status = $_SESSION['rolUser'];
 		$correo = $_SESSION['correo'];
 		$direccion = 28005;
 		$contenido =<<<EOS

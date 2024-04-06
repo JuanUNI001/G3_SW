@@ -1,9 +1,9 @@
 <?php
 namespace es\ucm\fdi\aw\src\Pedidos;
-use es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\Productos\Producto;
+
 use \DateTime;
-
-
 
 class Pedido
 {  
@@ -16,26 +16,23 @@ class Pedido
 
     private $fecha;
 
-    private $precio;
+    private $total;
 
-    private function __construct($id_pedido, $id_user, $estado)
+    private function __construct($id_pedido, $id_user, $estado, $fecha, $total)
     {
-        $this->id_pedido = intval($id_pedido);
-        $this->id_user = intval($id_user);
+        $this->id_pedido = $id_pedido;
+        $this->id_user = $id_user;
         $this->estado = $estado;
-        $this->fecha = new \DateTime(); // Corregido aquí
-        $this->fecha = $this->fecha->format('Y-m-d H:i:s'); // Y aquí también
-        $this->id_pedido = $id_pedido !== null ? intval($id_pedido) : null;
-        $this->id_user = $id_user !== null ? intval($id_user) : null;
+        $this->fecha = $fecha;
+        $this->total = $total;
     }
 
-
-    public static function crea($id_pedido, $id_user, $estado)
+    public static function crea($id_pedido,$id_user, $estado, $total)
     {
-        $p = new Pedido($id_pedido, $id_user, $estado);
-        return $p;
+        $fechaActual = new DateTime();
+        $fechaFormateada = $fechaActual->format('Y-m-d');
+        return new Pedido($id_pedido, $id_user, $estado, $fechaFormateada, $total);
     }
-    
     public function getIdPedido()
     {
         return $this->id_pedido;
@@ -56,7 +53,7 @@ class Pedido
         return $this->fecha;
     }
     public function getPrecioTotal(){
-        return $this->precio;
+        return $this->total;
     }
     public function setId($id_pedido)
     {
@@ -73,7 +70,7 @@ class Pedido
         $this->estado = $nuevoEstado;
     }
     public function setPrecioTotal($nuevoPrecio){
-        $this->precio = $nuevoPrecio;
+        $this->total = $nuevoPrecio;
     }
     
     
@@ -109,22 +106,122 @@ class Pedido
 
         return $result;
     }
+    public static function buscarPedidosAnteriores($id_usuario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT * FROM pedidos WHERE estado = "comprado" AND id_user = %d', $id_usuario);
+        $result = $conn->query($query);
+
+        $pedidosAnteriores = array();
+
+        if ($result && $result->num_rows > 0) {
+            while ($pedido = $result->fetch_assoc()) {
+                $pedidosAnteriores[] = new Pedido($pedido['id_pedido'], $pedido['id_user'], $pedido['estado'], $pedido['fecha'], $pedido['total']);
+            }
+        }
+
+        return $pedidosAnteriores;
+    }
+
     public static function buscarPedidoPorEstadoUsuario($estado, $id_usuario)
     {
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM pedidos WHERE estado = "%s" AND id_user = %d', $estado, $id_usuario);
         $result = $conn->query($query);
-    
+
         if ($result && $result->num_rows > 0) {
-            // Si se encuentra un pedido en el estado y usuario especificados, devolver el primero encontrado
             $pedido = $result->fetch_assoc();
-            return Pedido::crea($pedido['id_pedido'], $pedido['id_user'], $pedido['estado']);
+            return new Pedido($pedido['id_pedido'], $pedido['id_user'], $pedido['estado'], $pedido['fecha'], $pedido['total']);
         } else {
-            // Si no se encuentra ningún pedido, devolver null
             return null;
         }
     }
     
+    public static function eliminarProducto($idPedido, $idProducto)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        // Obtener el precio del producto a eliminar
+        $producto = Producto::buscaPorId($idProducto);
+        if (!$producto) {
+            return false; // Producto no encontrado
+        }
+    
+        $precioProducto = $producto->getPrecio();
+    
+        // Obtener la cantidad del producto en el pedido
+        $query = sprintf("SELECT cantidad FROM pedidos_productos WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows === 1) {
+            $cantidad = $result->fetch_assoc()['cantidad'];
+            
+            // Eliminar el producto del pedido
+            $query = sprintf("DELETE FROM pedidos_productos WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+            $conn->query($query);
+    
+            // Verificar si no hay ningún artículo restante en el pedido
+            $query = sprintf("SELECT COUNT(*) AS num_articulos FROM pedidos_productos WHERE id_pedido = %d", $idPedido);
+            $result = $conn->query($query);
+            $numArticulos = $result->fetch_assoc()['num_articulos'];
+    
+            if ($numArticulos == 0) {
+                // No hay ningún artículo restante en el pedido, eliminar el pedido
+                $query = sprintf("DELETE FROM pedidos WHERE id_pedido = %d", $idPedido);
+                $conn->query($query);
+            }
+    
+            // Actualizar el precio total del pedido
+            $nuevoTotal = self::actualizarPrecioTotalPedido($idPedido, -$precioProducto * $cantidad);
+    
+            return $nuevoTotal;
+        }
+    
+        return false; // No se encontró el producto en el pedido
+    }
+    
+
+    public static function actualizarCantidad($idPedido, $idProducto, $nuevaCantidad)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Verificar si la nueva cantidad es válida
+        if ($nuevaCantidad <= 0) {
+            return false; // Cantidad no válida
+        }
+
+        // Obtener el precio del producto
+        $producto = Producto::buscaPorId($idProducto);
+        if (!$producto) {
+            return false; // Producto no encontrado
+        }
+        $precioProducto = $producto->getPrecio();
+
+        // Obtener la cantidad actual del producto en el pedido
+        $query = sprintf("SELECT cantidad FROM pedidos_producto WHERE id_pedido = %d AND id_producto = %d", $idPedido, $idProducto);
+        $result = $conn->query($query);
+
+        if ($result && $result->num_rows === 1) {
+            $cantidadActual = $result->fetch_assoc()['cantidad'];
+
+            // Calcular la diferencia en el total basada en la nueva cantidad
+            $diferenciaCantidad = $nuevaCantidad - $cantidadActual;
+            $diferenciaPrecioTotal = $diferenciaCantidad * $precioProducto;
+
+            // Actualizar la cantidad del producto en el pedido
+            $query = sprintf("UPDATE pedidos_producto SET cantidad = %d WHERE id_pedido = %d AND id_producto = %d", $nuevaCantidad, $idPedido, $idProducto);
+            $conn->query($query);
+
+            // Actualizar el precio total del pedido
+            $nuevoTotal = self::actualizaPrecioTotal($idPedido, $diferenciaPrecioTotal);
+
+            return $nuevoTotal;
+        }
+
+        return false; // No se encontró el producto en el pedido
+    }
+   
+
     public static function buscarPedidosPorUser($id_user)
     {
         $result[] = null;
@@ -180,32 +277,31 @@ class Pedido
 
     private static function inserta($pedido)
     {
-    $result = false;
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
 
-    $conn = BD::getInstance()->getConexionBd();
+        // Utiliza comillas simples para la fecha y no para el precio
+        $query = sprintf(
+            "INSERT INTO pedidos (id_user, estado, fecha, total) VALUES (%d, '%s', '%s', %f)",
+            $pedido->id_user,
+            $conn->real_escape_string($pedido->estado),
+            $pedido->fecha,
+            $pedido->total
+        );        
 
-    // Formatear la fecha correctamente
-    
-    $query = sprintf(
-    "INSERT INTO pedidos (id_pedido, id_user, estado, fecha) VALUES (%d, %d, '%s', '%s')",
-    $pedido->id_pedido,
-    $pedido->id_user,
-    $conn->real_escape_string($pedido->estado),
-    $pedido->fecha
-);
-
-
-    try {
-        $conn->query($query);
-        $result = true;
-    } catch( \mysqli_sql_exception $e) {
-        if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-            throw new PedidoYaExistenteException("Ya existe el pedido {$pedido->id_pedido}");
+        try {
+            $conn->query($query);
+            $result = true;
+        } catch (\mysqli_sql_exception $e) {
+            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
+                throw new PedidoYaExistenteException("Ya existe el pedido {$pedido->id_pedido}");
+            }
         }
+
+        return $result;
     }
-    
-    return $result;
-    }
+
+
 
 
     public static function actualizaEstado($pedido)
@@ -239,7 +335,7 @@ class Pedido
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Pedido($fila['id_pedido'], $fila['id_user'], $fila['estado'], $fila['fecha']);
+                $result = new Pedido($fila['id_pedido'], $fila['id_user'], $fila['estado'], $fila['fecha'], $fila['total']);
             }
         } finally {
             if ($rs != null) {
@@ -249,7 +345,34 @@ class Pedido
         
         return $result;
     }
-
+    public static function crearDesdeArray($fila) {
+        $idPedido = $fila['id_pedido'];
+        $idUsuario = $fila['id_user'];
+        $estado = $fila['estado'];
+        $fecha = $fila['fecha'];
+        $total = $fila['total'];
+        // Aquí puedes incluir más campos si es necesario
+    
+        return new Pedido($idPedido, $idUsuario, $estado, $fecha, $total);
+    }
+    public static function getUltimoPedidoUsuario($id_usuario) {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        // Consulta SQL para obtener el último pedido del usuario
+        $query = "SELECT * FROM pedidos WHERE id_user = $id_usuario ORDER BY id_pedido DESC LIMIT 1";
+    
+        $rs = $conn->query($query);
+    
+        if ($rs && $rs->num_rows > 0) {
+            // Si se encontró un pedido, crear un objeto Pedido y devolverlo
+            $fila = $rs->fetch_assoc();
+            return Pedido::crearDesdeArray($fila);
+        } else {
+            // Si no se encontró ningún pedido, devolver null
+            return null;
+        }
+    }
+    
     public function guarda()
     {
         if (!$this->id_pedido) {
@@ -267,7 +390,7 @@ class Pedido
         }
 
         // Actualiza el precio total del pedido
-        if (!self::actualizaPrecioTotal($this->id_pedido, $this->precio)) {
+        if (!self::actualizarPrecioTotalPedido($this->id_pedido, $this->total)) {
             // Manejar el caso en el que la actualización del precio total falla
             return false;
         }
@@ -298,24 +421,20 @@ class Pedido
         return $result;
     }
     
-    public static function actualizaPrecioTotal($id_pedido, $nuevo_precio_total)
+    public static function actualizarPrecioTotalPedido($idPedido, $ajustePrecioTotal)
     {
-        $result = false;
-
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE pedidos SET total = %f WHERE id_pedido = %d",
-            $nuevo_precio_total,
-            $id_pedido
-        );
+        
+        // Actualizar el precio total del pedido en la tabla 'pedidos'
+        $query = sprintf("UPDATE pedidos SET total = total + %f WHERE id_pedido = %d", $ajustePrecioTotal, $idPedido);
         $result = $conn->query($query);
+        
         if (!$result) {
             error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("Se han actualizado '$conn->affected_rows' filas!");
+            return false; // Error al ejecutar la consulta
         }
-
-        return $result;
+        
+        return true; // Éxito al actualizar el precio total del pedido
     }
 
     public static function actualizaFecha($pedido)

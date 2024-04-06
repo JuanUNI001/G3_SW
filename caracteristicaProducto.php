@@ -38,9 +38,9 @@
 
             // Verifica si hay stock del producto
             if ($producto->getCantidad() > 0) {
-                $contenidoPrincipal .= "<p class='stock verde'>En stock</p>";
+                $contenidoPrincipal .= "<p class='stock verde'>En stock     ({$producto->getCantidad()} unidades)</p>";
             } else {
-                $contenidoPrincipal .= "<p class='stock rojo'>Sin stock</p>";
+                $contenidoPrincipal .= "<p class='stock rojo'>Sin stock     ({$producto->getCantidad()} unidades) </p>";
             }
             
             if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
@@ -51,15 +51,15 @@
                     </form>
                 HTML;
             }
-
-            $contenidoPrincipal .=<<<EOF
-            <div class="editar_Producto">
-                <a href="/G3_SW/EditorProductoView.php?id_producto={$producto->getIdProducto()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
-                </a>   
-            </div>
-            EOF; 
-
+            if(isset($_SESSION["rol"]) === "admin"){
+                $contenidoPrincipal .=<<<EOF
+                <div class="editar_Producto">
+                    <a href="/G3_SW/EditorProductoView.php?id_producto={$producto->getIdProducto()}">
+                        <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                    </a>   
+                </div>
+                EOF; 
+            }
             $contenidoPrincipal .= "</div>";
 
         } else {

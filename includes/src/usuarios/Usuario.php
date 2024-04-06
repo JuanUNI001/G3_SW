@@ -5,11 +5,11 @@ use es\ucm\fdi\aw\src\BD;
 class Usuario
 {
 
-    
-
     public const ADMIN_ROLE = 1;
 
     public const USER_ROLE = 2;
+
+    public const TEACHER_ROLE = 3;
 
     public static function login($correo, $password)
     {
@@ -20,7 +20,7 @@ class Usuario
         return false;
     }
     
-    public static function crea($rolUser,$nombre, $password, $correo )
+    public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
         $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo);
         
@@ -36,7 +36,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -54,7 +54,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],  $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],  $fila['avatar'],  $fila['id']);
             }
             $rs->free();
         } else {
@@ -63,7 +63,7 @@ class Usuario
         return $result;
     }
     
-    private static function hashPassword($password)
+    protected static function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
@@ -129,11 +129,12 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE Usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s' WHERE U.id=%d"
             , $conn->$usuario->rolUser
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->correo)
+            , $conn->real_escape_string($usuario->avatar)
             , $usuario->id
         );
         if ( $conn->query($query) ) {
@@ -183,6 +184,22 @@ class Usuario
         return true;
     }
 
+    public function cambiaAvatar($nuevoAvatar)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $id = $this->getId();
+        $nuevoAvatar = $conn->real_escape_string($nuevoAvatar);
+        
+        $query = "UPDATE Usuarios SET avatar = '$nuevoAvatar' WHERE id = $id";
+
+        if ($conn->query($query)) {
+            return true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+    }
+
     private $id;
 
     private $rolUser;
@@ -191,17 +208,19 @@ class Usuario
 
     private $nombre;
 
-    private $roles;
-
     private $correo;
-    
-    private function __construct($rol,$nombre, $password, $correo,  $id = null)
+
+    private $avatar;//será la foto que el usuario puede incluir
+
+
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id = null)
     {
         $this->id = $id;
         $this->rolUser = $rol;
         $this->password = $password;
         $this->nombre = $nombre;
         $this->correo = $correo;
+        $this->avatar = $avatar;
     }
 
     public function getId()
@@ -218,14 +237,14 @@ class Usuario
     {
         return $this->nombre;
     }
-
-    
-
-    public function getRoles()
+    public function getCorreo()
     {
-        return $this->roles;
+        return $this->correo;
     }
-
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
     public function compruebaPassword($password)
     {
         $contra = $this->password;
