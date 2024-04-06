@@ -2,7 +2,7 @@
 
 require_once '../../config.php';
 
-require_once '../../Eventos/eventos.php';
+require_once '../../../includes/src/Eventos/eventos.php';
 
 
 
@@ -49,5 +49,5 @@ if(isset($_GET['id'])) {
 }
 
 
-require_once 'includes/vistas/comun/layout.php';
+require_once '../comun/layout.php';
 ?>

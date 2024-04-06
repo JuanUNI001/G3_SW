@@ -182,7 +182,7 @@ class Evento
         $result = null;
     
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM eventos P WHERE P.id = %d;', $idEvento); 
+        $query = sprintf('SELECT * FROM eventos E WHERE E.idEvento = %d;', $idEvento); 
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             
