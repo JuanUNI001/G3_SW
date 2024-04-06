@@ -1,6 +1,8 @@
 <?php 
 
+//namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw\src\BD;
+
 
 class Evento
 {
@@ -183,13 +185,21 @@ class Evento
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM eventos E WHERE E.idEvento = %d;', $idEvento); 
-        $rs = $conn->query($query);
-        if ($rs && $rs->num_rows == 1) {
-            
-            $rs->free();
+        $rs = null;
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Evento($fila['idEvento'],$fila['inscritos'],$fila['categoria'],$fila['numJugadores'], $fila['nombre'],$fila['descripcion'],$fila['fecha'],$fila['lugar'],$fila['estado'],$fila['premio'],$fila['ganador'],$fila['tasaInscripcion']);
+            }
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
         }
-        return $result;
+        return $result; 
     }
+
 
     public static function listarEventos()
     {
@@ -223,6 +233,37 @@ class Evento
         }
         return $eventos;
     }
+
+
+    public static function inscribirseEvento($idEvento) {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        // Verificar si el evento existe
+        $evento = Evento::buscaPorId($idEvento);
+        if (!$evento) {
+            return false;
+        }
+    
+        // Obtener el número actual de inscritos del evento
+        $inscritosActuales = $evento->getInscritos();
+    
+        // Incrementar el número de inscritos
+        $nuevosInscritos = $inscritosActuales + 1;
+    
+        // Actualizar el número de inscritos en la base de datos
+        $query = sprintf("UPDATE eventos SET inscritos = %d WHERE idEvento = %d", $nuevosInscritos, $idEvento);
+        $result = $conn->query($query);
+    
+        if ($result) {
+            return true; // La inscripción se realizó correctamente
+        } else {
+            return false; // Hubo un error al actualizar el número de inscritos
+        }
+
+    }
+    
+
+    
     
 
 }

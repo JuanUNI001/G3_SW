@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/config.php';
 require_once '../includes/vistas/helpers/autorizacion.php';
-require_once '../includes/src/Productos/productos.php';
+require_once '../includes/src/Eventos/eventos.php';
 
 verificaLogado(Utils::buildUrl('/login.php'));
 

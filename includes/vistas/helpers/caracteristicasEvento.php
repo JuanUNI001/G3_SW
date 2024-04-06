@@ -1,52 +1,88 @@
 <?php
 
 require_once '../../config.php';
-
 require_once '../../../includes/src/Eventos/eventos.php';
 
+$tituloPagina = 'Características Evento';
+$contenidoPrincipal ='';
+// Verifica si se ha proporcionado un ID de evento
 
-
-$tituloPagina = 'Evento';
-
-
-if(isset($_GET['id'])) {
     $idEvento = $_GET['id'];
 
+    // Busca el evento por su ID
     $evento = Evento::buscaPorId($idEvento);
 
-
+    // Verifica si se encontró el evento
     if ($evento) {
+        // Construye el HTML para mostrar los detalles del evento
+        $inscritos = $evento->getInscritos();
+        $cat = $evento->getCategoria();
+        $numJ = $evento->getNumJugadores();
+        $nom = $evento->getEvento();
+        $des = $evento->getDescripcion();
+        $fec = $evento->getFecha();
+        $lug = $evento->getLugar();
+        $est = $evento->getEstado();
+        $prem = $evento->getPremio();
+        $gan = $evento->getGanador();
+        $ins = $evento->getTasaInscripcion();
 
-        $contenidoPrincipal = '<div class="evento_detalles">';
-        $contenidoPrincipal .= '<h2>' . htmlspecialchars($evento->getNombre()) . '</h2>';
-        $contenidoPrincipal .= '<p>' . htmlspecialchars($evento->getDescripcion()) . '</p>';
-        $contenidoPrincipal .= '<ul>';
-        $contenidoPrincipal .= '<li><strong>Categoría:</strong> ' . htmlspecialchars($evento->getCategoria()) . '</li>';
-        $contenidoPrincipal .= '<li><strong>Fecha:</strong> ' . htmlspecialchars($evento->getFecha()) . '</li>';
-        $contenidoPrincipal .= '<li><strong>Lugar:</strong> ' . htmlspecialchars($evento->getLugar()) . '</li>';
-        $contenidoPrincipal .= '<li><strong>Estado:</strong> ';
- 
-        switch($evento->getEstado()) {
-            case 'Abierto':
-                $colorEstado = 'green';
-                break;
-            case 'Terminado':
-                $colorEstado = 'red';
-                break;
-            case 'Pendiente':
-            default:
-                $colorEstado = 'orange';
-                break;
+   
+
+        $contenidoPrincipal .= <<<EOF
+            <div class="evento">
+                <h2>{$nom}</h2>
+            </div>
+        EOF;
+
+        //inscripcion
+        if ($evento->getInscritos() < $evento->getNumJugadores()) {
         }
+
+        if ($evento->getEstado() == 'Terminado') {
+            $contenidoPrincipal .= "<p class='terminado'>Evento finalizado</p>";
+        } else {
+            $contenidoPrincipal .= "<p class='abierto'>Evento en curso...</p>";
+        }
+
+           
         
-        $contenidoPrincipal .= '<span style="color: ' . $colorEstado . ';">' . htmlspecialchars($evento->getEstado()) . '</span>';
-        $contenidoPrincipal .= '</li>';
-        $contenidoPrincipal .= '</ul>';
-        $contenidoPrincipal .= '</div>';
+        $contenidoPrincipal .= <<<EOF
+            <div class="Evento caracteristicas">
+                <p><strong>Descripción: </strong>{$des}</p>
+                <p><strong>Categoría:</strong> {$cat}</p>
+                <p><strong>Número de jugadores:</strong> {$numJ}</p>
+                <p><strong>Fecha:</strong> {$fec}</p>
+                <p><strong>Lugar:</strong> {$lug}</p>
+                <p><strong>Premio:</strong> {$prem}</p>
+                <p><strong>Tasa de inscripción:</strong> {$ins}€</p>
+            </div>
+        EOF;
+
+        if ($evento->getGanador()) {
+            $contenidoPrincipal .= "<h2><strong>GANADOR:</strong> {$evento->getGanador()}</h2>";
+        }
+
+
+        if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+            $contenidoPrincipal .= <<<EOF
+                <div class="Inscribirse">
+                    <a href="/G3_SW/EditorProductoView.php?id_producto={$evento->getEvento()}"></a>   
+                </div>
+            EOF;
+        }
+
+        if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin") {
+            $contenidoPrincipal .= <<<EOF
+                <div class="editarEvento">
+                    <a href="/G3_SW/EditorProductoView.php?id_producto={$evento->getId()}"></a>   
+                </div>
+            EOF;
+        }
+
     } else {
-        $contenidoPrincipal = 'Evento no encontrado.';
-    }
-}
+        $contenidoPrincipal .= 'Evento no encontrado.';
+    }  
 
 
 require_once '../comun/layout.php';
