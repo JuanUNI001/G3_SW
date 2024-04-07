@@ -10,7 +10,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header('Location: /G3_SW/loginView.php');
     exit();
 }
-
+$tituloPagina = 'Compra';
 $correo_usuario = $_SESSION['correo'];
 
 $usuario = Usuario::buscaUsuario($correo_usuario);
@@ -43,5 +43,6 @@ if ($ultimoPedido) {
     $mensajeConfirmacion = "No se encontraron pedidos para mostrar detalles.";
 }
 $contenidoPrincipal = $mensajeConfirmacion ;
-require_once __DIR__.'/../comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
 ?>

@@ -88,5 +88,6 @@ else{
 }
 
 
-require_once 'vistas/comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+        $app->generaVista('/plantillas/plantilla.php', $params);
 ?>    

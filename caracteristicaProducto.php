@@ -65,37 +65,10 @@
         } else {
             $contenidoPrincipal = 'Producto no encontrado.';
         }
-        require_once 'includes/vistas/comun/layout.php';
+        $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+        $app->generaVista('/plantillas/plantilla.php', $params);
     }
 
 ?>
 
-<?php if (isset($_GET['added']) && $_GET['added'] === 'true'): ?>
-    <!-- Agrega un contenedor para la ventana modal -->
-    <div id="myModal" class="modal" style="display: block;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="modal-message">Producto añadido correctamente al carrito.</p>
-        </div>
-    </div>
-<?php endif; ?>
-<?php if (isset($_GET['added']) && $_GET['added'] === 'false'): ?>
-    <!-- Agrega un contenedor para la ventana modal -->
-    <div id="myModal" class="modal" style="display: block;">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="modal-message">Producto sin la cantidad solicitada en stock.</p>
-        </div>
-    </div>
-<?php endif; ?>
-<!-- Scripts JavaScript -->
-<script>
-    // Obtener la ventana modal y el botón de cierre
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
 
-    // Cerrar la ventana modal cuando se hace clic en el botón de cierre
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-</script>

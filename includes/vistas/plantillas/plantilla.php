@@ -1,24 +1,28 @@
+<?php
+$params['app']->doInclude('/vistas/helpers/plantilla.php');
+$mensajes = mensajesPeticionAnterior();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title><?= $tituloPagina ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
-</head>
-<body> 
+    <title><?= $params['tituloPagina'] ?></title>
+	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" /></head>
+<body>
+<?= $mensajes ?>
 <div id="contenedor">
 <?php
-require(RUTA_VISTAS.'/cabecera.php');
-require(RUTA_VISTAS.'/sidebarIzq.php');
+$params['app']->doInclude('/vistas/comun/cabecera.php', $params);
+$params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
 ?>
 	<main>
 		<article>
-			<?= $contenidoPrincipal ?>
+			<?= $params['contenidoPrincipal'] ?>
 		</article>
 	</main>
 <?php
-require(RUTA_VISTAS.'/sidebarDer.php');
-require(RUTA_VISTAS.'/pie.php');
+$params['app']->doInclude('/vistas/comun/sidebarDer.php', $params);
+$params['app']->doInclude('/vistas/comun/pie.php', $params);
 ?>
 </div>
 </body>

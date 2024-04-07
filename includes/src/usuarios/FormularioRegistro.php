@@ -1,12 +1,15 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace es\ucm\fdi\aw\src\usuarios;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
 use \es\ucm\fdi\aw\src\usuarios\Profesor;
+use es\ucm\fdi\aw\src\Formulario;
+use es\ucm\fdi\aw\src\BD;
+
 
 class FormularioRegistro extends Formulario
 {
     public function __construct() {
-        parent::__construct('formRegistro', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formLogin', ['urlRedireccion' => BD::getInstance()->resuelve('/index.php')]);
     }
     
     protected function generaCamposFormulario(&$datos)

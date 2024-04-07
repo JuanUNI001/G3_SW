@@ -1,7 +1,7 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace es\ucm\fdi\aw\src\usuarios;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
-
+use es\ucm\fdi\aw\src\Formulario;
 class FormularioLogin extends Formulario
 {
     public function __construct() {

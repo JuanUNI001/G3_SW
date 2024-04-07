@@ -2,13 +2,17 @@
 
 //Inicio del procesamiento
 
-require_once 'includes/config.php';
+require_once __DIR__.'/includes/config.php';
 
-$tituloPagina = 'Pagina principal';
+$tituloPagina = 'MesaMaestra';
+$login = resuelve('/login.php');
 
 $contenidoPrincipal=<<<EOS
-<h1>Página principal</h1>
-	<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+  <h1>Página principal</h1>
+  <p> Aquí está el contenido público, visible para todos los usuarios. </p>
+  <a href="${login}">Login</a>
 EOS;
 
-require_once 'includes/vistas/comun/layout.php';
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);

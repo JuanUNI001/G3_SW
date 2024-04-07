@@ -2,13 +2,7 @@
 namespace es\ucm\fdi\aw\src\Productos;
 use \es\ucm\fdi\aw\src\BD;
 
-$bdDatosConexion = array(
-    'host' => BD_HOST,
-    'bd' => BD_NAME,
-    'user' => BD_USER,
-    'pass' => BD_PASS
-);
-BD::getInstance()->init($bdDatosConexion);
+
 class Producto
 {
     const MAX_SIZE = 500;

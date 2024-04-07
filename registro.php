@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$form = new \es\ucm\fdi\aw\FormularioRegistro();
+$form = new \es\ucm\fdi\aw\src\usuarios\FormularioRegistro();
 $htmlFormRegistro = $form->gestiona();
 
 $tituloPagina = 'Registro';

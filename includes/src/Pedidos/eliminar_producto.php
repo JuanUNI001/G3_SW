@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__.'/../../config.php';
 use es\ucm\fdi\aw\src\Pedidos\Pedido;
+use es\ucm\fdi\aw\src\BD;
+
+
+$app = BD::getInstance();
+
+
+
 
 // Verificar si se recibieron los datos esperados por GET
 if (isset($_GET['idPedido']) && isset($_GET['idProducto'])) {
@@ -15,22 +22,23 @@ if (isset($_GET['idPedido']) && isset($_GET['idProducto'])) {
 
         if ($nuevoTotal !== false) {
             // Éxito al eliminar el producto
+            $mensajes = ['Producto eliminado.'];
             
-            header('Location: /G3_SW/includes/carrito_usuario.php');
-            exit();
         } else {
             // Error al eliminar el producto
-            $contenidoPrincipal  =  "No se pudo eliminar el producto del pedido.";
+            $mensajes = ['No se pudo eliminar el producto del pedido.'];
         }
     } else {
         // No se proporcionaron ambos IDs
-        $contenidoPrincipal  =  "Se requieren el ID del pedido y el ID del producto para eliminar el producto del pedido.";
+        $mensajes = ['Se requieren el ID del pedido y el ID del producto para eliminar el producto del pedido.'];
     }
 } else {
     // Si no se recibieron los datos esperados por GET
-    $contenidoPrincipal = "No se recibieron los datos esperados por GET.";
+    $mensajes = ['Parece que algo ha ido mal :('];
 }
 
-require_once __DIR__.'/../../vistas/comun/layout.php';
-
+$app->putAtributoPeticion('mensajes', $mensajes);
+$url = resuelve('/includes/carrito_usuario.php');
+header("Location: $url");
+exit();
 ?>

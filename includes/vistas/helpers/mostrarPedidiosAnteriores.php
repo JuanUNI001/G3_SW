@@ -10,7 +10,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header('Location: /G3_SW/loginView.php');
     exit();
 }
-
+$tituloPagina = 'Pedidos anteriores';
 $correo_usuario = $_SESSION['correo'];
 
 $usuario = Usuario::buscaUsuario($correo_usuario);
@@ -51,5 +51,6 @@ if ($pedidosAnteriores) {
     $contenidoPrincipal = "No tienes pedidos anteriores :(";
 }
 
-require_once __DIR__.'/../comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+        $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
