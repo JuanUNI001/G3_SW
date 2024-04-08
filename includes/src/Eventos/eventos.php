@@ -1,6 +1,6 @@
 <?php 
 
-//namespace es\ucm\fdi\aw\src\Eventos;
+namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw\src\BD;
 
 
@@ -51,7 +51,7 @@ class Evento
     }
 
     public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion){
-        $NuevoEvento = new Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+        $NuevoEvento =new  es\ucm\fdi\aw\Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
         return $NuevoEvento;
 
     }

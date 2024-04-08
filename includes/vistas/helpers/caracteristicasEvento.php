@@ -1,5 +1,7 @@
 <?php
 
+use es\ucm\fdi\aw\src\Eventos\Evento;
+
 require_once '../../config.php';
 require_once '../../../includes/src/Eventos/eventos.php';
 

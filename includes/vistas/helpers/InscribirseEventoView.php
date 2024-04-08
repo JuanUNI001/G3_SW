@@ -1,30 +1,26 @@
 <?php
 
-require_once 'includes/config.php'; 
-use \es\ucm\fdi\aw\src\Eventos\evento;
-$form = new es\ucm\fdi\aw\FormularioInscripcion();
+require_once 'includes/config.php';
+use \es\ucm\fdi\aw\src\Eventos\Evento;
+use \es\ucm\fdi\aw\FormularioInscripcion;
 
 
-$tituloPagina = 'Inscriberse Evento';
 
-$id_producto = $_GET['idEvento'];
-$producto = Evento::buscaPorId($id_producto);
-$nombre = $producto->getNombre();
+$tituloPagina = 'Inscripción en Evento';
 
-$form->id = $id_producto;
-$form->nombre = $nombre;
-$form->precio = $producto->getPrecio();
-$form->descripcion = $producto->getDescripcion();
-$form->imagen = $producto->getImagen();
+$idEvento = $_GET['idEvento'];
+$evento = Evento::buscaPorId($idEvento);
+$nombreEvento = $evento->getEvento();
 
-$htmlFormLogin = $form->gestiona();
+// Asignamos los valores al formulario de inscripción
+$form->idEvento = $idEvento;
 
-$contenidoPrincipal=<<<EOS
-    <h1>
-        <p>Modificando datos de producto</p>
-        <p> $nombre</p>
-    </h1>
-    $htmlFormLogin
+$htmlFormulario = $form->gestiona();
+
+$contenidoPrincipal = <<<EOS
+    <h1>Inscripción en Evento</h1>
+    $htmlFormulario
 EOS;
 
 require_once 'includes/vistas/comun/layout.php';
+?>
