@@ -54,7 +54,7 @@
                     </form>
                 HTML;
             }
-            if(isset($_SESSION["rol"]) === "admin"){
+            //if(isset($_SESSION["rol"]) === "admin"){
                 $contenidoPrincipal .=<<<EOF
                 <div class="editar_Producto">
                     <a href="/G3_SW/EditorProductoView.php?id_producto={$producto->getIdProducto()}">
@@ -62,7 +62,7 @@
                     </a>   
                 </div>
                 EOF; 
-            }
+            //}
             $contenidoPrincipal .= "</div>";
 
         } else {

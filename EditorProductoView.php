@@ -2,7 +2,8 @@
 
 require_once 'includes/config.php'; 
 use \es\ucm\fdi\aw\src\Productos\Producto;
-$form = new es\ucm\fdi\aw\FormularioEdicion();
+
+$form = new es\ucm\fdi\aw\src\Productos\FormularioEdicionProducto();
 
 
 $tituloPagina = 'Editor Producto';

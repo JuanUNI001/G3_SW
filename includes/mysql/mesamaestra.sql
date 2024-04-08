@@ -143,7 +143,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valoracion`, `precio`, `avatar`) VALUES
 (1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, NULL),
 (2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, NULL),
-(4, 'juan', 'juan', 'juan', 1, NULL, NULL, NULL),
+(4, 'juan', 'juan', 'juan@gmail.com', 1, NULL, NULL, NULL),
 (3, '$2y$10$l2H/VbMmJMadMfOvL38rVO4rHkOw36S/BRhU4EYrRPwqWxwKn3PJ2', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 25.25, 'images/JoshTyler.png');
 
 

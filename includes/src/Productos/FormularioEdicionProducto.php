@@ -1,9 +1,11 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace es\ucm\fdi\aw\src\Productos;
 
-require_once 'includes/src/Productos/Producto.php';
+//require_once 'includes/src/Productos/Producto.php';
 
-class FormularioEdicion extends Formulario
+use es\ucm\fdi\aw\src\Formulario;
+
+class FormularioEdicionProducto extends Formulario
 {
     public $id;
     public $nombre;
@@ -17,13 +19,8 @@ class FormularioEdicion extends Formulario
     
     protected function generaCamposFormulario(&$datos)
     {
-        // Se reutiliza el nombre de usuario introducido previamente o se deja en blanco
-        /*$nombreProducto = $datos['nombreProducto'] ?? '';
-        $precio = $datos['precio'] ?? '';
-        $descripcion = $datos['descripcion'] ?? '';
-        $imagen = $datos['imagen'] ?? '';
-        $eliminar = 0;*/
 
+        $datos['id'] =  $this->id;
         $nombreProducto = $this->nombre;
         $precio = $this->precio;
         $descripcion = $this->descripcion;
@@ -73,6 +70,7 @@ class FormularioEdicion extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
+
         $this->errores = [];
         $nombreProducto = trim($datos['nombreProducto'] ?? '');
         $nombreProducto = filter_var($nombreProducto, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -98,29 +96,18 @@ class FormularioEdicion extends Formulario
             $this->errores['imagen'] = 'La imagen no puede estar vacía.';
         }
 
-        $eliminar = isset($_POST['eliminar']) && $_POST['eliminar'] === '1';
-
-        if (count($this->errores) === 0) {
-           /* $usuario = \es\ucm\fdi\aw\src\usuarios\Usuario::login($nombreUsuario, $password);
+        $eliminar = isset($_POST['eliminar']);
         
-            if (!$usuario) {
-                $this->errores[] = "El usuario o el password no coinciden";
-            } else {
-                $_SESSION['correo'] = $usuario->getCorreo();
-                $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['esAdmin'] = $usuario->tieneRol(\es\ucm\fdi\aw\src\usuarios\Usuario::ADMIN_ROLE);
-            }*/
-
-            /*if ($eliminar)
+        if (count($this->errores) === 0) {
+            if ($eliminar)
             {
-                Producto::elimina($id);
+                Producto::borraPorId($this->id);
             } else
             {
-                $prodActual = Producto::buscaPorId($id);
-                $producto = Producto::crea($id, $nombre, $precioNuevo, $descripcionNueva, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$prodActual->getCantidad());
-                Producto::actualiza($producto);
-            }*/
+                $prodActual = Producto::buscaPorId($this->id);
+                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$prodActual->getCantidad());
+                Producto::actualiza($nuevoProducto);
+            }
         }
     }
 }

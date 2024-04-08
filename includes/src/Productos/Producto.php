@@ -38,7 +38,7 @@ class Producto
     }
     public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $m = new  es\ucm\fdi\aw\Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
+        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
         return $m;
     }
     public static function listarProducto()
