@@ -8,4 +8,5 @@ $tituloPagina = 'Ver_Perfil';
 
 $contenidoPrincipal =  mostrar_contenidoPerfil();
 
-require_once 'includes/vistas/comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+        $app->generaVista('/plantillas/plantilla.php', $params);

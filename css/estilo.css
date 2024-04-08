@@ -190,3 +190,60 @@ button, a.boton {
 a.deshabilitado {
 	color: rgba(16, 16, 16, 0.3);
 }
+ul.dropdown, ul.dropdown-content {
+	list-style: none;
+}
+
+/* Oculta los submenus */
+ul.dropdown ul.dropdown-content {
+	display: none;
+}
+
+/* Muestra el menu 1 */
+ul.dropdown li.menu1:hover ul.dropdown-content {
+	display: block;
+}
+
+/* Muestra el menu 2 */
+ul.dropdown li.menu2:hover ul.dropdown-content {
+	display: block;
+}
+
+/* Muestra el menú en una única fila */
+
+ul.dropdown li {
+	display: inline-block;
+}
+
+/* Los menus se muestran sobre el contenido de la página */
+ul.dropdown ul.dropdown-content {
+	position: absolute;
+}
+
+/* Las entradas de los menús se muestran en bloque */
+ul.dropdown ul.dropdown-content li {
+	display: block;
+}
+
+/* Eliminacioń del indentado de las entradas de la lista */
+ul.dropdown ul.dropdown-content {
+	padding: 0px;
+}
+
+/* Espacio extra en las entradas del menú y borde */
+.dropdown li {
+	border: 1px solid black;
+	padding: 2px 4px;
+}
+
+/*
+ * - Submenús opacos
+ * - Tamaño mínimo
+ * - Sombra para el submenu
+ */
+.dropdown-content {
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 20px 16px;
+}

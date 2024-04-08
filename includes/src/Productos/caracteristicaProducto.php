@@ -1,13 +1,16 @@
 <?php
     // Incluye los archivos necesarios
-    require_once 'includes/config.php';
+    require_once __DIR__.'/../../config.php';
     use \es\ucm\fdi\aw\src\Productos\Producto;
 
     // Define el título de la página
     $tituloPagina = 'Características Producto';
 
     // Incluye el CSS necesario
-    echo '<link rel="stylesheet" type="text/css" href="css/imagenes.css">';
+    $rutaCSS = resuelve('/css/imagenes.css');
+
+// Imprimir la etiqueta link con la ruta al archivo CSS
+    echo '<link rel="stylesheet" type="text/css" href="' . $rutaCSS . '">';
 
     // Verifica si se ha proporcionado un ID de producto
     if(isset($_GET['id_producto'])) {

@@ -1,7 +1,6 @@
 <?php
     use \es\ucm\fdi\aw\src\usuarios\Profesor;
     require_once __DIR__.'/../../config.php';
-    require_once __DIR__.'../../../../caracteristicaProducto.php';
     $tituloPagina = 'Lista de Profesores';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
     $contenidoPrincipal = listaProfesores();

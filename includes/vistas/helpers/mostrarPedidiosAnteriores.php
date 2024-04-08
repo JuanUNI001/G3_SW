@@ -1,13 +1,16 @@
 <?php
 require_once __DIR__.'/../../config.php';
-
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
+function mostrar_pedidosAnteriores()
+{
+
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     // Redirige al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header('Location: /G3_SW/loginView.php');
+    $rutaLogin = resuelve('login.php');
+    header("Location: $rutaLogin");
     exit();
 }
 $tituloPagina = 'Pedidos anteriores';
@@ -50,7 +53,6 @@ if ($pedidosAnteriores) {
 } else {
     $contenidoPrincipal = "No tienes pedidos anteriores :(";
 }
+return $contenidoPrincipal;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
-        $app->generaVista('/plantillas/plantilla.php', $params);
-?>
+}
