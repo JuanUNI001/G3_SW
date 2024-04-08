@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.'/../../config.php';
-require_once __DIR__.'/../../src/usuarios/listaProfesores.php'; // Ruta al archivo que contiene la función para listar profesores
+require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/src/Profesores/listaProfesores.php';
 
 $tituloPagina = 'Lista de Profesores';
 
@@ -14,4 +14,6 @@ $contenidoPrincipal = <<<HTML
     </div>
 HTML;
 
-require_once __DIR__.'/../comun/layout.php'; // Incluye el layout común para mostrar la página
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
+?>

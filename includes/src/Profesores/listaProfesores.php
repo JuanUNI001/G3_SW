@@ -1,5 +1,5 @@
 <?php
-    use \es\ucm\fdi\aw\src\usuarios\Profesor;
+    use \es\ucm\fdi\aw\src\Profesores\Profesor;
     require_once __DIR__.'/../../config.php';
     $tituloPagina = 'Lista de Profesores';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
@@ -51,6 +51,16 @@ function visualizaProfesor($profesor) {
             </div>
         </div>
     EOF;
+
+        //if(isset($_SESSION["rol"]) === "admin"){
+            $html .=<<<EOF
+            <div class="editar_Profesor">
+                <a href="/G3_SW/EditorProfesorView.php?id_profesor={$profesor->getId()}">
+                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                </a>   
+            </div>
+            EOF; 
+        //}
 
     return $html;
 }

@@ -85,13 +85,15 @@ $contenidoPrincipal ='';
     
        // }
 
-        if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin") {
-            $contenidoPrincipal .= <<<EOF
-                <div class="editarEvento">
-                    <a href="/G3_SW/EditorEventoView.php?id={$evento->getId()}"></a>   
-                </div>
-            EOF;
-        }
+        //if(isset($_SESSION["rol"]) === "admin"){
+            $contenidoPrincipal .=<<<EOF
+            <div class="editar_Evento">
+                <a href="/G3_SW/EditorEventoView.php?id_evento={$evento->getId()}">
+                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                </a>   
+            </div>
+            EOF; 
+        //}
 
     } else {
         $contenidoPrincipal .= 'Evento no encontrado.';

@@ -1,9 +1,9 @@
 <?php
-namespace es\ucm\fdi\aw\src\Productos;
+namespace es\ucm\fdi\aw\src\Eventos;
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioEdicionProducto extends Formulario
+class FormularioEdicionEvento extends Formulario
 {
     public $id;
     public $nombre;

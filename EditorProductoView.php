@@ -5,9 +5,6 @@ use \es\ucm\fdi\aw\src\Productos\Producto;
 
 $form = new es\ucm\fdi\aw\src\Productos\FormularioEdicionProducto();
 
-
-$tituloPagina = 'Editor Producto';
-
 $id_producto = $_GET['id_producto'];
 $producto = Producto::buscaPorId($id_producto);
 $nombre = $producto->getNombre();
@@ -20,12 +17,11 @@ $form->imagen = $producto->getImagen();
 
 $htmlFormLogin = $form->gestiona();
 
-$contenidoPrincipal=<<<EOS
-    <h1>
-        <p>Modificando datos de producto</p>
-        <p> $nombre</p>
-    </h1>
+$tituloPagina = 'Editor producto';
+$contenidoPrincipal=<<<EOF
+  	<h1>Acceso al sistema</h1>
     $htmlFormLogin
-EOS;
+EOF;
 
-require_once 'includes/vistas/comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
+$app->generaVista('/plantillas/plantilla.php', $params);
