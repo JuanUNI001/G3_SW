@@ -139,6 +139,20 @@ input {
 	text-align: center;
 }
 
+.terminado {
+	color: #e61212;
+	background: #eeeded;
+	border: 1px solid rgb(0, 0, 0);
+	padding: 2px 6px;
+}
+
+.abierto {
+	color: #00a74b;
+	background: #eeeded;
+	border: 1px solid rgb(0, 0, 0);
+	padding: 2px 6px;
+}
+
 .mensajes input:checked + .mensaje {
 	display: none;
 }

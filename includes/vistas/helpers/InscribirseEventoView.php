@@ -1,6 +1,8 @@
 <?php
 
-require_once 'includes/config.php';
+
+require_once '../../config.php';
+
 use \es\ucm\fdi\aw\src\Eventos\Evento;
 use \es\ucm\fdi\aw\FormularioInscripcion;
 
@@ -8,7 +10,7 @@ use \es\ucm\fdi\aw\FormularioInscripcion;
 
 $tituloPagina = 'Inscripción en Evento';
 
-$idEvento = $_GET['idEvento'];
+$idEvento = $_GET['id'];
 $evento = Evento::buscaPorId($idEvento);
 $nombreEvento = $evento->getEvento();
 

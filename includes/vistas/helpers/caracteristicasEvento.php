@@ -1,9 +1,15 @@
 <?php
 
+//use es\ucm\fdi\aw\src\Eventos\Evento;
+
+//require_once '../../../includes/src/Eventos/eventos.php';
+
+//use es\ucm\fdi\aw\src\Eventos\Evento;
+
 use es\ucm\fdi\aw\src\Eventos\Evento;
 
 require_once '../../config.php';
-require_once '../../../includes/src/Eventos/eventos.php';
+
 
 $tituloPagina = 'Características Evento';
 $contenidoPrincipal ='';
@@ -53,11 +59,12 @@ $contenidoPrincipal ='';
             <div class="Evento caracteristicas">
                 <p><strong>Descripción: </strong>{$des}</p>
                 <p><strong>Categoría:</strong> {$cat}</p>
-                <p><strong>Número de jugadores:</strong> {$numJ}</p>
                 <p><strong>Fecha:</strong> {$fec}</p>
                 <p><strong>Lugar:</strong> {$lug}</p>
                 <p><strong>Premio:</strong> {$prem}</p>
                 <p><strong>Tasa de inscripción:</strong> {$ins}€</p>
+                <p><strong>Inscritos:</strong> {$inscritos} personas</p>
+                <p><strong>Aforo:</strong> {$numJ} </p>
             </div>
         EOF;
 
@@ -66,18 +73,21 @@ $contenidoPrincipal ='';
         }
 
 
-        if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
-            $contenidoPrincipal .= <<<EOF
-                <div class="Inscribirse">
-                    <a href="/G3_SW/EditorProductoView.php?id_producto={$evento->getEvento()}"></a>   
-                </div>
-            EOF;
-        }
+       // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+        $contenidoPrincipal .= <<<EOF
+        <div class="inscripcion">
+            <a href="/G3_SW/includes/vistas/helpers/InscribirseEventoView.php?id={$evento->getId()}">
+                <button type="submit">Inscribirse</button>
+            </a>
+        </div>
+     EOF;
+    
+       // }
 
         if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin") {
             $contenidoPrincipal .= <<<EOF
                 <div class="editarEvento">
-                    <a href="/G3_SW/EditorProductoView.php?id_producto={$evento->getId()}"></a>   
+                    <a href="/G3_SW/EditorEventoView.php?id={$evento->getId()}"></a>   
                 </div>
             EOF;
         }

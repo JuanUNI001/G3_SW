@@ -51,7 +51,7 @@ class Evento
     }
 
     public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion){
-        $NuevoEvento =new  es\ucm\fdi\aw\Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+        $NuevoEvento =new  es\ucm\fdi\aw\Evento\eventos($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
         return $NuevoEvento;
 
     }
@@ -238,26 +238,21 @@ class Evento
     public static function inscribirseEvento($idEvento) {
         $conn = BD::getInstance()->getConexionBd();
     
-        // Verificar si el evento existe
         $evento = Evento::buscaPorId($idEvento);
         if (!$evento) {
             return false;
         }
-    
-        // Obtener el número actual de inscritos del evento
         $inscritosActuales = $evento->getInscritos();
     
-        // Incrementar el número de inscritos
         $nuevosInscritos = $inscritosActuales + 1;
-    
-        // Actualizar el número de inscritos en la base de datos
+
         $query = sprintf("UPDATE eventos SET inscritos = %d WHERE idEvento = %d", $nuevosInscritos, $idEvento);
         $result = $conn->query($query);
     
         if ($result) {
-            return true; // La inscripción se realizó correctamente
+            return true; 
         } else {
-            return false; // Hubo un error al actualizar el número de inscritos
+            return false; 
         }
 
     }
