@@ -2,11 +2,12 @@
 
 //use es\ucm\fdi\aw\src\Eventos\Evento;
 
-//require_once '../../../includes/src/Eventos/eventos.php';
+require_once '../../../includes/src/Eventos/eventos.php';
 
 //use es\ucm\fdi\aw\src\Eventos\Evento;
 
 use es\ucm\fdi\aw\src\Eventos\Evento;
+//use es\ucm\fdi\aw\FormularioInscripcion;
 
 require_once '../../config.php';
 
