@@ -1,6 +1,7 @@
 <?php
 
 require_once 'includes/config.php'; 
+
 use \es\ucm\fdi\aw\src\Eventos\Evento;
 
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioEdicionEvento();
@@ -11,9 +12,14 @@ $nombre = $Evento->getNombre();
 
 $form->id = $id_Evento;
 $form->nombre = $nombre;
-$form->precio = $Evento->getPrecio();
 $form->descripcion = $Evento->getDescripcion();
-$form->imagen = $Evento->getImagen();
+$form->categoria = $Evento->getCategoria();
+$form->fecha = $Evento->getFecha();
+$form->lugar = $Evento->getLugar();
+$form->premio = $Evento->getPremio();
+$form->tasa = $Evento->getTasaInscripcion();
+$form->inscritos = $Evento->getInscritos();
+$form->aforo = 0;
 
 $htmlFormLogin = $form->gestiona();
 

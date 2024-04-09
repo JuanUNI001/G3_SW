@@ -98,14 +98,14 @@ class FormularioRegistro extends Formulario
     
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$nombre || mb_strlen($nombre) < 5) {
-            $this->errores['nombre'] = 'El nombre tiene que tener una longitud de al menos 5 caracteres.';
+        if (!$nombre || mb_strlen($nombre) < 3) {
+            $this->errores['nombre'] = 'El nombre tiene que tener una longitud de al menos 3 caracteres.';
         }
     
         $password = trim($datos['password'] ?? '');
         $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$password || mb_strlen($password) < 5) {
-            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+        if (!$password || mb_strlen($password) < 3) {
+            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 3 caracteres.';
         }
     
         $password2 = trim($datos['password2'] ?? '');
@@ -139,7 +139,8 @@ class FormularioRegistro extends Formulario
                     }
                 } else {
                     // Si no, creamos un Usuario normal
-                    $usuario = Usuario::crea($rolUser, $nombre, $password, $correo, Usuario::USER_ROLE, null);
+                    //$usuario = Usuario::crea($rolUser, $nombre, $password, $correo, Usuario::USER_ROLE, null);
+                    $usuario = Usuario::crea($rolUser, $nombre, $password, $correo, null);
                     if (!$usuario) {
                         // Error al crear el usuario
                         $this->errores[] = "Hubo un error al crear el usuario. Por favor, inténtalo de nuevo.";

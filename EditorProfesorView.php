@@ -11,9 +11,6 @@ $nombre = $Profesor->getNombre();
 
 $form->id = $id_Profesor;
 $form->nombre = $nombre;
-$form->precio = $Profesor->getPrecio();
-$form->descripcion = $Profesor->getDescripcion();
-$form->imagen = $Profesor->getImagen();
 
 $htmlFormLogin = $form->gestiona();
 

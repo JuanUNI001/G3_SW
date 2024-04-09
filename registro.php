@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
+require_once 'includes/config.php';
 
 $form = new \es\ucm\fdi\aw\src\usuarios\FormularioRegistro();
 $htmlFormRegistro = $form->gestiona();
@@ -12,4 +12,6 @@ $contenidoPrincipal = <<<EOS
 $htmlFormRegistro
 EOS;
 
-require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
+$app->generaVista('/plantillas/plantilla.php', $params);

@@ -9,17 +9,19 @@ class Profesor extends Usuario
     private $valoracion;
     private $precio;
     private $categoria;
+    private $anunciable;
+
     public function __construct($rol, $nombre, $password, $correo,  $precio,$valoracion, $avatar,$id = null)
     {
         parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
-       
+        $this->anunciable = true;
     }
-    public static function creaProfesor($nombre, $password, $correo, $precio)
+    public static function creaProfesor($nombre, $password, $correo, $precio, $valoracion = null, $id = null)
     {
-        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, null, null);
+        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $valoracion, $id);
         $guardado = $user->guarda();
         if ($guardado) {
             $user->actualizaPrecio($precio);
@@ -39,7 +41,6 @@ class Profesor extends Usuario
     {
         return $this->categoria;
     }
-
 
 
     public function actualizaPrecio($nuevoPrecio)
@@ -81,6 +82,24 @@ class Profesor extends Usuario
             $rs->free();
         }
         return $profesores;
+    }
+
+    //El profesor se puede anunciar en la plataforma o esta baneado
+    public function GetAnunciable()
+    {
+        return $this->anunciable;
+    }
+
+    //El profesor se puede anunciar en la plataforma
+    public function SetAnunciableTrue()
+    {
+        $this->anunciable = true;
+    }
+
+    //El profesor no se puede anunciar en la plataforma
+    public function SetAnunciableFalse()
+    {
+        $this->anunciable = false;
     }
 }
 

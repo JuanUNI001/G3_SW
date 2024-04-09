@@ -2,7 +2,7 @@
 
 //use es\ucm\fdi\aw\src\Eventos\Evento;
 
-require_once '../../../includes/src/Eventos/eventos.php';
+require_once '../../../includes/src/Eventos/Evento.php';
 
 //use es\ucm\fdi\aw\src\Eventos\Evento;
 

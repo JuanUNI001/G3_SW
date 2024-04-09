@@ -1,8 +1,8 @@
 <?php
 
     use es\ucm\fdi\aw\src\Eventos\Evento;
-    use \es\ucm\fdi\aw\src\Eventos\eventos;
-    require_once __DIR__.'/eventos.php';
+    //use \es\ucm\fdi\aw\src\Eventos\eventos;
+    require_once __DIR__.'/Evento.php';
     require_once __DIR__.'/../../config.php';
    
 

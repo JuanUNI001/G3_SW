@@ -64,6 +64,11 @@ class Evento
     {
         return $this->nombre;
     }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
     
     public function getCategoria()
     {
@@ -101,7 +106,10 @@ class Evento
     }
 
     public function getGanador(){
-        return $this->ganador;
+        return $this->ganador;  
+    }
+    public function getAforo(){
+        return $this->afor;
     }
 
     public function getTasaInscripcion(){
