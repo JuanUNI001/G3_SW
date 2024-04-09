@@ -49,7 +49,7 @@ class Profesor extends Usuario
         $idProfesor = $this->getId(); // Llamo a getId para coger el id de Usuario
         $nuevoPrecio = $conn->real_escape_string($nuevoPrecio);
         
-        $query = "UPDATE Usuarios SET precio = '$nuevoPrecio' WHERE id = $idProfesor";
+        $query = "UPDATE usuarios SET precio = '$nuevoPrecio' WHERE id = $idProfesor";
 
         if ($conn->query($query)) {
             return true;
@@ -61,25 +61,25 @@ class Profesor extends Usuario
     public static function listarProfesores()
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT * FROM Usuarios WHERE rolUser = " . self::TEACHER_ROLE;
-        
+        $query = "SELECT * FROM usuarios WHERE rolUser = ".self::TEACHER_ROLE;
+         
         $rs = $conn->query($query);
         $profesores = array(); 
         if ($rs) {
-            while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor(      
-                    $fila['rolUser'],         
-                    $fila['nombre'],   
-                    $fila['password'],                 
-                    $fila['correo'],
-                    $fila['precio'],   
-                    $fila['valoracion'],   
-                    $fila['avatar'],                                       
-                    $fila['id']
-                );
-                $profesores[] = $profesor; 
-            }
-            $rs->free();
+        while ($fila = $rs->fetch_assoc()) {
+        $profesor = new Profesor(      
+        $fila['rolUser'],         
+        $fila['nombre'],   
+        $fila['password'],
+        $fila['correo'],
+        $fila['precio'],   
+        $fila['valoracion'],   
+        $fila['avatar'],
+        $fila['id']
+        );
+        $profesores[] = $profesor; 
+        }
+        $rs->free();
         }
         return $profesores;
     }

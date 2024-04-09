@@ -2,7 +2,7 @@
     // Incluye los archivos necesarios
     require_once __DIR__.'/../../config.php';
     use \es\ucm\fdi\aw\src\Productos\Producto;
-
+    use \es\ucm\fdi\aw\src\BD;
     // Define el título de la página
     $tituloPagina = 'Características Producto';
 
@@ -46,14 +46,18 @@
                 $contenidoPrincipal .= "<p class='stock rojo'>Sin stock     ({$producto->getCantidad()} unidades) </p>";
             }
             
-            if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
+           
+            if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+                $direccion = resuelve("/includes/agregar_al_carrito.php");
                 $contenidoPrincipal .= <<<HTML
-                    <form action='/G3_SW/includes/agregar_al_carrito.php' method='post'>
+                    <form action='$direccion' method='post'>
                         <p>Cantidad: <input type='number' id='cantidad' name='cantidad' value='1' min='1' style='width: 50px;'>
                         <input type='hidden' name='id_producto' value='$id_producto'> <input type='submit' value='Agregar al carrito'></p>
                     </form>
                 HTML;
             }
+
+
             //if(isset($_SESSION["rol"]) === "admin"){
                 $contenidoPrincipal .=<<<EOF
                 <div class="editar_Producto">

@@ -1,7 +1,7 @@
 <?php
 
 use es\ucm\fdi\aw\src\BD;
-use es\ucm\fdi\aw\src\usuarios\FormularioLogout;
+use es\ucm\fdi\aw\src\Usuarios\FormularioLogout;
 
 function mostrarSaludo()
 {

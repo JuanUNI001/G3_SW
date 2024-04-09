@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw\src\usuarios;
+namespace es\ucm\fdi\aw\src\Usuarios;
 use es\ucm\fdi\aw\src\BD;
 
 class Usuario
@@ -30,7 +30,7 @@ class Usuario
     public static function buscaUsuario($correo)
     {
         $conn = \es\ucm\fdi\aw\src\BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
+        $query = sprintf("SELECT * FROM usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -48,7 +48,7 @@ class Usuario
     public static function buscaPorId($idUsuario)
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios WHERE id=%d", $idUsuario);
+        $query = sprintf("SELECT * FROM usuarios WHERE id=%d", $idUsuario);
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -87,7 +87,7 @@ class Usuario
             $password = $conn->real_escape_string($usuario->password);
             $correo = $conn->real_escape_string($usuario->correo);
             
-            $query = "INSERT INTO Usuarios(rolUser, nombre, password, correo) VALUES ('$rolUser', '$nombre', '$password', '$correo')";
+            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo) VALUES ('$rolUser', '$nombre', '$password', '$correo')";
             
             if ($conn->query($query)) {
                 $usuario->id = $conn->insert_id;
@@ -129,7 +129,7 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s' WHERE U.id=%d"
             , $conn->$usuario->rolUser
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
@@ -147,18 +147,7 @@ class Usuario
         return $result;
     }
    
-    private static function borraRoles($usuario)
-    {
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM RolesUsuario RU WHERE RU.usuario = %d"
-            , $usuario->id
-        );
-        if ( ! $conn->query($query) ) {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
-        return $usuario;
-    }
+    
     
     private static function borra($usuario)
     {
@@ -174,7 +163,7 @@ class Usuario
          * $result = self::borraRoles($usuario) !== false;
          */
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Usuarios U WHERE U.id = %d"
+        $query = sprintf("DELETE FROM usuarios U WHERE U.id = %d"
             , $idUsuario
         );
         if ( ! $conn->query($query) ) {
@@ -190,7 +179,7 @@ class Usuario
         $id = $this->getId();
         $nuevoAvatar = $conn->real_escape_string($nuevoAvatar);
         
-        $query = "UPDATE Usuarios SET avatar = '$nuevoAvatar' WHERE id = $id";
+        $query = "UPDATE usuarios SET avatar = '$nuevoAvatar' WHERE id = $id";
 
         if ($conn->query($query)) {
             return true;

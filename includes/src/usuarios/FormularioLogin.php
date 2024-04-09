@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw\src\usuarios;
+namespace es\ucm\fdi\aw\src\Usuarios;
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
 use es\ucm\fdi\aw\src\Formulario;
 class FormularioLogin extends Formulario

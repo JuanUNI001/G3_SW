@@ -3,11 +3,11 @@ require_once __DIR__.'/../../config.php';
 
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\productos\Producto;
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    // Redirige al usuario a la página de inicio de sesión si no ha iniciado sesión
-    header('Location: /G3_SW/loginView.php');
+    $dir = resuelve('/login.php');
+    header("Location: $dir");
     exit();
 }
 $tituloPagina = 'Compra';
