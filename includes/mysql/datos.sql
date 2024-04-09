@@ -38,7 +38,7 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valoracion`, `precio`, `avatar`) VALUES
 (1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, NULL),
 (2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, NULL),
-(3, '$2y$10$l2H/VbMmJMadMfOvL38rVO4rHkOw36S/BRhU4EYrRPwqWxwKn3PJ2', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 25.25, 'images/JoshTyler.png');
+(50, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 34.55, 'images/JoshTyler.png');
 
 --
 -- Volcado de datos para la tabla `eventos`
