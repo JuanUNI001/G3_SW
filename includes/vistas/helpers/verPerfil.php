@@ -1,40 +1,39 @@
 <?php
+
+use \es\ucm\fdi\aw\src\usuarios\Usuario;
+
 function mostrar_contenidoPerfil()
 {
     $contenido;
     if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-		//$nombre = $_SESSION['nombre'];
-		$nombre =$_SESSION['nombre'];
+
+		$correo_usuario = $_SESSION['correo'];
+		$usuario = Usuario::buscaUsuario($correo_usuario);
+		$nombre = $usuario->getNombre();
+		$rol = Usuario::rolUsuario($usuario);
+		//$rol = $usuario->getrolUser();
+		$avatar = $usuario->getAvatar() ? (RUTA_IMGS . $usuario->getAvatar()) : (RUTA_IMGS . 'images/avatarPorDefecto.png');
 		
-		//$status = "Usuario corriente";
-		/*if($_SESSION['esAdmin']){
-			$status = "Administrador";
-		}*/
-		$status = $_SESSION['rolUser'];
-		$correo = $_SESSION['correo'];
 		$direccion = 28005;
 		$contenido =<<<EOS
 		<section>
+		<img src = $avatar width="140" height="140"> </img>
 		<h2> Informacion sobre mi perfil</h2>
 			<article>
-			<h3>Nombre de usuario:</h3>
-			<p>$nombre.</p>
+				<h3>Nombre de usuario:</h3>
+				<p>$nombre.</p>
 			</article>
 
 			<article>
-				<h3>Tipo de usuario:</h3>
-				<p>$status.</p>
+				<h3>Rol de usuario:</h3>
+				<p>$rol.</p>
 			</article>
 
 			<article>
 				<h3>Correo electrónico:</h3>
-				<p>$correo.</p>
+				<p>$correo_usuario.</p>
 			</article>
 			
-			<article>
-				<h3>Dirección postal:</h3>
-				<p>$direccion.</p>
-			</article>
 		</section>
 		EOS;
 	} else {

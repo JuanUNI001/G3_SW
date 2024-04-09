@@ -1,16 +1,100 @@
 <?php
 require_once __DIR__ . '/../../traits/MagicProperties.php'; 
+namespace es\ucm\fdi\aw\src\mensajes\bd;
+use \es\ucm\fdi\aw\src\BD;
 
 class Mensaje
 {
-   
-
     public const MAX_SIZE = 140;
 
-    public static function crea($idAutor, $mensaje, $respuestaAMensaje = null)
+    private const DATE_FORMAT = 'Y-m-d H:i:s';
+
+    private $id;
+
+    private $idEmisor;
+
+    private $idDestinatario;
+
+    private $es_privado;
+
+    //private $idMensajePadre;
+
+    private $mensaje;
+
+    private $fechaHora;
+
+    private $mensajePadre;
+
+    private function __construct($idEmisor, $mensaje, $fechaHora = null, $idMensajePadre = null, $id = null)
     {
-        $m = new Mensaje($idAutor, $mensaje, date('Y-m-d H:i:s'), $respuestaAMensaje);
+        $this->idAutor = intval($idEmisor);
+
+        $this->mensaje = $mensaje;
+        $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
+        $this->idMensajePadre = $idMensajePadre !== null ? intval($idMensajePadre) : null;
+        $this->id = $id !== null ? intval($id) : null;
+    }
+
+    public static function crea($idEmisor, $mensaje, $respuestaAMensaje = null)
+    {
+        $m = new Mensaje($idEmisor, $mensaje, date('Y-m-d H:i:s'), $respuestaAMensaje);
         return $m;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIdAutor()
+    {
+        return $this->idAutor;
+    }
+
+    public function getAutor()
+    {
+        if ($this->idAutor) {
+            $this->autor = Usuario::buscaPorId($this->idAutor);
+        }
+        return $this->autor;
+    }
+
+    public function setAutor($nuevoAutor)
+    {
+        $this->autor = $nuevoAutor;
+        $this->idAutor = $nuevoAutor->id;
+    }
+
+    public function getMensaje()
+    {
+        return $this->mensaje;
+    }
+
+    public function setMensaje($nuevoMensaje)
+    {
+        if (mb_strlen($nuevoMensaje) > self::MAX_SIZE) {
+            throw new Exception(sprintf('El mensaje no puede exceder los %d caracteres', self::MAX_SIZE));
+        }
+        $this->mensaje = $nuevoMensaje;
+    }
+
+    public function getFechaYHora()
+    {
+        return $this->fechaHora?->format(self::DATE_FORMAT);
+    }
+
+    public function getMensajePadre()
+    {
+        if ($this->idMensajePadre) {
+            $this->mensajePadre = self::buscaPorId($this->idMensajePadre);
+        }
+        return $this->mensajePadre;
+    }
+
+    public function setMensajePadre($nuevoMensajePadre)
+    {
+        $this->mensajePadre = $nuevoMensajePadre;
+        $this->idMensajePadre = $nuevoMensajePadre->id;
     }
 
     public static function buscaPorMensajePadre($idMensajePadre = null)
@@ -222,86 +306,7 @@ class Mensaje
         return $result;
     }
 
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
-
-    private $id;
-
-    private $idAutor;
-
-    private $autor;
-
-    private $mensaje;
-
-    private $fechaHora;
-
-    private $idMensajePadre;
-
-    private $mensajePadre;
-
-    private function __construct($idAutor, $mensaje, $fechaHora = null, $idMensajePadre = null, $id = null)
-    {
-        $this->idAutor = intval($idAutor);
-        $this->mensaje = $mensaje;
-        $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
-        $this->idMensajePadre = $idMensajePadre !== null ? intval($idMensajePadre) : null;
-        $this->id = $id !== null ? intval($id) : null;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIdAutor()
-    {
-        return $this->idAutor;
-    }
-
-    public function getAutor()
-    {
-        if ($this->idAutor) {
-            $this->autor = Usuario::buscaPorId($this->idAutor);
-        }
-        return $this->autor;
-    }
-
-    public function setAutor($nuevoAutor)
-    {
-        $this->autor = $nuevoAutor;
-        $this->idAutor = $nuevoAutor->id;
-    }
-
-    public function getMensaje()
-    {
-        return $this->mensaje;
-    }
-
-    public function setMensaje($nuevoMensaje)
-    {
-        if (mb_strlen($nuevoMensaje) > self::MAX_SIZE) {
-            throw new Exception(sprintf('El mensaje no puede exceder los %d caracteres', self::MAX_SIZE));
-        }
-        $this->mensaje = $nuevoMensaje;
-    }
-
-    public function getFechaYHora()
-    {
-        return $this->fechaHora?->format(self::DATE_FORMAT);
-    }
-
-    public function getMensajePadre()
-    {
-        if ($this->idMensajePadre) {
-            $this->mensajePadre = self::buscaPorId($this->idMensajePadre);
-        }
-        return $this->mensajePadre;
-    }
-
-    public function setMensajePadre($nuevoMensajePadre)
-    {
-        $this->mensajePadre = $nuevoMensajePadre;
-        $this->idMensajePadre = $nuevoMensajePadre->id;
-    }
+    
 
     public function guarda()
     {
