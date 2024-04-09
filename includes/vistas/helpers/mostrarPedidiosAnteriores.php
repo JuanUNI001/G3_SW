@@ -2,7 +2,7 @@
 require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 function mostrar_pedidosAnteriores()
 {

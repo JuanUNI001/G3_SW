@@ -1,7 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\src\usuarios;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
-use \es\ucm\fdi\aw\src\usuarios\Profesor;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Profesores\Profesor;
 use es\ucm\fdi\aw\src\Formulario;
 use es\ucm\fdi\aw\src\BD;
 
