@@ -11,10 +11,7 @@ function mostrar_contenidoPerfil()
 		$usuario = Usuario::buscaUsuario($correo_usuario);
 		$nombre = $usuario->getNombre();
 		$rol = Usuario::rolUsuario($usuario);
-		//$rol = $usuario->getrolUser();
 		$avatar = $usuario->getAvatar() ? (RUTA_IMGS . $usuario->getAvatar()) : (RUTA_IMGS . 'images/avatarPorDefecto.png');
-		
-		$direccion = 28005;
 		$contenido =<<<EOS
 		<section>
 		<img src = $avatar width="140" height="140"> </img>
