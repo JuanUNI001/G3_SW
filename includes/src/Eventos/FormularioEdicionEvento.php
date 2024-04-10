@@ -14,7 +14,10 @@ class FormularioEdicionEvento extends Formulario
     public $premio;
     public $tasa;   
     public $inscritos;
-    public $aforo;
+    public $numJugadores;
+
+    public $estado;
+
 
     public function __construct() {
         parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
@@ -32,7 +35,7 @@ class FormularioEdicionEvento extends Formulario
         $premio = $this->premio;
         $tasa = $this->tasa;
         $inscritos = $this->inscritos;
-        $aforo = $this->aforo;
+        $aforo = $this->numJugadores;
         $eliminar = 0;
 
         // Se generan los mensajes de error si existen.
@@ -85,6 +88,11 @@ class FormularioEdicionEvento extends Formulario
                 {$erroresCampos['inscritos']}
             </div>
             <div>
+                <label for="estado">Estado:</label>
+                <input id="estado" type="text" name="estado" value="$estado" />
+                {$erroresCampos['estado']}
+            </div>
+            <div>
                 <label for="aforo">Aforo:</label>
                 <input id="aforo" type="text" name="aforo" value="$aforo" />
                 {$erroresCampos['aforo']}
@@ -123,12 +131,6 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['descripcion'] = 'La descripción no puede estar vacía.';
         }
 
-        $imagen = trim($datos['imagen'] ?? '');
-        $imagen = filter_var($imagen, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $imagen || empty($imagen)) {
-            $this->errores['imagen'] = 'La imagen no puede estar vacía.';
-        }
-
         $categoria = trim($datos['categoria'] ?? '');
         $categoria = filter_var($categoria, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $categoria || empty($categoria)) {
@@ -153,7 +155,13 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['premio'] = 'El premio no puede estar vacío.';
         }
 
-        $tasa = trim($datos['tasa'] ?? '');
+        $estado = trim($datos['estado'] ?? '');
+        $estado = filter_var($estado, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (! $premio || empty($premio)) {
+            $this->errores['estado'] = 'El estado no puede estar vacío.';
+        }
+
+        $tasa = trim($datos['tasaInscripcion'] ?? '');
         $tasa = filter_var($tasa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $tasa || empty($tasa)) {
             $this->errores['tasa'] = 'La tasa no puede estar vacía.';
@@ -165,10 +173,10 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['inscritos'] = 'El número de inscritos no puede estar vacío.';
         }
 
-        $aforo = trim($datos['aforo'] ?? '');
+        $aforo = trim($datos['numJugadores'] ?? '');
         $aforo = filter_var($aforo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $aforo || empty($aforo)) {
-            $this->errores['aforo'] = 'El aforo no puede estar vacío.';
+            $this->errores['numJugadores'] = 'El aforo no puede estar vacío.';
         }
 
         $eliminar = isset($_POST['eliminar']);
@@ -180,7 +188,7 @@ class FormularioEdicionEvento extends Formulario
             } else
             {
                 $eventoActual = Evento::buscaPorId($this->id);
-                $nuevoEvento = Evento::Nuevo($this->id,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+                $nuevoEvento = Evento::Nuevo($this->id,$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
                 Evento::actualiza($nuevoEvento);
             }
         }

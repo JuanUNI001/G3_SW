@@ -51,7 +51,7 @@ class Evento
     }
 
     public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion){
-        $NuevoEvento =new  es\ucm\fdi\aw\Evento\eventos($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+        $NuevoEvento =new  es\ucm\fdi\aw\Eventos\Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
         return $NuevoEvento;
 
     }

@@ -20,10 +20,8 @@ class FormularioInscripcion extends Formulario
     {
         $idEvento = $this->idEvento;
         
-        // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
 
-        // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
@@ -48,16 +46,14 @@ class FormularioInscripcion extends Formulario
         }
 
         if (count($this->errores) === 0) {
-            // Realizar la inscripción al evento
+
             $inscripcionExitosa = Evento::inscribirseEvento($idEvento);
             if ($inscripcionExitosa) {
-                // La inscripción se realizó correctamente
-                // Aquí podrías redirigir a una página de éxito o mostrar un mensaje de éxito
-                // Por ejemplo:
+      
                 header('Location: inscripcion_exitosa.php');
                 exit();
             } else {
-                // Hubo un error al realizar la inscripción
+
                 $this->errores['inscripcion'] = 'Hubo un error al realizar la inscripción al evento';
             }
         }
