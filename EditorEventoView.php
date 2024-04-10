@@ -19,7 +19,7 @@ $form->lugar = $Evento->getLugar();
 $form->premio = $Evento->getPremio();
 $form->tasa = $Evento->getTasaInscripcion();
 $form->inscritos = $Evento->getInscritos();
-$form->aforo = 0;
+$form->aforo = $Evento->getNumJugadores();
 
 $htmlFormLogin = $form->gestiona();
 
@@ -29,5 +29,5 @@ $contenidoPrincipal=<<<EOF
     $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Editor Evento'];
 $app->generaVista('/plantillas/plantilla.php', $params);

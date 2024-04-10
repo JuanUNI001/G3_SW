@@ -108,9 +108,6 @@ class Evento
     public function getGanador(){
         return $this->ganador;  
     }
-    public function getAforo(){
-        return $this->afor;
-    }
 
     public function getTasaInscripcion(){
         return $this->tasaInscripcion;
