@@ -1,6 +1,6 @@
 <?php
 
-namespace es\ucm\fdi\aw\FormularioInscripcion ;
+namespace es\ucm\fdi\aw\src\Eventos;
 
 use es\ucm\fdi\aw;
 use es\ucm\fdi\aw\src\Eventos\Evento;
@@ -11,9 +11,11 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioInscripcion extends Formulario
 {
     public $idEvento;
-
+    
     public function __construct() {
         parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
+
+
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -21,7 +23,7 @@ class FormularioInscripcion extends Formulario
         $idEvento = $this->idEvento;
         
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-
+ 
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
@@ -39,8 +41,9 @@ class FormularioInscripcion extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
+
         $this->errores = [];
-        $idEvento = $datos['idEvento'] ?? '';
+        $idEvento = $datos['id'] ?? '';
         if ( ! $idEvento || empty($idEvento) ) {
             $this->errores['idEvento'] = 'El ID del evento es inválido';
         }
@@ -49,8 +52,8 @@ class FormularioInscripcion extends Formulario
 
             $inscripcionExitosa = Evento::inscribirseEvento($idEvento);
             if ($inscripcionExitosa) {
-      
-                header('Location: inscripcion_exitosa.php');
+                $dir=resuelve('includes/src/Eventos/inscripcionExitosa');
+                header('$dir');
                 exit();
             } else {
 

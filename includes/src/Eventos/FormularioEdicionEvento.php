@@ -88,11 +88,6 @@ class FormularioEdicionEvento extends Formulario
                 {$erroresCampos['inscritos']}
             </div>
             <div>
-                <label for="estado">Estado:</label>
-                <input id="estado" type="text" name="estado" value="$estado" />
-                {$erroresCampos['estado']}
-            </div>
-            <div>
                 <label for="aforo">Aforo:</label>
                 <input id="aforo" type="text" name="aforo" value="$aforo" />
                 {$erroresCampos['aforo']}
