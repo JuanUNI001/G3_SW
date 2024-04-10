@@ -51,7 +51,7 @@ class Evento
     }
 
     public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion){
-        $NuevoEvento =new  es\ucm\fdi\aw\Evento\eventos($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+        $NuevoEvento =new  es\ucm\fdi\aw\Eventos\Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
         return $NuevoEvento;
 
     }
@@ -262,7 +262,45 @@ class Evento
 
     }
     
+    public static function borraPorId($idEvento)
+    {
+        if (!$idEvento) {
+            return false;
+        } 
+        
+        $conn = BD::getInstance()->getConexionBd();
 
+        $query = sprintf(
+            "DELETE FROM eventos WHERE idEvento = %d",
+            $idEvento
+        );
+        $conn->query($query);
+
+    }
+
+
+    public static function actualiza($evento)
+    {
+        $result = false;
+    
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE eventos E SET inscritos = %d, categoria = '%s', numJugadores = %d, nombre = '%s', descripcion = '%s', fecha = '%s', lugar = '%f', estado = '%s', premio = '%s', ganador = '%s', tasaInscripcion = %f WHERE E.idEvento = %d",
+            $evento->inscritos,
+            $conn->real_escape_string($evento->categoria),
+            $evento->numJugadores,
+            $conn->real_escape_string($evento->nombre),
+            $conn->real_escape_string($evento->descripcion),
+            $conn->real_escape_string($evento->fecha),
+            $conn->real_escape_string($evento->lugar),
+            $conn->real_escape_string($evento->estado),
+            $evento->premio,
+            $conn->real_escape_string($evento->ganador),
+            $evento->tasaInscripcion,
+        );
+        $result = $conn->query($query);        
+        return $result;
+    }
     
     
 

@@ -1,10 +1,8 @@
 <?php
 
     use es\ucm\fdi\aw\src\Eventos\Evento;
-    //use \es\ucm\fdi\aw\src\Eventos\eventos;
-    require_once __DIR__.'/Evento.php';
     require_once __DIR__.'/../../config.php';
-   
+
 
     $tituloPagina = 'Eventos';
     $contenidoPrincipal = listaEventos();
@@ -36,18 +34,11 @@ function visualizaEvento($evento)
 
     $estado = $evento->getEstado();
     $html .= '<div>';
-    $html .= '<a href="/G3_SW/includes/vistas/helpers/caracteristicasEvento.php?id=' . $evento->getId() . '">';
+    $rutaCaract = resuelve('/includes/src/Eventos/caracteristicasEvento.php'); 
+    $html .= '<a href="'.$rutaCaract.'?id=' . $evento->getId() . '">';
 
     $html .= '<fieldset>';
     $html .= '<legend>' . $evento->getEvento() . '</legend>';
-    //switch($estado){
-      //  case 'Abierto':
-        //    $html .= '<span class="abierto">'.'En curso'.'</span>';
-          //  break; // Agregar break para evitar la ejecución continua
-       // case 'Terminado':
-      //      $html .= '<span class="terminado">'.'En curso'.'</span>';
-        //    break; // Agregar break para evitar la ejecución continua
-    //}
     $html .= '<p>' . $evento->getEstado() . '</p>';
     $html .= '<ul>';
     $html .= '<li>' . $evento->getCategoria() . '</li>';
@@ -64,8 +55,6 @@ function visualizaEvento($evento)
 
     return $html;
 }
-
-
 
 ?>
 

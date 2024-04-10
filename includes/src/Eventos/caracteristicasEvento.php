@@ -1,29 +1,20 @@
 <?php
 
-//use es\ucm\fdi\aw\src\Eventos\Evento;
-
-require_once '../../../includes/src/Eventos/Evento.php';
-
-//use es\ucm\fdi\aw\src\Eventos\Evento;
-
+use \es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Eventos\Evento;
-//use es\ucm\fdi\aw\FormularioInscripcion;
 
 require_once '../../config.php';
 
 
 $tituloPagina = 'Características Evento';
+
 $contenidoPrincipal ='';
-// Verifica si se ha proporcionado un ID de evento
 
     $idEvento = $_GET['id'];
 
-    // Busca el evento por su ID
     $evento = Evento::buscaPorId($idEvento);
 
-    // Verifica si se encontró el evento
     if ($evento) {
-        // Construye el HTML para mostrar los detalles del evento
         $inscritos = $evento->getInscritos();
         $cat = $evento->getCategoria();
         $numJ = $evento->getNumJugadores();
@@ -44,7 +35,6 @@ $contenidoPrincipal ='';
             </div>
         EOF;
 
-        //inscripcion
         if ($evento->getInscritos() < $evento->getNumJugadores()) {
         }
 
@@ -75,20 +65,25 @@ $contenidoPrincipal ='';
 
 
        // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+        echo __FILE__;
+
+        $direccion = resuelve("inscribirseEventoView.php");
         $contenidoPrincipal .= <<<EOF
-        <div class="inscripcion">
-            <a href="/G3_SW/includes/vistas/helpers/InscribirseEventoView.php?id={$evento->getId()}">
-                <button type="submit">Inscribirse</button>
-            </a>
-        </div>
-     EOF;
+            <div class="inscripcion">
+                <a href="{$direccion}?id={$evento->getId()}">
+                    <button type="submit">Inscribirse</button>
+                </a>
+            </div>
+        EOF;
+
     
        // }
 
         //if(isset($_SESSION["rol"]) === "admin"){
+            $direccionEditor = resuelve("editorEventoView.php");
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">
-                <a href="/G3_SW/EditorEventoView.php?id_evento={$evento->getId()}">
+                <a href="{$direccionEditor}?id={$evento->getId()}">
                     <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
                 </a>   
             </div>
@@ -97,8 +92,9 @@ $contenidoPrincipal ='';
 
     } else {
         $contenidoPrincipal .= 'Evento no encontrado.';
-    }  
+    } 
+    
+    $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+    $app->generaVista('/plantillas/plantilla.php', $params);
 
-
-require_once '../comun/layout.php';
 ?>
