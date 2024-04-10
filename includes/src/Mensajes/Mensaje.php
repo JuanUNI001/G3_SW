@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../traits/MagicProperties.php'; 
-namespace es\ucm\fdi\aw\src\mensajes\bd;
+namespace es\ucm\fdi\aw\src\Mensajes;
 use \es\ucm\fdi\aw\src\BD;
 
 class Mensaje

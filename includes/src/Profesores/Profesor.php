@@ -84,6 +84,36 @@ class Profesor extends Usuario
         return $profesores;
     }
 
+    public static function buscaPorId($idPprofesor)
+    {
+        $result = null;
+    
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT * FROM usuarios P WHERE P.id = %d;', $idPprofesor); 
+        $rs = null;
+        try{
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result =  new Profesor(      
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    $fila['password'],
+                    $fila['correo'],
+                    $fila['precio'],   
+                    $fila['valoracion'],   
+                    $fila['avatar'],
+                    $fila['id']
+                    );
+        }
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
+        }
+        return $result; 
+    }
+
     //El profesor se puede anunciar en la plataforma o esta baneado
     public function GetAnunciable()
     {
