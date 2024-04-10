@@ -107,67 +107,67 @@ class FormularioEdicionEvento extends Formulario
         $this->errores = [];
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombre || empty($nombre) ) {
-            $this->errores['nombre'] = 'El nombre de producto no puede estar vacío';
+        if ( !$nombre || empty($nombre) ) {
+            //$this->errores['nombre'] = 'El nombre del evento no puede estar vacío';
         }
         
         $precio = trim($datos['precio'] ?? '');
         $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$precio || empty($precio)) {
+        if (! $precio || empty($precio)) {
             $this->errores['precio'] = 'El precio no puede estar vacío.';
         }
 
         $descripcion = trim($datos['descripcion'] ?? '');
         $descripcion = filter_var($descripcion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$descripcion || empty($descripcion)) {
+        if (! $descripcion || empty($descripcion)) {
             $this->errores['descripcion'] = 'La descripción no puede estar vacía.';
         }
 
         $imagen = trim($datos['imagen'] ?? '');
         $imagen = filter_var($imagen, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$imagen || empty($imagen)) {
+        if (! $imagen || empty($imagen)) {
             $this->errores['imagen'] = 'La imagen no puede estar vacía.';
         }
 
         $categoria = trim($datos['categoria'] ?? '');
         $categoria = filter_var($categoria, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$categoria || empty($categoria)) {
+        if (! $categoria || empty($categoria)) {
             $this->errores['categoria'] = 'La categoria no puede estar vacía.';
         }
 
         $fecha = trim($datos['fecha'] ?? '');
         $fecha = filter_var($fecha, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$fecha || empty($fecha)) {
+        if (! $fecha || empty($fecha)) {
             $this->errores['fecha'] = 'La fecha no puede estar vacía.';
         }
 
         $lugar = trim($datos['lugar'] ?? '');
         $lugar = filter_var($lugar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$lugar || empty($lugar)) {
+        if (! $lugar || empty($lugar)) {
             $this->errores['lugar'] = 'El lugar no puede estar vacío.';
         }
 
         $premio = trim($datos['premio'] ?? '');
         $premio = filter_var($premio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$premio || empty($premio)) {
+        if (! $premio || empty($premio)) {
             $this->errores['premio'] = 'El premio no puede estar vacío.';
         }
 
         $tasa = trim($datos['tasa'] ?? '');
         $tasa = filter_var($tasa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$tasa || empty($tasa)) {
+        if (! $tasa || empty($tasa)) {
             $this->errores['tasa'] = 'La tasa no puede estar vacía.';
         }
 
         $inscritos = trim($datos['inscritos'] ?? '');
         $inscritos = filter_var($inscritos, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$inscritos || empty($inscritos)) {
+        if (! $inscritos || empty($inscritos)) {
             $this->errores['inscritos'] = 'El número de inscritos no puede estar vacío.';
         }
 
         $aforo = trim($datos['aforo'] ?? '');
         $aforo = filter_var($aforo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$aforo || empty($aforo)) {
+        if (! $aforo || empty($aforo)) {
             $this->errores['aforo'] = 'El aforo no puede estar vacío.';
         }
 
