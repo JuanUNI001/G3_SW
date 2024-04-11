@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\src\Profesores;
-use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\BD;
 
 class Profesor extends Usuario

@@ -182,6 +182,8 @@ ALTER TABLE `productos`
 --
 -- Restricciones para tablas volcadas
 --
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 ALTER TABLE `mensajes`
   ADD CONSTRAINT `mensajes_idEmisor` FOREIGN KEY (`idEmisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
