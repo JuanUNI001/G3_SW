@@ -1,8 +1,8 @@
 <?php
 
 namespace es\ucm\fdi\aw\src\Profesores;
-use es\ucm\fdi\aw\src\Usuarios\Usuario;
-use es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use \es\ucm\fdi\aw\src\BD;
 
 class Profesor extends Usuario
 {
@@ -11,7 +11,7 @@ class Profesor extends Usuario
     private $categoria;
     private $anunciable;
 
-    public function __construct($rol, $nombre, $password, $correo,  $precio,$valoracion, $avatar,$id = null)
+    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null)
     {
         parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
         
@@ -19,9 +19,9 @@ class Profesor extends Usuario
         $this->precio =  $precio;
         $this->anunciable = true;
     }
-    public static function creaProfesor($nombre, $password, $correo, $precio, $valoracion = null, $id = null)
+    public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
-        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $valoracion, $id);
+        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, $valoracion,$id);
         $guardado = $user->guarda();
         if ($guardado) {
             $user->actualizaPrecio($precio);

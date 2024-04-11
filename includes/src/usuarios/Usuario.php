@@ -86,8 +86,8 @@ class Usuario
             $nombre = $conn->real_escape_string($usuario->nombre);
             $password = $conn->real_escape_string($usuario->password);
             $correo = $conn->real_escape_string($usuario->correo);
-            
-            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo) VALUES ('$rolUser', '$nombre', '$password', '$correo')";
+            $avatar =  $conn->real_escape_string($usuario->avatar);
+            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo, avatar) VALUES ('$rolUser', '$nombre', '$password', '$correo', '$avatar')";
             
             if ($conn->query($query)) {
                 $usuario->id = $conn->insert_id;
@@ -144,6 +144,22 @@ class Usuario
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         
+        return $result;
+    }
+
+    public static function actualizaDatosFormulario($idActualizar, $usuarioNuevo)
+    {
+        $result = false;
+    
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE usuarios P SET nombre = '%s', rolUser = %d, avatar = '%s' WHERE P.id = %d",
+            $conn->real_escape_string($usuarioNuevo->nombre),
+            $usuarioNuevo->rolUsuario,
+            $conn->real_escape_string($usuarioNuevo->avatar),
+            $idActualizar
+        );
+        $result = $conn->query($query);        
         return $result;
     }
    
@@ -222,6 +238,25 @@ class Usuario
         return $this->rolUser;
     }
 
+    public function getRolString()
+    {
+        $rol = "INVALID";
+        if($this->rolUser == self::ADMIN_ROLE)
+        {
+            $rol = "Admin";
+        }
+        else if($this->rolUser == self::USER_ROLE)
+        {
+            $rol = "User";
+        }
+        else if($this->rolUser == self::TEACHER_ROLE)
+        {
+            $rol = "Profesor";
+        }
+
+        return $rol;
+    }
+
     public function getNombre()
     {
         return $this->nombre;
@@ -234,9 +269,27 @@ class Usuario
     {
         return $this->avatar;
     }
+
+    public function setNombre($nuevoNombre)
+    {
+        $this->nombre = $nuevoNombre;
+    }
+    public function setRol($nuevoRol)
+    {
+        $this->rolUsuario = $nuevoRol;
+    }
+    public function setCorreo($nuevoCorreo)
+    {
+        $this->correo = $nuevoCorreo;
+    }
+    public function setAvatar($nuevoAvatar)
+    {
+        $this->avatar = $nuevoAvatar;
+    }
+
     public function compruebaPassword($password)
     {
-        $contra = $this->password;
+        $contra = $this->password;  
         return password_verify($password, $this->password);
     }
 
@@ -248,6 +301,8 @@ class Usuario
     {
         $this->password = self::hashPassword($nuevoPassword);
     }
+
+    
     public function guarda()
     {
         if ($this->id !== null) {
