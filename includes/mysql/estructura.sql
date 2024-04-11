@@ -137,6 +137,8 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Filtros para la tabla `pedidos`
