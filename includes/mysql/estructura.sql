@@ -5,15 +5,26 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `mensajes`
 --
 
-CREATE TABLE IF NOT EXISTS `mensajes`  (
+CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(11) NOT NULL,
   `idEmisor` int(11) NOT NULL,
-  `idDestinatario` int(11) NOT NULL,
-  `idDestinatario` int(11) NOT NULL,
-  `texto` varchar(200) NOT NULL,
-  `es_privado` int(1) NOT NULL,
-  `fechaHora` varchar(50) NOT NULL
+  `idDestinatario` int(11) DEFAULT NULL,
+  `idForo` int(11) DEFAULT NULL,
+  `mensaje` varchar(200) NOT NULL,
+  `fechaHora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Estructura de tabla para la tabla `foros`
+--
+
+CREATE TABLE `foros` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(25) NOT NULL,
+  `autor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Estructura de tabla para la tabla `pedidos`
@@ -75,6 +86,26 @@ CREATE TABLE `usuarios` (
   `avatar` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `mensajes_idEmisor` (`idEmisor`),
+  ADD KEY `mensajes_idDestinatario` (`idDestinatario`),
+  ADD KEY `mensajes_idForo` (`idForo`);
+
+--
+-- Indices de la tabla `foros`
+--
+ALTER TABLE `foros`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- Indices de la tabla `pedidos`
 --
@@ -115,6 +146,17 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `foros`
+--
+ALTER TABLE `foros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -137,6 +179,11 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_idEmisor` FOREIGN KEY (`idEmisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensajes_idDestinatario` FOREIGN KEY (`idDestinatario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensajes_idForo` FOREIGN KEY (`idForo`) REFERENCES `foros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedidos`
