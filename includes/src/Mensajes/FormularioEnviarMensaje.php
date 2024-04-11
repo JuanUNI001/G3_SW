@@ -1,31 +1,16 @@
 <?php
 namespace es\ucm\fdi\aw\src\Mensajes;
-
+use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
+use \es\ucm\fdi\aw\src\usuarios\Usuario;
 use es\ucm\fdi\aw\src\Formulario;
-
 class FormularioEnviarMensaje extends Formulario
 {
-    public $id;
-
-    public $idEmisor;
-
-    public $idDestinatario;
-
-    public $es_privado;
-
-    public $mensaje;
-
-
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formMensaje', ['urlRedireccion' => 'index.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-
-        $datos['id'] =  $this->id;
-        $mensaje = $this->mensaje;
-
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['mensaje'], $this->errores, 'span', array('class' => 'error'));
@@ -33,33 +18,38 @@ class FormularioEnviarMensaje extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-
+        <fieldset>
             <div>
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="1" cols="50">$mensaje</textarea>
+                <input id="mensaje" type="text" name="mensaje" />
                 {$erroresCampos['mensaje']}
             </div>
-            <div>
-                <button type="submit" name="login">Enviar</button>
-            </div>
 
+            <div>
+                <button type="submit" name="enviar">Enviar</button>
+            </div>
+        </fieldset>
         EOF;
         return $html;
-    }
+    } 
 
     protected function procesaFormulario(&$datos)
     {
-
         $this->errores = [];
-        $mensaje = trim($datos['mensaje'] ?? '');
-        $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $mensaje || empty($mensaje) ) {
-            $this->errores['mensaje'] = 'mensaje vacio';
+        $texto = trim($datos['mensaje'] ?? '');
+        $texto = filter_var($texto, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ( ! $correo || empty($texto) ) {
+            $this->errores['mensaje'] = 'El mensaje no puede estar vacío';
         }
         
-        if (count($this->errores) === 0)
-        {
-            
+        if (count($this->errores) === 0) {
+
+            $usuario = Usuario::login($correo, $password);
+            $usuario = Usuario::buscaUsuario($correo);
+            $mensaje = Mensaje::crea($usuario->getId(), $idDestinatario, $texto, null)
+        
+            if (!$mensaje) {
+                $this->errores[] = "Erro al crear el mensaje";
+            }
         }
     }
 }

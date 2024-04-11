@@ -5,7 +5,7 @@ use \es\ucm\fdi\aw\src\BD;
 
 class Mensaje
 {
-    public const MAX_SIZE = 140;
+    public const MAX_SIZE = 200;
 
     private const DATE_FORMAT = 'Y-m-d H:i:s';
 
@@ -17,27 +17,24 @@ class Mensaje
 
     private $es_privado;
 
-    //private $idMensajePadre;
-
-    private $mensaje;
+    private $texto;
 
     private $fechaHora;
 
-    private $mensajePadre;
-
-    private function __construct($idEmisor, $mensaje, $fechaHora = null, $idMensajePadre = null, $id = null)
+    private function __construct($idEmisor, $idDestinatario, $texto, $fechaHora = null, $es_privado, $id = null)
     {
-        $this->idAutor = intval($idEmisor);
-
-        $this->mensaje = $mensaje;
+        $this->idEmisor = intval($idEmisor);
+        $this->idDestinatario = intval($idDestinatario);
+        $this->es_privado = $es_privado;
+        $this->texto = $texto;
         $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
-        $this->idMensajePadre = $idMensajePadre !== null ? intval($idMensajePadre) : null;
-        $this->id = $id !== null ? intval($id) : null;
+       
+        //$this->id = $id !== null ? intval($id) : null;
     }
 
-    public static function crea($idEmisor, $mensaje, $respuestaAMensaje = null)
+    public static function crea($idEmisor, $idDestinatario, $texto, $es_privado, $id)
     {
-        $m = new Mensaje($idEmisor, $mensaje, date('Y-m-d H:i:s'), $respuestaAMensaje);
+        $m = new Mensaje($idEmisor, $idDestinatario, $texto, date('Y-m-d H:i:s'), $es_privado, $id);
         return $m;
     }
 
@@ -46,36 +43,24 @@ class Mensaje
         return $this->id;
     }
 
-    public function getIdAutor()
+    public function getIdEmisor()
     {
-        return $this->idAutor;
+        return $this->idEmisor;
     }
 
-    public function getAutor()
+    public function getIdDestinatario()
     {
-        if ($this->idAutor) {
-            $this->autor = Usuario::buscaPorId($this->idAutor);
-        }
-        return $this->autor;
+        return $this->idDestinatario;
     }
 
-    public function setAutor($nuevoAutor)
+    public function getTexto()
     {
-        $this->autor = $nuevoAutor;
-        $this->idAutor = $nuevoAutor->id;
+        return $this->texto;
     }
 
-    public function getMensaje()
+    public function getEsPrivado()
     {
-        return $this->mensaje;
-    }
-
-    public function setMensaje($nuevoMensaje)
-    {
-        if (mb_strlen($nuevoMensaje) > self::MAX_SIZE) {
-            throw new Exception(sprintf('El mensaje no puede exceder los %d caracteres', self::MAX_SIZE));
-        }
-        $this->mensaje = $nuevoMensaje;
+        return $this->es_privado;
     }
 
     public function getFechaYHora()
@@ -83,84 +68,93 @@ class Mensaje
         return $this->fechaHora?->format(self::DATE_FORMAT);
     }
 
-    public function getMensajePadre()
+    public function setIdEmisor($idEmisor)
     {
-        if ($this->idMensajePadre) {
-            $this->mensajePadre = self::buscaPorId($this->idMensajePadre);
+        $this->idEmisor = $idEmisor;
+    }
+
+    public function setIdDestinatario($idDestinatario)
+    {
+        $this->idDestinatario = $idDestinatario;
+    }
+
+    private function generarFechaActual()
+    {
+        return date(self::DATE_FORMAT);
+    }
+
+    public function setMensaje($nuevoMensaje)
+    {
+        if (mb_strlen($nuevoMensaje) > self::MAX_SIZE) {
+            throw new Exception(sprintf('El mensaje no puede exceder los %d caracteres', self::MAX_SIZE));
         }
-        return $this->mensajePadre;
+        $this->texto = $nuevoMensaje;
     }
 
-    public function setMensajePadre($nuevoMensajePadre)
-    {
-        $this->mensajePadre = $nuevoMensajePadre;
-        $this->idMensajePadre = $nuevoMensajePadre->id;
-    }
-
-    public static function buscaPorMensajePadre($idMensajePadre = null)
+    public static function buscaPorIdEmisor($idEmisor)
     {
         $result = [];
-
         $conn = BD::getInstance()->getConexionBd();
-        $query = 'SELECT * FROM Mensajes M WHERE';
-        if ($idMensajePadre) {
-            $query = $query . ' M.idMensajePadre = %d';
-            $query = sprintf($query, $idMensajePadre);
-        } else {
-            $query = $query . ' M.idMensajePadre IS NULL';
-        }
+        $query = sprintf("SELECT * FROM mensajes WHERE idEmisor=%d", $idEmisor);
 
-        $query .= ' ORDER BY M.fechaHora DESC';
+        $query .= ' ORDER BY fechaHora DESC';
 
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Mensaje($fila['autor'], $fila['mensaje'], $fila['fechaHora'], $fila['idMensajePadre'], $fila['id']);
+                $result[] = new Mensaje($idEmisor, $fila['idDestinatario'], $fila['mensaje'],
+                                        $fila['fechaHora'], $fila['es_privado'], $fila['id']);
             }
             $rs->free();
+        }else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
 
         return $result;
     }
 
-    /* Sólo se debería de tener este método ya podría implemantar la misma funcionalidad que buscaPorMensajePadre */
-    public static function buscaPorMensajePadrePaginado($idMensajePadre = null, $numPorPagina = 0, $numPagina = 0)
+    public static function buscaPorIdDestinatario($idDestinatario)
     {
         $result = [];
-
         $conn = BD::getInstance()->getConexionBd();
-        $query = 'SELECT * FROM Mensajes M WHERE';
-        if ($idMensajePadre) {
-            $query = $query . ' M.idMensajePadre = %d';
-            $query = sprintf($query, $idMensajePadre);
-        } else {
-            $query = $query . ' M.idMensajePadre IS NULL';
-        }
+        $query = sprintf("SELECT * FROM mensajes WHERE idDestinatario=%d", $idDestinatario);
 
-        $query .= ' ORDER BY M.fechaHora DESC';
-
-        if ($numPorPagina > 0) {
-            $query .= " LIMIT $numPorPagina";
-
-            /* XXX NOTA: Este método funciona pero poco eficiente (OFFSET y LIMIT se aplican una vez se ha ejecutado la
-             * consulta), lo utilizo por simplicidad. En un entorno real se debe utilizar la cláusula WHERE para "saltar"
-             * los elementos que NO interesen y utilizar exclusivamente la cláusula LIMIT
-             */
-            $offset = $numPagina * ($numPorPagina - 1);
-            if ($offset > 0) {
-                $query .= " OFFSET $offset";
-            }
-        }
+        $query .= ' ORDER BY fechaHora DESC';
 
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Mensaje($fila['autor'], $fila['mensaje'], $fila['fechaHora'], $fila['idMensajePadre'], $fila['id']);
+                $result[] = new Mensaje($fila['idEmisor'], $idDestinatario, $fila['mensaje'],
+                                        $fila['fechaHora'], $fila['es_privado'], $fila['id']);
             }
             $rs->free();
+        }else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
 
         return $result;
+    }
+
+    public static function buscaPorEmisorYDestinatario($idEmisor, $idDestinatario)
+    {
+    $result = [];
+    $conn = BD::getInstance()->getConexionBd();
+    $query = sprintf("SELECT * FROM mensajes WHERE idEmisor=%d AND idDestinatario=%d", $idEmisor, $idDestinatario);
+
+    $query .= ' ORDER BY fechaHora DESC';
+
+    $rs = $conn->query($query);
+    if ($rs) {
+        while ($fila = $rs->fetch_assoc()) {
+            $result[] = new Mensaje($idEmisor, $idDestinatario, $fila['mensaje'],
+                                    $fila['es_privado'], $fila['fechaHora'], $fila['id']);
+        }
+        $rs->free();
+    } else {
+        error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
+
+    return $result;
     }
 
     public static function buscaPorContenido($textoMensaje = '', $numPorPagina = 0, $numPagina = 0)
@@ -169,7 +163,7 @@ class Mensaje
   
       $conn = BD::getInstance()->getConexionBd();
   
-      $query = sprintf("SELECT * FROM Mensajes M WHERE M.mensaje LIKE '%%%s%%'"
+      $query = sprintf("SELECT * FROM mensajes M WHERE M.mensaje LIKE '%%%s%%'"
         , $conn->real_escape_string($textoMensaje)
       );
   
@@ -191,31 +185,49 @@ class Mensaje
       $rs = $conn->query($query);
       if ($rs) {
         while($fila = $rs->fetch_assoc()) {
-          $result[] = new Mensaje($fila['autor'], $fila['mensaje'], $fila['fechaHora'], $fila['idMensajePadre'], $fila['id']);
+          $result[] = new Mensaje($fila['idEmisor'], $fila['idDestinatario'], $fila['mensaje'],
+          $fila['fechaHora'], $fila['es_privado'], $fila['id']);
         }
         $rs->free();
+      }else {
+        error_log("Error BD ({$conn->errno}): {$conn->error}");
       }
   
       return $result;
     }
 
-    public static function numMensajes($idMensajePadre = null)
+    public static function numMensajesPorIdEmisor($idEmisor = null)
     {
         $result = 0;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = 'SELECT COUNT(*) FROM Mensajes M';
-        if ($idMensajePadre) {
-            $query = $query . ' AND M.idMensajePadre = %d';
-            $query = sprintf($query, $idMensajePadre);
-        } else {
-            $query = $query . ' AND M.idMensajePadre IS NULL';
-        }
-
+        $query = sprintf('SELECT COUNT(*) FROM mensajes M WHERE M.idEmisor = %d;', $idEmisor);
         $rs = $conn->query($query);
+
         if ($rs) {
             $result = (int) $rs->fetch_row()[0];
             $rs->free();
+        }
+        else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function numMensajesPorIdDestinatario($idDestinatario = null)
+    {
+        $result = 0;
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT COUNT(*) FROM mensajes M WHERE M.idDestinatario = %d;', $idDestinatario);
+        $rs = $conn->query($query);
+
+        if ($rs) {
+            $result = (int) $rs->fetch_row()[0];
+            $rs->free();
+        }
+        else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
@@ -225,13 +237,17 @@ class Mensaje
         $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM Mensajes M WHERE M.id = %d;', $idMensaje);
+        $query = sprintf('SELECT * FROM mensajes M WHERE M.id = %d;', $idMensaje);
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             while ($fila = $rs->fetch_assoc()) {
-                $result = new Mensaje($fila['autor'], $fila['mensaje'], $fila['fechaHora'], $fila['idMensajePadre'], $fila['id']);
+                $result =  new Mensaje($fila['idEmisor'], $fila['idDestinatario'], $fila['mensaje'],
+                $fila['fechaHora'], $fila['es_privado'], $idMensaje);
             }
             $rs->free();
+        }
+        else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
@@ -242,11 +258,12 @@ class Mensaje
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Mensajes (autor, mensaje, fechaHora, idMensajePadre) VALUES (%d, '%s', '%s', %s)",
-            $mensaje->idAutor,
-            $conn->real_escape_string($mensaje->mensaje),
+            "INSERT INTO mensajes (idEmisor, idDestinatario, texto, fechaHora, es_privado) VALUES (%d, %d, '%s', '%s', %d)",
+            $mensaje->idEmisor,
+            $mensaje->idDestinatario,
+            $conn->real_escape_string($mensaje->texto),
             $conn->real_escape_string($mensaje->fechaYHora),
-            !is_null($mensaje->idMensajePadre) ? $mensaje->idMensajePadre : 'null'
+            $mensaje->es_privado
         );
         $result = $conn->query($query);
         if ($result) {
@@ -265,12 +282,12 @@ class Mensaje
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Mensajes M SET autor = %d, mensaje = '%s', fechaHora = '%s', idMensajePadre = %s WHERE M.id = %d",
-            $mensaje->idAutor,
-            $conn->real_escape_string($mensaje->mensaje),
+            "UPDATE mensajes M SET idEmisor = %, idDestinatario = %d, texto = '%s', fechaHora = '%s', es_privado = %d WHERE M.id = %d",
+            $mensaje->idEmisor,
+            $mensaje->idDestinatario,
+            $conn->real_escape_string($mensaje->texto),
             $conn->real_escape_string($mensaje->fechaYHora),
-            !is_null($mensaje->idMensajePadre) ? $mensaje->idMensajePadre : 'null',
-            $mensaje->id
+            $mensaje->es_privado
         );
         $result = $conn->query($query);
         if (!$result) {
@@ -295,7 +312,7 @@ class Mensaje
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Mensajes WHERE id = %d", $idMensaje);
+        $query = sprintf("DELETE FROM mensajes WHERE id = %d", $idMensaje);
         $result = $conn->query($query);
         if (!$result) {
             error_log($conn->error);
@@ -305,8 +322,6 @@ class Mensaje
 
         return $result;
     }
-
-    
 
     public function guarda()
     {

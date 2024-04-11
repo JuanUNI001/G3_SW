@@ -7,10 +7,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `mensajes`  (
   `id` int(11) NOT NULL,
-  `autor` int(11) NOT NULL,
-  `mensaje` varchar(140) NOT NULL,
-  `fechaHora` datetime NOT NULL,
-  `idMensajePadre` int(11) DEFAULT NULL
+  `idEmisor` int(11) NOT NULL,
+  `idDestinatario` int(11) NOT NULL,
+  `texto` varchar(200) NOT NULL,
+  `es_privado` int(1) NOT NULL,
+  `fechaHora` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
