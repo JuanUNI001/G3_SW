@@ -22,7 +22,7 @@ function listaForos()
 
 function visualizaForo($foro) {
 
-    $rutaVerForo = resuelve('/includes/src/Mensajes/verConversacion.php'); 
+    $rutaVerForo = resuelve('/includes/src/Foros/verForo.php'); 
     $html = '<div class="foro">';
     $html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
 
