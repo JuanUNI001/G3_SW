@@ -7,23 +7,28 @@ class FormularioEnviarMensaje extends Formulario
 {
     private $idDestinatario;
     private $idForo;
-    public function __construct() {
+
+    public function __construct($idDestinatario, $idForo) {
         parent::__construct('formMensaje', ['urlRedireccion' => 'index.php']);
+         $this->idDestinatario = $idDestinatario;
+         $this->idForo = $idForo;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['mensaje'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['texto, idDestinatario'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
             <div>
-                <input id="mensaje" type="text" name="mensaje" />
-                {$erroresCampos['mensaje']}
+                <input id="texto" type="text" name="texto" />
+                {$erroresCampos['texto']}
+                <input id="idDestinatario" type="hidden" name="idDestinatario" />
+                {$erroresCampos['idDestinatario']}
             </div>
 
             <div>
@@ -37,27 +42,28 @@ class FormularioEnviarMensaje extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-        $texto = trim($datos['mensaje'] ?? '');
+        $texto = trim($datos['texto'] ?? '');
         $texto = filter_var($texto, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $correo || empty($texto) ) {
-            $this->errores['mensaje'] = 'El mensaje no puede estar vacío';
-        }
-        
-        if (count($this->errores) === 0) {
-
-            $correo = $_SESSION['correo'];
-            $usuario = Usuario::buscaUsuario($correo);
-
-            if($idDestinatario == null){
-                $mensaje = Mensaje::crea(null, $usuario->getId(), null, $idForo, $texto);
+        if (empty($texto)) {
+            $this->errores['texto'] = 'El mensaje no puede estar vacío';
+        }else{
+            if (count($this->errores) === 0) {
+                $correo = $_SESSION['correo'];
+                $usuario = Usuario::buscaUsuario($correo);
+                if(this->idDestinatario == null){
+                    $mensaje = Mensaje::crea(null, $usuario->getId(), null, $this->idForo, $texto);
+                }else if(this->idDestinatario == null){
+                    $mensaje = Mensaje::crea(null, $usuario->getId(), $this->idDestinatario, null, $texto);
+                }         
+                Mensaje::inserta($mensaje);
+            
+                if (!$mensaje) {
+                    $this->errores[] = "Error al crear el mensaje";
+                }
+    
             }else{
-                $mensaje = Mensaje::crea(null, $usuario->getId(), $idDestinatario, null, $texto);
-            }
-            Mensaje::inserta($mensaje);
-        
-            if (!$mensaje) {
                 $this->errores[] = "Error al crear el mensaje";
             }
-        }
+        }       
     }
 }

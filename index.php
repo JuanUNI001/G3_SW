@@ -9,8 +9,7 @@ $login = resuelve('/login.php');
 
 $contenidoPrincipal=<<<EOS
   <h1>Página principal</h1>
-  <p> Aquí está el contenido público, visible para todos los usuarios. </p>
-  <a href="${login}">Login</a>
+  <p> Bienvenidos a Mesamaestra, tu punto de encuentro para tus juegos de mesa favoritos. </p>
 EOS;
 
 
