@@ -1,263 +1,245 @@
 body {
-	background-color: #CDCDCD;
-}
-
-div#contenedor {
-	width: 900px;
-	margin: auto;
-	border: 1px solid rgb(159, 34, 205);
-	background-color: #cf88d7;
-	margin-top: 30px;
-}
-
-header {
-	padding: 30px;
-	height: 100px;
-	background-color: #e8f17ea4;
-	color: rgb(10, 10, 10);
-}
-
-header a, header a:visited {
-	color: rgb(16, 16, 16);
-	font-weight: bold;
-	text-decoration: none;
-} 
-
-header a:hover {
-	color: rgb(224, 13, 140);
-	font-weight: bold;
-	text-decoration: underline;
-} 
-
-
-nav {
-	padding: 10px;
-	float: left;
-	width: 170px;
-	height: 400px;
-	background-color: #a0cee1;
-}
-
-nav a, nav a:visited {
-	color: rgb(224, 13, 140);
-	font-weight: bold;
-	text-decoration: none;
-} 
-
-nav a:hover {
-	color: rgb(224, 13, 140);
-	text-decoration: underline;
-} 
-
-
-aside {
-	padding: 10px;
-	float: right;
-	width: 170px;
-	height: 400px;
-	background-color: #a0cee1;
+	background-color: #191919;
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #f8f8f8;
 }
 
 main {
+	padding: 10px 2%;
+	background-color: transparent;
+}
+
+button {
+	background-color: transparent;
+	color: #C84B31;
 	padding: 10px;
-	float: left;
-	min-height: 600px;
-	width: 500px;
-	background-color: rgb(161, 213, 157);
-	color: rgb(33, 32, 32);
-}
-
-footer {
-	clear: both;
-	padding: 20px;
-	background-color: #db22ad;
-	color: rgb(33, 32, 32);
-	text-align: center;
-}
-
-div.saludo {
-	width: 100%;
-	text-align: right;
-}
-
-fieldset {
-	border: 1px solid black;
-	margin: auto;
-}
-
-fieldset div {
-	justify-content: center;
-	margin: 5px auto;
-}
-
-legend {
-	color: #fff;
-	background: #303030;
-	border: 1px solid rgb(237, 9, 229);
-	padding: 2px 6px;
-} 
-
-label {
-	margin-right: 0.5em;
-	display: block;
-}
-
-input {
-	display: block;
-}
-
-.form-field-error {
-	display: block;
-}
-
-.mensajes {
-	position: fixed;
-	width: 100%;
-  }
-  
-.mensaje {
-	border: 2px solid black;
-	border-radius: 5px;
-	width: 30%;
-	margin: 0.2em auto;
-	background-color: #cf7fd2;
-}
-
-.mensajes input {
-	display: none;
-}
-
-.mensaje .cabecera {
-	font-size: 2em;
-	line-height: 0.7em;
-	text-align: right;
-	padding: 0 0.1em;
-}
-
-.mensaje .contenido {
-	padding: 0.2em 1em;
-	text-align: center;
-}
-
-.terminado {
-	color: #e61212;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
-}
-
-.abierto {
-	color: #00a74b;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
-}
-
-.mensajes input:checked + .mensaje {
-	display: none;
-}
-
-form.inline {
-	display: inline;
-}
-
-form button.enlace, form button.enlace:visited {
-	color: rgb(26, 101, 212);
+	border: 2px solid #C84B31;
 	font-weight: bold;
-	text-decoration: none;
-	background-color: inherit;
-	border: none;
+	cursor: pointer;
+	border-radius: 4px;
 }
 
-form button.enlace:hover {
-	color: rgb(189, 58, 180);
-	font-weight: bold;
-	text-decoration: underline;
+header {
+	background-image: linear-gradient(#2D4263, #191919);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0px;
 }
 
-button, a.boton {
-	border: 1px solid rgb(47, 184, 76);
-	font-size: 0.9em;
-	font-family: Arial;
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0rem 1.5rem;
+}
+
+nav li, nav a {
 	font-weight: 400;
-}
-
-a.boton {
-	color: inherit;
+	font-size: 20px;
+	color: #f8f8f8;
 	text-decoration: none;
-	background-color: rgb(239, 239, 239);
-	padding: 1px 6px;
-	margin: 1px 5px;
 }
 
-button, a.boton {
-	border: 1px solid black;
-	font-size: 0.9em;
-	font-family: Arial;
-	font-weight: 400;
+nav a {
+	padding: 0.6rem 0.6rem;   
 }
 
-.inline {
-	display: inline;
+.logo {
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
-a.deshabilitado {
-	color: rgba(16, 16, 16, 0.3);
+.logo img {
+    height: 120px; /* Aumentar la altura del logo */
+    width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
-ul.dropdown, ul.dropdown-content {
+
+.nav-links , .nav-profile{
 	list-style: none;
 }
 
-/* Oculta los submenus */
-ul.dropdown ul.dropdown-content {
-	display: none;
+input, textarea {
+	background-color: transparent;
+	border: 1px solid #C84B31;
+	border-radius: 4px;
+	padding: 4px 6px;
 }
 
-/* Muestra el menu 1 */
-ul.dropdown li.menu1:hover ul.dropdown-content {
-	display: block;
+select {
+	background: transparent;
+	overflow: hidden;
+	border: 1px solid #C84B31;
+	border-radius: 4px;
+	padding: 10px;
 }
 
-/* Muestra el menu 2 */
-ul.dropdown li.menu2:hover ul.dropdown-content {
-	display: block;
+.option {
+	font-size: medium;
 }
 
-/* Muestra el menú en una única fila */
+.centerer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-ul.dropdown li {
+.formulario-pelicula img {
+	height: 400px;
+	width: auto;
+}
+
+.formulario-login, .formulario-register, .formulario-pelicula {
+	padding: 30px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 20px;
+	border: 2px solid #C84B31;
+	gap: 10px;
+}
+
+.formulario-login input, .formulario-register input {
+	background-color: transparent;
+	font-size: large;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #C84B31;
+	padding: 4px 6px;
+}
+
+.formulario-login input:focus {
+	outline: none;
+	background: #ECDBBA22;
+}
+
+.seccion-valoraciones {
+	width: 400px;
+	margin-bottom: 30px;
+}
+
+.valoracion, .seccion-comentarios {
+	margin: 10px 0;
+}
+
+.comentarios-respuesta li {
+	margin-left: 40px;
+}
+
+
+.seccion-comentarios {
+	width: 400px;
+}
+
+
+
+.seccion-comentarios ul, .seccion-comentarios li {
+	list-style-type: none;
+}
+
+.deshabilitado {
+	pointer-events: none;
+	text-decoration: none;
+	cursor: default;
+}
+
+.info-peli {
+	margin-bottom: 30px;
+}
+
+.info-generos{
+	display:flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.nav-profile li{
 	display: inline-block;
+	padding: 0rem 0.6rem;
 }
 
-/* Los menus se muestran sobre el contenido de la página */
-ul.dropdown ul.dropdown-content {
-	position: absolute;
+#formLogout {
+	width: fit-content;
 }
 
-/* Las entradas de los menús se muestran en bloque */
-ul.dropdown ul.dropdown-content li {
-	display: block;
+.nav-links li {
+	display: inline-block;
+	padding: 0rem 0.6rem;
 }
 
-/* Eliminacioń del indentado de las entradas de la lista */
-ul.dropdown ul.dropdown-content {
-	padding: 0px;
+.user-list {
+	display: flex;
+	gap: 20px;
+	padding: 10px 0px;
 }
 
-/* Espacio extra en las entradas del menú y borde */
-.dropdown li {
-	border: 1px solid black;
-	padding: 2px 4px;
+.user-card {
+	width: 160px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	padding: 20px 10px;
 }
 
-/*
- * - Submenús opacos
- * - Tamaño mínimo
- * - Sombra para el submenu
- */
-.dropdown-content {
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 20px 16px;
+fieldset {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	padding: 10px 20px;
+}
+
+form input, form button{
+	width: fit-content;
+}
+
+select {
+	height: fit-content;
+}
+
+.row-pelis {
+	display: flex;
+	overflow: auto;
+}
+
+.scroll-pelis {
+	display:flex;
+	margin: 0rem 0.5rem;
+	padding: 0.5rem 0rem;
+	gap: 0.5rem;
+}
+
+.portada-peli {
+	height: auto;
+	width: 200px;
+}
+
+.portada-elemento-carrito {
+	height: auto;
+	width: 100px;
+}
+
+form div img {
+	width: 200px;
+	height: auto;
+}
+
+.portada-peli img{
+	height: 100%;
+	width: 100%;
+	border-radius: 0.5rem;
+}
+
+.portada-peli img {
+	filter: brightness(80%);
+	border: 0px solid #C84B31;
+	transition: 0.6s cubic-bezier(.12,.97,.72,1);
+}
+
+.portada-peli img:hover {
+	transform: scale(1.05);
+	filter: brightness(100%);
+	transition: 0.6s cubic-bezier(.12,.97,.72,1);
 }

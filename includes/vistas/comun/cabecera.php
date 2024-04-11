@@ -24,10 +24,24 @@ function mostrarSaludo()
     return $html;
 }
 
+function mostrarLogo() {
+    $app = BD::getInstance();
+    $logoUrl = $app->buildUrl('/index.php');
+    $logoSrc = $app->buildUrl('/images/logo.png');
+    return <<<EOS
+    <div class="logo">
+    <a href="{$logoUrl}"><img src="{$logoSrc}" alt = "Mesa Maestra" /></a>
+    </div>
+    EOS;
+}
+
 ?>
 <header>
-    <h1><?= $params['cabecera'] ?? 'Mi gran página web' ?></h1>
-    <div class="saludo">
-        <?= mostrarSaludo(); ?>
-    </div>
+    <?= mostrarLogo() ?>
+    <nav>
+
+        <div class="saludo">
+            <?= mostrarSaludo(); ?>
+        </div>
+    </nav>
 </header>

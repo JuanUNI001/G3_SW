@@ -12,8 +12,8 @@ $mensajes = mensajesPeticionAnterior();
 <?= $mensajes ?>
 <div id="contenedor">
 <?php
-$params['app']->doInclude('/vistas/comun/cabecera.php', $params);
-$params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
+$params['app']->doInclude('/vistas/comun/cabecera.php');
+// $params['app']->doInclude('/vistas/comun/sidebarIzq.php');
 ?>
 	<main>
 		<article>
@@ -21,8 +21,8 @@ $params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
 		</article>
 	</main>
 <?php
-$params['app']->doInclude('/vistas/comun/sidebarDer.php', $params);
-$params['app']->doInclude('/vistas/comun/pie.php', $params);
+// $params['app']->doInclude('/vistas/comun/sidebarDer.php');
+// $params['app']->doInclude('/vistas/comun/pie.php');
 ?>
 </div>
 </body>
