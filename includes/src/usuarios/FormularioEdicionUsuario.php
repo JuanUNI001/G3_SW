@@ -12,7 +12,7 @@ class FormularioEdicionUsuario extends Formulario
     public $avatar;
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionUsuario', ['urlRedireccion' => 'verPerfil.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -28,6 +28,8 @@ class FormularioEdicionUsuario extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar'], $this->errores, 'span', array('class' => 'error'));
 
+        $checkedUser = ($rol == 2) ? 'checked' : '';
+        $checkedTeacher = ($rol == 3) ? 'checked' : '';
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
@@ -39,8 +41,14 @@ class FormularioEdicionUsuario extends Formulario
                 {$erroresCampos['nombre']}
             </div>
             <div>
-                <label for="rol">Rol: user(1),teacher(2)</label>
-                <input id="rol" type="text" name="rol" value="$rol"/>
+                <label>Rol:</label>
+                <div class="rol-buttons">
+                    <input id="user_role" type="radio" name="rol" value="2" $checkedUser>
+                    <label for="user_role">User</label>
+
+                    <input id="teacher_role" type="radio" name="rol" value="3" $checkedTeacher>
+                    <label for="teacher_role">Teacher</label>
+                </div>
                 {$erroresCampos['rol']}
             </div>
             <div>
@@ -73,7 +81,7 @@ class FormularioEdicionUsuario extends Formulario
         
         $rol = trim($datos['rol'] ?? '');
         $rol = filter_var($rol, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $rol || empty($rol) || $rol == 0) {
+        if ( ! $rol || empty($rol) || $rol == 1) {
             $this->errores['rol'] = 'Rol no valido.';
         }
 
@@ -93,10 +101,14 @@ class FormularioEdicionUsuario extends Formulario
         if (count($this->errores) === 0) {
 
             $nuevoUsuario = Usuario::buscaPorId($this->id);
-            $nuevoUsuario->setNombre($nombre);           
-            $nuevoUsuario->setRol($rol + 1);
+            $nuevoUsuario->setNombre($nombre);    
+            $nuevoUsuario->setCorreo($correo);       
+            $nuevoUsuario->setRol($rol);
             $nuevoUsuario->setAvatar($avatar);
-            Usuario::actualizaDatosFormulario($this->id,$nuevoUsuario);            
+            Usuario::actualizaDatosFormulario($this->id,$nuevoUsuario);
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['correo'] = $correo;
+            $_SESSION['rolUser'] = $rol;            
         }
     }
 }

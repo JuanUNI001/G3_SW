@@ -54,7 +54,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],  $fila['avatar'],  $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['id']);
             }
             $rs->free();
         } else {
@@ -153,9 +153,10 @@ class Usuario
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE usuarios P SET nombre = '%s', rolUser = %d, avatar = '%s' WHERE P.id = %d",
+            "UPDATE usuarios P SET nombre = '%s', rolUser = %d, correo = '%s', avatar = '%s' WHERE P.id = %d",
             $conn->real_escape_string($usuarioNuevo->nombre),
             $usuarioNuevo->rolUsuario,
+            $conn->real_escape_string($usuarioNuevo->correo),
             $conn->real_escape_string($usuarioNuevo->avatar),
             $idActualizar
         );
