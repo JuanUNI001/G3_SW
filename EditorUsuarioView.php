@@ -11,7 +11,7 @@ $nombre = $Usuario->getNombre();
 
 $form->id = $id_usuario;
 $form->nombre = $nombre;
-$form->rol = $Usuario->getrolUser();
+$form->rol = $Usuario->getrolUser() - 1;
 $form->correo = $Usuario->getCorreo();
 $form->avatar = $Usuario->getAvatar();
 

@@ -39,7 +39,7 @@ class FormularioEdicionUsuario extends Formulario
                 {$erroresCampos['nombre']}
             </div>
             <div>
-                <label for="rol">Rol: admin(1),user(2),teacher(3)</label>
+                <label for="rol">Rol: user(1),teacher(2)</label>
                 <input id="rol" type="text" name="rol" value="$rol"/>
                 {$erroresCampos['rol']}
             </div>
@@ -66,15 +66,15 @@ class FormularioEdicionUsuario extends Formulario
 
         $this->errores = [];
         $nombre = trim($datos['nombre'] ?? '');
-        $nombre = filter_var($nombreProducto, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $nombre || empty($nombre) ) {
             $this->errores['nombre'] = 'El nombre de usuario no puede estar vacio';
         }
         
         $rol = trim($datos['rol'] ?? '');
         $rol = filter_var($rol, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $rol || empty($rol) ) {
-            $this->errores['rol'] = 'El rol no puede estar vacio.';
+        if ( ! $rol || empty($rol) || $rol == 0) {
+            $this->errores['rol'] = 'Rol no valido.';
         }
 
         $correo = trim($datos['correo'] ?? '');
@@ -94,9 +94,9 @@ class FormularioEdicionUsuario extends Formulario
 
             $nuevoUsuario = Usuario::buscaPorId($this->id);
             $nuevoUsuario->setNombre($nombre);           
-            $nuevoUsuario->setRol($rol);
+            $nuevoUsuario->setRol($rol + 1);
             $nuevoUsuario->setAvatar($avatar);
-            Usuario::actualiza($nuevoUsuario);            
+            Usuario::actualizaDatosFormulario($this->id,$nuevoUsuario);            
         }
     }
 }

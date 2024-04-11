@@ -146,6 +146,22 @@ class Usuario
         
         return $result;
     }
+
+    public static function actualizaDatosFormulario($idActualizar, $usuarioNuevo)
+    {
+        $result = false;
+    
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE usuarios P SET nombre = '%s', rolUser = %d, avatar = '%s' WHERE P.id = %d",
+            $conn->real_escape_string($usuarioNuevo->nombre),
+            $usuarioNuevo->rolUsuario,
+            $conn->real_escape_string($usuarioNuevo->avatar),
+            $idActualizar
+        );
+        $result = $conn->query($query);        
+        return $result;
+    }
    
     
     
@@ -257,6 +273,10 @@ class Usuario
     public function setNombre($nuevoNombre)
     {
         $this->nombre = $nuevoNombre;
+    }
+    public function setRol($nuevoRol)
+    {
+        $this->rolUsuario = $nuevoRol;
     }
     public function setCorreo($nuevoCorreo)
     {
