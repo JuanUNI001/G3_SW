@@ -24,29 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mensajes`
---
-
-CREATE TABLE IF NOT EXISTS `mensajes`  (
-  `id` int(11) NOT NULL,
-  `autor` int(11) NOT NULL,
-  `mensaje` varchar(140) NOT NULL,
-  `fechaHora` datetime NOT NULL,
-  `idMensajePadre` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `mensajes`
---
-
-INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`) VALUES
-(1, 1, 'Bienvenido al foro', '2024-03-10 12:29:58', NULL),
-(2, 2, 'Muchas gracias', '2024-03-10 12:44:58', 1),
-(3, 2, 'Otro mensaje', '2024-03-11 13:44:58', NULL);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `pedidos`
 --
 
@@ -146,43 +123,12 @@ INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valora
 (4, 'juan', 'juan', 'juan@gmail.com', 1, NULL, NULL, NULL),
 (50, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 34.55, 'images/JoshTyler.png');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `mensajes`
---
-
-CREATE TABLE `mensajes` (
-  `id` int(11) NOT NULL,
-  `idEmisor` int(11) NOT NULL,
-  `idDestinatario` int(11) NOT NULL,
-  `texto` varchar(200) NOT NULL,
-  `es_privado` int(1) NOT NULL,
-  `fechaHora` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `mensajes`
---
-INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `texto`, `es_privado`, `fechaHora`) VALUES
-(1, '2', '3', 'hola caracola', 1),
-(2, '2', '3', 'mensaje de prueba', 1),
-(3, '3', '2', 'mensaje de respuesta', 1);
-
 
 -- --------------------------------------------------------
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Mensajes_mensaje` (`idMensajePadre`),
-  ADD KEY `Mensajes_autor` (`autor`);
 
 --
 -- Indices de la tabla `pedidos`
@@ -225,12 +171,6 @@ ALTER TABLE `usuarios`
 --
 
 --
--- AUTO_INCREMENT de la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
@@ -251,13 +191,6 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  ADD CONSTRAINT `Mensajes_autor` FOREIGN KEY (`autor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mensajes_mensaje` FOREIGN KEY (`idMensajePadre`) REFERENCES `mensajes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedidos`

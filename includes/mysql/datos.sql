@@ -4,13 +4,7 @@
 TRUNCATE TABLE `RolesUsuario`;
 TRUNCATE TABLE `Roles`;
 TRUNCATE TABLE `Usuarios`;
-TRUNCATE TABLE `mensajes`;
 
-
-INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `texto`, `es_privado`, `fechaHora`) VALUES
-(1, '2', '3', 'hola caracola', 1),
-(2, '2', '3', 'mensaje de prueba', 1),
-(3, '3', '2', 'mensaje de respuesta', 1);
 
 --
 -- Volcado de datos para la tabla `productos`
