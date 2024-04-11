@@ -76,10 +76,11 @@ function visualizaProfesor($profesor) {
 
         //if(isset($_SESSION["rol"]) === "admin"){
             $dirProfesores=resuelve('EditorProfesorView.php');
+            $dirEditor=resuelve('imagenes/editar_producto.png');
             $html .=<<<EOF
             <div class="editar_Profesor">
-                <a href="'.$dirProfesores.'?id=' . $profesor->getId() . '">
-                    <img src= .$imagenPath. alt="Editor Producto" width="50" height="50">
+                <a href="'.$dirProfesores.'?id_profesor=' . $profesor->getId() . '">
+                    <img src= "{$dirEditor}" alt="Editor Producto" width="50" height="50">
                 </a>   
             </div>
             EOF; 
