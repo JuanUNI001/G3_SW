@@ -33,7 +33,7 @@ if (!$app->usuarioLogueado())  : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.
     
     <!--AQUI HAY QUE HACER LO DEL CARRO QUE EXPLICO EN CLASE-->
     <div class="sidebar-section" id="carrito">
-        <p><a href="<?php echo resuelve('/includes/carrito_usuario.php'); ?>">Carrito</a></p>
+        <p><a href="<?php echo resuelve('/includes/carrito_usuario.php'); ?>" class="button-like-link">Carrito</a></p>
     </div>
 
    

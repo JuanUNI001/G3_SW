@@ -262,7 +262,11 @@ ul.dropdown ul.dropdown-content {
     padding: 20px 16px;
 }
 
-
+/*
+*
+*	CSS generados por ayuda externa aqui abajo :/
+*
+*/
 
 .rol-buttons input[type="radio"] {
 	display: inline-block;
@@ -271,4 +275,39 @@ ul.dropdown ul.dropdown-content {
 .rol-buttons label {
 	display: inline-block;
 	margin-right: 10px; /* Adjust spacing between buttons */
+}
+
+.button-like-link {
+	display: inline-block;
+	background-color: #4CAF50; /* Color de fondo */
+	color: white; /* Color del texto */
+	padding: 10px 20px; /* Espaciado interno */
+	text-align: center; /* Alineación del texto */
+	text-decoration: none; /* Eliminar subrayado */
+	border: none; /* Eliminar borde */
+	border-radius: 4px; /* Redondear esquinas */
+	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+}
+
+.button-like-link:hover {
+	background-color: #45a049; /* Cambiar color de fondo al pasar sobre el botón */
+}
+
+.nav-button {
+	display: inline-block;
+	background-color: #66B3FF; /* Fondo azul clarito */
+	color: black; /* Texto negro */
+	padding: 8px 16px; /* Espaciado interno */
+	text-align: center; /* Alineación del texto */
+	text-decoration: none; /* Eliminar subrayado */
+	border: none; /* Eliminar borde */
+	border-radius: 4px; /* Redondear esquinas */
+	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+	font-size: 14px; /* Tamaño del texto */
+	width: 70px; /* Ancho fijo para todos los botones */
+	margin-right: 10px; /* Espacio entre botones en la barra de navegación */
+}
+
+.nav-button:hover {
+	background-color: #3385FF; /* Cambiar color de fondo al pasar sobre el botón */
 }
