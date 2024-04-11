@@ -11,10 +11,21 @@ div#contenedor {
 }
 
 header {
+    background-image: linear-gradient(#f019d3, #c5c4cc);
 	padding: 30px;
 	height: 100px;
 	background-color: #e8f17ea4;
 	color: rgb(10, 10, 10);
+}
+
+.logo {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.logo img {
+    height: 120px; /* Aumentar la altura del logo */
+    width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
 
 header a, header a:visited {
