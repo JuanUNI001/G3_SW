@@ -4,15 +4,16 @@ require_once __DIR__.'/includes/src/Productos/listaProductos.php';
 
 $tituloPagina = 'Tienda';
 $contenidoPrincipal='';
+$botonAñadirProducto ='';
 
+//if(isset($_SESSION["rol"]) === "admin"){
 
-$rutaAñadirProducto = __DIR__ . '/includes/src/Productos/añadir_producto.php';
-// Botón "Añadir Producto"
-$botonAñadirProducto = '
-    <form action="' . $rutaAñadirProducto . '" method="post">
-        <button type="submit">Añadir Producto</button>
-    </form>
-';
+    $botonAñadirProducto .=<<<EOF
+    <div>
+    <a href="/G3_SW/AddProductoView.php" class="button-like-link">Añadir producto</a>
+    </div>
+    EOF; 
+//}
 
 $productos = listaproductos();
 
