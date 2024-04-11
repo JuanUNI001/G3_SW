@@ -5,6 +5,8 @@ use \es\ucm\fdi\aw\src\usuarios\Usuario;
 use es\ucm\fdi\aw\src\Formulario;
 class FormularioEnviarMensaje extends Formulario
 {
+    private $idDestinatario;
+    private $idForo;
     public function __construct() {
         parent::__construct('formMensaje', ['urlRedireccion' => 'index.php']);
     }
@@ -43,12 +45,18 @@ class FormularioEnviarMensaje extends Formulario
         
         if (count($this->errores) === 0) {
 
-            $usuario = Usuario::login($correo, $password);
+            $correo = $_SESSION['correo'];
             $usuario = Usuario::buscaUsuario($correo);
-            $mensaje = Mensaje::crea($usuario->getId(), $idDestinatario, $texto, null)
+
+            if($idDestinatario == null){
+                $mensaje = Mensaje::crea(null, $usuario->getId(), null, $idForo, $texto);
+            }else{
+                $mensaje = Mensaje::crea(null, $usuario->getId(), $idDestinatario, null, $texto);
+            }
+            Mensaje::inserta($mensaje);
         
             if (!$mensaje) {
-                $this->errores[] = "Erro al crear el mensaje";
+                $this->errores[] = "Error al crear el mensaje";
             }
         }
     }

@@ -21,7 +21,7 @@ class Mensaje
 
     private $fechaHora;
 
-    private function __construct($id = null, $idEmisor, $idDestinatario = null, $idForo = null, $texto, $fechaHora = null)
+    private function __construct($id = null, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
     {
         $this->id = $id !== null ? intval($id) : null;
         $this->idEmisor = $idEmisor !== null ? intval($idEmisor) : null;
@@ -237,12 +237,12 @@ class Mensaje
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO mensajes (idEmisor, idDestinatario, texto, fechaHora, es_privado) VALUES (%d, %d, '%s', '%s', %d)",
+            "INSERT INTO mensajes (idEmisor, idDestinatario, idForo, texto, fechaHora) VALUES (%d, %d, %d, '%s', '%s')",
             $mensaje->idEmisor,
             $mensaje->idDestinatario,
+            $mensaje->idForo,
             $conn->real_escape_string($mensaje->texto),
-            $conn->real_escape_string($mensaje->fechaYHora),
-            $mensaje->es_privado
+            $conn->real_escape_string($mensaje->fechaYHora)
         );
         $result = $conn->query($query);
         if ($result) {
@@ -261,12 +261,12 @@ class Mensaje
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE mensajes M SET idEmisor = %, idDestinatario = %d, texto = '%s', fechaHora = '%s', es_privado = %d WHERE M.id = %d",
+            "UPDATE mensajes M SET idEmisor = %, idDestinatario = %d, idDestinatario = %d, idForo = %d, texto = '%s', fechaHora = '%s'WHERE M.id = %d",
             $mensaje->idEmisor,
             $mensaje->idDestinatario,
+            $mensaje->idForo,
             $conn->real_escape_string($mensaje->texto),
-            $conn->real_escape_string($mensaje->fechaYHora),
-            $mensaje->es_privado
+            $conn->real_escape_string($mensaje->fechaYHora)
         );
         $result = $conn->query($query);
         if (!$result) {
