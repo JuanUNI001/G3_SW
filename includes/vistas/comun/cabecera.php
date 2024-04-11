@@ -17,7 +17,7 @@ function mostrarSaludo()
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');
         $html = <<<EOS
-        Usuario desconocido. <a href="{$loginUrl}">Login</a> <a href="{$registroUrl}">Registro</a>
+        Usuario desconocido. <a href="{$loginUrl}" class="login-button">Login</a> <a href="{$registroUrl}" class="login-button">Registro</a>
       EOS;
     }
 
@@ -26,7 +26,7 @@ function mostrarSaludo()
 
 ?>
 <header>
-    <h1><?= $params['cabecera'] ?? 'Mi gran página web' ?></h1>
+    <h1><?= $params['cabecera'] ?? 'Mesamaestra' ?></h1>
     <div class="saludo">
         <?= mostrarSaludo(); ?>
     </div>

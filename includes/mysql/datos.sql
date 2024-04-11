@@ -43,3 +43,20 @@ INSERT INTO `eventos` (`idEvento`, `inscritos`, `categoria`, `numJugadores`, `no
 (2, 5, 'Cultura', 50, 'Quizz cultura general', 'Luego, el anfitrión puede usar una herramienta de copia para comenzar a dibujar o escribir algo, lo que permite a los otros jugadores terminar la imagen parcialmente dibujada o la palabra escrita como respuesta. Después de que todos los jugadores hayan respondido, cada jugador vota sobre qué respuesta o imagen es la más divertida.2​ Cada jugador tiene tres votos y también puede votar una vez por sí mismo. No hay penalización por votar por uno mismo.3', '2024-05-15', 'Teatro Municipal', 'Abierto', 'Entradas VIP a Karol G', NULL, 10.00),
 (3, 50, 'Deportes', 100, 'Circo del Sol', 'LOL, conocido en Europa como Bakushow y en Japón como Archime DS (ア ル キ メ ＤＳ, Arukime DS), es un videojuego de Nintendo DS. El juego fue publicado por Skip Ltd. en Japón, Agetec en Norteamérica y Rising Star Games en Europa. Desarrollado por un grupo de cinco personas encabezado por Kenichi Nishi, LOL es un juego multijugador implementado con una interfaz similar a PictoChat en la que un jugador anfitrión hace una pregunta, requiriendo que otros escriban o dibujen sus respuestas en la pantalla táctil de DS.', '2024-06-20', 'Gran Carpa', 'Terminado', 'Switch', 'Juan Pérez', 50.00),
 (4, 8, 'Deportes', 40, 'En busca del tesoro', 'LOL fue desarrollado por un grupo de cinco personas en Route24. El juego fue diseñado por el ex vicepresidente de Skip, Kenichi Nishi, mejor conocido por dirigir Giftpia y Chibi-Robo!. LOL fue programado por Fumihiro Kanaya, quien trabajó en dos de los títulos de bit Generations de Skip. La obra de arte del juego fue realizada por hikarin y su música fue compuesta por Hirofumi Taniguchi.4​ El juego fue realizado por los miembros del personal del proyecto con un presupuesto muy bajo, sin que se les pague por ello, aparte de sus trabajos habituales.Error en la cita: La etiqueta de apertura <ref> es incorrecta o tiene el nombre mal Su objetivo era hacer el juego lo más simple posible.', '2024-07-05', 'Plaza de Sol', 'Abierto', 'Premio en efectivo', NULL, 15.00);
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `idForo`, `mensaje`, `fechaHora`) VALUES
+(1, 32, 51, NULL, 'Hola Jaime', '2024-03-10 12:29:58'),
+(2, 51, 32, NULL, 'Hola Paula', '2024-03-10 12:31:00'),
+(3, 32, 51, NULL, 'mensaje de prueba', '2024-03-10 12:31:58');
+
+--
+-- Volcado de datos para la tabla `foros`
+--
+
+INSERT INTO `foros` (`id`, `titulo`, `autor`) VALUES
+(1, 'Foro sobre Poker', 'Paula'),
+(2, 'Los locos por el Catan', 'jaime');

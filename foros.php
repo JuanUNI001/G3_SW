@@ -2,10 +2,11 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/src/Foros/Foro.php';
+require_once __DIR__.'/includes/src/Foros/ListaForos.php';
 
 $tituloPagina = 'Lista de Foros';
 
-$foros = listaProfesores(); // Llama a la función para obtener la lista de foros
+$foros = listaForos(); // Llama a la función para obtener la lista de foros
 
 $contenidoPrincipal = <<<HTML
     <h1>Lista de Foros</h1>

@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw\src\Productos;
+namespace es\ucm\fdi\aw\src\Foros;
 
 use es\ucm\fdi\aw\src\Formulario;
 
@@ -7,7 +7,7 @@ class FormularioAddProducto extends Formulario
 {
 
     public function __construct() {
-        parent::__construct('formAddProducto', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -26,34 +26,34 @@ class FormularioAddProducto extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset class="fieldset-form">
-            <legend class="legend-form">Datos producto</legend>
-            <div class="input-text">
-                <label for="nombreProducto" class="input-label">Nombre:</label>
+        <fieldset>
+            <legend>Datos producto</legend>
+            <div>
+                <label for="nombreProducto">Nombre del producto:</label>
                 <input id="nombreProducto" type="text" name="nombreProducto" value="$nombreProducto" />
+                {$erroresCampos['nombreProducto']}
             </div>
-            <div class="error-message">{$erroresCampos['nombreProducto']}</div>
-            <div class="input-text">
-                <label for="precio" class="input-label">Precio:</label>
+            <div>
+                <label for="precio">Precio del producto:</label>
                 <input id="precio" type="text" name="precio" value="$precio"/>
+                {$erroresCampos['precio']}
             </div>
-            <div class="error-message">{$erroresCampos['precio']}</div>
-            <div class="input-text">
-                <label for="imagen" class="input-label">Imagen:</label>
+            <div>
+                <label for="imagen">Imagen del producto:</label>
                 <input id="imagen" type="text" name="imagen" value="$imagen"/>
+                {$erroresCampos['imagen']}
             </div>
-            <div class="error-message">{$erroresCampos['imagen']}</div>
-            <div class="input-areatext">
-                <label for="descripcion" class="input-label">Descripcion:</label>
-                <textarea id="descripcion" name="descripcion">$descripcion</textarea>
+            <div>
+                <label for="descripcion">Descripcion del producto:</label>
+                <textarea id="descripcion" name="descripcion" rows="4" cols="50">$descripcion</textarea>
+                {$erroresCampos['descripcion']}
             </div>
-            <div class="error-message">{$erroresCampos['descripcion']}</div>
-            <div class="input-text">
-                <label for="cantidad" class="input-label">Cantidad:</label>
+            <div>
+                <label for="cantidad">cantidad del producto:</label>
                 <input id="cantidad" type="text" name="cantidad" value="$cantidad"/>
+                {$erroresCampos['cantidad']}
             </div>
-            <div class="error-message">{$erroresCampos['cantidad']}</div>
-            <div class="enviar-button">
+            <div>
                 <button type="submit" name="crear">crear</button>
             </div>
         </fieldset>

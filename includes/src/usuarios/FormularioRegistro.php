@@ -56,7 +56,7 @@ class FormularioRegistro extends Formulario
                     <button id="avatar-siguiente" type="button">&gt;</button>
                 </div>
                 <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="images/opcion2.png"> 
-                <div class="rol-buttons">
+                <div class="radio-buttons">
                     <label for="rol_usuario">Selecciona tu rol:</label><br>
                     <div class="rol-option">
                         <input id="usuario" type="radio" name="rol" value="Usuario" required />

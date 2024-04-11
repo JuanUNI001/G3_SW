@@ -24,10 +24,11 @@ if (!$app->usuarioLogueado())  : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.
                 <li class="menu1"><img src="<?php echo $avatar; ?>" alt="Avatar de <?php echo $usuario->getNombre(); ?>" width="60" height="60">
 
                     <ul class="dropdown-content">
-                    <li><a href="<?php echo resuelve('/verPerfil.php'); ?>">Ver mi cuenta</a></li>
-                    <li><a href="<?php echo resuelve('/verPedidosAnteriores.php'); ?>">Pedidos anteriores</a></li>
+                    <li><a href="<?php echo resuelve('/verPerfil.php'); ?>" class="sideBarDerButton">Mi cuenta</a></li>
+                    <li><a href="<?php echo resuelve('/verPedidosAnteriores.php'); ?>" class="sideBarDerButton">Pedidos anteriores</a></li>
+                    <li><a href="<?php echo resuelve('/includes/carrito_usuario.php'); ?>" class="sideBarDerButton">Carrito</a></li>
                 </ul>
-            </li>
+            </li>   
         </ul>
     <?php endif; ?>
     
