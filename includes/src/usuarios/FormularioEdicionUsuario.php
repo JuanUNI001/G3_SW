@@ -23,6 +23,8 @@ class FormularioEdicionUsuario extends Formulario
         $rol = $this->rol;
         $correo = $this->correo;
         $avatar = $this->avatar;
+        $rutaAvatar = resuelve('/').$avatar;//la ruta del usuario  avatar
+        $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -56,15 +58,43 @@ class FormularioEdicionUsuario extends Formulario
                 <input id="correo" type="text" name="correo" value="$correo"/>
                 {$erroresCampos['correo']}
             </div>
-            <div>
-                <label for="avatar">Avatar:</label>
-                <input id="avatar" type="text" name="avatar" value="$avatar"/>
-                {$erroresCampos['avatar']}
+            <div id="avatar-selector">
+                <button id="avatar-anterior" type="button">&lt;</button>
+                <img id="avatar-seleccionado" src="{$rutaAvatar}" alt="Avatar seleccionado" style="width: 30%;">     
+                <button id="avatar-siguiente" type="button">&gt;</button>
             </div>
+            <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="{$rutaAvatar}"> 
+
             <div>
                 <button type="submit" name="actualizar">Actualizar</button>
             </div>
         </fieldset>
+        EOF;
+        $html .= <<<EOF
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {             
+            var avatarActual = {$avatarActual}; // Obtener el número de avatar actual del usuario
+            var numAvatares = 6;
+            function actualizarAvatar() {
+                var avatarSeleccionado = document.getElementById('avatar-seleccionado');
+                avatarSeleccionado.src = 'images/opcion' + avatarActual + '.png';
+                avatarSeleccionado.alt = 'Avatar seleccionado ' + avatarActual;
+
+                // Almacena la ruta de la imagen seleccionada en un campo oculto
+                document.getElementById('ruta-avatar').value = 'images/opcion' + avatarActual + '.png';
+            }
+            
+            document.getElementById('avatar-anterior').addEventListener('click', function() {
+                avatarActual = (avatarActual === 1) ? numAvatares : avatarActual - 1;
+                actualizarAvatar();
+            });
+        
+            document.getElementById('avatar-siguiente').addEventListener('click', function() {
+                avatarActual = (avatarActual === numAvatares) ? 1 : avatarActual + 1;
+                actualizarAvatar();
+            });
+        });
+        </script>
         EOF;
         return $html;
     }
@@ -91,12 +121,7 @@ class FormularioEdicionUsuario extends Formulario
             $this->errores['correo'] = 'El correo no puede estar vacío.';
         }
 
-        $avatar = trim($datos['avatar'] ?? '');
-        $avatar = filter_var($avatar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $avatar || empty($avatar) ) {
-            $this->errores['avatar'] = 'El avatar no puede estar vacío.';
-        }
-
+        $rutaAvatar = $datos['rutaAvatar'] ?? '';
 
         if (count($this->errores) === 0) {
 
@@ -104,7 +129,7 @@ class FormularioEdicionUsuario extends Formulario
             $nuevoUsuario->setNombre($nombre);    
             $nuevoUsuario->setCorreo($correo);       
             $nuevoUsuario->setRol($rol);
-            $nuevoUsuario->setAvatar($avatar);
+            $nuevoUsuario->setAvatar($rutaAvatar);
             Usuario::actualizaDatosFormulario($this->id,$nuevoUsuario);
             $_SESSION['nombre'] = $nombre;
             $_SESSION['correo'] = $correo;
