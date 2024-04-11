@@ -15,8 +15,6 @@ class Mensaje
 
     private $idDestinatario;
 
-    private $idForo;
-
     private $texto;
 
     private $fechaHora;
@@ -29,12 +27,11 @@ class Mensaje
         $this->idForo = $idForo !== null ? intval($idForo) : null;
         $this->texto = $texto;
         $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
-        $this->idForo = $idForo !== null ? intval($idForo) : null;
     }
 
-    public static function crea($id, $idEmisor, $idDestinatario, $idForo, $texto, $es_privado)
+    public static function crea($id, $idEmisor, $idDestinatario, $idForo, $texto)
     {
-        $m = new Mensaje($id, $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'), $es_privado);
+        $m = new Mensaje($id, $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'));
         return $m;
     }
 
@@ -155,6 +152,27 @@ class Mensaje
     }
 
     return $result;
+    }
+
+    public static function listarMensajes($idEmisor, $idDestinatario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idDestinatario = %d;', $idEmisor, $idDestinatario);
+            
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $idEmisor, $idDestinatario, $fila['idForo'], $fila['mensaje'],
+                $fila['fechaHora']);
+                );
+                $mensajes[] = $mensajes; 
+            }
+            $rs->free();
+        }
+        return  $mensajes;
     }
 
     public static function numMensajesPorIdEmisor($idEmisor = null)

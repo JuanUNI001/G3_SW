@@ -21,45 +21,16 @@ function listaForos()
 }
 
 function visualizaForo($foro) {
-        $titulo = $foro->getTitulo();
-        $valoracion = $profesor->getValoracion();
-        
-        if ($precio === null) {
-            $precioTexto = '-';
-        } else {
-            $precioTexto = $precio . ' €';
-        }
 
-        if ($valoracion === null) {
-            $valoracionTexto = '-';
-        } else {
-            $valoracionTexto = $valoracion;
-        }
+    $rutaVerForo = resuelve('/includes/src/Mensajes/verConversacion.php'); 
+    $html = '<div class="foro">';
+    $html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
 
-        $html = <<<EOF
-        <div class="profesor">
-            <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
-            <div class="profesor_info">
-                <div class="profesor_nombre"><strong>Nombre:</strong> {$profesor->getNombre()}</div>
-                <div class="profesor_precio"><strong>Precio:</strong> {$precioTexto}</div>
-                <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
-                <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
-                <div>
-                    <button onclick="contactarProfesor('{$profesor->getCorreo()}')">Contactar</button>
-                </div>
-            </div>
-        </div>
-    EOF;
-
-        //if(isset($_SESSION["rol"]) === "admin"){
-            $html .=<<<EOF
-            <div class="editar_Profesor">
-                <a href="/G3_SW/EditorProfesorView.php?id_profesor={$profesor->getId()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
-                </a>   
-            </div>
-            EOF; 
-        //}
+    $html .= '<div class="foro_titulo">' . $foro->getTitulo() . '</div>';
+    $html .= '<div class="foro_autor">' . $foro->getTitulo() . '</div>';
+    
+    $html .= '</a>';
+    $html .= '</div>';
 
     return $html;
 }

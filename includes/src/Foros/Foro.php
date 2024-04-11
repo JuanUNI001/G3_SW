@@ -63,7 +63,7 @@ class Foro
         return $this->id;
     }
 
-    public function getIdCreadorForo()
+    public function getCreadorForo()
     {
         return $this->autor;
     }
