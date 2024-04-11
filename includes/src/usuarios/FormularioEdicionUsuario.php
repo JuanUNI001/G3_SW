@@ -33,35 +33,34 @@ class FormularioEdicionUsuario extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend>Datos usuario</legend>
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" name="nombre" value="$nombre" />
-                {$erroresCampos['nombre']}
+            <fieldset class="fieldset-form">
+            <legend class="legend-form">Datos usuario</legend>
+            <div class="input-text">
+                <label for="nombre" class="input-label">Nombre:</label>
+                <input id="nombre" type="text" name="nombre" value="$nombre"/>
             </div>
-            <div>
-                <label>Rol:</label>
-                <div class="rol-buttons">
+            <div class="error-message">{$erroresCampos['nombre']}</div>
+            <div class="radio-buttons">
+                <label class="input-label">Rol:</label>
+                <div>
                     <input id="user_role" type="radio" name="rol" value="2" $checkedUser>
                     <label for="user_role">User</label>
-
                     <input id="teacher_role" type="radio" name="rol" value="3" $checkedTeacher>
                     <label for="teacher_role">Teacher</label>
                 </div>
-                {$erroresCampos['rol']}
             </div>
-            <div>
-                <label for="correo">Correo:</label>
+            <div class="error-message">{$erroresCampos['rol']}</div>
+            <div class="input-text">
+                <label for="correo" class="input-label">Correo:</label>
                 <input id="correo" type="text" name="correo" value="$correo"/>
-                {$erroresCampos['correo']}
             </div>
-            <div>
-                <label for="avatar">Avatar:</label>
+            <div class="error-message">{$erroresCampos['correo']}</div>
+            <div class="input-text">
+                <label for="avatar" class="input-label">Avatar:</label>
                 <input id="avatar" type="text" name="avatar" value="$avatar"/>
-                {$erroresCampos['avatar']}
             </div>
-            <div>
+            <div class="error-message">{$erroresCampos['avatar']}</div>
+            <div class="enviar-button">
                 <button type="submit" name="actualizar">Actualizar</button>
             </div>
         </fieldset>

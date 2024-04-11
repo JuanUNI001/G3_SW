@@ -1,0 +1,98 @@
+.fieldset-form {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    /* Grey background color */
+    display: flex;
+    /* Use flexbox */
+    flex-direction: column;
+    /* Align items vertically */
+}
+
+.legend-form {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+    /* Grey background color */
+    border-radius: 5px;
+    text-align: center;
+    /* Center the text */
+    width: 100%;
+    /* Occupy entire width */
+    border: 2px solid #000000;
+}
+
+.fieldset-form>div {
+    display: flex;
+    /* Use flexbox */
+    align-items: center;
+    /* Align items horizontally */
+    margin-bottom: 10px;
+    /* Add space between each row */
+}
+
+.fieldset-form label {
+    flex: 1;
+    /* Distribute remaining space evenly */
+    margin-right: 10px;
+    /* Add space between label and input */
+}
+
+.input-label {
+    font-weight: bold;
+}
+
+
+.fieldset-form input[type="text"] {
+    flex: 2;
+    /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+
+.fieldset-form textarea {
+    flex: 2; /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 13px;
+    margin-top: 1px;
+    flex: 1;
+    /* Expand to occupy the same width as input field */
+}
+
+.enviar-button {
+    display: flex;
+    /* Use flexbox */
+    justify-content: flex-end;
+    /* Align button to the right */
+}
+
+.enviar-button button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.enviar-button button:hover {
+    background-color: #0056b3;
+}
