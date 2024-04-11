@@ -1,8 +1,7 @@
 <?php
 use es\ucm\fdi\aw\src\Eventos\Evento;
 require_once '../includes/config.php';
-require_once '../includes/vistas/helpers/autorizacion.php';
-require_once '../includes/src/Eventos/eventos.php';
+
 
 verificaLogado(Utils::buildUrl('/login.php'));
 
