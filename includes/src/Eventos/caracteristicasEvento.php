@@ -65,7 +65,7 @@ $contenidoPrincipal ='';
 
 
        // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
-        echo __FILE__;
+
 
         $direccion = resuelve("inscribirseEventoView.php");
         $contenidoPrincipal .= <<<EOF

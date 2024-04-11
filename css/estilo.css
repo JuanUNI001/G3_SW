@@ -1,7 +1,7 @@
 
-
 body {
-	background-color: #d48686;
+
+	background-color: #000000;
 	font-family: 'Poppins', sans-serif;
 	margin: 0;
 	padding: 0;
@@ -24,7 +24,8 @@ button {
 }
 
 header {
-    background-image: linear-gradient(#b910cf, #191919); /* Cambia el gradiente de color */
+	background-image: linear-gradient(#f000dc, #000000);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,7 +75,7 @@ select {
 	align-items: center;
 	flex-direction: column;
 	border-radius: 20px;
-	border: 2px solid #C84B31;
+	border: 2px solid #e60f93;
 	gap: 10px;
 }
 
@@ -83,7 +84,7 @@ select {
 	font-size: large;
 	border: none;
 	border-radius: 0;
-	border-bottom: 1px solid #C84B31;
+	border-bottom: 1px solid #e409b4;
 	padding: 4px 6px;
 }
 
@@ -93,12 +94,59 @@ select {
 }
 
 
+/* Estilos para el fieldset */
 fieldset {
-	display: flex;
-	flex-direction: column;
-	width: fit-content;
-	padding: 10px 20px;
+    border: 2px solid #cc00f5; /* Borde del fieldset */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin: 0; /* Elimina el margen */
+    background-color: #000000; /* Color de fondo */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
 }
+
+/* Estilos para la leyenda del fieldset */
+legend {
+    font-size: 18px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    margin-bottom: 10px; /* Margen inferior */
+    background-color: black; /* Agrega un fondo de color negro */
+    color: white; /* Cambia el color del texto a blanco para que sea legible */
+    padding: 5px 10px; /* Añade un poco de espacio alrededor del texto */
+    border-radius: 5px; /* Añade bordes redondeados */
+}
+
+/* Estilos para los elementos internos del fieldset */
+fieldset > * {
+    margin-bottom: 10px; /* Margen inferior entre elementos */
+}
+
+/* Estilos para los campos de formulario dentro del fieldset */
+fieldset input[type="text"],
+fieldset input[type="email"],
+fieldset textarea {
+    width: calc(100% - 16px); /* Ancho ajustado para el borde */
+    padding: 8px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos para el botón dentro del fieldset */
+fieldset button {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor apuntador */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+fieldset button:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el ratón */
+}
+
 
 form input, form button{
 	width: fit-content;
@@ -169,7 +217,7 @@ select {
 nav a {
     font-weight: bold; /* Añade negrita al texto */
     font-size: 16px; /* Ajusta el tamaño de fuente */
-    color: #0066c0; /* Cambia el color del texto */
+    color: #ffffff; /* Cambia el color del texto */
     text-decoration: none; /* Elimina la subrayado del enlace */
     padding: 10px 15px; /* Añade espaciado interno al enlace */
     border-radius: 5px; /* Añade bordes redondeados al enlace */
@@ -206,4 +254,43 @@ nav li {
     height: 120px; /* Aumentar la altura del logo */
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
+
+/* Estilos para el contenido principal */
+footer {
+    position: relative; /* Cambia la posición a relativa */
+    width: 100%;
+    background-color: #333; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 20px; /* Espaciado interno */
+    clear: both; /* Limpia los flotantes */
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+    margin-bottom: 100px; /* Ajusta este valor según la altura de tu pie de página */
+}
+
+/* Estilos para el contenido del pie de página */
+.footer-content {
+    display: flex; /* Utiliza flexbox para organizar el contenido */
+    justify-content: space-between; /* Distribuye los elementos uniformemente */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+/* Estilos para los enlaces del pie de página */
+footer a {
+    color: #fff; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+}
+
+footer a:hover {
+    color: #ccc; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
+}
+
+/* Estilos para el texto de derechos de autor */
+.copyright {
+    font-size: 14px; /* Tamaño del texto */
+}
+
 

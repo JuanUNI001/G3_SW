@@ -13,7 +13,7 @@ $mensajes = mensajesPeticionAnterior();
 <div id="contenedor">
 <?php
 $params['app']->doInclude('/vistas/comun/cabecera.php', $params);
-$params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
+//$params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
 ?>
 	<main>
 		<article>
