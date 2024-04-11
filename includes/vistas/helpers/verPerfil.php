@@ -1,11 +1,13 @@
 <?php
 
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
-
+use es\ucm\fdi\aw\src\BD;
 function mostrar_contenidoPerfil()
 {
+	$app = BD::getInstance();
+    
     $contenido;
-    if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
+    if ($app->usuarioLogueado())  {
 
 		$correo_usuario = $_SESSION['correo'];
 		$usuario = Usuario::buscaUsuario($correo_usuario);
@@ -33,6 +35,17 @@ function mostrar_contenidoPerfil()
 			
 		</section>
 		EOS;
+
+		//if(isset($_SESSION["rol"]) === "admin"){
+			$direccionEditor = resuelve("EditorUsuarioView.php");
+			$contenido .=<<<EOF
+			<div class="editar_Usuario">
+				<a href="{$direccionEditor}?id={$usuario->getId()}">
+					<img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+				</a>   
+			</div>
+			EOF; 
+		//}
 	} else {
         $contenido=<<<EOS
         <h2>Aviso:</h2>

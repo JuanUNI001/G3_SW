@@ -19,7 +19,23 @@ define('BD_HOST', 'localhost');
 define('BD_NAME', 'mesamaestra');
 define('BD_USER', 'root');
 define('BD_PASS', '');
+/*
+define('RUTA_APP', '');
 
+define('RUTA_IMGS', RUTA_APP . '/');
+define('RUTA_CSS', RUTA_APP . '/css');
+define('RUTA_JS', RUTA_APP . '/js');
+define('RUTA_VISTAS_COMUN', __DIR__ . '/vistas/comun');
+define('RUTA_VISTAS', RUTA_APP . '/includes/vistas');
+define('INSTALADA', true);
+
+// Parámetros de configuración de la BD
+define('BD_HOST', 'vm007.db.swarm.test');
+define('BD_NAME', 'practica3');
+define('BD_USER', 'practica3');
+define('BD_PASS', 'practica3');
+
+*/
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
  */
