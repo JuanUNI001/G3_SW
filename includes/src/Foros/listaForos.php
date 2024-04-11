@@ -10,7 +10,7 @@ function listaForos()
 {
     $foros = Foro::listarForos();
 
-    $html = "<div class='profesores'>";
+    $html = "<div class='foro'>";
 
     foreach ($foros as $foro) {
         $html .= visualizaForo($foro);
