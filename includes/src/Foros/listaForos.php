@@ -27,7 +27,7 @@ function visualizaForo($foro) {
     $html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
 
     $html .= '<div class="foro_titulo">' . $foro->getTitulo() . '</div>';
-    $html .= '<div class="foro_autor">' . $foro->getTitulo() . '</div>';
+    $html .= '<div class="foro_autor">' . $foro->getAutor() . '</div>';
     
     $html .= '</a>';
     $html .= '</div>';

@@ -158,9 +158,15 @@ class Mensaje
     {
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
-       
-        $query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idDestinatario = %d;', $idEmisor, $idDestinatario);
-            
+        $query = sprintf('SELECT * FROM mensajes M WHERE 
+                        (M.idEmisor = %d AND M.idDestinatario = %d) 
+                        OR 
+                        (M.idEmisor = %d AND M.idDestinatario = %d);', 
+                        $idEmisor, $idDestinatario, $idDestinatario, $idEmisor);
+
+        //$query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idDestinatario = %d;', $idEmisor, $idDestinatario);
+        $query .= ' ORDER BY fechaHora DESC';
+
         $rs = $conn->query($query);
         $mensajes = array(); 
         if ($rs) {

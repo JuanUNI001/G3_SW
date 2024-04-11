@@ -60,18 +60,41 @@ INSERT INTO `eventos` (`idEvento`, `inscritos`, `categoria`, `numJugadores`, `no
 
 CREATE TABLE `mensajes` (
   `id` int(11) NOT NULL,
-  `autor` int(11) NOT NULL,
-  `mensaje` varchar(140) NOT NULL,
-  `fechaHora` datetime NOT NULL,
-  `idMensajePadre` int(11) DEFAULT NULL
+  `idEmisor` int(11) NOT NULL,
+  `idDestinatario` int(11) DEFAULT NULL,
+  `idForo` int(11) DEFAULT NULL,
+  `mensaje` varchar(200) NOT NULL,
+  `fechaHora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`) VALUES
-(1, 1, 'Bienvenido al foro', '2024-03-10 12:29:58', NULL);
+INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `idForo`, `mensaje`, `fechaHora`) VALUES
+(1, 32, 51, NULL, 'Hola Jaime', '2024-03-10 12:29:58'),
+(2, 51, 32, NULL, 'Hola Paula', '2024-03-10 12:31:00'),
+(3, 32, 51, NULL, 'mensaje de prueba', '2024-03-10 12:31:58');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `foros`
+--
+
+CREATE TABLE `foros` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(25) NOT NULL,
+  `autor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `foros`
+--
+
+INSERT INTO `foros` (`id`, `titulo`, `autor`) VALUES
+(1, 'Foro sobre Poker', 'Paula'),
+(2, 'Los locos por el Catan', 'jaime');
 
 -- --------------------------------------------------------
 
@@ -242,8 +265,15 @@ ALTER TABLE `eventos`
 --
 ALTER TABLE `mensajes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Mensajes_mensaje` (`idMensajePadre`),
-  ADD KEY `Mensajes_autor` (`autor`);
+  ADD KEY `mensajes_idEmisor` (`idEmisor`),
+  ADD KEY `mensajes_idDestinatario` (`idDestinatario`),
+  ADD KEY `mensajes_idForo` (`idForo`);
+
+--
+-- Indices de la tabla `foros`
+--
+ALTER TABLE `foros`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `pedidos`
@@ -289,6 +319,12 @@ ALTER TABLE `mensajes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `foros`
+--
+ALTER TABLE `foros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
@@ -314,8 +350,9 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD CONSTRAINT `Mensajes_autor` FOREIGN KEY (`autor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mensajes_mensaje` FOREIGN KEY (`idMensajePadre`) REFERENCES `mensajes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `mensajes_idEmisor` FOREIGN KEY (`idEmisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensajes_idDestinatario` FOREIGN KEY (`idDestinatario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensajes_idForo` FOREIGN KEY (`idForo`) REFERENCES `foros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedidos`
