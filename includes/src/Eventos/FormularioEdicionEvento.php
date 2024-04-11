@@ -15,8 +15,8 @@ class FormularioEdicionEvento extends Formulario
     public $tasa;   
     public $inscritos;
     public $numJugadores;
-
     public $estado;
+    public $ganador;
 
 
     public function __construct() {
@@ -37,6 +37,8 @@ class FormularioEdicionEvento extends Formulario
         $inscritos = $this->inscritos;
         $aforo = $this->numJugadores;
         $eliminar = 0;
+        $estado =$this->estado;
+        $ganador = $this->ganador;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -149,6 +151,13 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['lugar'] = 'El lugar no puede estar vacío.';
         }
 
+        $ganador = trim($datos['ganador'] ?? '');
+        $ganador = filter_var($ganador, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (! $ganador || empty($ganador)) {
+            $this->errores['ganador'] = 'El lugar no puede estar vacío.';
+        }
+
+
         $premio = trim($datos['premio'] ?? '');
         $premio = filter_var($premio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $premio || empty($premio)) {
@@ -188,7 +197,7 @@ class FormularioEdicionEvento extends Formulario
             } else
             {
                 $eventoActual = Evento::buscaPorId($this->id);
-                $nuevoEvento = Evento::Nuevo($this->id,$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+                $nuevoEvento = Evento::Nuevo($this->id,$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$tasa);
                 Evento::actualiza($nuevoEvento);
             }
         }
