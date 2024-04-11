@@ -86,8 +86,8 @@ class Usuario
             $nombre = $conn->real_escape_string($usuario->nombre);
             $password = $conn->real_escape_string($usuario->password);
             $correo = $conn->real_escape_string($usuario->correo);
-            
-            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo) VALUES ('$rolUser', '$nombre', '$password', '$correo')";
+            $avatar =  $conn->real_escape_string($usuario->avatar);
+            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo, avatar) VALUES ('$rolUser', '$nombre', '$password', '$correo', '$avatar')";
             
             if ($conn->query($query)) {
                 $usuario->id = $conn->insert_id;

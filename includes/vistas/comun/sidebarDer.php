@@ -1,10 +1,15 @@
 <?php
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Profesores\Profesor;
+use es\ucm\fdi\aw\src\BD;
 ?>
 
 <aside id="sidebarDer">
 
-<?php if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.png');?>
+<?php 
+$app = BD::getInstance();
+
+if (!$app->usuarioLogueado())  : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.png');?>
         <!-- Si el usuario no está logueado, muestra la foto por defecto -->
         
         <img src="<?php echo $avatar; ?>" alt="Avatar por defecto" width="60" height="60">

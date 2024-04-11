@@ -9,7 +9,7 @@ function mostrar_pedidosAnteriores()
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     // Redirige al usuario a la página de inicio de sesión si no ha iniciado sesión
-    $rutaLogin = resuelve('login.php');
+    $rutaLogin = resuelve('/login.php');
     header("Location: $rutaLogin");
     exit();
 }
