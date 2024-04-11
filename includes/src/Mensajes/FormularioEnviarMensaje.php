@@ -41,7 +41,7 @@ class FormularioEnviarMensaje extends Formulario
             </div>
             <div>
                 <button type="submit" name="login">Enviar</button>
-            </div>
+            </div>  
 
         EOF;
         return $html;
