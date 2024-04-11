@@ -7,10 +7,10 @@ TRUNCATE TABLE `Usuarios`;
 TRUNCATE TABLE `mensajes`;
 
 
-INSERT INTO `mensajes` (`id`, `autor`, `mensaje`, `fechaHora`, `idMensajePadre`) VALUES
-(1, 1, 'Bienvenido al foro', '2024-03-10 12:29:58', NULL),
-(2, 2, 'Muchas gracias', '2024-03-10 12:44:58', 1),
-(3, 2, 'Otro mensaje', '2024-03-11 13:44:58', NULL);
+INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `texto`, `es_privado`, `fechaHora`) VALUES
+(1, '2', '3', 'hola caracola', 1),
+(2, '2', '3', 'mensaje de prueba', 1),
+(3, '3', '2', 'mensaje de respuesta', 1);
 
 --
 -- Volcado de datos para la tabla `productos`

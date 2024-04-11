@@ -15,21 +15,21 @@ class Foro
 
     private $id;
 
-    private $id_user
+    private $autor
 
     private $titulo;
 
-    private function __construct($id, $id_user, $titulo)
+    private function __construct($id, $autor, $titulo)
     {
-        $this->id = intval($id);
-        $this->id_user = intval($id_user);
+        $this->id = $id !== null ? intval($id) : null;
+        $this->autor = intval($autor);
         $this->titulo = $titulo;
         $this->imagen = $imagen;
     }
 
-    public static function crea($id, $id_user, $titulo)
+    public static function crea($id, $autor, $titulo)
     {
-        $m = new  es\ucm\fdi\aw\Foros\Foro($id, $id_user, $titulo);
+        $m = new  es\ucm\fdi\aw\Foros\Foro($id, $autor, $titulo);
         return $m;
     }
 
@@ -47,7 +47,7 @@ class Foro
             while ($fila = $rs->fetch_assoc()) {
                 $foro = new Foro(
                     $fila['id'],
-                    $fila['id_user'],
+                    $fila['autor'],
                     $fila['titulo'],
                     $fila['descripcion']
                 );
@@ -65,7 +65,7 @@ class Foro
 
     public function getIdCreadorForo()
     {
-        return $this->id_user;
+        return $this->autor;
     }
     
     public function getTitulo()
@@ -82,37 +82,22 @@ class Foro
         $this->nombre = $nuevoNombre;
     }
 
-    public function setDescripcion($nuevaDescripcion)
+    public function setTitulo($nuevo_titulo)
     {
-        if (mb_strlen($nuevaDescripcion) > self::MAX_SIZE) {
-            throw new Exception(sprintf('El mensaje no puede exceder los %d caracteres', self::MAX_SIZE));
+        if (mb_strlen($nuevo_titulo) > self::MAX_SIZE) {
+            throw new Exception(sprintf('El titulo no puede exceder los %d caracteres', self::MAX_SIZE));
         }
-        $this->descripcion = $nuevaDescripcion;
+        $this->titulo = $nuevo_titulo;
     }
 
-    public function setPrecio($nuevoPrecio)
-    {
-        $this->precio = $nuevoPrecio;
-    }
-    public function setImagen($nuevaImagen)
-    {
-        $this->imagen = $nuevaImagen;
-    }
-    public function setCantidad($cantidad)
-    {
-        $this->cantidad = $cantidad;
-    }
     public function guarda()
     {
         if (!$this->id) {
             self::inserta($this);
         } else {
-            // Actualiza la información del producto en la base de datos
-            $result = self::actualiza($this);
-            // Actualiza la cantidad del producto en la base de datos
-            $resultCantidad = self::actualizaCantidad($this->id, $this->cantidad);
-            // Verifica si ambas operaciones fueron exitosas
-            if ($result && $resultCantidad) {
+            // Actualiza la información en la base de datos
+            $result = self::actualiza($this);         
+            if ($result) {
                 return $this;
             } else {
                 return false;
@@ -120,7 +105,6 @@ class Foro
         }
     }
 
-    
     public function borrate()
     {
         if ($this->id !== null) {
@@ -129,39 +113,44 @@ class Foro
         return false;
     }
 
-    private static function borra($producto)
+    private static function borra($foro)
     {
-        return self::borraPorId($producto->id);
+        return self::borraPorId($foro->id);
     }
 
 
-    public static function borraPorId($id_producto)
+    public static function borraPorId($id_foro)
     {
-        if (!$id_producto) {
+        if (!$id_foro) {
             return false;
         } 
         
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "DELETE FROM productos WHERE id = %d",
-            $id_producto
+            "DELETE FROM foros WHERE id = %d",
+            $id_foro
         );
         $conn->query($query);
 
     }
-    public static function buscaPorId($idProducto)
+
+    public static function buscaPorId($id_foro)
     {
         $result = null;
     
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM productos P WHERE P.id = %d;', $idProducto); 
+        $query = sprintf('SELECT * FROM foros F WHERE F.id = %d;', $id_foro); 
         $rs = null;
         try{
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
+                $result = new Foro(
+                    $fila['id'],
+                    $fila['autor'],
+                    $fila['titulo']
+                );
             }
         } finally {
             if ($rs != null) {
@@ -171,22 +160,25 @@ class Foro
         return $result; 
     }
     
-    public static function buscaPorNombre($nombreProducto = '')
+    public static function buscaPorTitulo($tituloForo = '')
     {
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
 
-        $query = sprintf("SELECT * FROM productos P WHERE P.nombre LIKE '%%%s%%'"
-            , $conn->real_escape_string($nombreProducto)
+        $query = sprintf("SELECT * FROM foros F WHERE F.titulo LIKE '%%%s%%'"
+            , $conn->real_escape_string($tituloForo)
         );
 
-        $query .= ' ORDER BY P.precio DESC';
         try{
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             while($fila) {
-                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
+                $result[] = new Foro(
+                    $fila['id'],
+                    $fila['autor'],
+                    $fila['titulo']
+                );
             }
         } finally {
             if ($rs != null) {
@@ -195,59 +187,12 @@ class Foro
         }
         return $result;        
     }
-    public static function actualizaCantidad($id_producto, $nueva_cantidad)
-    {
-        $result = false;
 
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE productos SET cantidad = %d WHERE id = %d",
-            $nueva_cantidad,
-            $id_producto
-        );
-        $result = $conn->query($query);
-        if (!$result) {
-            error_log($conn->error);
-        } else if ($conn->affected_rows != 1) {
-            error_log("Se han actualizado '$conn->affected_rows' filas!");
-        }
-
-        return $result;
-    }
-
-    public function actualizarValoracion($nuevaValoracion) {
-        $nuevaValoracionTotal = ($this->valoracion * $this->num_valoraciones) + $nuevaValoracion;
-        $nuevoNumValoraciones = $this->num_valoraciones + 1;
-        $nuevaValoracionPromedio = $nuevaValoracionTotal / $nuevoNumValoraciones;
-    
-        // Actualizar en la base de datos
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE productos SET valoracion = %f, num_valoraciones = %d WHERE id = %d",
-            $nuevaValoracionPromedio,
-            $nuevoNumValoraciones,
-            $this->id
-        );
-    
-        try {
-            $result = $conn->query($query);
-            if ($result) {              
-                $this->valoracion = $nuevaValoracionPromedio;
-                $this->num_valoraciones = $nuevoNumValoraciones;
-            }
-        
-        } finally {
-          
-        }
-    }
-    
-    
-    
-
-    public static function contarProductos()
+    public static function contarForos()
     {
       $conn = BD::getInstance()->getConexionBd();
     
-      $query = "SELECT COUNT(*) AS total FROM productos";
+      $query = "SELECT COUNT(*) AS total FROM foros";
     
       $rs = $conn->query($query);
       $total = 0;
@@ -260,86 +205,36 @@ class Foro
       return $total;
     }
     
-    public static function buscaPorPrecioMaximo(&$maximoPrecio)
-    {
-        $result = [];
-    
-        $conn = BD::getInstance()->getConexionBd();
-    
-        $query = sprintf("SELECT * FROM productos P WHERE P.precio <= %f", $maximoPrecio);
-    
-        $rs = $conn->query($query);
-        if ($rs) {
-            while($fila = $rs->fetch_assoc()) {
-                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones']);
-            }
-            $rs->free();
-        }
-    
-        return $result;
-    }
-    public static function buscarPorValoracionMinima(&$valoracionMinima)
-    {
-        $result = [];
-    
-        $conn = BD::getInstance()->getConexionBd();
-    
-        $query = sprintf("SELECT * FROM productos WHERE valoracion >= %f", floatval($valoracionMinima));
-    
-        $rs = $conn->query($query);
-        if ($rs) {
-            while($fila = $rs->fetch_assoc()) {
-                $result[] = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones']);
-            }
-            $rs->free();
-        }
-    
-        return $result;
-    }    
-    
-
-    private static function inserta($producto)
+    private static function inserta($foro)
     {
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
+
         $query = sprintf(
-            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones, cantidad) VALUES ('%s', %f, '%s', '%s', %f, %d, %d)",
-            $conn->real_escape_string($producto->nombre),
-            $producto->precio,
-            $conn->real_escape_string($producto->descripcion),
-            $conn->real_escape_string($producto->imagen),
-            $producto->valoracion,
-            $producto->num_valoraciones,
-            $producto->cantidad
+            "INSERT INTO foros (titulo, autor) VALUES (%d,'%s', '%s')",
+            $conn->real_escape_string($foro->titulo),
+            $conn->real_escape_string($foro->nombre)
         );
-        try {
-            $conn->query($query);
-            $usuario->id = $conn->insert_id;
-            $result = $producto;
-            return $result;
-        } catch( \mysqli_sql_exception $e) {
-            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-                throw new ProductoYaExistenteException("Ya existe el producto {$producto->nombre}");
-            }
+
+        if ($conn->query($query)) {
+            $foro->id = $conn->insert_id;
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
     }
 
 
-    public static function actualiza($producto)
+    public static function actualiza($foro)
     {
         $result = false;
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d WHERE P.id = %d",
-            $conn->real_escape_string($producto->nombre),
-            $producto->precio,
-            $conn->real_escape_string($producto->descripcion),
-            $conn->real_escape_string($producto->imagen),
-            $producto->valoracion,
-            $producto->num_valoraciones,
-            $producto->id
+            "UPDATE foros F SET titulo = '%s', autor = %s WHERE F.id = %d",
+            $conn->real_escape_string($foro->titulo),
+            $conn->real_escape_string($foro->autor)
         );
         $result = $conn->query($query);        
         return $result;
