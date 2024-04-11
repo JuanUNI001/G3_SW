@@ -75,6 +75,7 @@ function visualizaProfesor($profesor) {
 
 
         //if(isset($_SESSION["rol"]) === "admin"){
+            $dirProfesores=resuelve('EditorProfesorView.php');
             $html .=<<<EOF
             <div class="editar_Profesor">
                 <a href="/G3_SW/EditorProfesorView.php?id_profesor={$profesor->getId()}">

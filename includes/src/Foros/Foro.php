@@ -15,7 +15,7 @@ class Foro
 
     private $id;
 
-    private $autor
+    private $autor;
 
     private $titulo;
 
