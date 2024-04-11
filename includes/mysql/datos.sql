@@ -1,7 +1,7 @@
 /*
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
-TRUNCATE TABLE `RolesUsuario`;
+
 TRUNCATE TABLE `Roles`;
 TRUNCATE TABLE `Usuarios`;
 
@@ -17,7 +17,18 @@ INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `val
 ('Érase una vez', 27.90, 'Juego Érase una vez. Perfecto para rememorar la famosa serie infantil y aprender en el proceso.', 4, 'images/erase.png', NULL, 458, 56),
 ('Laberinto', 34.80, 'Juego de mesa Laberinto.\r\nRecorre el laberinto en busca de los tesoros más preciados… pero atención: ¡encontrar la via d\'uscita no será nada fácil.\r\nMateriales de óptima calidad; el juego contiene: 1 tablero, 34 piezas móviles de laberinto, 24 cartas de objetivo «día», 4 peones, 12 cartas de objetivo cuadradas «noche»\r\n', 5, 'images/laberinto.png', 4.20, 4523, 598),
 ('Exploding Kittens', 19.40, 'Exploding Kittens es un juego rápido y divertido en el que tienes que asegurar tu supervivencia ante los temibles ¡gatos explosivos! Un juego de cartas en el que hasta cinco jugadores hacen todo lo posible por fastidiar a los rivales hasta conseguir que caigan eliminados', 6, 'images/explodingKittens.png', 3.85, 4789, 23),
-('Cluedo', 22.35, 'Divertido juego familiar: ¿Recuerdas jugar el clásico juego Cluedo cuando era un niño? Saca el juego Cluedo Liars Edition para la noche de juego familiar, citas de juego y entretenimiento en días lluviosos. A partir de 8 años', 7, 'images/cluedo.png', 4.63, 89654, 78);
+('Cluedo', 22.35, 'Divertido juego familiar: ¿Recuerdas jugar el clásico juego Cluedo cuando era un niño? Saca el juego Cluedo Liars Edition para la noche de juego familiar, citas de juego y entretenimiento en días lluviosos. A partir de 8 años', 7, 'images/cluedo.png', 4.63, 89654, 78),
+('Disney Villainous', 52.00, 'Disney Villainous es para 2-6 jugadores y está recomendado para mayores de 10 años. Las dinámicas de juego se adaptan fácilmente a diferentes categorías de jugadores: expertos, principiantes, familias y entusiastas del universo Disney.\r\nDimensiones del producto: ‎27 x 27 x 8 cm; 1 g', 8, 'images/villanous.png', 4.70, 1150, 233),
+('7 Wonders: Duel', 26.99, 'En 7 Wonders Duel cada jugador es el líder de una civilización que construirá Estructuras y erigirá Maravillas. Las Estructuras y las Maravillas construidas por cada jugador componen su «ciudad\r\nExisten 3 formas de ganar en 7 Wonders Duel: supremacía militar, supremacía científica y victoria civil\r\nSi al final de la tercera Era nadie ha conseguido ganar, los jugadores sumarán sus puntos de victori', 9, 'images/duel.png', 4.80, 1130, 45),
+('Dixit', 26.45, '¡Juego de deducción, bellamente ilustrado, donde tu imaginación crea increíbles historias!\r\nEn este galardonado juego de mesa, los jugadores podrán utilizar la hermosa imaginería de sus cartas para engañar a sus rivales.\r\nDixit es un juego sorprendente, encantador y de reglas fáciles, para disfrutar con amigos y familiares por igual.\r\nDe 3 a 8 jugadores.', 10, 'images/dixit.png', 4.78, 840, 32),
+('El impostor', 15.99, 'El impostor\', \'15.99\', \'UN DESTERNILLANTES JUEGO DE MÍMICA Si eres demasiado obvio, el Impostor adivinará fácilmente la palabra secreta y pasar desapercibido, si eres demasiado sutil, te arriesgas a ser acusado.\r\n¿SERÁS CAPAZ DE ENGARÑARLOS A TODOS? En cada ronda una persona, elegida al azar, deberá fingir y mantener la farsa hasta el final para lograr la victoria. ¿Conseguirás pasar desapercibido o el resto del grupo averiguará que eres el impostor?\r\nTIEMPO DE JUEGO ADAPTADO A TODOS LOS GUSTOS ¡Podrás jugar una ronda rápida de solo unos minutos de duración o alargar la diversión durante horas!', 11, 'images/impostor.png', 4.60, 543, 18),
+('Unicornios congelados', 14.99, 'DIVERSIÓN EN TODA REGLA PARA TODA LA FAMILIA - Los más pequeños posa como un cangrejo. Mamá como una profesora de kárate. ¡¿El abuelo posando como un superhéroe?! Pero, ¿puedes adivinar de qué pretenden estar congelados? Unicornios Congelados es un juego súper divertido que encanta a todos sin importar la edad.\r\nSÉ CREATIVO Y A MOVERSE - A todos los jugadores se les dice de qué tienen que pretender congelarse en cada ronda, menos a uno de ellos. La habitación se transformará en un museo de estatuas absurdas, mientras que uno de los jugadores adivina de qué están congelados los demás. Con más de 100 cartas diferentes y tres categorías, Unicornios Congelados es el divertidísimo juego que hace ', 12, 'images/unicornios.png', 4.20, 345, 15),
+('LITTLE SECRET', 25.99, 'Little Secret es un juego de mesa intuitivo de imaginación, asociación de palabras y código secreto. Cartas para fiestas con amigos o también para jugar en familia, tanto como con adultos como para peques.\r\nEl objetivo del juego de mesa : Tendrás que dar pistas sobre la palabras secreta de las cartas y descubrir a los infiltrados y al periodista de la Organización Secreta\r\n4-9 JUGADORES, 20 min de juego, + 10 años. ¡Descubre a los embusteros!  180 cartas, 300 palabras y 17 misiones', 13, 'images/littleSecret.png', 4.80, 4637, 240),
+('Jenga', 22.50, '54 bloques de madera JENGA\r\nSe necesita habilidad, estrategia y suerte\r\nDesafíate a ti mismo o juega con amigos\r\nGanarás si eres el último jugador que quita un bloque sin que la pila se derrumbe\r\nIncluye soporte de montaje', 14, 'images/jenga.png', 4.90, 50392, 5302),
+('UNO', 11.99, 'El clásico juego de cartas de emparejar colores y números.\r\nLas cartas especiales y los comodines le dan más diversión al juego.\r\nUsa la carta Intercambio de manos para cambiar todas tus cartas por las de otro jugador.\r\nEscribe tus propias reglas de juego con las cartas personalizables.\r\nLos jugadores se turnan para jugar una carta de su mano que coincida en color o número con la última carta de la pila de descarte.\r\n¡Y no olvides gritar “UNO” cuando te quede una sola carta en la mano!', 15, 'images/uno.png', 4.60, 67382, 3048),
+('Dobble Clasico', 16.99, 'Juego de fiesta\r\nUn juego de velocidad, observación y reflejos\r\nEncuentra los símbolos iguales\r\nSin plástico, sin envoltorio\r\n57 símbolos\r\n5 minijuegos\r\n10 minutos de duración', 16, 'images/Dobble.png', 4.74, 10382, 5432),
+('Virus', 14.79, 'Adictivo.\r\n Divertido.\r\n Fácil de llevar.\r\n Número de jugadores: 2 a 6 jugadores.', 17, 'images/virus.png', 3.78, 3924, 423),
+('UNO All Wild', 11.99, 'Todas las cartas son comodines en UNO All Wild.\r\nEl juego se desarrolla más rápido sin tener que hacer coincidir colores o números como en el clásico UNO.\r\nTambién es más sorprendente gracias a las cartas de acción de la baraja.\r\nNo lo olvidéis, el jugador al que solo le quede una carta tiene que gritar UNO.\r\nEs un regalo perfecto para los fans de UNO a partir de 7 años.', 18, 'images/unoAllWild.png', 4.80, 82923, 28311);
 --
 -- Volcado de datos para la tabla `roles`
 --
@@ -30,9 +41,16 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- Volcado de datos para la tabla `usuarios`
 --
 INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valoracion`, `precio`, `avatar`) VALUES
-(1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, NULL),
-(2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, NULL),
-(50, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 34.55, 'images/JoshTyler.png');
+(1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, 'images/opcion1.png'),
+(2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, 'images/opcion2.png'),
+(32, '$2y$10$q32AJBCGnO/WSjvkolrkxuJ8UeuQlE0kaKV7cXTqTk9OUsxe/bSVm', 'Paula', 'p@ucm.es', 2, NULL, NULL, 'images/opcion6.png'),
+(50, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 34.55, 'images/opcion3.png'),
+(61, '$2y$10$QZ0Une9VvkzJCb20G7jUPuPLDJi0aVDOwINAuDd6OVQHWtM92Jz5W', 'Mei Wong ', 'mei@hotmail.com', 3, NULL, 15.5, 'images/opcion1.png'),
+(62, '$2y$10$HuOjATRyoVgfnEwCO5xEKuAWZVgM1zMdTbsWTm4tlh6UuOwTbxCLa', 'Sarah Johnson', 'sarahJ@gmail.com', 3, NULL, 32.21, 'images/opcion3.png'),
+(63, '$2y$10$e6Pzqt2nZ8SNLYvg1aK1Vetfq9k2l/jJV2N3TZq6RV8L6A3N0WY6.', 'Mohammad Ali', 'mAli99@gmail.com', 3, NULL, 25.5, 'images/opcion6.png'),
+(64, '$2y$10$tCFohteHLRLXZENKQIVSKO5GEKiEz96oeOujwhWLQzqoKc7QXvMGO', 'Isabella Santos ', 'isaSantos@gmail.com', 3, NULL, 10.5, 'images/opcion1.png'),
+(65, '$2y$10$NAzedPnxD1zZhd9vSGu0ducjh3u2RA0jmFjY1IV4.u.MvHGHQb8Ha', 'Juan García ', 'jGarcia089@gmail.com', 3, NULL, 18.9, 'images/opcion2.png');
+
 
 --
 -- Volcado de datos para la tabla `eventos`
