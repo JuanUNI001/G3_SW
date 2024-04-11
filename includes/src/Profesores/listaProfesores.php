@@ -78,8 +78,8 @@ function visualizaProfesor($profesor) {
             $dirProfesores=resuelve('EditorProfesorView.php');
             $html .=<<<EOF
             <div class="editar_Profesor">
-                <a href="/G3_SW/EditorProfesorView.php?id_profesor={$profesor->getId()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                <a href="'.$dirProfesores.'?id=' . $profesor->getId() . '">
+                    <img src= .$imagenPath. alt="Editor Producto" width="50" height="50">
                 </a>   
             </div>
             EOF; 
