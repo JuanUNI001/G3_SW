@@ -261,3 +261,14 @@ ul.dropdown ul.dropdown-content {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 20px 16px;
 }
+
+
+
+.rol-buttons input[type="radio"] {
+	display: inline-block;
+}
+
+.rol-buttons label {
+	display: inline-block;
+	margin-right: 10px; /* Adjust spacing between buttons */
+}

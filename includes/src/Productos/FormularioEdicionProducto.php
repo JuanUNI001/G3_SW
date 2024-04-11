@@ -12,7 +12,7 @@ class FormularioEdicionProducto extends Formulario
     public $imagen;
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionProducto', ['urlRedireccion' => 'tienda.php']);
     }
     
     protected function generaCamposFormulario(&$datos)

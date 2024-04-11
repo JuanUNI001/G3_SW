@@ -1,7 +1,7 @@
 <?php
 
 require_once 'includes/config.php'; 
-use \es\ucm\fdi\aw\src\Usuarios\usuario;
+use \es\ucm\fdi\aw\src\usuarios\usuario;
 
 $form = new es\ucm\fdi\aw\src\usuarios\FormularioEdicionUsuario();
 
@@ -11,7 +11,7 @@ $nombre = $Usuario->getNombre();
 
 $form->id = $id_usuario;
 $form->nombre = $nombre;
-$form->rol = $Usuario->getrolUser() - 1;
+$form->rol = $Usuario->getrolUser();
 $form->correo = $Usuario->getCorreo();
 $form->avatar = $Usuario->getAvatar();
 

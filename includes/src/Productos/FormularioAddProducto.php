@@ -7,7 +7,7 @@ class FormularioAddProducto extends Formulario
 {
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formAddProducto', ['urlRedireccion' => 'tienda.php']);
     }
     
     protected function generaCamposFormulario(&$datos)

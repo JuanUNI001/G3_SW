@@ -13,7 +13,7 @@ class FormularioInscripcion extends Formulario
     public $idEvento;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
 
 
     }
