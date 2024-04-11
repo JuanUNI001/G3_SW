@@ -21,7 +21,7 @@ $params['app']->doInclude('/vistas/comun/sidebarIzq.php', $params);
 		</article>
 	</main>
 <?php
-$params['app']->doInclude('/vistas/comun/sidebarDer.php', $params);
+//$params['app']->doInclude('/vistas/comun/sidebarDer.php', $params);
 $params['app']->doInclude('/vistas/comun/pie.php', $params);
 ?>
 </div>

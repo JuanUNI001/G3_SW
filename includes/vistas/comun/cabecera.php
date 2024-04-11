@@ -2,6 +2,9 @@
 
 use es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Usuarios\FormularioLogout;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Profesores\Profesor;
+
 
 function mostrarSaludo()
 {
@@ -24,6 +27,29 @@ function mostrarSaludo()
     return $html;
 }
 
+function mostrarInfoUsuario() {
+    $app = BD::getInstance();
+
+    if (!$app->usuarioLogueado())  {
+        $avatar = (RUTA_IMGS . 'images/avatarPorDefecto.png');
+        // Si el usuario no está logueado, muestra la foto por defecto
+        echo "<img src='{$avatar}' alt='Avatar por defecto' width='60' height='60'>";
+    } else {
+        $correo_usuario = $_SESSION['correo'];
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $avatar = $usuario->getAvatar() ? (RUTA_IMGS . $usuario->getAvatar()) : (RUTA_IMGS . 'images/avatarPorDefecto.png');
+
+        echo "<div class='info-usuario'>";
+        echo "<div class='dropdown'>";
+        echo "<img src='{$avatar}' alt='Avatar de {$usuario->getNombre()}' width='60' height='60' class='avatar-dropdown'>";
+        echo "<ul class='dropdown-content'>";
+        echo "<li><a href='" . resuelve('/verPerfil.php') . "'>Ver mi cuenta</a></li>";
+        echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
+        echo "</ul></div></div>";
+    }
+}
+
+
 function mostrarLogo() {
     $app = BD::getInstance();
     $logoUrl = $app->buildUrl('/index.php');
@@ -37,11 +63,15 @@ function mostrarLogo() {
 
 ?>
 <header>
-    <?= mostrarLogo() ?>
-    <nav>
-
+ 
+        <div class="logo">
+            <?= mostrarLogo() ?>
+        </div>
         <div class="saludo">
             <?= mostrarSaludo(); ?>
         </div>
-    </nav>
+        <div class="info-usuario">
+            <?= mostrarInfoUsuario(); ?>
+        </div>
+
 </header>
