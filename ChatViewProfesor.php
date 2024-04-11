@@ -44,7 +44,7 @@ function visualizaProfesor($profesor) {
   $imagenPath = $profesor->getAvatar() ? RUTA_IMGS . $profesor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
   $precio = $profesor->getPrecio();
   $valoracion = $profesor->getValoracion();
-  
+
   if ($precio === null) {
       $precioTexto = '-';
   } else {

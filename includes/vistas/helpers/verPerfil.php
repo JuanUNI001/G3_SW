@@ -33,6 +33,17 @@ function mostrar_contenidoPerfil()
 			
 		</section>
 		EOS;
+
+		//if(isset($_SESSION["rol"]) === "admin"){
+			$direccionEditor = resuelve("EditorUsuarioView.php");
+			$contenido .=<<<EOF
+			<div class="editar_Usuario">
+				<a href="{$direccionEditor}?id={$usuario->getId()}">
+					<img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+				</a>   
+			</div>
+			EOF; 
+		//}
 	} else {
         $contenido=<<<EOS
         <h2>Aviso:</h2>

@@ -222,6 +222,25 @@ class Usuario
         return $this->rolUser;
     }
 
+    public function getRolString()
+    {
+        $rol = "INVALID";
+        if($this->rolUser == self::ADMIN_ROLE)
+        {
+            $rol = "Admin";
+        }
+        else if($this->rolUser == self::USER_ROLE)
+        {
+            $rol = "User";
+        }
+        else if($this->rolUser == self::TEACHER_ROLE)
+        {
+            $rol = "Profesor";
+        }
+
+        return $rol;
+    }
+
     public function getNombre()
     {
         return $this->nombre;
@@ -234,9 +253,23 @@ class Usuario
     {
         return $this->avatar;
     }
+
+    public function setNombre($nuevoNombre)
+    {
+        $this->nombre = $nuevoNombre;
+    }
+    public function setCorreo($nuevoCorreo)
+    {
+        $this->correo = $nuevoCorreo;
+    }
+    public function setAvatar($nuevoAvatar)
+    {
+        $this->avatar = $nuevoAvatar;
+    }
+
     public function compruebaPassword($password)
     {
-        $contra = $this->password;
+        $contra = $this->password;  
         return password_verify($password, $this->password);
     }
 
@@ -248,6 +281,8 @@ class Usuario
     {
         $this->password = self::hashPassword($nuevoPassword);
     }
+
+    
     public function guarda()
     {
         if ($this->id !== null) {
