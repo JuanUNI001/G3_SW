@@ -175,6 +175,27 @@ class Mensaje
         return  $mensajes;
     }
 
+    public static function listarMensajesForo($idEmisor, $idForo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idForo = %d;', $idEmisor, $idForo);
+            
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $idEmisor, $idDestinatario, $fila['idForo'], $fila['mensaje'],
+                $fila['fechaHora']);
+                );
+                $mensajes[] = $mensajes; 
+            }
+            $rs->free();
+        }
+        return  $mensajes;
+    }
+
     public static function numMensajesPorIdEmisor($idEmisor = null)
     {
         $result = 0;

@@ -1,27 +1,43 @@
 <?php
  use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
+ use \es\ucm\fdi\aw\src\usuarios\Usuario;
 
-function listaMensajes()
+public function listaMensajes()
 {
-    $foros = Mensajes::listarMensajes();
+    $mensajes = Mensajes::listarMensajes();
 
-    $html = "<div class='mensajes'>";
+    $html = "<div class='lista_mensajes'>";
 
     foreach ($mensajes as $mensaje) {
-        $html .= visualizaForo($mensaje);
+        $html .= visualizaMensaje($mensaje);
     }
 
     $html .= "</div>";
     return $html;
 }
 
-function visualizaForo($mensaje) {
+public function listaMensajesForo()
+{
+    $mensajes = Mensajes::listarMensajesForo();
 
-    $html = '<div class="mensaje">';
-    $html .= '<div class="autor_mensaje">' . $foro->getTitulo() . '</div>';
-    $html .= '<div class="foro_autor">' . $foro->getTitulo() . '</div>';
+    $html = "<div class='lista_mensajes'>";
+
+    foreach ($mensajes as $mensaje) {
+        $html .= visualizaMensaje($mensaje);
+    }
+
+    $html .= "</div>";
+    return $html;
+}
+
+public function visualizaMensaje($mensaje) {
+
+    $usuario = Usuario::buscaPorId($mensaje-> getIdEmisor());
+    $autor = $usuario->getNombre();
     
-    $html .= '</a>';
+    $html = '<div class="mensaje">';
+    $html .= '<div class="autor_mensaje">' . $autor . '</div>';
+    $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
     $html .= '</div>';
 
     return $html;
