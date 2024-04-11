@@ -45,6 +45,7 @@ function mostrarInfoUsuario() {
         echo "<ul class='dropdown-content'>";
         echo "<li><a href='" . resuelve('/verPerfil.php') . "'>Ver mi cuenta</a></li>";
         echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
+        echo "<li><a href='" . resuelve('/includes/carrito_usuario.php') . "'>Carrito</a></li>"; // Enlace al carrito
         echo "</ul></div></div>";
     }
 }
@@ -61,6 +62,7 @@ function mostrarLogo() {
     EOS;
 }
 
+
 ?>
 <header>
  
@@ -70,6 +72,16 @@ function mostrarLogo() {
         <div class="saludo">
             <?= mostrarSaludo(); ?>
         </div>
+        <nav id="sidebarIzq">
+	<nav>
+        <ul>
+            <li><a href="<?= RUTA_APP?>/index.php">Inicio</a></li>
+            <li><a href="<?= RUTA_APP?>/tienda.php">Tienda</a></li>
+            <li><a href="<?= RUTA_APP?>/foros.php">Foro</a></li>
+            <li><a href="<?= RUTA_APP?>/eventos.php">Eventos</a></li>
+            <li><a href="<?= RUTA_APP?>/profesores.php">Profesores</a></li>
+        </ul>
+    </nav>
         <div class="info-usuario">
             <?= mostrarInfoUsuario(); ?>
         </div>
