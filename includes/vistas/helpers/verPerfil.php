@@ -1,11 +1,13 @@
 <?php
 
 use \es\ucm\fdi\aw\src\usuarios\Usuario;
-
+use es\ucm\fdi\aw\src\BD;
 function mostrar_contenidoPerfil()
 {
+	$app = BD::getInstance();
+    
     $contenido;
-    if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
+    if ($app->usuarioLogueado())  {
 
 		$correo_usuario = $_SESSION['correo'];
 		$usuario = Usuario::buscaUsuario($correo_usuario);
