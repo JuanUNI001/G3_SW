@@ -10,6 +10,6 @@ $tituloPagina = 'Eventos';
 $contenidoPrincipal=<<<EOF
     $eventos
 EOF;
-
-require_once 'includes/vistas/comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
 ?>

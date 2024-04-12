@@ -64,8 +64,8 @@ $contenidoPrincipal ='';
         }
 
 
-       // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
-        echo __FILE__;
+       if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+    
 
         $direccion = resuelve("inscribirseEventoView.php");
         $contenidoPrincipal .= <<<EOF
@@ -77,9 +77,9 @@ $contenidoPrincipal ='';
         EOF;
 
     
-       // }
+        }
 
-        //if(isset($_SESSION["rol"]) === "admin"){
+        if(isset($_SESSION["rol"]) === "admin"){
             $direccionEditor = resuelve("editorEventoView.php");
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">
@@ -88,7 +88,7 @@ $contenidoPrincipal ='';
                 </a>   
             </div>
             EOF; 
-        //}
+        }
 
     } else {
         $contenidoPrincipal .= 'Evento no encontrado.';

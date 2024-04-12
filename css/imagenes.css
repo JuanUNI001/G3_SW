@@ -1,8 +1,9 @@
 .producto {
     width: 200px; /* Ancho del contenedor del producto */
-    border: 1px solid #ccc;
+    border: 3px solid #ccc;
     margin: 10px;
     float: left;
+    background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
 }
 
 /* Estilo para imágenes de productos */
@@ -11,6 +12,9 @@
     height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
     display: block; /* Evita espacio adicional debajo de la imagen */
     margin: 0 auto; /* Centra la imagen horizontalmente */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #FF69B4, #69d2ff); /* Fondo verde degradado a rosa */
+    padding: 10px; /* Espacio alrededor de la imagen */
 }
 
 .eliminador_Producto {
@@ -24,6 +28,9 @@
     height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
     display: block; /* Evita espacio adicional debajo de la imagen */
     margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd7, #FF69B4); /* Fondo verde degradado a rosa */
+    padding: 10px; /* Espacio alrededor de la imagen */
 }
 
 .carrito_imagen {
