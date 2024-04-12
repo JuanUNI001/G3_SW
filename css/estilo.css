@@ -483,8 +483,8 @@ nav li:last-child {
     width: calc(100% - 100px); /* Ancho del título (ajustar según sea necesario) */
 }
 
-.foro_contenido {
-    background-color: #e5e5e5; /* Color de fondo del recuadro del contenido */
+.foro_descripcion {
+    background-color: #e5e5e5; /* Color de fondo del recuadro de la descripcion */
     border-radius: 10px; /* Esquinas redondeadas */
     padding: 50px; /* Espaciado interno */
 }

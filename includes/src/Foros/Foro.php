@@ -11,15 +11,18 @@ $bdDatosConexion = array(
 BD::getInstance()->init($bdDatosConexion);
 class Foro
 {
-    public const MAX_SIZE = 25;
+    public const MAX_SIZE_TITULO = 25;
+    public const MAX_SIZE_DESCRIPCION = 40;
 
     private $id;
 
     private $autor;
 
+    private $descripcion;
+
     private $titulo;
 
-    private function __construct($id, $autor, $titulo)
+    private function __construct($id, $autor, $titulo, $descripcion)
     {
         $this->id = $id !== null ? intval($id) : null;
         $this->autor = $autor;
@@ -47,7 +50,8 @@ class Foro
                 $foro = new Foro(
                     $fila['id'],
                     $fila['autor'],
-                    $fila['titulo']
+                    $fila['titulo'],
+                    $fila['descripcion']
                 );
                 $foros[] = $foro; 
             }
@@ -70,6 +74,11 @@ class Foro
     {
         return $this->titulo;
     }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
     
     public function setId($id)
     {
@@ -78,8 +87,16 @@ class Foro
 
     public function setTitulo($nuevo_titulo)
     {
-        if (mb_strlen($nuevo_titulo) > self::MAX_SIZE) {
-            throw new Exception(sprintf('El titulo no puede exceder los %d caracteres', self::MAX_SIZE));
+        if (mb_strlen($nuevo_titulo) > self::MAX_SIZE_TITULO) {
+            throw new Exception(sprintf('El titulo no puede exceder los %d caracteres', self::MAX_SIZE_TITULO   ));
+        }
+        $this->titulo = $nuevo_titulo;
+    }
+
+    public function setDescripcion($nueva_descripcion)
+    {
+        if (mb_strlen($nueva_descripcion) > self::MAX_SIZE_DESCRIPCION) {
+            throw new Exception(sprintf('La descripcion no puede exceder los %d caracteres', self::MAX_SIZE_DESCRIPCION));
         }
         $this->titulo = $nuevo_titulo;
     }
@@ -143,7 +160,8 @@ class Foro
                 $result = new Foro(
                     $fila['id'],
                     $fila['autor'],
-                    $fila['titulo']
+                    $fila['titulo'],
+                    $fila['descripcion']
                 );
             }
         } finally {
@@ -171,7 +189,8 @@ class Foro
                 $result[] = new Foro(
                     $fila['id'],
                     $fila['autor'],
-                    $fila['titulo']
+                    $fila['titulo'],
+                    $fila['descripcion']
                 );
             }
         } finally {
@@ -206,9 +225,10 @@ class Foro
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "INSERT INTO foros (titulo, autor) VALUES ('%s', '%s')",
+            "INSERT INTO foros (titulo, autor, descripcion) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($foro->getTitulo()),
-            $conn->real_escape_string($foro->getAutor())
+            $conn->real_escape_string($foro->getAutor()),
+            $conn->real_escape_string($foro->getDescripcion())
         );
 
         if ($conn->query($query)) {
@@ -226,9 +246,10 @@ class Foro
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE foros F SET titulo = '%s', autor = %s WHERE F.id = %d",
+            "UPDATE foros F SET titulo = '%s', autor = %s, descripcion = '%s' WHERE F.id = %d",
             $conn->real_escape_string($foro->titulo),
-            $conn->real_escape_string($foro->autor)
+            $conn->real_escape_string($foro->autor),
+            $conn->real_escape_string($foro->getDescripcion())
         );
         $result = $conn->query($query);        
         return $result;

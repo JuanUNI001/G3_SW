@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw\src\Foros;
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioAddProducto extends Formulario
+class FormularioCrearForo extends Formulario
 {
 
     public function __construct() {
@@ -13,7 +13,7 @@ class FormularioAddProducto extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
 
-        $nombreProducto='';
+        $tituloForo='';
         $precio='';
         $descripcion='';
         $imagen='';
@@ -27,9 +27,9 @@ class FormularioAddProducto extends Formulario
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
-            <legend>Datos producto</legend>
+            <legend>Datos del Foro</legend>
             <div>
-                <label for="nombreProducto">Nombre del producto:</label>
+                <label for="tituForo">Titulo del Foro:</label>
                 <input id="nombreProducto" type="text" name="nombreProducto" value="$nombreProducto" />
                 {$erroresCampos['nombreProducto']}
             </div>

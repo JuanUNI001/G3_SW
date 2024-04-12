@@ -86,6 +86,7 @@ INSERT INTO `mensajes` (`id`, `idEmisor`, `idDestinatario`, `idForo`, `mensaje`,
 CREATE TABLE `foros` (
   `id` int(11) NOT NULL,
   `titulo` varchar(25) NOT NULL,
+  `descripcion` varchar(25) NOT NULL,
   `autor` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -93,9 +94,10 @@ CREATE TABLE `foros` (
 -- Volcado de datos para la tabla `foros`
 --
 
-INSERT INTO `foros` (`id`, `titulo`, `autor`) VALUES
-(1, 'Foro sobre Poker', 'Paula'),
-(2, 'Los locos por el Catan', 'jaime');
+INSERT INTO `foros` (`id`, `titulo`,`descripcion`, `autor`) VALUES
+(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos' 'Paula'),
+(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia' 'jaime'),
+(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar' 'Juan García');
 
 -- --------------------------------------------------------
 

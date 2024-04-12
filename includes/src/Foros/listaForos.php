@@ -34,10 +34,11 @@ function visualizaForo($foro) {
                 <div class="foro_titulo">
                     <strong>{$foro->getTitulo()}</strong> 
                 </div>
+                
             </a>
-            <div class="foro_contenido">
-                Contenido del foro aquí...
-            </div>
+            <div class="foro_descripcion">
+                    <strong>{$foro->getDescripcion()}</strong> 
+                </div>
             <div>
                 <a href="$rutaForo?id_foro=$idForo" class="button-like-link">Ver</a>
             </div>
