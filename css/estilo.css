@@ -359,5 +359,36 @@ ul.dropdown ul.dropdown-content {
 }
 
 
+/* Estilos para el contenido del pie de página */
+.footer-content {
+    display: flex; /* Utiliza flexbox para organizar el contenido */
+
+    align-items: right; /* Alinea verticalmente los elementos */
+}
+
+/* Estilos para los enlaces del pie de página */
+footer a {
+    color: #fff; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+}
+
+footer a:hover {
+    color: #ccc; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
+}
+
+/* Estilos para el texto de derechos de autor */
+.copyright {
+    font-size: 14px; /* Tamaño del texto */
+}
+/* Estilos para el contenido principal */
+footer {
+    position: relative; /* Cambia la posición a relativa */
+    width: 100%;
+    background-color: #333; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 1px; /* Espaciado interno */
+    clear: both; /* Limpia los flotantes */
+}
 
 
