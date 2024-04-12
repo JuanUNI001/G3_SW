@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/src/Foros/Foro.php';
-require_once __DIR__.'/includes/src/Foros/ListaForos.php';
+require_once __DIR__.'/includes/src/Foros/listaForos.php';
 
 $tituloPagina = 'Chatea aprende y diviertete en los foros';
 
