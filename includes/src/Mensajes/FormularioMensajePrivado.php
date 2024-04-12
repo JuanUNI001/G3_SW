@@ -8,8 +8,8 @@ class FormularioMensajePrivado extends Formulario
     public $idEmisor;
     public $idDestinatario;
 
-    public function __construct() {
-        parent::__construct('formMensajePrivado', ['urlRedireccion' => 'profesores.php']);
+    public function __construct($redirectionURL) {
+        parent::__construct('formMensajePrivado', ['urlRedireccion' => $redirectionURL]);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -25,7 +25,7 @@ class FormularioMensajePrivado extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <div class="formDirect">
+        <fieldset class="formDirect">
             <div class="inputDirect">
             <label for="mensaje" class="labelDirect">Mensaje:</label>
             <textarea id="mensaje" name="mensaje">$mensaje</textarea>
@@ -33,7 +33,7 @@ class FormularioMensajePrivado extends Formulario
             <div class="enviarDirect">
                 <button type="submit" name="enviar">Enviar</button>
             </div>
-        </div>
+        </fieldset>
         <div class="errorDirect">{$erroresCampos['mensaje']}</div>
         EOF;
         return $html;

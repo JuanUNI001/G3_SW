@@ -106,36 +106,42 @@
 *   Formulario envio mensajes 
 */
 .formDirect {
-    display: flex; /* Hace que los elementos hijos estén en línea */
-    flex-direction: row; /* Alinea los elementos en una columna */
-    align-items: flex-start; /* Alinea los elementos al principio */
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    /* Grey background color */
+    display: flex;
+    /* Use flexbox */
+    flex-direction: row;
+    /* Align items in row */
 }
 
 .inputDirect {
     display: flex; /* Hace que los elementos hijos estén en línea */
     align-items: center; /* Alinea verticalmente los elementos */
-    margin-bottom: 20px;
 }
 
 .labelDirect {
     flex: 0 0 auto; /* No se expandirá, mantendrá su tamaño original */
     font-weight: bold;
-    margin-right: 10px; /* Agrega espacio entre el label y la textarea */
 }
 
 #mensaje {
     flex: 1; /* Se expandirá para ocupar todo el espacio restante */
    
-    padding: 5px; /* Ajusta el padding para que se vea mejor */
+    padding: 0px; /* Ajusta el padding para que se vea mejor */
     border: 1px solid #ccc;
-    border-radius: 5px;
+
     font-size: 16px;
 }
 
 .enviarDirect {
     display: flex; /* Make the elements inside inline */
     align-items: center; /* Align elements vertically */
-    margin-top: 10px; /* Add space between the textarea and the button */
 }
 
 .enviarDirect button {
@@ -143,7 +149,6 @@
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 0px;
     cursor: pointer;
     font-size: 16px;
     margin-left: 10px; /* Add space between the textarea and the button */

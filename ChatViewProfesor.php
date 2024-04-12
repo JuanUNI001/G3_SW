@@ -19,8 +19,8 @@ $profesor = Profesor::buscaPorId($id_profesor);
 
 $profView = visualizaProfesor($profesor);
 
-
-$form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado();
+$rutaChat = resuelve('/ChatViewProfesor.php');
+$form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id_profesor=$id_profesor");
 
 $form->idEmisor;
 $form->idDestinatario = $id_profesor;
