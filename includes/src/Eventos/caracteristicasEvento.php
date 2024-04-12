@@ -79,7 +79,7 @@ $contenidoPrincipal ='';
     
         }
 
-        if(isset($_SESSION["rol"]) === "admin"){
+        if(isset($_SESSION["rolUser"]) == "admin"){
             $direccionEditor = resuelve("editorEventoView.php");
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">

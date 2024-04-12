@@ -75,8 +75,11 @@ function visualizaProfesor($profesor) {
 
         }
 
+        
+        /* 
+            edicion profesor es la unica edicion sin implementar
 
-        //if(isset($_SESSION["rol"]) === "admin"){
+        if(isset($_SESSION["rol"]) === "admin"){
             $dirProfesores=resuelve('/EditorProfesorView.php');
             $dirEditor=resuelve('/images/editar_producto.png');
             $html .=<<<EOF
@@ -86,7 +89,7 @@ function visualizaProfesor($profesor) {
                 </a>   
             </div>
             EOF; 
-        //}
+        }*/
 
     return $html;
 }
