@@ -64,22 +64,23 @@ $contenidoPrincipal ='';
         }
 
 
-       if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+       if (isset($_SESSION["login"])) {
     
 
-        $direccion = resuelve("inscribirseEventoView.php");
-        $contenidoPrincipal .= <<<EOF
-            <div class="inscripcion">
-                <a href="{$direccion}?id={$evento->getId()}">
-                <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
-                </a>
-            </div>
-        EOF;
+            $direccion = resuelve("inscribirseEventoView.php");
+            $contenidoPrincipal .= <<<EOF
+                <div class="inscripcion">
+                    <a href="{$direccion}?id={$evento->getId()}">
+                    <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
+                    </a>
+                </div>
+            EOF;
 
     
         }
 
-        if(isset($_SESSION["rolUser"]) == "admin"){
+        if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
+
             $direccionEditor = resuelve("editorEventoView.php");
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">

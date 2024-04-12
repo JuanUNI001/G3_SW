@@ -11,6 +11,7 @@ $tituloPagina = 'Login';
 $contenidoPrincipal=<<<EOF
   	<h1>Acceso al sistema</h1>
     $formLogin
+
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
