@@ -53,7 +53,8 @@ function visualizaProfesor($profesor) {
                     <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
                     <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
                     <div>
-                        <a href="$rutaChat?id_profesor=$id" class="button-like-link">Contactar</a>                    </div>
+                        <a href="$rutaChat?id_profesor=$id" class="button-like-link">Contactar</a>
+                    </div>
                 </div>
             </div>
         EOF;

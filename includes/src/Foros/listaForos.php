@@ -22,12 +22,12 @@ function listaForos()
 
 function visualizaForo($foro) {
 
-    $rutaVerForo = resuelve('/includes/src/Foros/verForo.php');
+    $rutaForo = resuelve('/ForoView.php');
     $idForo = $foro->getId();
     $html = <<<HTML
     <div class="foro">
         <div class="foro_info">
-            <a href="$rutaVerForo?idForo=$idForo">
+            <a href="$rutaForo?id_foro=$idForo">
                 <div class="foro_autor">
                     <strong> {$foro->getAutor()}</strong>
                 </div>
@@ -38,18 +38,15 @@ function visualizaForo($foro) {
             <div class="foro_contenido">
                 Contenido del foro aquí...
             </div>
+            <div>
+                <a href="$rutaForo?id_foro=$idForo" class="button-like-link">Ver</a>
+            </div>
         </div>
     </div>
     HTML;
     
     return $html;
     
-    
-    return $html;
-    
-
-
-    return $html;
 }
 
 

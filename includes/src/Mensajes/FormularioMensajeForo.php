@@ -3,20 +3,19 @@ namespace es\ucm\fdi\aw\src\Mensajes;
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioMensajePrivado extends Formulario
+class FormularioMensajeForo extends Formulario
 {
     public $idEmisor;
-    public $idDestinatario;
+    public $idForo;
 
-    public function __construct($redirectionURL) {
-        parent::__construct('formMensajePrivado', ['urlRedireccion' => $redirectionURL]);
+    public function __construct($redirectionURL, $idForo) {
+        parent::__construct('formMensajeForo', ['urlRedireccion' => $redirectionURL]);
+        $this->idForo = $idForo;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
 
-        $idEmisor=$this->idEmisor;
-        $idDestinatario=$this->idDestinatario;
         $mensaje = '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -54,28 +53,7 @@ class FormularioMensajePrivado extends Formulario
 
             $hora_actual = date("H:i:s");
 
-            $mensaje = Mensaje::Crea(null, $this->idEmisor, $this->idDestinatario, 0, $mensaje, $hora_actual);
-            $mensaje->guarda();
-
-
-            //respuesta automatizada del profesor
-
-            $respuestas = array(
-                'Hola guapo',
-                '¡Hola! ¿Cómo estás?',
-                '¿En qué puedo ayudarte?',
-                'Buenos días, ¿en qué puedo colaborar contigo?',
-                '¡Hola! ¿Qué tal tu día?',
-                'Estoy aquí para ayudarte',
-                '¿Tienes alguna pregunta específica?',
-                'Recuerda que estoy para apoyarte en lo que necesites',
-                '¡Buen día!',
-                '¿Cómo puedo ayudarte hoy?'
-            );
-
-            $respuesta = $respuestas[array_rand($respuestas)];
-
-            $mensaje = Mensaje::Crea(null, $this->idDestinatario, $this->idEmisor, null, $respuesta, $hora_actual);
+            $mensaje = Mensaje::Crea(null, $this->idEmisor, -1, $this->idForo, $mensaje, $hora_actual);
             $mensaje->guarda();
         }
     }

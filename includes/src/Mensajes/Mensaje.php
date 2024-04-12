@@ -23,10 +23,11 @@ class Mensaje
     private function __construct($id = null, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
     {
         $this->id = intval($id);
+        $this->idForo = $idForo;
        // $this->id = $id !== null ? intval($id) : null;
         $this->idEmisor = $idEmisor !== null ? intval($idEmisor) : null;
         $this->idDestinatario = $idDestinatario !== null ? intval($idDestinatario) : null;
-        $this->idForo = $idForo !== null ? intval($idForo) : null;
+        //$this->idForo = $idForo !== null ? intval($idForo) : null;
         $this->texto = $texto;
         if($fechaHora == null)
         {
@@ -385,6 +386,27 @@ class Mensaje
         OR 
         (M.idEmisor = %d AND M.idDestinatario = %d)", 
         $idEmisor, $idDestinatario, $idDestinatario, $idEmisor);
+        $query .= ' ORDER BY fechaHora ASC';
+    
+    
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora']);
+                $mensajes[] = $mensaje; 
+            }
+            $rs->free();
+        }
+        return $mensajes;
+    }
+
+
+    public static function GetMensajesInForoChat($idForo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("SELECT * FROM mensajes M WHERE M.idForo = %d", $idForo);
         $query .= ' ORDER BY fechaHora ASC';
     
     

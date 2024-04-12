@@ -17,8 +17,6 @@ $id_profesor = $_GET['id_profesor'];
 
 $profesor = getProfesor($id_profesor);
 
-$profesores = Profesor::listarProfesores();
-
 $profView = visualizaProfesor($profesor);
 
 $idReceptor = $id_profesor;
@@ -31,7 +29,6 @@ $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id_pr
 
 $form->idEmisor = $usuario->getId();
 $form->idDestinatario = $id_profesor;
-$form->es_privado = true;
 
 $htmlFormLogin = $form->gestiona();
 
