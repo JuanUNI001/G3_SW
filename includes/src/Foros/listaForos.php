@@ -1,7 +1,7 @@
 <?php
     use \es\ucm\fdi\aw\src\Foros\Foro;
     require_once __DIR__.'/../../config.php';
-    $tituloPagina = 'Lista de Foros';
+    $tituloPagina = 'Chatea aprende y diviertete en los foros';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
     $contenidoPrincipal = listaForos();
 ?>
@@ -22,15 +22,25 @@ function listaForos()
 
 function visualizaForo($foro) {
 
-    $rutaVerForo = resuelve('/includes/src/Foros/verForo.php'); 
-    $html = '<div class="foro">';
-    $html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
+    $rutaVerForo = resuelve('/includes/src/Foros/verForo.php');
+    $idForo = $foro->getId();
+    $html = <<<EOF
+    <div class="foro">
+    <div>
+        <a href="$rutaVerForo?idForo=$idForo">
+            <div class="foro_titulo"><strong>Titulo:</strong> {$foro->getTitulo()}</div>
+            <div class="foro_autor"><strong>Autor del Foro:</strong> {$foro->getAutor()}</div>
+        </a>
+    </div>
+    EOF;
 
-    $html .= '<div class="foro_titulo">' . $foro->getTitulo() . '</div>';
-    $html .= '<div class="foro_autor">' . $foro->getAutor() . '</div>';
+    //$html = '<div class="foro">';
+    //$html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
+    //$html .= '<div class="foro_titulo">' . $foro->getTitulo() . '</div>';
+    //$html .= '<div class="foro_autor">' . $foro->getAutor() . '</div>';
     
-    $html .= '</a>';
-    $html .= '</div>';
+    //$html .= '</a>';
+    //$html .= '</div>';
 
     return $html;
 }

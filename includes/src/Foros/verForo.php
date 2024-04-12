@@ -1,7 +1,9 @@
 <?php
     // Incluye los archivos necesarios
     require_once __DIR__.'/../../config.php';
-    require_once __DIR__.'/includes/src/Mensajes/listaMensajes.php';
+    $direccion = resuelve("/includes/src/Mensajes/listaMensajes.php");
+    //require_once __DIR__.'/includes/src/Mensajes/listaMensajes.php';
+    require_once $direccion;
 
     use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
     use \es\ucm\fdi\aw\src\Mensajes\FormularioEnviarMensaje;
