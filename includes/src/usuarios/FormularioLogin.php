@@ -22,7 +22,7 @@ class FormularioLogin extends Formulario
         $htmlErroresGlobales
         <fieldset class="fieldset-form">
             <legend class="legend-form">Usuario y contraseña</legend>
-            <div class="input-text">
+            <div class="input-text">    
                 <label for="correo" class="input-label">Correo:</label>
                 <input id="correo" type="text" name="correo" value="$correo" />
             </div>
