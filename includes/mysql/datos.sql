@@ -65,8 +65,8 @@ INSERT INTO `eventos` (`idEvento`, `inscritos`, `categoria`, `numJugadores`, `no
 (4, 8, 'Deportes', 40, 'En busca del tesoro', 'LOL fue desarrollado por un grupo de cinco personas en Route24. El juego fue diseñado por el ex vicepresidente de Skip, Kenichi Nishi, mejor conocido por dirigir Giftpia y Chibi-Robo!. LOL fue programado por Fumihiro Kanaya, quien trabajó en dos de los títulos de bit Generations de Skip. La obra de arte del juego fue realizada por hikarin y su música fue compuesta por Hirofumi Taniguchi.4​ El juego fue realizado por los miembros del personal del proyecto con un presupuesto muy bajo, sin que se les pague por ello, aparte de sus trabajos habituales.Error en la cita: La etiqueta de apertura <ref> es incorrecta o tiene el nombre mal Su objetivo era hacer el juego lo más simple posible.', '2024-07-05', 'Plaza de Sol', 'Abierto', 'Premio en efectivo', NULL, 15.00);
 
 INSERT INTO `foros` (`id`, `titulo`,`descripcion`, `autor`) VALUES
-(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos' 'Paula'),
-(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia' 'jaime'),
-(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar' 'Juan García');
+(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos', 'Paula'),
+(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia', 'jaime'),
+(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar', 'Juan García');
 
 
