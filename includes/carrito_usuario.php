@@ -46,9 +46,12 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             $pedido = Pedido::buscaPorId($idPedido);
             $total = $pedido->getPrecioTotal();
             // Construir el href con la URL proporcionada
-            $href = "/G3_SW/caracteristicaProducto.php?idProducto=" . $producto->getIdProducto();
-            $direccion_eliminar = '/G3_SW/includes/src/Pedidos/eliminar_producto.php?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;
-            $direccion_actualizar = '/G3_SW/includes/src/Pedidos/actualizar_cantidad.php?idPedido=' . $idPedido . '&idProducto=' . $idProducto . '&nuevaCantidad=';            // Agregar el enlace al contenido principal
+            $rutaCar = resuelve('/includes/src/Productos/caracteristicaProducto.php');
+            $rutaEliminar = resuelve('/includes/src/Pedidos/eliminar_producto.php');
+            $rutaActualizar =  resuelve('/includes/src/Pedidos/actualizar_cantidad.php');
+            $href = $rutaCar."?idProducto=" . $producto->getIdProducto();
+            $direccion_eliminar = $rutaEliminar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;
+            $direccion_actualizar = $rutaActualizar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto . '&nuevaCantidad=';            // Agregar el enlace al contenido principal
             $contenidoPrincipal .= <<<EOF
                 <div class="producto_detalles">
                     <a href="$href">
@@ -74,12 +77,13 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
 $pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
 
 if ($pedido_carrito) {
+    $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
     <div>
-      
-        <button onclick="location.href='/G3_SW/includes/comprar.php'" type="button">Comprar</button>    Total compra: {$total} €
+        <button onclick="location.href='{$rutaComprar}'" type="button">Comprar</button> Total compra: {$total} €
     </div>
     EOF;
+    
 }
 else{
     $contenidoPrincipal .= <<<EOF

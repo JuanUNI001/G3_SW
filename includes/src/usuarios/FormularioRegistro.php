@@ -25,8 +25,9 @@ class FormularioRegistro extends Formulario
 
         $html = <<<EOF
             $htmlErroresGlobales
-            <fieldset>
-                <legend>Datos para el registro</legend>
+            <fieldset class="fieldset-form">
+            <legend class="legend-form">Datos para el registro</legend>
+                
                 
                 <div>
                     <label for="nombre">Nombre:</label>
@@ -52,7 +53,7 @@ class FormularioRegistro extends Formulario
 
                 <div id="avatar-selector">
                     <button id="avatar-anterior" type="button">&lt;</button>
-                    <img id="avatar-seleccionado" src="images/opcion2.png" alt="Avatar seleccionado" style="width: 30%;">     
+                    <img id="avatar-seleccionado" src="images/opcion2.png" alt="Avatar seleccionado" style="width: 150px;">     
                     <button id="avatar-siguiente" type="button">&gt;</button>
                 </div>
                 <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="images/opcion2.png"> 
@@ -67,13 +68,14 @@ class FormularioRegistro extends Formulario
                         <label for="profesor">Profesor</label>
                     </div>
                 </div>
-                <div id="campo_precio" style="display: none;">
-                    <div class="campo-precio">
-                        <label for="precio">Precio:</label>
-                        <input id="precio" type="number" step="0.01" name="precio" value="" size="10" />
-                        {$erroresCampos['precio']}
-                    </div>
+                <div id="campo_precio" >
+                   
+                    <label for="precio">Precio:</label>
+                    <input id="precio" type="number" step="0.01" name="precio" value="0" size="10" />
+                    {$erroresCampos['precio']}
+                    
                 </div>
+               
 
                 <div>
                     <button type="submit" name="registro">Registrar</button>
