@@ -52,7 +52,31 @@ class FormularioMensajePrivado extends Formulario
 
         if (count($this->errores) === 0) {
 
-           
+            $hora_actual = date("H:i:s");
+
+            $mensaje = Mensaje::Crea(null, $this->idEmisor, $this->idDestinatario, 0, $mensaje, $hora_actual);
+            $mensaje->guarda();
+
+
+            //respuesta automatizada del profesor
+
+            $respuestas = array(
+                'Hola guapo',
+                '¡Hola! ¿Cómo estás?',
+                '¿En qué puedo ayudarte?',
+                'Buenos días, ¿en qué puedo colaborar contigo?',
+                '¡Hola! ¿Qué tal tu día?',
+                'Estoy aquí para ayudarte',
+                '¿Tienes alguna pregunta específica?',
+                'Recuerda que estoy para apoyarte en lo que necesites',
+                '¡Buen día!',
+                '¿Cómo puedo ayudarte hoy?'
+            );
+
+            $respuesta = $respuestas[array_rand($respuestas)];
+
+            $mensaje = Mensaje::Crea(null, $this->idDestinatario, $this->idEmisor, 0, $respuesta, $hora_actual);
+            $mensaje->guarda();
         }
     }
 }

@@ -1,0 +1,35 @@
+/* Estilos generales del contenedor de mensaje */
+.mensaje {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%; /* Ocupar hasta el 80% del ancho disponible */
+    word-wrap: break-word; /* Permitir que el texto se ajuste al contenedor */
+}
+
+/* Estilos para el contenedor de mensaje enviado por el usuario */
+.mensaje_emisor {
+    background-color: #3897f0; /* Color de fondo azul */
+    color: white; /* Texto en color blanco */
+    align-self: flex-end; /* Alinear a la derecha si se usa flexbox */
+    margin-left: auto; /* Ajustar el margen izquierdo para que aparezca un poco hacia la derecha */
+}
+
+/* Estilos para el contenedor de mensaje recibido */
+.mensaje_receptor {
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    color: #333; /* Texto en color oscuro */
+    align-self: flex-start; /* Alinear a la izquierda si se usa flexbox */
+    margin-right: auto; /* Ajustar el margen derecho para que aparezca un poco hacia la izquierda */
+}
+
+/* Estilos para el nombre del autor del mensaje */
+.autor_mensaje {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Estilos para el texto del mensaje */
+.texto_mensaje {
+    font-size: 16px;
+}

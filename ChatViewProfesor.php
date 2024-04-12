@@ -8,21 +8,28 @@ echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Profesores\Profesor;
 use es\ucm\fdi\aw\src\BD;
-
+use \es\ucm\fdi\aw\src\usuarios\Usuario;
 ?>
 
 
 <?php
 $id_profesor = $_GET['id_profesor'];
 
-$profesor = Profesor::buscaPorId($id_profesor);
+$profesor = getProfesor($id_profesor);
+
+$profesores = Profesor::listarProfesores();
 
 $profView = visualizaProfesor($profesor);
+
+$idReceptor = $id_profesor;
+$usuario = Usuario::buscaUsuario($_SESSION['correo']);
+$idEmisor = $usuario->getId();
+$mensajesView = visualizaMensajes($idEmisor, $idReceptor, $idEmisor);
 
 $rutaChat = resuelve('/ChatViewProfesor.php');
 $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id_profesor=$id_profesor");
 
-$form->idEmisor;
+$form->idEmisor = $usuario->getId();
 $form->idDestinatario = $id_profesor;
 $form->es_privado = true;
 
@@ -32,28 +39,50 @@ $tituloPagina = 'Chat profesor';
 $contenidoPrincipal=<<<EOF
   	<h1>Chat en linea</h1>
     $profView
+    $mensajesView
     $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Char en línea'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Chat en línea'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 
 
 
-function listaMensajes()
+function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
 {
-    $mensajes = Mensaje::listarMensajes($idEmisor, $idDestinatario, "privado");
+    $mensajes = Mensaje::GetMensajesInPrivateChat($idEmisor, $idReceptor);
 
-    $html = "<div class='mensajes'>";
+    $html = "<div class='chatPrivado'>";
     if($mensajes != null){
         foreach ($mensajes as $mensaje) {
-            $html .= visualizaMensaje($mensaje);
+            $html .= visualizaMensaje($mensaje, $viewPoint);
         }
-    
     }
     
     $html .= "</div>";
     return $html;
+}
+
+
+function visualizaMensaje($mensaje, $viewPoint)
+{
+    $usuario = Usuario::buscaPorId($mensaje->getIdEmisor());
+    $autor = $usuario->getNombre();
+    
+    // Determinar la clase CSS del mensaje según el viewPoint
+    if ($viewPoint == $mensaje->getIdEmisor()) {
+        $mensaje_class = 'mensaje_emisor';
+    } else {
+        $mensaje_class = 'mensaje_receptor';
+    }
+    
+    $html = '<div class="mensaje ' . $mensaje_class . '">';
+    $html .= '<div class="autor_mensaje">' . $autor . '</div>';
+    $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
+    $html .= '</div>';
+    
+    return $html;
+    
 }
 
 
@@ -93,4 +122,19 @@ function visualizaProfesor($profesor) {
 
     return $html;
   }
+
+function getProfesor($idProfesor)
+{
+    $profesores = Profesor::listarProfesores();
+
+    foreach ($profesores as $profesor) {
+        if($idProfesor == $profesor->getId())
+        {
+            return $profesor;
+        }
+    }
+    return null;
+}
+
+
   ?>
