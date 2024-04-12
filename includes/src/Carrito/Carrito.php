@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\src\Carrito;
-use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
+use \es\ucm\fdi\aw\src\Pedidos\pedidos_producto;
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use es\ucm\fdi\aw\src\BD;
 
