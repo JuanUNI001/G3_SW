@@ -35,15 +35,15 @@ class FormularioEdicionUsuario extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend>Datos usuario</legend>
+        <fieldset class="fieldset-form">
+            <legend class="legend-form">Datos usuario</legend>
             <div>
-                <label for="nombre">Nombre:</label>
+                <label for="nombre" class="input-label">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
-                {$erroresCampos['nombre']}
             </div>
-            <div>
-                <label>Rol:</label>
+            <div class="error-message">{$erroresCampos['nombre']}</div>
+            <div class="radio-buttons">
+                <label class="input-label">Rol:</label>
                 <div class="rol-buttons">
                     <input id="user_role" type="radio" name="rol" value="2" $checkedUser>
                     <label for="user_role">User</label>
@@ -51,13 +51,13 @@ class FormularioEdicionUsuario extends Formulario
                     <input id="teacher_role" type="radio" name="rol" value="3" $checkedTeacher>
                     <label for="teacher_role">Teacher</label>
                 </div>
-                {$erroresCampos['rol']}
             </div>
-            <div>
-                <label for="correo">Correo:</label>
+            <div class="error-message">{$erroresCampos['rol']}</div>
+            <div class="input-text">
+                <label for="correo" class="input-label">Correo:</label>
                 <input id="correo" type="text" name="correo" value="$correo"/>
-                {$erroresCampos['correo']}
             </div>
+            <div class="error-message">{$erroresCampos['correo']}</div>
             <div id="avatar-selector">
                 <button id="avatar-anterior" type="button">&lt;</button>
                 <img id="avatar-seleccionado" src="{$rutaAvatar}" alt="Avatar seleccionado" style="width: 30%;">     
@@ -65,7 +65,7 @@ class FormularioEdicionUsuario extends Formulario
             </div>
             <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="{$rutaAvatar}"> 
 
-            <div>
+            <div class="enviar-button">
                 <button type="submit" name="actualizar">Actualizar</button>
             </div>
         </fieldset>
