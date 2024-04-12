@@ -1,6 +1,6 @@
 <?php
 
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
 function mostrar_contenidoPerfil()
 {

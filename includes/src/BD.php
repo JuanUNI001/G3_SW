@@ -3,7 +3,7 @@
 namespace es\ucm\fdi\aw\src;
 
 use Exception;
-use es\ucm\fdi\aw\usuarios\Usuario;
+use es\ucm\fdi\aw\Usuarios\Usuario;
 
 /**
  * Clase que mantiene el estado global de la aplicación.
