@@ -19,14 +19,16 @@ header {
 }
 
 .logo {
-    margin-left: 10px;
-    margin-top: 5px;
+    position: absolute;
+    top: 10px; /* Ajusta según sea necesario */
+    left: 10px; /* Ajusta según sea necesario */
 }
 
 .logo img {
     height: 120px; /* Aumentar la altura del logo */
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
+
 
 header a, header a:visited {
 	color: rgb(16, 16, 16);

@@ -25,7 +25,16 @@ function mostrarSaludo()
 
     return $html;
 }
-
+function mostrarLogo() {
+    $app = BD::getInstance();
+    $logoUrl = $app->buildUrl('/index.php');
+    $logoSrc = $app->buildUrl('images/Logo.png');
+    return <<<EOS
+    <div class="logo">
+    <a href="{$logoUrl}"><img src="{$logoSrc}" alt = "CineFlex" /></a>
+    </div>
+    EOS;
+}
 
 function mostrarInfoUsuario() {
     $app = BD::getInstance();
@@ -54,6 +63,7 @@ function mostrarInfoUsuario() {
 
 <header>
     <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
+
     <div class="saludo">
         <?= mostrarSaludo(); ?>
     </div>

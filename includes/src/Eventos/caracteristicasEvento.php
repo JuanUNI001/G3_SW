@@ -71,7 +71,7 @@ $contenidoPrincipal ='';
         $contenidoPrincipal .= <<<EOF
             <div class="inscripcion">
                 <a href="{$direccion}?id={$evento->getId()}">
-                    <button type="submit">Inscribirse</button>
+                <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
                 </a>
             </div>
         EOF;
