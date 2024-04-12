@@ -24,26 +24,35 @@ function visualizaForo($foro) {
 
     $rutaVerForo = resuelve('/includes/src/Foros/verForo.php');
     $idForo = $foro->getId();
-    $html = <<<EOF
+    $html = <<<HTML
     <div class="foro">
-    <div>
-        <a href="$rutaVerForo?idForo=$idForo">
-            <div class="foro_titulo"><strong>Titulo:</strong> {$foro->getTitulo()}</div>
-            <div class="foro_autor"><strong>Autor del Foro:</strong> {$foro->getAutor()}</div>
-        </a>
+        <div class="foro_info">
+            <a href="$rutaVerForo?idForo=$idForo">
+                <div class="foro_autor">
+                    <strong> {$foro->getAutor()}</strong>
+                </div>
+                <div class="foro_titulo">
+                    <strong>{$foro->getTitulo()}</strong> 
+                </div>
+            </a>
+            <div class="foro_contenido">
+                Contenido del foro aquí...
+            </div>
+        </div>
     </div>
-    EOF;
-
-    //$html = '<div class="foro">';
-    //$html .= '<a href="'.$rutaVerForo.'?idForo='.$foro->getId().'">';
-    //$html .= '<div class="foro_titulo">' . $foro->getTitulo() . '</div>';
-    //$html .= '<div class="foro_autor">' . $foro->getAutor() . '</div>';
+    HTML;
     
-    //$html .= '</a>';
-    //$html .= '</div>';
+    return $html;
+    
+    
+    return $html;
+    
+
 
     return $html;
 }
+
+
 
 
 ?>
