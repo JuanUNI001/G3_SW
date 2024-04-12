@@ -71,12 +71,12 @@ function visualizaMensaje($mensaje, $viewPoint)
     
     // Determinar la clase CSS del mensaje según el viewPoint
     if ($viewPoint == $mensaje->getIdEmisor()) {
-        $mensaje_class = 'mensaje_emisor';
+        $mensaje_class = 'conv-mensaje_emisor';
     } else {
-        $mensaje_class = 'mensaje_receptor';
+        $mensaje_class = 'conv-mensaje_receptor';
     }
     
-    $html = '<div class="mensaje ' . $mensaje_class . '">';
+    $html = '<div class="conv-mensaje ' . $mensaje_class . '">';
     $html .= '<div class="autor_mensaje">' . $autor . '</div>';
     $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
     $html .= '</div>';

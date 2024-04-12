@@ -1,14 +1,23 @@
 /* Estilos generales del contenedor de mensaje */
-.mensaje {
+.chatPrivado {
+    max-width: 600px; /* Ancho máximo del chat */
+    margin: 0 auto; /* Centrar el chat en la página */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #c6c6c6;
+}
+
+.conv-mensaje {
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 10px;
-    max-width: 80%; /* Ocupar hasta el 80% del ancho disponible */
+    width: 80%; /* Ocupar todo el ancho disponible */
     word-wrap: break-word; /* Permitir que el texto se ajuste al contenedor */
 }
 
 /* Estilos para el contenedor de mensaje enviado por el usuario */
-.mensaje_emisor {
+.conv-mensaje_emisor {
     background-color: #3897f0; /* Color de fondo azul */
     color: white; /* Texto en color blanco */
     align-self: flex-end; /* Alinear a la derecha si se usa flexbox */
@@ -16,8 +25,8 @@
 }
 
 /* Estilos para el contenedor de mensaje recibido */
-.mensaje_receptor {
-    background-color: #f0f0f0; /* Color de fondo gris claro */
+.conv-mensaje_receptor {
+    background-color: #fffafa; /* Color de fondo gris claro */
     color: #333; /* Texto en color oscuro */
     align-self: flex-start; /* Alinear a la izquierda si se usa flexbox */
     margin-right: auto; /* Ajustar el margen derecho para que aparezca un poco hacia la izquierda */
