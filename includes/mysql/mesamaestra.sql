@@ -95,9 +95,9 @@ CREATE TABLE `foros` (
 --
 
 INSERT INTO `foros` (`id`, `titulo`,`descripcion`, `autor`) VALUES
-(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos' 'Paula'),
-(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia' 'jaime'),
-(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar' 'Juan García');
+(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos', 'Paula'),
+(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia', 'jaime'),
+(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar', 'Juan García');
 
 -- --------------------------------------------------------
 
