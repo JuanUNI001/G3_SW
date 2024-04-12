@@ -6,14 +6,14 @@ $tituloPagina = 'Tienda';
 $contenidoPrincipal='';
 $botonAñadirProducto ='';
 
-//if(isset($_SESSION["rol"]) === "admin"){
+if(isset($_SESSION["rolUser"]) == "admin"){
 
     $botonAñadirProducto .=<<<EOF
     <div>
     <a href="/G3_SW/AddProductoView.php" class="button-like-link">Añadir producto</a>
     </div>
     EOF; 
-//}
+}
 
 $productos = listaproductos();
 
