@@ -3,17 +3,17 @@ body {
 }
 
 div#contenedor {
-	width: 900px;
+
 	margin: auto;
-	border: 1px solid rgb(159, 34, 205);
+	border: 5px solid rgb(159, 34, 205);
 	background-color: #cf88d7;
-	margin-top: 30px;
+	margin-top: 5px;
 }
 
 header {
     background-image: linear-gradient(#f019d3, #c5c4cc);
 	padding: 30px;
-	height: 100px;
+	height: 140px;
 	background-color: #e8f17ea4;
 	color: rgb(10, 10, 10);
 }
@@ -41,13 +41,7 @@ header a:hover {
 } 
 
 
-nav {
-	padding: 10px;
-	float: left;
-	width: 170px;
-	height: 400px;
-	background-color: #a0cee1;
-}
+
 
 nav a, nav a:visited {
 	color: rgb(224, 13, 140);
@@ -70,12 +64,16 @@ aside {
 }
 
 main {
-	padding: 10px;
-	float: left;
-	min-height: 600px;
-	width: 500px;
-	background-color: rgb(161, 213, 157);
-	color: rgb(33, 32, 32);
+	margin: auto;
+    padding: 10px;
+    min-height: 600px;
+    background-color: rgb(161, 213, 157);
+    color: rgb(33, 32, 32);
+    width: 100%;
+    box-sizing: border-box;
+    display: flex; /* Utilizar flexbox */
+    justify-content: center; /* Centrar horizontalmente el contenido */
+   
 }
 
 footer {
@@ -92,21 +90,37 @@ div.saludo {
 }
 
 fieldset {
-	border: 1px solid black;
-	margin: auto;
-}
-
-fieldset div {
-	justify-content: center;
-	margin: 5px auto;
+    border: 2px solid #fdfafa; /* Define el borde del fieldset */
+    border-radius: 8px; /* Redondea los bordes del fieldset */
+    padding: 20px; /* Añade espacio interno al fieldset */
+    margin-bottom: 20px; /* Añade espacio entre fieldsets */
+	width: 100%; /* Establece el ancho del fieldset al 100% del contenedor padre */
 }
 
 legend {
-	color: #fff;
-	background: #303030;
-	border: 1px solid rgb(237, 9, 229);
-	padding: 2px 6px;
-} 
+    font-size: 18px; /* Ajusta el tamaño de la fuente de la leyenda */
+    font-weight: bold; /* Hace la leyenda en negrita */
+    color: #faf5f5; /* Cambia el color del texto de la leyenda */
+    padding: 5px 10px; /* Añade espacio interno a la leyenda */
+    background-color: #fc0adb; /* Cambia el color de fondo de la leyenda */
+    border: 1px solid #ffffff; /* Define el borde de la leyenda */
+    border-radius: 5px; /* Redondea los bordes de la leyenda */
+    margin-bottom: 10px; /* Añade espacio entre la leyenda y el contenido del fieldset */
+}
+
+fieldset p {
+    margin: 0px 0; /* Añade espacio entre párrafos dentro del fieldset */
+}
+
+fieldset ul {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el espaciado interno de la lista */
+    margin: 0; /* Elimina el margen externo de la lista */
+}
+
+fieldset ul li {
+    margin-bottom: 0px; /* Añade espacio entre elementos de lista dentro del fieldset */
+}
 
 label {
 	margin-right: 0.5em;
@@ -173,11 +187,12 @@ form.inline {
 }
 
 form button.enlace, form button.enlace:visited {
-	color: rgb(26, 101, 212);
-	font-weight: bold;
-	text-decoration: none;
-	background-color: inherit;
-	border: none;
+	color: rgb(227, 12, 91);
+    font-weight: bold;
+    text-decoration: none;
+    background-color: inherit;
+    border: 2px solid transparent; /* Añade un borde sólido transparente */
+    border-radius: 0px; /* Hace que el borde sea cuadrado */
 }
 
 form button.enlace:hover {
@@ -187,7 +202,7 @@ form button.enlace:hover {
 }
 
 button, a.boton {
-	border: 1px solid rgb(47, 184, 76);
+	border: 1px solid #2fb84c;
 	font-size: 0.9em;
 	font-family: Arial;
 	font-weight: 400;
@@ -304,25 +319,6 @@ ul.dropdown ul.dropdown-content {
 	background-color: #45a049; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
-.nav-button {
-	display: inline-block;
-	background-color: #66B3FF; /* Fondo azul clarito */
-	color: black; /* Texto negro */
-	padding: 8px 16px; /* Espaciado interno */
-	text-align: center; /* Alineación del texto */
-	text-decoration: none; /* Eliminar subrayado */
-	border: none; /* Eliminar borde */
-	border-radius: 4px; /* Redondear esquinas */
-	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
-	font-size: 14px; /* Tamaño del texto */
-	width: 70px; /* Ancho fijo para todos los botones */
-	margin-right: 10px; /* Espacio entre botones en la barra de navegación */
-}
-
-.nav-button:hover {
-	background-color: #3385FF; /* Cambiar color de fondo al pasar sobre el botón */
-}
-
 .login-button {
 	display: inline-block;
 	background-color: #4CAF50; /* Fondo verde */
@@ -342,22 +338,120 @@ ul.dropdown ul.dropdown-content {
 
 .sideBarDerButton {
 	display: inline-block;
-	background-color: #4CAF50; /* Fondo verde */
+	background-color: #03fee0; /* Fondo verde */
 	color: white; /* Texto blanco */
-	padding: 10px 20px; /* Espaciado interno */
+	padding: 5px 5px; /* Espaciado interno */
 	text-align: center; /* Alineación del texto */
 	text-decoration: none; /* Eliminar subrayado */
 	border: none; /* Eliminar borde */
 	border-radius: 4px; /* Redondear esquinas */
 	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
 	font-size: 14px; /* Tamaño del texto */
-	width: 110px; /* Ancho fijo para todos los botones */
+	width: 70px; /* Ancho fijo para todos los botones */
 }
 
 .sideBarDerButton:hover {
-	background-color: #45a049; /* Cambiar color de fondo al pasar sobre el botón */
+	background-color: #ff09b9; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
 
+/* Estilos para el contenido del pie de página */
+.footer-content {
+    display: flex; /* Utiliza flexbox para organizar el contenido */
 
+    align-items: right; /* Alinea verticalmente los elementos */
+}
+
+/* Estilos para los enlaces del pie de página */
+footer a {
+    color: #fff; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+}
+
+footer a:hover {
+    color: #ccc; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
+}
+
+/* Estilos para el texto de derechos de autor */
+.copyright {
+    font-size: 14px; /* Tamaño del texto */
+}
+/* Estilos para el contenido principal */
+footer {
+    position: relative; /* Cambia la posición a relativa */
+    width: 100%;
+    background-color: #333; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 1px; /* Espaciado interno */
+    clear: both; /* Limpia los flotantes */
+}
+
+.info-usuario {
+    display: flex;
+    align-items: center;
+    margin-right: 5px; /* Añade un margen derecho para separar los elementos */
+}
+
+.info-usuario img {
+    border-radius: 50%; /* Añade bordes redondeados a la imagen */
+    margin-right: 0px; /* Añade un espacio entre la imagen y el texto */
+    width: 50px; /* Cambia el ancho de la imagen */
+    height: 50px; /* Cambia la altura de la imagen */
+	margin-top: -50px; /* Mueve la imagen hacia arriba ajustando el margen superior */
+}
+
+nav {
+    margin-left: 60px; /* Mover el nav hacia la derecha */
+}
+
+nav ul {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el espaciado interno de la lista */
+    margin: 0; /* Elimina el margen externo de la lista */
+    display: flex; /* Cambia el estilo de visualización a flexbox */
+}
+
+nav li {
+    margin-right: 10px; /* Ajusta el margen derecho entre los elementos de la lista */
+}
+
+nav li:last-child {
+    margin-right: 0; /* Elimina el margen derecho del último elemento de la lista */
+}
+
+/* Estilos para el dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e233c5;
+    width: 120px; /* Aumenta un poco el ancho del dropdown */
+    box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
+    z-index: 1;
+    left: 10;
+    top: 170px;
+    padding-left: 20;
+    border-radius: 8px; /* Redondea los bordes del dropdown */
+}
+
+/* Mostrar el dropdown al hacer hover */
+.dropdown:hover .dropdown-content {
+    display: block; /* Muestra el contenido del dropdown al pasar el ratón sobre él */
+}
+
+/* Estilos para los enlaces del dropdown */
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: white; /* Cambia el color del texto a blanco */
+    text-align: center; /* Centra el texto horizontalmente */
+    transition: background-color 0.3s ease;
+   
+}
+
+/* Estilos para los enlaces del dropdown al pasar el ratón */
+.dropdown-content a:hover {
+    background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
+}
 
