@@ -47,7 +47,7 @@
             }
             
            
-            if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+            if (isset($_SESSION["login"]) ) {
                 $direccion = resuelve("/includes/agregar_al_carrito.php");
                 $contenidoPrincipal .= <<<HTML
                     <form action='$direccion' method='post'>
@@ -58,7 +58,7 @@
             }
 
 
-            if(isset($_SESSION["rolUser"]) == "admin"){
+            if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
                 $contenidoPrincipal .=<<<EOF
                 <div class="editar_Producto">
                     <a href="/G3_SW/EditorProductoView.php?id_producto={$producto->getIdProducto()}">

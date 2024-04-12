@@ -6,7 +6,7 @@ $tituloPagina = 'Tienda';
 $contenidoPrincipal='';
 $botonAñadirProducto ='';
 
-if(isset($_SESSION["rolUser"]) == "admin"){
+if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 
     $botonAñadirProducto .=<<<EOF
     <div>

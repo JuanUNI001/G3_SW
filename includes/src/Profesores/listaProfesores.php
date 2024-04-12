@@ -1,5 +1,6 @@
 
 <?php
+
     use es\ucm\fdi\aw\src\Profesores\Profesor;
     use es\ucm\fdi\aw\src\Usuarios\Usuario;
     use es\ucm\fdi\aw\src\BD;
@@ -78,8 +79,8 @@ function visualizaProfesor($profesor) {
         
         /* 
             edicion profesor es la unica edicion sin implementar
-
-        if(isset($_SESSION["rol"]) === "admin"){
+*/
+        if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
             $dirProfesores=resuelve('/EditorProfesorView.php');
             $dirEditor=resuelve('/images/editar_producto.png');
             $html .=<<<EOF
@@ -89,7 +90,7 @@ function visualizaProfesor($profesor) {
                 </a>   
             </div>
             EOF; 
-        }*/
+        }
 
     return $html;
 }
