@@ -243,37 +243,33 @@ class Evento
     public static function inscribirseEvento($idEvento) {
         $conn = BD::getInstance()->getConexionBd();
     
-        // Verificar la conexión
         if (!$conn) {
             return false;
             echo "er2";
         }
     
-        // Obtener el evento
         $evento = Evento::buscaPorId($idEvento);
         if (!$evento) {
             return false;
-            echo "er1";
+
         }
     
         $inscritosActuales = $evento->getInscritos();
     
         $nuevosInscritos = $inscritosActuales + 1;
     
-        // Escapar los valores en la consulta SQL
         $idEventoEscapado = $conn->real_escape_string($idEvento);
         $nuevosInscritosEscapado = $conn->real_escape_string($nuevosInscritos);
     
         $query = "UPDATE eventos SET inscritos = $nuevosInscritosEscapado WHERE idEvento = $idEventoEscapado";
         $result = $conn->query($query);
     
-        // Comprobar si la consulta fue exitosa
         if ($result) {
             return true;
-            echo "er";
+
         } else {
             return false;
-            echo "er3";
+
         }
     }
     
