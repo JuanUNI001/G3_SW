@@ -12,7 +12,7 @@ class FormularioEdicionProducto extends Formulario
     public $imagen;
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionProducto', ['urlRedireccion' => 'tienda.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -32,36 +32,36 @@ class FormularioEdicionProducto extends Formulario
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend>Datos producto</legend>
-            <div>
-                <label for="nombreProducto">Nombre del producto:</label>
+        <fieldset class="fieldset-form">
+            <legend class="legend-form">Datos producto</legend>
+            <div class="input-text">
+                <label for="nombreProducto" class="input-label">Nombre:</label>
                 <input id="nombreProducto" type="text" name="nombreProducto" value="$nombreProducto" />
-                {$erroresCampos['nombreProducto']}
             </div>
-            <div>
-                <label for="precio">Precio del producto:</label>
+            <div class="error-message">{$erroresCampos['nombreProducto']}</div>
+            <div class="input-text">
+                <label for="precio" class="input-label">Precio:</label>
                 <input id="precio" type="text" name="precio" value="$precio"/>
-                {$erroresCampos['precio']}
             </div>
-            <div>
-                <label for="imagen">Imagen del producto:</label>
+            <div class="error-message">{$erroresCampos['precio']}</div>
+            <div class="input-text">
+                <label for="imagen" class="input-label">Imagen:</label>
                 <input id="imagen" type="text" name="imagen" value="$imagen"/>
-                {$erroresCampos['imagen']}
             </div>
-            <div>
-                <label for="descripcion">Descripcion del producto:</label>
-                <textarea id="descripcion" name="descripcion" rows="4" cols="50">$descripcion</textarea>
-                {$erroresCampos['descripcion']}
+            <div class="error-message">{$erroresCampos['imagen']}</div>
+            <div class="input-textarea">
+                <label for="descripcion" class="input-label">Descripcion:</label>
+                <textarea id="descripcion" name="descripcion">$descripcion</textarea>
             </div>
+            <div class="error-message">{$erroresCampos['descripcion']}</div>
             <div>
                 <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
-                <label for="eliminar">Eliminar</label>
+                <label for="eliminar" class="input-label">Eliminar</label>
             </div>
-            <div>
-                <button type="submit" name="login">Entrar</button>
+            <div class="enviar-button">
+                <button type="submit" name="crear">Crear</button>
             </div>
-        </fieldset>
+        </fieldset> 
         EOF;
         return $html;
     }

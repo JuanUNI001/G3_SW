@@ -3,7 +3,10 @@
 use es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Usuarios\FormularioLogout;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+<<<<<<< HEAD
 use \es\ucm\fdi\aw\src\Profesores\Profesor;
+=======
+>>>>>>> main
 
 
 function mostrarSaludo()
@@ -20,13 +23,17 @@ function mostrarSaludo()
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');
         $html = <<<EOS
-        Usuario desconocido. <a href="{$loginUrl}">Login</a> <a href="{$registroUrl}">Registro</a>
+        Usuario desconocido. <a href="{$loginUrl}" class="login-button">Login</a> <a href="{$registroUrl}" class="login-button">Registro</a>
       EOS;
     }
 
     return $html;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 function mostrarInfoUsuario() {
     $app = BD::getInstance();
 
@@ -50,6 +57,7 @@ function mostrarInfoUsuario() {
     }
 }
 
+<<<<<<< HEAD
 
 function mostrarLogo() {
     $app = BD::getInstance();
@@ -63,8 +71,12 @@ function mostrarLogo() {
 }
 
 
+=======
+>>>>>>> main
 ?>
+
 <header>
+<<<<<<< HEAD
  
         <div class="logo">
             <?= mostrarLogo() ?>
@@ -87,3 +99,25 @@ function mostrarLogo() {
         </div>
 
 </header>
+=======
+    <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
+    <div class="saludo">
+        <?= mostrarSaludo(); ?>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="<?= RUTA_APP?>/index.php"class="sideBarDerButton">Inicio</a></li>
+            <li><a href="<?= RUTA_APP?>/tienda.php" class="sideBarDerButton">Tienda</a></li>
+            <li><a href="<?= RUTA_APP?>/foros.php"class="sideBarDerButton">Foro</a></li>
+            <li><a href="<?= RUTA_APP?>/eventos.php"class="sideBarDerButton">Eventos</a></li>
+            <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Profesores</a></li>
+        </ul>
+    </nav>
+    <div class="info-usuario">
+        <?= mostrarInfoUsuario(); ?>
+    </div>
+
+
+</header>
+>>>>>>> main

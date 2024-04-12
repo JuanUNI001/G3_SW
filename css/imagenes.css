@@ -1,24 +1,35 @@
+.grupo-productos {
+    width: 100%; /* Ancho total del grupo */
+    margin-bottom: 20px; /* Espacio entre grupos */
+    display: flex;
+}
+
 .producto {
-    width: 200px; /* Ancho del contenedor del producto */
-    border: 1px solid #ccc;
-    margin: 10px;
+    width: calc(33.33% - 20px); /* Ancho del contenedor del producto (1/3 del ancho total menos el espacio entre productos) */
+    border: 3px solid #ccc;
+    margin: 10px; /* Margen alrededor del producto */
     float: left;
+    background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
+    text-align: center; /* Alineación del contenido */
 }
 
-/* Estilo para imágenes de productos */
-.producto_imagen {
-    max-width: 80%; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
-    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
-    display: block; /* Evita espacio adicional debajo de la imagen */
-    margin: 0 auto; /* Centra la imagen horizontalmente */
-}
-
+<<<<<<< HEAD
 /*.producto_imagen img{
 	height: 100%;
 	width: 100%;
 	border-radius: 0.5rem;
 }
 */
+=======
+.producto_imagen {
+    width: 50%; /* Ancho de la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #FF69B4, #69d2ff); /* Fondo verde degradado a rosa */
+    padding: 10px; /* Espacio alrededor de la imagen */
+}
+
+>>>>>>> main
 
 .eliminador_Producto {
     width: 200px;
@@ -31,6 +42,9 @@
     height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
     display: block; /* Evita espacio adicional debajo de la imagen */
     margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd7, #FF69B4); /* Fondo verde degradado a rosa */
+    padding: 10px; /* Espacio alrededor de la imagen */
 }
 
 .carrito_imagen {

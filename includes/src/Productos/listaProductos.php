@@ -7,26 +7,42 @@
     $contenidoPrincipal = listaproductos();
 ?>
 <?php
+
 function listaproductos()
 {
     $productos = Producto::listarProducto();
 
-    $html = "<div class='productos'>";
+    $html = ""; // Elimina el contenedor de productos aquí
 
-    foreach ($productos as $producto) {
-        $html .= visualizaProducto($producto);
+    // Agrupa los productos en grupos de tres
+    $numProductos = count($productos);
+    $grupoInicio = 0;
+    $grupoFin = 3;
+
+    while ($grupoInicio < $numProductos) {
+        $grupoProductos = array_slice($productos, $grupoInicio, $grupoFin);
+        $html .= "<div class='grupo-productos'>";
+        foreach ($grupoProductos as $producto) {
+            $html .= visualizaProducto($producto);
+        }
+        $html .= "</div>";
+        $grupoInicio += 3;
+        $grupoFin = min($grupoInicio + 3, $numProductos);
     }
 
-    $html .= "</div>";
     return $html;
 }
+
+
+
 
 function visualizaProducto($producto, $tipo = null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
     $rutaCaract = resuelve('/includes/src/Productos/caracteristicaProducto.php'); 
     $html = '<div class="producto">';
-    $html .= '<a href="'.$rutaCaract.'?id_producto='.$producto->getIdProducto().'">';       $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen">';
+    $html .= '<a href="'.$rutaCaract.'?id_producto='.$producto->getIdProducto().'">';
+    $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen" >';
     $html .= '<div class="producto_nombre">' . $producto->getNombre() . '</div>';
     $html .= '</a>';
     $html .= '<div class="producto_precio"><strong>Precio:</strong> ' . $producto->getPrecio() . ' €</div>';

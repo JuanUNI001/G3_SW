@@ -20,7 +20,7 @@ class FormularioEdicionEvento extends Formulario
 
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionEvento', ['urlRedireccion' => 'eventos.php']);
     }
     
     protected function generaCamposFormulario(&$datos)

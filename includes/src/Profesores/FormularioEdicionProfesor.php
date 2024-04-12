@@ -9,7 +9,7 @@ class FormularioEdicionProfesor extends Formulario
     public $nombre;
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionProfesor', ['urlRedireccion' => 'profesores.php']);
     }
     
     protected function generaCamposFormulario(&$datos)

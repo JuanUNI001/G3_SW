@@ -4,7 +4,7 @@ use es\ucm\fdi\aw\src\BD;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 
 
-class Pedidos_producto
+class edidos_producto
 {
     const MAX_SIZE = 500;
     
