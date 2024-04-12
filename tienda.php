@@ -8,9 +8,11 @@ $botonAñadirProducto ='';
 
 if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 
+    $AddProductoRuta=resuelve('AddProductoView.php');
+
     $botonAñadirProducto .=<<<EOF
     <div>
-    <a href="/G3_SW/AddProductoView.php" class="button-like-link">Añadir producto</a>
+    <a href="$AddProductoRuta" class="button-like-link">Añadir producto</a>
     </div>
     EOF; 
 }

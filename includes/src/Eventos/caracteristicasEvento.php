@@ -82,10 +82,11 @@ $contenidoPrincipal ='';
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 
             $direccionEditor = resuelve("editorEventoView.php");
+            $imagenRuta=resuelve('/images/editar_producto.png');
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">
                 <a href="{$direccionEditor}?id={$evento->getId()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                    <img src=" $imagenRuta" alt="Editor Producto" width="50" height="50">
                 </a>   
             </div>
             EOF; 
