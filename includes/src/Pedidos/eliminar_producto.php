@@ -7,8 +7,6 @@ use es\ucm\fdi\aw\src\BD;
 $app = BD::getInstance();
 
 
-
-
 // Verificar si se recibieron los datos esperados por GET
 if (isset($_GET['idPedido']) && isset($_GET['idProducto'])) {
     // Obtener el ID del pedido y el ID del producto a eliminar del formulario

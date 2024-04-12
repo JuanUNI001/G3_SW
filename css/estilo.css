@@ -96,7 +96,8 @@ fieldset {
     border-radius: 8px; /* Redondea los bordes del fieldset */
     padding: 20px; /* Añade espacio interno al fieldset */
     margin-bottom: 20px; /* Añade espacio entre fieldsets */
-	width: 100%; /* Establece el ancho del fieldset al 100% del contenedor padre */
+    width: 100%; /* Establece el ancho del fieldset al 100% del contenedor padre */
+    background-color: #f0f0f0; /* Color de fondo del fieldset */
 }
 
 legend {
