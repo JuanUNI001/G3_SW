@@ -6,15 +6,16 @@ use es\ucm\fdi\aw;
 use es\ucm\fdi\aw\src\Eventos\Evento;
 use es\ucm\fdi\aw\src\Formulario;
 use es\ucm\fdi\aw\src\BD;
-
+use es\ucm\fdi\aw\src\Inscritos\Inscrito;
 
 
 class FormularioInscripcion extends Formulario
 {
     public $idEvento;
+    public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'inscritos.php']);
 
 
     }
@@ -22,6 +23,7 @@ class FormularioInscripcion extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $idEvento = $this->idEvento;
+        $idUsuario = $this->idUsuario;
         
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
  
@@ -31,6 +33,9 @@ class FormularioInscripcion extends Formulario
             <legend>Inscripción a evento</legend>
             <div>
                 <input type="hidden" name="idEvento" value="$idEvento" />
+            </div>
+            <div>
+                <input type="hidden" name="idUsuario" value="$idUsuario" />
             </div>
             <div>
             <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
@@ -43,27 +48,30 @@ class FormularioInscripcion extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
+    $this->errores = [];
+    $idEvento = $datos['idEvento'];
+    $idUsuario = $datos['idUsuario'];
+    echo $idEvento;
+    echo $idUsuario;
 
-        $this->errores = [];
-        $idEvento = $datos['idEvento'] ?? '';
-        if (empty($idEvento) ) {
-            $this->errores['idEvento'] = 'El ID del evento es inválido';
-          
-        }
-       
-        if (count($this->errores) === 0) {
-            $inscripcionExitosa = Evento::inscribirseEvento($idEvento);
-            if ($inscripcionExitosa) {
-                
-                $app = BD::getInstance();
-
-                $mensajes = ['Felicidades te has inscrito en el evento !'];
-                $app->putAtributoPeticion('mensajes', $mensajes);
-     
-            } else {
-                $this->errores['inscripcion'] = 'Hubo un error al realizar la inscripción al evento';
-            }
-        }
-   
+    if (empty($idEvento) || empty($idUsuario)) {
+        $this->errores['campos'] = 'Faltan datos necesarios para la inscripción.';
     }
+    $er=count($this->errores);
+    echo $er; 
+   //if (count($this->errores) == 0) {
+        $inscripcionExitosa = Inscrito::inscribirUsuarioEnEvento($idUsuario, $idEvento);
+
+        if (!$inscripcionExitosa) {
+            $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';
+        }
+      
+        else{
+           echo 'inscrito'; 
+        }
+   // }
+
+
+    }
+
 }
