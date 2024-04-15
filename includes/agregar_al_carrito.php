@@ -60,7 +60,14 @@ if ($id_producto && is_numeric($id_producto) && $cantidad && is_numeric($cantida
         $pedido_existente = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
         // Actualiza el precio total del pedido
         $precio_producto = $producto->getPrecio(); // Obtener el precio del producto
-        $precio_total_pedido = $pedido_existente->getPrecioTotal() + ($precio_producto * $cantidad);
+       if( $pedido_existente->getPrecioTotal() != null){
+
+            $precio_total_pedido = $pedido_existente->getPrecioTotal() + ($precio_producto * $cantidad);
+        }
+        else{
+            $precio_total_pedido =  ($precio_producto * $cantidad);
+
+        }
         $pedido_existente->setPrecioTotal($precio_total_pedido);
         $pedido_existente->guarda();
         $id_pedido = $pedido_existente->getIdPedido();

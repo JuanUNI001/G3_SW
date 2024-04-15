@@ -4,7 +4,7 @@ require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
-use \es\ucm\fdi\aw\src\productos\Producto;
+use \es\ucm\fdi\aw\src\Productos\Producto;
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     $dir = resuelve('/login.php');
     header("Location: $dir");

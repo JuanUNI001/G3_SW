@@ -8,7 +8,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Profesores\Profesor;
 use es\ucm\fdi\aw\src\BD;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 ?>
 
 
@@ -16,8 +16,6 @@ use \es\ucm\fdi\aw\src\usuarios\Usuario;
 $id_profesor = $_GET['id_profesor'];
 
 $profesor = getProfesor($id_profesor);
-
-$profesores = Profesor::listarProfesores();
 
 $profView = visualizaProfesor($profesor);
 
@@ -31,7 +29,6 @@ $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id_pr
 
 $form->idEmisor = $usuario->getId();
 $form->idDestinatario = $id_profesor;
-$form->es_privado = true;
 
 $htmlFormLogin = $form->gestiona();
 
