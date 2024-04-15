@@ -89,5 +89,30 @@ class Inscrito
     }
     
     
+    public static function buscarEventos($idUsuario)
+    {
+        $result = [];
+    
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT idEvento FROM inscritos WHERE idUsuario = %d;', $idUsuario);
+        $rs = null;
+    
+        try {
+            $rs = $conn->query($query);
+    
+            while ($fila = $rs->fetch_assoc()) {
+                $idEvento = $fila['idEvento'];
+                $result[] = $idEvento;
+            }
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
+        }
+    
+        return $result;
+    }
+    
+
 
 }

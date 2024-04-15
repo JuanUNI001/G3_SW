@@ -492,3 +492,29 @@ nav li:last-child {
 
 
 
+.evento {
+    margin-bottom: 50px;
+}
+
+.evento_info {
+    background-color: #08a4ec; /* Color de fondo rosa del recuadro del evento */
+    border-radius: 20px; /* Esquinas redondeadas */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado inferior */
+    width: 100%; /* Ancho del contenedor */
+    margin: auto; /* Centrar el contenedor horizontalmente */
+}
+
+.evento_titulo {
+    color: rgb(255, 255, 255); /* Color del texto */
+    font-weight: bold; /* Texto en negrita */
+    margin-left: 10px; /* Espacio a la izquierda del título */
+    display: inline; /* Mostrar el título en línea con la información */
+    width: calc(100% - 100px); /* Ancho del título (ajustar según sea necesario) */
+}
+
+.evento_contenido {
+    background-color: #006eff; /* Color de fondo del recuadro del contenido */
+    border-radius: 10px; /* Esquinas redondeadas */
+    padding: 20px; /* Espaciado interno */
+}
