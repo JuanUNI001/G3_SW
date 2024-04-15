@@ -13,14 +13,6 @@
     text-align: center; /* Alineación del contenido */
 }
 
-<<<<<<< HEAD
-/*.producto_imagen img{
-	height: 100%;
-	width: 100%;
-	border-radius: 0.5rem;
-}
-*/
-=======
 .producto_imagen {
     width: 50%; /* Ancho de la imagen */
     height: auto; /* Altura automática para mantener la proporción */
@@ -29,7 +21,6 @@
     padding: 10px; /* Espacio alrededor de la imagen */
 }
 
->>>>>>> main
 
 .eliminador_Producto {
     width: 200px;

@@ -3,10 +3,6 @@
 use es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Usuarios\FormularioLogout;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
-<<<<<<< HEAD
-use \es\ucm\fdi\aw\src\Profesores\Profesor;
-=======
->>>>>>> main
 
 
 function mostrarSaludo()
@@ -29,11 +25,17 @@ function mostrarSaludo()
 
     return $html;
 }
+function mostrarLogo() {
+    $app = BD::getInstance();
+    $logoUrl = $app->buildUrl('/index.php');
+    $logoSrc = $app->buildUrl('images/Logo.png');
+    return <<<EOS
+    <div class="logo">
+    <a href="{$logoUrl}"><img src="{$logoSrc}" alt = "CineFlex" /></a>
+    </div>
+    EOS;
+}
 
-<<<<<<<<< Temporary merge branch 1
-=========
-
->>>>>>>>> Temporary merge branch 2
 function mostrarInfoUsuario() {
     $app = BD::getInstance();
 
@@ -57,49 +59,9 @@ function mostrarInfoUsuario() {
     }
 }
 
-<<<<<<<<< Temporary merge branch 1
-
-function mostrarLogo() {
-    $app = BD::getInstance();
-    $logoUrl = $app->buildUrl('/index.php');
-    $logoSrc = $app->buildUrl('/images/logo.png');
-    return <<<EOS
-    <div class="logo">
-    <a href="{$logoUrl}"><img src="{$logoSrc}" alt = "Mesa Maestra" /></a>
-    </div>
-    EOS;
-}
-
-
-=========
->>>>>>>>> Temporary merge branch 2
 ?>
 
 <header>
-<<<<<<< HEAD
- 
-        <div class="logo">
-            <?= mostrarLogo() ?>
-        </div>
-        <div class="saludo">
-            <?= mostrarSaludo(); ?>
-        </div>
-        <nav id="sidebarIzq">
-	<nav>
-        <ul>
-            <li><a href="<?= RUTA_APP?>/index.php">Inicio</a></li>
-            <li><a href="<?= RUTA_APP?>/tienda.php">Tienda</a></li>
-            <li><a href="<?= RUTA_APP?>/foros.php">Foro</a></li>
-            <li><a href="<?= RUTA_APP?>/eventos.php">Eventos</a></li>
-            <li><a href="<?= RUTA_APP?>/profesores.php">Profesores</a></li>
-        </ul>
-    </nav>
-        <div class="info-usuario">
-            <?= mostrarInfoUsuario(); ?>
-        </div>
-
-</header>
-=======
     <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
 
     <div class="saludo">
@@ -121,4 +83,3 @@ function mostrarLogo() {
 
 
 </header>
->>>>>>> main

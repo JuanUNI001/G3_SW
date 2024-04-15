@@ -64,13 +64,8 @@ $contenidoPrincipal ='';
         }
 
 
-<<<<<<< HEAD
-       // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
-
-=========
-       if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+       if (isset($_SESSION["login"])) {
     
->>>>>>> main
 
             $direccion = resuelve("inscribirseEventoView.php");
             $contenidoPrincipal .= <<<EOF
