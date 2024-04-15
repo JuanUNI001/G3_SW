@@ -55,9 +55,7 @@
             $app = BD::getInstance();
 
             if ($app->usuarioLogueado())  {
-            $app = BD::getInstance();
-
-            if ($app->usuarioLogueado())  {
+            
                 $direccion = resuelve("/includes/agregar_al_carrito.php");
                 $contenidoPrincipal .= <<<HTML
                     <form action='$direccion' method='post'>
