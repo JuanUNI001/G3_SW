@@ -64,31 +64,38 @@ $contenidoPrincipal ='';
         }
 
 
+<<<<<<< HEAD
        // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
 
+=======
+       if (isset($_SESSION["login"])) {
+    
+>>>>>>> main
 
-        $direccion = resuelve("inscribirseEventoView.php");
-        $contenidoPrincipal .= <<<EOF
-            <div class="inscripcion">
-                <a href="{$direccion}?id={$evento->getId()}">
-                    <button type="submit">Inscribirse</button>
-                </a>
-            </div>
-        EOF;
+            $direccion = resuelve("inscribirseEventoView.php");
+            $contenidoPrincipal .= <<<EOF
+                <div class="inscripcion">
+                    <a href="{$direccion}?id={$evento->getId()}">
+                    <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
+                    </a>
+                </div>
+            EOF;
 
     
-       // }
+        }
 
-        //if(isset($_SESSION["rol"]) === "admin"){
+        if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
+
             $direccionEditor = resuelve("editorEventoView.php");
+            $imagenRuta=resuelve('/images/editar_producto.png');
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">
                 <a href="{$direccionEditor}?id={$evento->getId()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+                    <img src=" $imagenRuta" alt="Editor Producto" width="50" height="50">
                 </a>   
             </div>
             EOF; 
-        //}
+        }
 
     } else {
         $contenidoPrincipal .= 'Evento no encontrado.';

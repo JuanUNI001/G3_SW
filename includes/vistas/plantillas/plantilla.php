@@ -8,6 +8,8 @@ $mensajes = mensajesPeticionAnterior();
 	<meta charset="UTF-8">
     <title><?= $params['tituloPagina'] ?></title>
 	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" /></head>
+	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/formulario.css') ?>" /></head>
+	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/conversacion.css') ?>" /></head>
 <body>
 <?= $mensajes ?>
 <div id="contenedor">

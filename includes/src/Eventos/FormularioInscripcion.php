@@ -5,6 +5,7 @@ namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw;
 use es\ucm\fdi\aw\src\Eventos\Evento;
 use es\ucm\fdi\aw\src\Formulario;
+use es\ucm\fdi\aw\src\BD;
 
 
 
@@ -13,7 +14,7 @@ class FormularioInscripcion extends Formulario
     public $idEvento;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
 
 
     }
@@ -32,7 +33,8 @@ class FormularioInscripcion extends Formulario
                 <input type="hidden" name="idEvento" value="$idEvento" />
             </div>
             <div>
-                <button type="submit" name="inscribir">Inscribirse</button>
+            <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
+
             </div>
         </fieldset>
         EOF;
@@ -43,22 +45,25 @@ class FormularioInscripcion extends Formulario
     {
 
         $this->errores = [];
-        $idEvento = $datos['id'] ?? '';
-        if ( ! $idEvento || empty($idEvento) ) {
+        $idEvento = $datos['idEvento'] ?? '';
+        if (empty($idEvento) ) {
             $this->errores['idEvento'] = 'El ID del evento es inválido';
+          
         }
-
+       
         if (count($this->errores) === 0) {
-
             $inscripcionExitosa = Evento::inscribirseEvento($idEvento);
             if ($inscripcionExitosa) {
-                $dir=resuelve('includes/src/Eventos/inscripcionExitosa');
-                header('$dir');
-                exit();
-            } else {
+                
+                $app = BD::getInstance();
 
+                $mensajes = ['Felicidades te has inscrito en el evento !'];
+                $app->putAtributoPeticion('mensajes', $mensajes);
+     
+            } else {
                 $this->errores['inscripcion'] = 'Hubo un error al realizar la inscripción al evento';
             }
         }
+   
     }
 }

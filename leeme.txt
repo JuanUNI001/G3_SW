@@ -1,0 +1,15 @@
+BD.php es la Aplicación.php
+El usuario puede registrarse e iniciar sesión ( como usuario o como profesor)
+Tiene opciones para ver la lista de productos que se ofertan en la tienda y si está registrado
+podrá añadirlos al carrito. Tiene una vista de carrito que permite al usuario modificar la
+cantidad del producto que quiera dando luego a Actualizar, o eliminar el producto de la
+cesta. Si el usuario no está logueado no tendrá acceso a la cesta.
+El usuario también puede ver sus pedidos anteriores, que se encuentra seleccionando en el
+sidebarDer sobre el avatar. Y puede modificar sus propios datos en “Mi cuenta” que se
+encuentra en el mismo sitio que pedidos anteriores.
+El administrador tiene la posibilidad de editar los productos de la tienda y eliminarlos.
+Por otro lado hay una vista Profesores donde se ofertan todos los profesores actuales
+Eventos tanto mostrarlos como inscribirse. todavia no esta la bd eventos-usuarios por lo que los usuarios pueden 
+inscribirse infinitas veces
+Foro donde se listan y m,uestran diferentes temas y la gente puede comentar
+Chat privado con profesores

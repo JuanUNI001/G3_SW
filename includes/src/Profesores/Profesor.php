@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw\src\Profesores;
-use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\BD;
 
 class Profesor extends Usuario
@@ -73,8 +73,8 @@ class Profesor extends Usuario
         $fila['password'],
         $fila['correo'],
         $fila['precio'],   
-        $fila['valoracion'],   
-        $fila['avatar'],
+        $fila['avatar'],   
+        $fila['valoracion'],
         $fila['id']
         );
         $profesores[] = $profesor; 

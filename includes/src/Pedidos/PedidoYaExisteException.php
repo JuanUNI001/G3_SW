@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace es\ucm\fdi\aw\src\Pedidos;
 
 class PedidoYaExisteException extends \Exception
 {

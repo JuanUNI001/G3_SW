@@ -22,9 +22,8 @@ class Foro
     private function __construct($id, $autor, $titulo)
     {
         $this->id = $id !== null ? intval($id) : null;
-        $this->autor = intval($autor);
+        $this->autor = $autor;
         $this->titulo = $titulo;
-        $this->imagen = $imagen;
     }
 
     public static function crea($id, $autor, $titulo)
@@ -48,8 +47,7 @@ class Foro
                 $foro = new Foro(
                     $fila['id'],
                     $fila['autor'],
-                    $fila['titulo'],
-                    $fila['descripcion']
+                    $fila['titulo']
                 );
                 $foros[] = $foro; 
             }
@@ -58,12 +56,12 @@ class Foro
         return  $foros;
     }
     
-    public function getIdForo()
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getIdCreadorForo()
+    public function getAutor()
     {
         return $this->autor;
     }
@@ -76,10 +74,6 @@ class Foro
     public function setId($id)
     {
         $this->idProducto = $id;
-    }
-    public function setNombre($nuevoNombre)
-    {
-        $this->nombre = $nuevoNombre;
     }
 
     public function setTitulo($nuevo_titulo)
@@ -212,9 +206,9 @@ class Foro
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "INSERT INTO foros (titulo, autor) VALUES (%d,'%s', '%s')",
-            $conn->real_escape_string($foro->titulo),
-            $conn->real_escape_string($foro->nombre)
+            "INSERT INTO foros (titulo, autor) VALUES ('%s', '%s')",
+            $conn->real_escape_string($foro->getTitulo()),
+            $conn->real_escape_string($foro->getAutor())
         );
 
         if ($conn->query($query)) {

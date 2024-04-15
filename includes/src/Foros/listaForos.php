@@ -1,7 +1,7 @@
 <?php
     use \es\ucm\fdi\aw\src\Foros\Foro;
     require_once __DIR__.'/../../config.php';
-    $tituloPagina = 'Lista de Foros';
+    $tituloPagina = 'Chatea aprende y diviertete en los foros';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
     $contenidoPrincipal = listaForos();
 ?>
@@ -21,48 +21,35 @@ function listaForos()
 }
 
 function visualizaForo($foro) {
-        $titulo = $foro->getTitulo();
-        $valoracion = $profesor->getValoracion();
-        
-        if ($precio === null) {
-            $precioTexto = '-';
-        } else {
-            $precioTexto = $precio . ' €';
-        }
 
-        if ($valoracion === null) {
-            $valoracionTexto = '-';
-        } else {
-            $valoracionTexto = $valoracion;
-        }
-
-        $html = <<<EOF
-        <div class="profesor">
-            <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
-            <div class="profesor_info">
-                <div class="profesor_nombre"><strong>Nombre:</strong> {$profesor->getNombre()}</div>
-                <div class="profesor_precio"><strong>Precio:</strong> {$precioTexto}</div>
-                <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
-                <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
-                <div>
-                    <button onclick="contactarProfesor('{$profesor->getCorreo()}')">Contactar</button>
+    $rutaForo = resuelve('/ForoView.php');
+    $idForo = $foro->getId();
+    $html = <<<HTML
+    <div class="foro">
+        <div class="foro_info">
+            <a href="$rutaForo?id_foro=$idForo">
+                <div class="foro_autor">
+                    <strong> {$foro->getAutor()}</strong>
                 </div>
+                <div class="foro_titulo">
+                    <strong>{$foro->getTitulo()}</strong> 
+                </div>
+            </a>
+            <div class="foro_contenido">
+                Contenido del foro aquí...
+            </div>
+            <div>
+                <a href="$rutaForo?id_foro=$idForo" class="button-like-link">Ver</a>
             </div>
         </div>
-    EOF;
-
-        //if(isset($_SESSION["rol"]) === "admin"){
-            $html .=<<<EOF
-            <div class="editar_Profesor">
-                <a href="/G3_SW/EditorProfesorView.php?id_profesor={$profesor->getId()}">
-                    <img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
-                </a>   
-            </div>
-            EOF; 
-        //}
-
+    </div>
+    HTML;
+    
     return $html;
+    
 }
+
+
 
 
 ?>

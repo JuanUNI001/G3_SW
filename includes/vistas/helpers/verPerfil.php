@@ -1,6 +1,6 @@
 <?php
 
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
 function mostrar_contenidoPerfil()
 {
@@ -38,10 +38,12 @@ function mostrar_contenidoPerfil()
 
 		//if(isset($_SESSION["rol"]) === "admin"){
 			$direccionEditor = resuelve("EditorUsuarioView.php");
+			$imagenRuta=resuelve('/images/editar_producto.png');
+
 			$contenido .=<<<EOF
 			<div class="editar_Usuario">
 				<a href="{$direccionEditor}?id={$usuario->getId()}">
-					<img src="/G3_SW/images/editar_producto.png" alt="Editor Producto" width="50" height="50">
+					<img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
 				</a>   
 			</div>
 			EOF; 

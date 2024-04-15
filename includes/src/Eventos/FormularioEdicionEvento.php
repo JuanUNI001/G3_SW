@@ -20,7 +20,7 @@ class FormularioEdicionEvento extends Formulario
 
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formEdicionEvento', ['urlRedireccion' => 'eventos.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -113,7 +113,7 @@ class FormularioEdicionEvento extends Formulario
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( !$nombre || empty($nombre) ) {
-            //$this->errores['nombre'] = 'El nombre del evento no puede estar vacío';
+            $this->errores['nombre'] = 'El nombre del evento no puede estar vacío';
         }
         
         $precio = trim($datos['precio'] ?? '');

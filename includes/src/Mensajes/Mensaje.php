@@ -1,6 +1,7 @@
 <?php
-require_once __DIR__ . '/../../traits/MagicProperties.php'; 
+
 namespace es\ucm\fdi\aw\src\Mensajes;
+//require_once __DIR__ . '/../../traits/MagicProperties.php'; 
 use \es\ucm\fdi\aw\src\BD;
 
 class Mensaje
@@ -15,26 +16,32 @@ class Mensaje
 
     private $idDestinatario;
 
-    private $idForo;
-
     private $texto;
 
     private $fechaHora;
 
     private function __construct($id = null, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
     {
-        $this->id = $id !== null ? intval($id) : null;
+        $this->id = intval($id);
+        $this->idForo = $idForo;
+       // $this->id = $id !== null ? intval($id) : null;
         $this->idEmisor = $idEmisor !== null ? intval($idEmisor) : null;
         $this->idDestinatario = $idDestinatario !== null ? intval($idDestinatario) : null;
-        $this->idForo = $idForo !== null ? intval($idForo) : null;
+        //$this->idForo = $idForo !== null ? intval($idForo) : null;
         $this->texto = $texto;
-        $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
-        $this->idForo = $idForo !== null ? intval($idForo) : null;
+        if($fechaHora == null)
+        {
+            $this->fechaHora = $fechaHora !== null ? DateTime::createFromFormat(self::DATE_FORMAT, $fechaHora) :  new DateTime();
+        }
+        else
+        {
+            $this->fechaHora = $fechaHora;
+        }
     }
 
-    public static function crea($id, $idEmisor, $idDestinatario, $idForo, $texto, $es_privado)
+    public static function crea($id, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
     {
-        $m = new Mensaje($id, $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'), $es_privado);
+        $m = new Mensaje($id, $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'));
         return $m;
     }
 
@@ -157,6 +164,54 @@ class Mensaje
     return $result;
     }
 
+    public static function listarMensajes($idEmisor, $idDestinatario)
+    {
+        /*$conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+        $query = sprintf('SELECT * FROM mensajes M WHERE 
+                        (M.idEmisor = %d AND M.idDestinatario = %d) 
+                        OR 
+                        (M.idEmisor = %d AND M.idDestinatario = %d);', 
+                        $idEmisor, $idDestinatario, $idDestinatario, $idEmisor);
+
+        //$query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idDestinatario = %d;', $idEmisor, $idDestinatario);
+        $query .= ' ORDER BY fechaHora DESC';
+
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $idEmisor, $idDestinatario, $fila['idForo'], $fila['mensaje'],
+                $fila['fechaHora']);
+                );
+                $mensajes[] = $mensajes; 
+            }
+            $rs->free();
+        }
+        return  $mensajes;*/
+    }
+
+    public static function listarMensajesForo($idEmisor, $idForo)
+    {
+       /* $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = sprintf('SELECT * FROM  mensajes M WHERE M.idEmisor = %d AND M.idForo = %d;', $idEmisor, $idForo);
+            
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $idEmisor, $idDestinatario, $fila['idForo'], $fila['mensaje'],
+                $fila['fechaHora']);
+                );
+                $mensajes[] = $mensajes; 
+            }
+            $rs->free();
+        }
+        return  $mensajes;*/
+    }
+
     public static function numMensajesPorIdEmisor($idEmisor = null)
     {
         $result = 0;
@@ -213,7 +268,7 @@ class Mensaje
 
     public static function buscaPorId($idMensaje)
     {
-        $result = null;
+       /* $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM mensajes M WHERE M.id = %d;', $idMensaje);
@@ -228,7 +283,7 @@ class Mensaje
         else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        return $result;
+        return $result;*/
     }
 
     private static function inserta($mensaje)
@@ -237,12 +292,12 @@ class Mensaje
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO mensajes (idEmisor, idDestinatario, idForo, texto, fechaHora) VALUES (%d, %d, %d, '%s', '%s')",
+            "INSERT INTO mensajes (idEmisor, idDestinatario, idForo, mensaje, fechaHora) VALUES (%d, %d, %d, '%s', '%s')",
             $mensaje->idEmisor,
             $mensaje->idDestinatario,
             $mensaje->idForo,
             $conn->real_escape_string($mensaje->texto),
-            $conn->real_escape_string($mensaje->fechaYHora)
+            $conn->real_escape_string($mensaje->fechaHora)
         );
         $result = $conn->query($query);
         if ($result) {
@@ -320,4 +375,51 @@ class Mensaje
         }
         return false;
     }
+
+    //en el chat privado el idEmisor e idDestinatario es el que identifica al chat
+    public static function GetMensajesInPrivateChat($idEmisor, $idDestinatario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("SELECT * FROM mensajes M WHERE 
+        (M.idEmisor = %d AND M.idDestinatario = %d) 
+        OR 
+        (M.idEmisor = %d AND M.idDestinatario = %d)", 
+        $idEmisor, $idDestinatario, $idDestinatario, $idEmisor);
+        $query .= ' ORDER BY fechaHora ASC';
+    
+    
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora']);
+                $mensajes[] = $mensaje; 
+            }
+            $rs->free();
+        }
+        return $mensajes;
+    }
+
+
+    public static function GetMensajesInForoChat($idForo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("SELECT * FROM mensajes M WHERE M.idForo = %d", $idForo);
+        $query .= ' ORDER BY fechaHora ASC';
+    
+    
+        $rs = $conn->query($query);
+        $mensajes = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $mensaje = new Mensaje($fila['id'], $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora']);
+                $mensajes[] = $mensaje; 
+            }
+            $rs->free();
+        }
+        return $mensajes;
+    }
+    
 }
