@@ -576,8 +576,9 @@ footer a:hover {
 .copyright {
     font-size: 14px; /* Tamaño del texto */
 }
-<<<<<<< HEAD
-=======
+<<<<<<<<< Temporary merge branch 1
+
+=========
 /* Estilos para el contenido principal */
 footer {
     position: relative; /* Cambia la posición a relativa */
@@ -655,40 +656,5 @@ nav li:last-child {
 .dropdown-content a:hover {
     background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
 }
-.foro {
-    margin-bottom: 50px;
-}
-
-.foro_info {
-    background-color: #FFC0CB; /* Color de fondo rosa del recuadro del autor */
-    border-radius: 20px; /* Esquinas redondeadas */
-    padding: 10px; /* Espaciado interno */
-    margin-bottom: 20px; /* Espaciado inferior */
-    width: 100%; /* Ancho del contenedor */
-    margin: auto; /* Centrar el contenedor horizontalmente */
-}
-
-.foro_autor {
-    color: black; /* Color del texto */
-    font-weight: bold; /* Texto en negrita */
-    float: right; /* Alinear el autor a la derecha */
-}
-
-.foro_titulo {
-    color: black; /* Color del texto */
-    font-weight: bold; /* Texto en negrita */
-    margin-left: 10px; /* Espacio a la izquierda del título */
-    display: inline; /* Mostrar el título en línea con el autor */
-    width: calc(100% - 100px); /* Ancho del título (ajustar según sea necesario) */
-}
-
-.foro_contenido {
-    background-color: #e5e5e5; /* Color de fondo del recuadro del contenido */
-    border-radius: 10px; /* Esquinas redondeadas */
-    padding: 50px; /* Espaciado interno */
-}
-
-
->>>>>>> main
-
+>>>>>>>>> Temporary merge branch 2
 

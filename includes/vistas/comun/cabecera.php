@@ -29,17 +29,11 @@ function mostrarSaludo()
 
     return $html;
 }
-function mostrarLogo() {
-    $app = BD::getInstance();
-    $logoUrl = $app->buildUrl('/index.php');
-    $logoSrc = $app->buildUrl('images/Logo.png');
-    return <<<EOS
-    <div class="logo">
-    <a href="{$logoUrl}"><img src="{$logoSrc}" alt = "CineFlex" /></a>
-    </div>
-    EOS;
-}
 
+<<<<<<<<< Temporary merge branch 1
+=========
+
+>>>>>>>>> Temporary merge branch 2
 function mostrarInfoUsuario() {
     $app = BD::getInstance();
 
@@ -63,29 +57,7 @@ function mostrarInfoUsuario() {
     }
 }
 
-function mostrarInfoUsuario() {
-    $app = BD::getInstance();
-
-    if (!$app->usuarioLogueado())  {
-        $avatar = (RUTA_IMGS . 'images/avatarPorDefecto.png');
-        // Si el usuario no está logueado, muestra la foto por defecto
-        echo "<img src='{$avatar}' alt='Avatar por defecto' width='60' height='60'>";
-    } else {
-        $correo_usuario = $_SESSION['correo'];
-        $usuario = Usuario::buscaUsuario($correo_usuario);
-        $avatar = $usuario->getAvatar() ? (RUTA_IMGS . $usuario->getAvatar()) : (RUTA_IMGS . 'images/avatarPorDefecto.png');
-
-        echo "<div class='info-usuario'>";
-        echo "<div class='dropdown'>";
-        echo "<img src='{$avatar}' alt='Avatar de {$usuario->getNombre()}' width='60' height='60' class='avatar-dropdown'>";
-        echo "<ul class='dropdown-content'>";
-        echo "<li><a href='" . resuelve('/verPerfil.php') . "'>Ver mi cuenta</a></li>";
-        echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
-        echo "<li><a href='" . resuelve('/includes/carrito_usuario.php') . "'>Carrito</a></li>"; // Enlace al carrito
-        echo "</ul></div></div>";
-    }
-}
-
+<<<<<<<<< Temporary merge branch 1
 
 function mostrarLogo() {
     $app = BD::getInstance();
@@ -99,6 +71,8 @@ function mostrarLogo() {
 }
 
 
+=========
+>>>>>>>>> Temporary merge branch 2
 ?>
 
 <header>

@@ -67,8 +67,8 @@ $contenidoPrincipal ='';
 <<<<<<< HEAD
        // if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
 
-=======
-       if (isset($_SESSION["login"])) {
+=========
+       if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
     
 >>>>>>> main
 
