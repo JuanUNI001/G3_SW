@@ -51,25 +51,28 @@ class FormularioInscripcion extends Formulario
     $this->errores = [];
     $idEvento = $datos['idEvento'];
     $idUsuario = $datos['idUsuario'];
-    echo $idEvento;
-    echo $idUsuario;
 
     if (empty($idEvento) || empty($idUsuario)) {
         $this->errores['campos'] = 'Faltan datos necesarios para la inscripción.';
     }
-    $er=count($this->errores);
-    echo $er; 
+    //$er=count($this->errores);
+   // echo $er; 
    //if (count($this->errores) == 0) {
         $inscripcionExitosa = Inscrito::inscribirUsuarioEnEvento($idUsuario, $idEvento);
 
         if (!$inscripcionExitosa) {
             $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';
+            $app = BD::getInstance();
+            $mensajes = ['Ya estas inscrito en este evento, no puedes volver a inscribirte'];
+            $app->putAtributoPeticion('mensajes', $mensajes);
         }
       
         else{
-           echo 'inscrito'; 
+            $app = BD::getInstance();
+            $mensajes = ['Te has inscrito correctamente en el evento !'];
+            $app->putAtributoPeticion('mensajes', $mensajes);
         }
-   // }
+   //}
 
 
     }
