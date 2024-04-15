@@ -51,24 +51,37 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             $rutaActualizar =  resuelve('/includes/src/Pedidos/actualizar_cantidad.php');
             $href = $rutaCar."?idProducto=" . $producto->getIdProducto();
             $direccion_eliminar = $rutaEliminar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;
-            $direccion_actualizar = $rutaActualizar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto . '&nuevaCantidad=';            // Agregar el enlace al contenido principal
+            $direccion_actualizar = $rutaActualizar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;            // Agregar el enlace al contenido principal
             $contenidoPrincipal .= <<<EOF
-                <div class="producto_detalles">
-                    <a href="$href">
-                        <img src="$imagenPath" alt="{$producto->getNombre()}" class="carrito_imagen">
-                    </a>
-                    <div>
-                        <p>{$producto->getNombre()}</p>
-                        <p>Cantidad: 
-                            <input type='number' id='cantidad_$idProducto' name='cantidad' value='$cantidad' min='1' style='width: 50px;'>
-                            {$producto->getPrecio()} €
-                        </p>
-                        <p>Total: {$precioTotal} €</p>
-                        <button onclick="window.location.href='$direccion_eliminar'">Eliminar</button>
-                        <button onclick="window.location.href='$direccion_actualizar' + document.getElementById('cantidad_$idProducto').value">Actualizar</button>
+                <div class="producto_carrito">
+                    <div class="producto_info">
+                        <div class="titulo_imagen">
+                            <h3>{$producto->getNombre()}</h3>
+                            <a href="$href">
+                                <img src="$imagenPath" alt="{$producto->getNombre()}" class="carrito_imagen">
+                            </a>
+                        </div>
                     </div>
+                    <div class="producto_precio">
+                        <p>{$producto->getPrecio()} €</p>
+                        <div class="producto_detalle">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 10px;margin-top: 80px">Cantidad:</span>
+                                <input type='number' id='cantidad_$idProducto' name='cantidad' value='$cantidad' min='1' style='width: 30px; margin-right: 10px;margin-top: 80px' onchange="actualizarCantidad(this.value);">
+                            </div>
+                        </div>
+                        <button class="botonCarrito" style="margin-top: 10px;  margin-top: 20px" onclick="window.location.href='$direccion_eliminar'">Eliminar</button>
+                        
+                    </div>                                           
                 </div>
-                <hr> <!-- Línea horizontal -->
+                <hr>
+
+                <script>
+                function actualizarCantidad( nuevaCantidad) {
+                    var direccionActualizar = "$direccion_actualizar . &nuevaCantidad=" + nuevaCantidad;
+                    window.location.href = direccionActualizar;
+                }
+                </script>
             EOF;
         } 
         
