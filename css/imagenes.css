@@ -11,7 +11,9 @@
     float: left;
     background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
     text-align: center; /* Alineación del contenido */
+    
 }
+
 
 .producto_imagen {
     width: 50%; /* Ancho de la imagen */
@@ -29,7 +31,7 @@
 
 /* Estilo para imágenes de detalle de producto */
 .detalle_imagen {
-    max-width: 300px; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
+    max-width: 150px; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
     height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
     display: block; /* Evita espacio adicional debajo de la imagen */
     margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
@@ -37,13 +39,118 @@
     background: linear-gradient(to bottom right, #5d9cd7, #FF69B4); /* Fondo verde degradado a rosa */
     padding: 10px; /* Espacio alrededor de la imagen */
 }
-
-.carrito_imagen {
-    max-width: 150px; /* La imagen ocupará como máximo el 25% del ancho del contenedor */
-    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
-    display: block; /* Evita espacio adicional debajo de la imagen */
-    margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+/* Estilos para la imagen del producto en el carrito */
+.producto_caracteristica {
+    width: auto; /* Ancho automático */
+    max-width: 80%; /* Ancho máximo de 250px */
+    height: auto; /* Altura automática */
+    margin-right: 20px; /* Margen derecho de 20px */
 }
+/* Estilos para los productos en el carrito */
+.producto_caracteristica {
+    border: 2px solid #ccc; /* Borde de 2px sólido gris */
+    border-radius: 10px; /* Bordes redondeados de 10px */
+    padding: 10px; /* Espacio interno de 10px */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    margin-bottom: 20px;
+    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    display: block; /* Hace que el texto aparezca debajo de todo el contenido */
+
+}
+.info_texto {
+    flex-grow: 1; /* Permite que el contenido de texto ocupe todo el espacio disponible */
+    margin-left: 20px; /* Ajusta el margen izquierdo según sea necesario */
+}
+
+/* Estilos para los botones en el carrito */
+.producto_caracteristica .botonCaracteristica {
+    display: inline-block;
+    background-color: #c751ab; /* Fondo rosa */
+    color: rgb(0, 0, 0); /* Texto negro */
+    padding: 5px 10px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    font-size: 14px; /* Tamaño del texto */
+    border: none; /* Eliminar borde */
+	border-radius: 4px; /* Redondear esquinas */
+    width: auto; /* Ancho automático para ajustarse al contenido */
+    margin-right: 10px; /* Espacio a la derecha */
+}
+.producto_info h2 {
+    margin: 0; /* Elimina todos los márgenes */
+}
+
+
+/* Estilos para la imagen del producto en el carrito */
+.producto_carrito .carrito_imagen {
+    width: auto; /* Ancho automático */
+    max-width: 150px; /* Ancho máximo de 250px */
+    height: auto; /* Altura automática */
+    margin-right: 20px; /* Margen derecho de 20px */
+}
+/* Estilos para los productos en el carrito */
+.producto_carrito {
+    border: 2px solid #ccc; /* Borde de 2px sólido gris */
+    border-radius: 10px; /* Bordes redondeados de 10px */
+    padding: 10px; /* Espacio interno de 10px */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    margin-bottom: 20px;
+    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
+    margin-left: -50px; /* Margen izquierdo negativo */
+    margin-right: +260px; /* Margen derecho negativo */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilos para los botones en el carrito */
+.producto_carrito .botonCarrito {
+    display: inline-block;
+    background-color: #eb7be1; /* Fondo verde */
+    color: white; /* Texto blanco */
+    padding: 5px 10px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto */
+    border: none; /* Eliminar borde */
+	border-radius: 4px; /* Redondear esquinas */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    font-size: 14px; /* Tamaño del texto */
+    width: auto; /* Ancho automático para ajustarse al contenido */
+    margin-right: 10px; /* Espacio a la derecha */
+}
+
+.producto_detalle input[type='number'] {
+    margin-right: 60px; /* Ajusta el margen derecho según sea necesario */
+}
+
+/* Estilos para el título del producto */
+.producto_info h3 {
+    margin: 0; /* Elimina todos los márgenes */
+}
+.producto_info {
+    display: flex;
+}
+/* Estilos para el precio del producto */
+.producto_precio {
+    text-align: right; /* Alinea el texto a la derecha */
+    margin-top: 0; /* Elimina el margen superior */
+}
+
+/* Estilos para el detalle del producto */
+.producto_detalle {
+    display: block; /* Hace que el texto aparezca debajo de todo el contenido */
+}
+
+
+
+
+/* Estilos para los botones en el carrito */
+.producto_carrito .botones_carrito button {
+    margin-right: 10px; /* Espacio entre los botones */
+}
+
 .producto_nombre {
     text-align: center;
     margin-top: 5px;
