@@ -47,7 +47,7 @@ class FormularioInscripcion extends Formulario
     }
 
     protected function procesaFormulario(&$datos)
-{
+    {
     $this->errores = [];
     $idEvento = $datos['idEvento'];
     $idUsuario = $datos['idUsuario'];
@@ -72,6 +72,6 @@ class FormularioInscripcion extends Formulario
    // }
 
 
-}
+    }
 
 }
