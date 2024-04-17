@@ -9,7 +9,7 @@ use es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Inscritos\Inscrito;
 
 
-class FormularioInscripcion extends Formulario
+class FormularioDesinscripcionEvento extends Formulario
 {
     public $idEvento;
     public $idUsuario;
@@ -58,18 +58,17 @@ class FormularioInscripcion extends Formulario
     //$er=count($this->errores);
    // echo $er; 
    //if (count($this->errores) == 0) {
-        $inscripcionExitosa = Inscrito::inscribirUsuarioEnEvento($idUsuario, $idEvento);
+        $desinscripcion = Inscrito::eliminarPorUserYEven($idEvento, $idUsuario);
 
-        if (!$inscripcionExitosa) {
+        if (!$desinscripcion) {
             $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';
             $app = BD::getInstance();
-            $mensajes = ['Ya estas inscrito en este evento, no puedes volver a inscribirte'];
-            $app->putAtributoPeticion('mensajes', $mensajes);
+           
         }
       
         else{
             $app = BD::getInstance();
-            $mensajes = ['Te has inscrito correctamente en el evento !'];
+            $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
    //}

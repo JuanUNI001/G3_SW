@@ -51,6 +51,7 @@
                 $contenidoPrincipal .= "<p class='stock rojo'>Sin stock     ({$producto->getCantidad()} unidades) </p>";
             }
             
+           
 
             $app = BD::getInstance();
 
@@ -60,14 +61,15 @@
                 $contenidoPrincipal .= <<<HTML
                     <form action='$direccion' method='post'>
                     <div class="producto_detalle">
-                    <div style="display: flex; align-items: center;">
-                        <span style="margin-right: 10px;">Cantidad:</span>
-                        <input type='number'  name='cantidad' value= '1' min='1' style='width: 40px; margin-right: 10px;'>
-                    </div>                   
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 10px;">Cantidad:</span>
+                            <input type='number'  name='cantidad' value= '1' min='1' style='width: 40px; margin-right: 10px;'>
+                        </div>                   
                         <p style="margin-top: 15px;">
                             <input type='hidden' name='id_producto' value='$id_producto'> 
-                            <input type='submit' class="botonCaracteristica" value='Agregar al carrito'>
+                            $htmlBoton
                         </p>
+
                         </div>
                     </form>
                 HTML;

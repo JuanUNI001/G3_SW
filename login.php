@@ -9,9 +9,14 @@ $formLogin = $formLogin->gestiona();
 
 $tituloPagina = 'Login';
 $contenidoPrincipal=<<<EOF
+  <div class="centerer">
   	<h1>Acceso al sistema</h1>
     $formLogin
+<<<<<<< HEAD
+  </div>
+=======
 
+>>>>>>> main
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
