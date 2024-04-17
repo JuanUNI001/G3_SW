@@ -1,31 +1,31 @@
 <?php
 require_once 'includes/config.php';
 require_once 'includes/src/Productos/listaProductos.php';
-
+require_once 'includes/vistas/helpers/auxBusquedaProducto.php';
 $tituloPagina = 'Tienda';
-$contenidoPrincipal='';
-$botonAñadirProducto ='';
+$contenidoPrincipal = '';
+$botonAñadirProducto = '';
+$direccionBusca = generarHTML();
 
+// Verificar si el usuario es administrador para mostrar el botón "Añadir producto"
 if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
+    $AddProductoRuta = resuelve('AddProductoView.php');
 
-    $AddProductoRuta=resuelve('AddProductoView.php');
-
-    $botonAñadirProducto .=<<<EOF
+    $botonAñadirProducto .= <<<EOF
     <div>
-    <a href="$AddProductoRuta" class="button-like-link">Añadir producto</a>
+        <a href="$AddProductoRuta" class="button-like-link">Añadir producto</a>
     </div>
-    EOF; 
+    EOF;
 }
 
-$productos = listaproductos();
-
-$contenidoPrincipal=<<<EOS
-    <h1>Tienda</h1>
+// Generar contenido principal de la página
+$contenidoPrincipal = <<<EOS
+    
     $botonAñadirProducto
-    $productos
+    $direccionBusca
 EOS;
 
-
+// Parámetros para generar la vista
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
