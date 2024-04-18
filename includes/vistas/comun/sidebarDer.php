@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <?php
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Profesores\Profesor;
@@ -39,3 +41,4 @@ if (!$app->usuarioLogueado())  : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.
 
    
 </aside>
+>>>>>>> main

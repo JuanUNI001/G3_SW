@@ -1,6 +1,6 @@
 <?php
 
-require_once 'includes/config.php'; 
+require_once __DIR__.'/includes/config.php';
 
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
@@ -8,7 +8,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Foros\Foro;
 use es\ucm\fdi\aw\src\BD;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 ?>
 
 

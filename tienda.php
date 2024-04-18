@@ -1,29 +1,31 @@
 <?php
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/src/Productos/listaProductos.php';
-
+require_once 'includes/config.php';
+require_once 'includes/src/Productos/listaProductos.php';
+require_once 'includes/vistas/helpers/auxBusquedaProducto.php';
 $tituloPagina = 'Tienda';
-$contenidoPrincipal='';
-$botonAñadirProducto ='';
+$contenidoPrincipal = '';
+$botonAñadirProducto = '';
+$direccionBusca = generarHTML();
 
-if(isset($_SESSION["rolUser"]) == "admin"){
+// Verificar si el usuario es administrador para mostrar el botón "Añadir producto"
+if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
+    $AddProductoRuta = resuelve('AddProductoView.php');
 
-    $botonAñadirProducto .=<<<EOF
+    $botonAñadirProducto .= <<<EOF
     <div>
-    <a href="/G3_SW/AddProductoView.php" class="button-like-link">Añadir producto</a>
+        <a href="$AddProductoRuta" class="button-like-link">Añadir producto</a>
     </div>
-    EOF; 
+    EOF;
 }
 
-$productos = listaproductos();
-
-$contenidoPrincipal=<<<EOS
-    <h1>Tienda</h1>
+// Generar contenido principal de la página
+$contenidoPrincipal = <<<EOS
+    
     $botonAñadirProducto
-    $productos
+    $direccionBusca
 EOS;
 
-
+// Parámetros para generar la vista
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

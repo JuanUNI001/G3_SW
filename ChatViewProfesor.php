@@ -8,7 +8,7 @@ echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Profesores\Profesor;
 use es\ucm\fdi\aw\src\BD;
-use \es\ucm\fdi\aw\src\usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 ?>
 
 

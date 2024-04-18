@@ -1,0 +1,167 @@
+/* Estilos de Font Awesome */
+/* Icons */
+.mdi {
+    display: inline-block;
+    font: normal normal normal 24px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilos de Bootstrap */
+/* Grid */
+.container {
+    width: 95%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+/* Card */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700; /* Aumento del grosor de la fuente */
+    color: #000000; /* Color negro */
+}
+
+/* Form */
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Table Head */
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    text-align: inherit;
+}
+
+/* Table Body */
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table td,
+.table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+/* Estilo para la clase filters */
+.filters th {
+    position: relative;
+}
+
+.filters select.form-control {
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.filters select.form-control:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+.filters select.form-control::-ms-expand {
+    background-color: transparent;
+    border: none;
+}
+
+/* Estilo para el ícono del filtro */
+.filters select.form-control:after {
+    content: '\f078'; /* Código del ícono chevron-down de Font Awesome */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #495057;
+}
+.custom-btn {
+    font-size: 16px; /* Tamaño del texto */
+    border-radius: 20px; /* Bordes redondeados */
+    background: linear-gradient(to right, #ff69b4, #4b0082); /* Degradado de rosa a azul */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    transition: all 0.3s ease; /* Transición suave */
+    border: none; /* Quita el borde */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.custom-btn:hover {
+    opacity: 0.8; /* Cambia la opacidad al pasar por encima */
+}
+.custom-btn-container {
+    margin-top: 50px; /* Ajusta el valor según sea necesario */
+    margin-left: 50px; /* Ajusta el valor según sea necesario */
+}

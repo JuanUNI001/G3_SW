@@ -1,9 +1,9 @@
 <?php
 
 require_once 'includes/config.php'; 
-use \es\ucm\fdi\aw\src\usuarios\usuario;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
-$form = new es\ucm\fdi\aw\src\usuarios\FormularioEdicionUsuario();
+$form = new es\ucm\fdi\aw\src\Usuarios\FormularioEdicionUsuario();
 
 $id_usuario = $_GET['id'];
 $Usuario = Usuario::buscaPorId($id_usuario);
