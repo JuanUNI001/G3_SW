@@ -31,15 +31,16 @@ function visualizaUsuario($Usuario) {
         $app = BD::getInstance();
         if ($app->usuarioLogueado()) 
         {
-            $rutaChat = resuelve('/ChatViewUsuario.php');
+            $rutaChat = resuelve('/ChatView.php');
             $html = <<<EOF
             <div class="tarjeta_usuario">
                 <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
                 <div class="info_usuario">
                     <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
                     <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+                    <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                     <div>
-                        <a href="$rutaChat?id_Usuario=$id" class="button-like-link">Contactar</a>
+                        <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
                     </div>
                 </div>
             </div>
@@ -48,11 +49,12 @@ function visualizaUsuario($Usuario) {
         else
         {
             $html = <<<EOF
-            <div class="Usuario">
-                <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="Usuario_avatar">
-                <div class="Usuario_info">
-                    <div class="Usuario_nombre"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
-                    <div class="Usuario_correo"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+            <div class="tarjeta_usuario">
+                <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
+                <div class="info_usuario">
+                    <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
+                    <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+                    <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                 </div>
             </div>
         EOF;
