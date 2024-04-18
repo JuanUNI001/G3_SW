@@ -15,7 +15,7 @@ class FormularioInscripcion extends Formulario
     public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'inscritos.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
 
 
     }
