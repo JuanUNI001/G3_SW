@@ -15,7 +15,7 @@ class FormularioDesinscripcionEvento extends Formulario
     public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'inscritos.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
 
 
     }
@@ -68,6 +68,7 @@ class FormularioDesinscripcionEvento extends Formulario
       
         else{
             $app = BD::getInstance();
+            
             $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
