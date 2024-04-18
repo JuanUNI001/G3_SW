@@ -36,7 +36,8 @@ if ($EventosInscritos) {
                 $contenidoPrincipal .= '<p><strong>Fecha:</strong> ' . $fecha . '</p>';
                 
                 $contenidoPrincipal .= '</div>';
-                $contenidoPrincipal .= '<form action="' . resuelve('/desinscribirseEvento.php') . '" method="POST">';
+                //$contenidoPrincipal .= '<form action="' . resuelve('/desinscribirseEvento.php') . '" method="POST">';
+                $contenidoPrincipal .= '<a href="'.resuelve('/desinscribirseEvento.php').'?id=' . $idEvento . '">';
                 $contenidoPrincipal .= '<button type="submit" class="sideBarDerButton">Salir</button>';
                 $contenidoPrincipal .= '</div>'; 
                 $contenidoPrincipal .= '</div>'; 

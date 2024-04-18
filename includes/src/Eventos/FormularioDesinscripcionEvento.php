@@ -38,7 +38,7 @@ class FormularioDesinscripcionEvento extends Formulario
                 <input type="hidden" name="idUsuario" value="$idUsuario" />
             </div>
             <div>
-            <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
+            <button type="submit" name="desinscribirse" class="sideBarDerButton">desinscribirse</button>
 
             </div>
         </fieldset>
@@ -57,11 +57,11 @@ class FormularioDesinscripcionEvento extends Formulario
     }
     //$er=count($this->errores);
    // echo $er; 
-   //if (count($this->errores) == 0) {
+   if (count($this->errores) == 0) {
         $desinscripcion = Inscrito::eliminarPorUserYEven($idEvento, $idUsuario);
 
         if (!$desinscripcion) {
-            $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';
+            $this->errores['desinscribirse'] = 'Hubo un error al desinscribirse en el evento.';
             $app = BD::getInstance();
            
         }
@@ -71,7 +71,7 @@ class FormularioDesinscripcionEvento extends Formulario
             $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
-   //}
+    }
 
 
     }
