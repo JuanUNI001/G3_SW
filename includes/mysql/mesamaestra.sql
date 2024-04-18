@@ -267,9 +267,6 @@ INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valora
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`idEvento`);
---
-ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Indices de la tabla `mensajes`
@@ -352,6 +349,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
