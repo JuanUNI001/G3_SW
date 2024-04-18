@@ -46,7 +46,7 @@ class Producto
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
        
-        $query = sprintf("SELECT * FROM productos");
+        $query = sprintf("SELECT * FROM productos WHERE archivado = '0'");
             
         
         $rs = $conn->query($query);

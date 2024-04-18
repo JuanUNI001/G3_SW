@@ -30,6 +30,9 @@ function listaeventos()
 function visualizaEvento($evento)
 {
 
+
+    //mostrar eventos abiertos--> poner el estado como bool?
+    //dar opcion de mostar eventos finalizados
     $html = '<div class="Evento">';
 
     $estado = $evento->getEstado();

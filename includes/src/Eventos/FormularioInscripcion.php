@@ -15,7 +15,7 @@ class FormularioInscripcion extends Formulario
     public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'inscritos.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
 
 
     }
@@ -69,6 +69,7 @@ class FormularioInscripcion extends Formulario
       
         else{
             $app = BD::getInstance();
+            Evento ::inscribirseEvento($idEvento);
             $mensajes = ['Te has inscrito correctamente en el evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }

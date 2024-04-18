@@ -183,28 +183,40 @@ INSERT INTO `pedidos_productos` (`id_pedido`, `id_producto`, `cantidad`) VALUES
 --
 
 CREATE TABLE `productos` (
-  `nombre` varchar(30) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `descripcion` varchar(400) NOT NULL,
+  `descripcion` varchar(700) NOT NULL,
   `id` int(11) NOT NULL,
-  `imagen` varchar(40) NOT NULL,
+  `imagen` varchar(60) NOT NULL,
   `valoracion` decimal(4,2) DEFAULT NULL,
   `num_valoraciones` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `archivado` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `valoracion`, `num_valoraciones`, `cantidad`) VALUES
-('Parchís y Oca, 2 en 1', 19.99, 'Juego de parchís por un lateral y la oca por el otro. Genial juego para disfrutar en familia o con amigos', 1, 'images/parchis_oca.png', 4.50, 451, 536),
-('Preguntados', 19.99, 'Juego de mesa Preguntados. El juego viral de móvil ya tiene juego físico. Disfruta con tus amigos con las nuevas preguntas del momento.\r\n', 2, 'images/preguntados.png', 4.76, 124, 0),
-('Quién es quién', 15.75, 'Juego Quién es quién. ¿Sabrías adivinar qué personaje es tu oponente con solo preguntas de si y no? \r\nPonte a prueba', 3, 'images/quien.png', 3.75, 45, 0),
-('Érase una vez', 27.90, 'Juego Érase una vez. Perfecto para rememorar la famosa serie infantil y aprender en el proceso.', 4, 'images/erase.png', 0.00, 458, 46),
-('Laberinto', 34.80, 'Juego de mesa Laberinto.\r\nRecorre el laberinto en busca de los tesoros más preciados… pero atención: ¡encontrar la via d\'uscita no será nada fácil.\r\nMateriales de óptima calidad; el juego contiene: 1 tablero, 34 piezas móviles de laberinto, 24 cartas de objetivo «día», 4 peones, 12 cartas de objetivo cuadradas «noche»\r\n', 5, 'images/laberinto.png', 4.20, 4523, 589),
-('Exploding Kittens', 19.40, 'Exploding Kittens es un juego rápido y divertido en el que tienes que asegurar tu supervivencia ante los temibles ¡gatos explosivos! Un juego de cartas en el que hasta cinco jugadores hacen todo lo posible por fastidiar a los rivales hasta conseguir que caigan eliminados', 6, 'images/explodingKittens.png', 3.85, 4789, 13),
-('Cluedo', 22.35, 'Divertido juego familiar: ¿Recuerdas jugar el clásico juego Cluedo cuando era un niño? Saca el juego Cluedo Liars Edition para la noche de juego familiar, citas de juego y entretenimiento en días lluviosos. A partir de 8 años', 7, 'images/cluedo.png', 4.63, 89654, 73);
+INSERT INTO `productos` (`nombre`, `precio`, `descripcion`, `id`, `imagen`, `valoracion`, `num_valoraciones`, `cantidad`, `archivado`) VALUES
+('Parchís y Oca, 2 en 1', 19.99, 'Juego de parchís por un lateral y la oca por el otro. Genial juego para disfrutar en familia o con amigos', 1, 'images/parchis_oca.png', 4.50, 451, 533, 0),
+('Preguntados', 19.99, 'Juego de mesa Preguntados. El juego viral de móvil ya tiene juego físico. Disfruta con tus amigos con las nuevas preguntas del momento.\r\n', 2, 'images/preguntados.png', 4.76, 124, 0, 0),
+('Quién es quién', 15.75, 'Juego Quién es quién. ¿Sabrías adivinar qué personaje es tu oponente con solo preguntas de si y no? \r\nPonte a prueba', 3, 'images/quien.png', 3.75, 45, 0, 0),
+('Érase una vez', 27.90, 'Juego Érase una vez. Perfecto para rememorar la famosa serie infantil y aprender en el proceso.', 4, 'images/erase.png', 0.00, 458, 46, 0),
+('Laberinto', 34.80, 'Juego de mesa Laberinto.\r\nRecorre el laberinto en busca de los tesoros más preciados… pero atención: ¡encontrar la via d\'uscita no será nada fácil.\r\nMateriales de óptima calidad; el juego contiene: 1 tablero, 34 piezas móviles de laberinto, 24 cartas de objetivo «día», 4 peones, 12 cartas de objetivo cuadradas «noche»\r\n', 5, 'images/laberinto.png', 4.20, 4523, 589, 0),
+('Exploding Kittens', 19.40, 'Exploding Kittens es un juego rápido y divertido en el que tienes que asegurar tu supervivencia ante los temibles ¡gatos explosivos! Un juego de cartas en el que hasta cinco jugadores hacen todo lo posible por fastidiar a los rivales hasta conseguir que caigan eliminados', 6, 'images/explodingKittens.png', 3.85, 4789, 13, 0),
+('Cluedo', 22.35, 'Divertido juego familiar: ¿Recuerdas jugar el clásico juego Cluedo cuando era un niño? Saca el juego Cluedo Liars Edition para la noche de juego familiar, citas de juego y entretenimiento en días lluviosos. A partir de 8 años', 7, 'images/cluedo.png', 4.63, 89654, 73, 0),
+('Disney Villainous', 52.00, 'Disney Villainous es para 2-6 jugadores y está recomendado para mayores de 10 años. Las dinámicas de juego se adaptan fácilmente a diferentes categorías de jugadores: expertos, principiantes, familias y entusiastas del universo Disney.\r\nDimensiones del producto: ‎27 x 27 x 8 cm; 1 g', 8, 'images/villanous.png', 4.70, 1150, 233, 0),
+('7 Wonders: Duel', 26.99, 'En 7 Wonders Duel cada jugador es el líder de una civilización que construirá Estructuras y erigirá Maravillas. Las Estructuras y las Maravillas construidas por cada jugador componen su «ciudad\r\nExisten 3 formas de ganar en 7 Wonders Duel: supremacía militar, supremacía científica y victoria civil\r\nSi al final de la tercera Era nadie ha conseguido ganar, los jugadores sumarán sus puntos de victori', 9, 'images/duel.png', 4.80, 1130, 45, 0),
+('Dixit', 26.45, '¡Juego de deducción, bellamente ilustrado, donde tu imaginación crea increíbles historias!\r\nEn este galardonado juego de mesa, los jugadores podrán utilizar la hermosa imaginería de sus cartas para engañar a sus rivales.\r\nDixit es un juego sorprendente, encantador y de reglas fáciles, para disfrutar con amigos y familiares por igual.\r\nDe 3 a 8 jugadores.', 10, 'images/dixit.png', 4.78, 840, 32, 0),
+('El impostor', 15.99, 'El impostor\', \'15.99\', \'UN DESTERNILLANTES JUEGO DE MÍMICA Si eres demasiado obvio, el Impostor adivinará fácilmente la palabra secreta y pasar desapercibido, si eres demasiado sutil, te arriesgas a ser acusado.\r\n¿SERÁS CAPAZ DE ENGARÑARLOS A TODOS? En cada ronda una persona, elegida al azar, deberá fingir y mantener la farsa hasta el final para lograr la victoria. ¿Conseguirás pasar desapercibido o el resto del grupo averiguará que eres el impostor?\r\nTIEMPO DE JUEGO ADAPTADO A TODOS LOS GUSTOS ¡Podrás jugar una ronda rápida de solo unos minutos de duración o alargar la diversión durante horas!', 11, 'images/impostor.png', 4.60, 543, 16, 0),
+('Unicornios congelados', 14.99, 'DIVERSIÓN EN TODA REGLA PARA TODA LA FAMILIA - Los más pequeños posa como un cangrejo. Mamá como una profesora de kárate. ¡¿El abuelo posando como un superhéroe?! Pero, ¿puedes adivinar de qué pretenden estar congelados? Unicornios Congelados es un juego súper divertido que encanta a todos sin importar la edad.\r\nSÉ CREATIVO Y A MOVERSE - A todos los jugadores se les dice de qué tienen que pretender congelarse en cada ronda, menos a uno de ellos. La habitación se transformará en un museo de estatuas absurdas, mientras que uno de los jugadores adivina de qué están congelados los demás. Con más de 100 cartas diferentes y tres categorías, Unicornios Congelados es el divertidísimo juego que hace ', 12, 'images/unicornios.png', 4.20, 345, 15, 0),
+('LITTLE SECRET', 25.99, 'Little Secret es un juego de mesa intuitivo de imaginación, asociación de palabras y código secreto. Cartas para fiestas con amigos o también para jugar en familia, tanto como con adultos como para peques.\r\nEl objetivo del juego de mesa : Tendrás que dar pistas sobre la palabras secreta de las cartas y descubrir a los infiltrados y al periodista de la Organización Secreta\r\n4-9 JUGADORES, 20 min de juego, + 10 años. ¡Descubre a los embusteros!  180 cartas, 300 palabras y 17 misiones', 13, 'images/littleSecret.png', 4.80, 4637, 238, 0),
+('Jenga', 22.50, '54 bloques de madera JENGA\r\nSe necesita habilidad, estrategia y suerte\r\nDesafíate a ti mismo o juega con amigos\r\nGanarás si eres el último jugador que quita un bloque sin que la pila se derrumbe\r\nIncluye soporte de montaje', 14, 'images/jenga.png', 4.90, 50392, 5301, 0),
+('UNO', 11.99, 'El clásico juego de cartas de emparejar colores y números.\r\nLas cartas especiales y los comodines le dan más diversión al juego.\r\nUsa la carta Intercambio de manos para cambiar todas tus cartas por las de otro jugador.\r\nEscribe tus propias reglas de juego con las cartas personalizables.\r\nLos jugadores se turnan para jugar una carta de su mano que coincida en color o número con la última carta de la pila de descarte.\r\n¡Y no olvides gritar “UNO” cuando te quede una sola carta en la mano!', 15, 'images/uno.png', 4.60, 67382, 3046, 0),
+('Dobble Clasico', 16.99, 'Juego de fiesta\r\nUn juego de velocidad, observación y reflejos\r\nEncuentra los símbolos iguales\r\nSin plástico, sin envoltorio\r\n57 símbolos\r\n5 minijuegos\r\n10 minutos de duración', 16, 'images/Dobble.png', 4.74, 10382, 5432, 0),
+('Virus', 14.79, 'Adictivo.\r\n Divertido.\r\n Fácil de llevar.\r\n Número de jugadores: 2 a 6 jugadores.', 17, 'images/virus.png', 3.78, 3924, 423, 0),
+('UNO All Wild', 11.99, 'Todas las cartas son comodines en UNO All Wild.\r\nEl juego se desarrolla más rápido sin tener que hacer coincidir colores o números como en el clásico UNO.\r\nTambién es más sorprendente gracias a las cartas de acción de la baraja.\r\nNo lo olvidéis, el jugador al que solo le quede una carta tiene que gritar UNO.\r\nEs un regalo perfecto para los fans de UNO a partir de 7 años.', 18, 'images/unoAllWild.png', 4.80, 82923, 28311, 0);
 
 -- --------------------------------------------------------
 

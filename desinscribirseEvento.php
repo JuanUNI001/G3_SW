@@ -8,7 +8,7 @@ use \es\ucm\fdi\aw\src\Eventos\FormularioDesinscripcionEvento;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioDesinscripcionEvento();
-$tituloPagina = 'Inscripción en Evento';
+$tituloPagina = 'Desinscripcion Evento';
 
 $idEvento = $_GET['id'];
 $correo = $_SESSION['correo'];
@@ -18,14 +18,14 @@ $evento = Evento::buscaPorId($idEvento);
 
 
 $form->idEvento = $idEvento;
-$form->idUsuario=$idUsuario;
+$form->idUsuario = $idUsuario;
 $htmlFormulario = $form->gestiona();
 
 $contenidoPrincipal = <<<EOS
-    <h1>Inscripción Desinscripcion</h1>
+    <h1> Desinscripcion</h1>
     $htmlFormulario
 EOS;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Inscribirse evento'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Desinscribirse evento'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
