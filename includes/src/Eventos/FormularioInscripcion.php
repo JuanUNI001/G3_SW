@@ -69,6 +69,7 @@ class FormularioInscripcion extends Formulario
       
         else{
             $app = BD::getInstance();
+            Evento ::inscribirseEvento($idEvento);
             $mensajes = ['Te has inscrito correctamente en el evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }

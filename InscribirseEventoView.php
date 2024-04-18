@@ -24,6 +24,7 @@ $htmlFormulario = $form->gestiona();
 $contenidoPrincipal = <<<EOS
     <h1>Inscripción en Evento</h1>
     $htmlFormulario
+
 EOS;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Inscribirse evento'];
