@@ -1,0 +1,177 @@
+<?php
+namespace es\ucm\fdi\aw\src\Eventos;
+
+echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
+require_once 'includes/src/Eventos/listaEventos.php';
+
+use es\ucm\fdi\aw\src\Formulario;
+
+class FormularioBusquedaEventos extends Formulario
+{
+    
+    public $eventos;
+
+    public function __construct() {
+        parent::__construct('FormularioBusquedaEventos', ['urlRedireccion' => 'tienda.php']);
+    }
+    
+    protected function generaCamposFormulario(&$datos)
+    {
+    // Verificar si se ha enviado el formulario por POST
+        
+        // Capturar valores de los filtros
+        $buscar = $_SESSION['filtro_buscar'] ?? '';
+        $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
+        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
+        $orden = $_SESSION['filtro_orden'] ?? '';
+        $eventos = listaeventos();
+       
+    
+    
+    // Generar el HTML del formulario
+    $html = '
+    <div class="container mt-5">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Productos a la venta</h4>
+                            <form id="form2" name="form2" method="POST" action="<?php echo $ruta; ?>">
+                                <div class="col-12 row">
+                                    <div class="mb-3 col-12">
+                                        <label class="form-label">Nombre a buscar</label>
+                                        <input type="text" class="form-control" id="buscar" name="buscar" value="' .  $buscar  . '">
+                                    </div>
+                                    <div class="col-11">
+                                        <h4 class="card-title">Tasa de inscripción</h4>
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="filters">
+                                                    <th>
+                                                        Precio desde:
+                                                        <input type="number" id="buscaPrecioDesde" name="buscaPrecioDesde" class="form-control mt-2" value="' . $buscaPrecioDesde . '" style="border: #bababa 1px solid; color:#000000;" step="0.01" min="0">
+                                                    </th>
+                                                    <th>
+                                                        Precio hasta:
+                                                        <input type="number" id="buscaPrecioHasta" name="buscaPrecioHasta" class="form-control mt-2" value="' . $buscaPrecioHasta . '" style="border: #bababa 1px solid; color:#000000;" step="0.01" min="0">
+                                                    </th>
+                                                </tr>                                     
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="col-11">
+                                        <h4 class="card-title">Fechas de inicio y fin</h4>
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="filters">
+                                                    <th>
+                                                        Fecha desde:
+                                                        <input type="date" id="fechaDesde" name="fechaDesde" class="form-control mt-2" value="<?php echo $fechaDesde; ?>" style="border: #bababa 1px solid; color:#000000;">
+                                                    </th>
+                                                    <th>
+                                                        Fecha hasta:
+                                                        <input type="date" id="fechaHasta" name="fechaHasta" class="form-control mt-2" value="<?php echo $fechaHasta; ?>" style="border: #bababa 1px solid; color:#000000;">
+                                                    </th>
+                                                </tr>                                     
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-11">
+                                        <h4 class="card-title">Filtro para ordenar</h4>	
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="filters">
+                                                    <th>
+                                                        Ordenados por:
+                                                        <select id="assigned-tutor-filter" id="orden" name="orden" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;">
+                                                        <option value="' . $orden . '">' . 
+                                                            ($orden == '1' ? 'Ordenar por nombre' : 
+                                                                ($orden == '2' ? 'Ordenar por precio' : 
+                                                                    ($orden == '3' ? 'Ordenar por valoración' :''))) . 
+                                                        '</option>                                                            
+                                                            <option value=""></option>
+                                                            <option value="1">Ordenar por nombre</option>
+                                                            <option value="2">Ordenar por precio</option>
+                                                            <option value="3">Ordenar por valoración</option>
+                                                        </select>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>	
+                                    <div class="col-11 mt-3 custom-btn-container">
+                                        <button type="submit" id="aplicar-filtros-btn" class="btn btn-primary custom-btn">Aplicar filtros</button>
+                                    </div>
+                                    
+                                    <div class="col-11 mt-3 custom-btn-container">
+                                        <button type="button" id="limpiar-filtros-btn" class="btn btn-primary custom-btn">Limpiar filtros</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
+                            <div class="table-responsive">
+                                ' . $eventos . '
+                            </div>
+                        </div>	
+                    </div>
+                </div>	
+            </div>	
+        </div>										
+    </div>';
+    $html .= '
+    <script>
+        document.getElementById("limpiar-filtros-btn").addEventListener("click", function() {
+            // Limpiar los campos del formulario
+            document.getElementById("buscar").value = "";
+            document.getElementById("buscaPrecioDesde").value = "";
+            document.getElementById("buscaPrecioHasta").value = "";
+            document.getElementById("orden").value = "";
+            
+        });
+    </script>';
+
+
+
+    return $html;
+    }
+
+    protected function procesaFormulario(&$datos)
+    {
+        // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
+        $_SESSION['filtro_buscar'] = $datos['buscar'] ?? '';
+        $_SESSION['filtro_precio_desde'] = $datos['buscaPrecioDesde'] ?? '';
+        $_SESSION['filtro_precio_hasta'] = $datos['buscaPrecioHasta'] ?? '';
+        $_SESSION['filtro_orden'] = $datos['orden'] ?? '';
+    
+        // Procesar los datos
+        $this->errores = [];
+        $buscar = trim($datos['buscar'] ?? '');
+        $buscar = filter_var($buscar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+        $buscaPrecioDesde = trim($datos['buscaPrecioDesde'] ?? '');
+        $buscaPrecioDesde = filter_var($buscaPrecioDesde, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+        $buscaPrecioHasta = trim($datos['buscaPrecioHasta'] ?? '');
+        $buscaPrecioHasta = filter_var($buscaPrecioHasta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+        // Aquí establecemos el valor de $orden a vacío si se hace clic en "Limpiar filtros"
+        $orden = isset($datos['limpiar-filtros-btn']) ? '' : trim($datos['orden'] ?? '');
+        $orden = filter_var($orden, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+        // Validación de los datos recibidos
+        if (empty($buscar) && empty($buscaPrecioDesde) && empty($buscaPrecioHasta) && empty($orden)) {
+            $this->errores['general'] = 'Debes proporcionar al menos un filtro para realizar la búsqueda.';
+        }
+    
+        // Si no hay errores, se procesan los datos
+        if (count($this->errores) === 0) {
+            $eventos = listaeventos();
+        }
+    }
+    
+
+}
+?>
