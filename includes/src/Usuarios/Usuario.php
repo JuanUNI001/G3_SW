@@ -319,4 +319,28 @@ class Usuario
         }
         return false;
     }
+
+    public static function listarUsuarios()
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT * FROM usuarios";
+         
+        $rs = $conn->query($query);
+        $usuarios = array(); 
+        if ($rs) {
+        while ($fila = $rs->fetch_assoc()) {
+        $usuario = new Usuario(      
+        $fila['rolUser'],         
+        $fila['nombre'],   
+        $fila['password'],
+        $fila['correo'],  
+        $fila['avatar'],   
+        $fila['id']
+        );
+        $usuarios[] = $usuario; 
+        }
+        $rs->free();
+        }
+        return $usuarios;
+    }
 }
