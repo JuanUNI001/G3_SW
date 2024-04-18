@@ -76,6 +76,7 @@ function mostrarInfoUsuario() {
             <li><a href="<?= RUTA_APP?>/foros.php"class="sideBarDerButton">Foro</a></li>
             <li><a href="<?= RUTA_APP?>/eventos.php"class="sideBarDerButton">Eventos</a></li>
             <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Profesores</a></li>
+            <li><a href="<?= RUTA_APP?>/usuariosView.php"class="sideBarDerButton">Usuarios</a></li>
         </ul>
     </nav>
     <div class="info-usuario">

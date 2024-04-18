@@ -1,0 +1,28 @@
+/* Estilos generales */
+.tarjeta_usuario {
+    display: flex;
+    align-items: center;
+    width: 300px; /* ajusta el ancho según sea necesario */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ffffff; /* color del botón */
+}
+
+/* Estilos para el avatar */
+.avatar_usuario {
+    width: 80px; /* ajusta el tamaño del avatar según sea necesario */
+    height: 80px; /* ajusta el tamaño del avatar según sea necesario */
+    border-radius: 50%; /* para hacerlo circular */
+    margin-right: 15px;
+}
+
+/* Estilos para la información del usuario */
+.tarjeta_usuario .info_usuario {
+    flex-grow: 1; /* permite que ocupe el espacio restante */
+}
+
+.tarjeta_usuario .texto {
+    margin-bottom: 8px;
+}
