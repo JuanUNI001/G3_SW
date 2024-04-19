@@ -30,7 +30,11 @@
     flex: 0 0 100%;
     max-width: 100%;
 }
-
+.textomitad {
+    flex: 0 0 40%;
+    max-width: 50%;
+    margin-left: 10px; /* Ajusta el valor según sea necesario */
+}
 /* Card */
 .card {
     position: relative;
@@ -169,4 +173,9 @@
 .categoria-selector {
     margin-top: -20px; /* Ajusta el margen superior según sea necesario */
     margin-left: 30px; /* Ajusta el margen izquierdo según sea necesario */
+}
+.form-label {
+    margin-bottom: 0.5rem;
+    font-weight: bold; /* Aumenta el peso de la fuente */
+    margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
 }

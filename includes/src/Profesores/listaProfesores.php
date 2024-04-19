@@ -24,6 +24,19 @@ function listaProfesores()
     $html .= "</div>";
     return $html;
 }
+function listaProfesoresFiltrada($buscar,$correo, $buscaPrecioDesde, $buscaPrecioHasta, $orden)
+{
+    $profesores = Profesor::listarProfesoresBusqueda($buscar,$correo, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+
+    $html = "<div class='profesores'>";
+
+    foreach ($profesores as $profesor) {
+        $html .= visualizaProfesor($profesor);
+    }
+
+    $html .= "</div>";
+    return $html;
+}
 
 function visualizaProfesor($profesor) {
         $imagenPath = $profesor->getAvatar() ? RUTA_IMGS . $profesor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
