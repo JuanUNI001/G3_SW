@@ -26,7 +26,19 @@ function listaeventos()
     $html .= "</div>";
     return $html;
 }
+function listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado)
+{
+    $eventos = Evento::listaEventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
 
+    $html = "<div class='eventos'>";
+
+    foreach ($eventos as $evento) {
+        $html .= visualizaEvento($evento);
+    }
+
+    $html .= "</div>";
+    return $html;
+}
 function visualizaEvento($evento)
 {
 

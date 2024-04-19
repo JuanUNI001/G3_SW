@@ -69,11 +69,7 @@ class FormularioBusquedaProducto extends Formulario
                                                     <th>
                                                         Ordenados por:
                                                         <select id="assigned-tutor-filter" id="orden" name="orden" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;">
-                                                        <option value="' . $orden . '">' . 
-                                                            ($orden == '1' ? 'Ordenar por nombre' : 
-                                                                ($orden == '2' ? 'Ordenar por precio' : 
-                                                                    ($orden == '3' ? 'Ordenar por valoración' :''))) . 
-                                                        '</option>                                                            
+                                                                                                                   
                                                             <option value=""></option>
                                                             <option value="1">Ordenar por nombre</option>
                                                             <option value="2">Ordenar por precio</option>

@@ -162,6 +162,11 @@
     opacity: 0.8; /* Cambia la opacidad al pasar por encima */
 }
 .custom-btn-container {
-    margin-top: 50px; /* Ajusta el valor según sea necesario */
+    margin-top: 20px; /* Ajusta el valor según sea necesario */
     margin-left: 50px; /* Ajusta el valor según sea necesario */
+}
+/* Estilo para el selector de categorías */
+.categoria-selector {
+    margin-top: -20px; /* Ajusta el margen superior según sea necesario */
+    margin-left: 30px; /* Ajusta el margen izquierdo según sea necesario */
 }
