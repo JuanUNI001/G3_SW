@@ -206,17 +206,17 @@ class Usuario
         }
     }
 
-    private $id;
+    protected $id;
 
-    private $rolUser;
+    protected $rolUser;
 
-    private $password;
+    protected $password;
 
-    private $nombre;
+    protected $nombre;
 
-    private $correo;
+    protected $correo;
 
-    private $avatar;//será la foto que el usuario puede incluir
+    protected $avatar;//será la foto que el usuario puede incluir
 
 
     protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id = null)
