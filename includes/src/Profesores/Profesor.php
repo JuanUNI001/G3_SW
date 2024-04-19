@@ -11,19 +11,14 @@ class Profesor extends Usuario
     private $categoria;
     private $anunciable;
 
-    public function __construct($rol, $nombre, $correo,  $precio, $avatar,$valoracion,$id = null)
+   
+    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null)
     {
-       // parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
+        parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
         $this->anunciable = true;
-        $this->id = $id;
-        $this->rolUser = $rol;
-        //$this->password = $password;
-        $this->nombre = $nombre;
-        $this->correo = $correo;
-        $this->avatar = $avatar;
     }
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
@@ -76,7 +71,7 @@ class Profesor extends Usuario
         $profesor = new Profesor(      
         $fila['rolUser'],         
         $fila['nombre'],   
-       // $fila['password'],
+       '',
         $fila['correo'],
         $fila['precio'],   
         $fila['avatar'],   
@@ -137,7 +132,7 @@ class Profesor extends Usuario
                 $profesor = new Profesor(
                     $fila['rolUser'],         
                     $fila['nombre'],   
-                    //$fila['password'],
+                    '',
                     $fila['correo'],
                     $fila['precio'],   
                     $fila['avatar'],   

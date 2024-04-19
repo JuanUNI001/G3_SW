@@ -228,6 +228,7 @@ class Usuario
         $this->correo = $correo;
         $this->avatar = $avatar;
     }
+    
 
     public function getId()
     {
@@ -323,7 +324,7 @@ class Usuario
     public static function listarUsuarios()
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT * FROM usuarios";
+        $query ="SELECT * FROM usuarios WHERE rolUser != '1'";
          
         $rs = $conn->query($query);
         $usuarios = array(); 
@@ -332,7 +333,7 @@ class Usuario
         $usuario = new Usuario(      
         $fila['rolUser'],         
         $fila['nombre'],   
-        $fila['password'],
+        '',
         $fila['correo'],  
         $fila['avatar'],   
         $fila['id']
@@ -343,4 +344,73 @@ class Usuario
         }
         return $usuarios;
     }
+    public static function listarUsuariosBusqueda($buscar, $correo, $tipo,$orden)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Inicializar la consulta SQL con la parte común
+        $query ="SELECT * FROM usuarios WHERE rolUser != '1'";
+
+        // Agregar filtros según los parámetros proporcionados
+        if (!empty($buscar)) {
+            // Agregar filtro de búsqueda por nombre o correo
+            $query .= " AND (nombre LIKE '%$buscar%' )";
+        }
+        if (!empty($correo)) {
+            // Agregar filtro de búsqueda por nombre o correo
+            $query .= " AND (correo LIKE '%$correo%')";
+        }
+        
+       // Agregar filtro de tipo si se proporciona
+        if (!empty($tipo)) {
+            switch ($tipo) {
+                case 'Usuario':
+                    // Filtrar usuarios
+                    $query .= " AND rolUser = '2'";
+                    break;
+                case 'Profesor':
+                    // Filtrar profesores
+                    $query .= " AND rolUser = '3'";
+                    break;
+                default:
+                    // No hacer nada si el tipo no es válido
+                    break;
+            }
+        }
+        
+        // Agregar filtro de ordenamiento si se proporciona
+        switch ($orden) {
+            case '1':
+                // Ordenar por nombre
+                $query .= " ORDER BY nombre ASC";
+                break;
+            case '2':
+                // Ordenar por correo
+                $query .= " ORDER BY correo ASC";
+                break;
+            default:
+                // No hacer nada si el orden no es válido
+                break;
+        }
+
+        // Ejecutar la consulta
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Usuario(
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['avatar'],   
+                    $fila['id']
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
+        }
+        return $profesores;
+    }
+
 }

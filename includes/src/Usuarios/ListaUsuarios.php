@@ -23,7 +23,19 @@ function listaUsuarios()
     $html .= "</div>";
     return $html;
 }
+function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
+{
+    $Usuarios = Usuario::listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
 
+    $html = "<div class='Usuarios'>";
+
+    foreach ($Usuarios as $Usuario) {
+        $html .= visualizaUsuario($Usuario);
+    }
+
+    $html .= "</div>";
+    return $html;
+}
 function visualizaUsuario($Usuario) {
         $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
         $id =  $Usuario->getId();

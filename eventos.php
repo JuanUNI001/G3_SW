@@ -3,12 +3,8 @@
 require_once 'includes/config.php';
 require_once 'includes/src/Eventos/listaEventos.php';
 
-
-
-
 $tituloPagina = 'Eventos';
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioBusquedaEventos();
-    $form->productos = listaeventos();
     
     $htmlFormLogin = $form->gestiona();
 
