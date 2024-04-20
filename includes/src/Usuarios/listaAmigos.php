@@ -3,18 +3,19 @@
 use es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
 
-require_once __DIR__.'/../../config.php';
+require_once 'includes/config.php';
 
 $tituloPagina = 'Lista de Usuarios';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-$contenidoPrincipal = listaUsuarios();
+$contenidoPrincipal = listaAmigos();
 
-function listaUsuarios()
+function listaAmigos()
 {
     $idUser = $_SESSION['id'];
-    $Usuarios = Usuario::listarUsuarios($idUser);
+    
+    $Usuarios = Usuario::obtenerUsuariosSeguidos($idUser); // Llamar al método en la instancia
         
-    $html = "<div class='Usuarios'>";
+    $html = "<div class='rectangulo-usuarios'>";
 
     foreach ($Usuarios as $Usuario) {
         $html .= visualizaUsuario($Usuario);
@@ -23,20 +24,8 @@ function listaUsuarios()
     $html .= "</div>";
     return $html;
 }
-function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
-{
-    $idUser = $_SESSION['id'];
-    $Usuarios = Usuario::listarUsuariosBusqueda($buscar, $correo,$tipo, $orden,$idUser);
 
-    $html = "<div class='Usuarios'>";
 
-    foreach ($Usuarios as $Usuario) {
-        $html .= visualizaUsuario($Usuario);
-    }
-
-    $html .= "</div>";
-    return $html;
-}
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();

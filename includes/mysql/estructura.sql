@@ -86,6 +86,10 @@ CREATE TABLE `usuarios` (
   `avatar` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `seguir` (
+  `idUsuario` int(11) NOT NULL,
+  `idUsuarioSeguir` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -142,6 +146,20 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_rolUser` (`rolUser`);
 
+
+--
+-- Indices de la tabla `seguir`
+--
+ALTER TABLE `seguir`
+  ADD UNIQUE KEY `unique_seguimiento` (`idUsuario`,`idUsuarioSeguir`),
+  ADD KEY `fk_usuario_seguir` (`idUsuarioSeguir`);
+--
+-- Filtros para la tabla `seguir`
+--
+ALTER TABLE `seguir`
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `fk_usuario_seguir` FOREIGN KEY (`idUsuarioSeguir`) REFERENCES `usuarios` (`id`);
+COMMIT;
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
