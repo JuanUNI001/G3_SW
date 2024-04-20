@@ -15,7 +15,7 @@ class FormularioDesinscripcionEvento extends Formulario
     public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
 
 
     }
@@ -57,7 +57,7 @@ class FormularioDesinscripcionEvento extends Formulario
     }
     //$er=count($this->errores);
    // echo $er; 
-   if (count($this->errores) == 0) {
+   //if (count($this->errores) == 0) {
         $desinscripcion = Inscrito::eliminarPorUserYEven($idEvento, $idUsuario);
 
         if (!$desinscripcion) {
@@ -72,7 +72,7 @@ class FormularioDesinscripcionEvento extends Formulario
             $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
-    }
+    //}
 
 
     }

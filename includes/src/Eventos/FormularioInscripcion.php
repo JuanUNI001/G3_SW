@@ -15,7 +15,7 @@ class FormularioInscripcion extends Formulario
     public $idUsuario;
     
     public function __construct() {
-        parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
 
 
     }
@@ -58,6 +58,10 @@ class FormularioInscripcion extends Formulario
     //$er=count($this->errores);
    // echo $er; 
    //if (count($this->errores) == 0) {
+
+        $even = Evento::buscaPorId($idEvento);
+        //$estado = $even.getEstado();
+
         $inscripcionExitosa = Inscrito::inscribirUsuarioEnEvento($idUsuario, $idEvento);
 
         if (!$inscripcionExitosa) {
