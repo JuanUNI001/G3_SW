@@ -518,3 +518,54 @@ nav li:last-child {
     border-radius: 10px; /* Esquinas redondeadas */
     padding: 20px; /* Espaciado interno */
 }
+/* Estilos para el contenedor principal */
+.perfil-container {
+    position: relative; /* Establecer posición relativa para que los elementos absolutos se posicionen con respecto a este contenedor */
+    background: linear-gradient(to right, #FFC0CB, #90EE90); /* Degradado de rosa a verde */
+    border: 5px solid #FF1493; /* Borde grueso de color rosa */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    width: 400px; /* Ancho del contenedor */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+/* Estilos para la imagen de editar */
+.editar_Usuario {
+    position: absolute; /* Posición absoluta */
+    bottom: 10px; /* Distancia desde la parte inferior */
+    right: 10px; /* Distancia desde la derecha */
+}
+
+/* Resto de estilos... */
+
+/* Estilos para los elementos dentro del contenedor */
+.perfil-container h2 {
+    text-align: center; /* Centrar texto */
+}
+
+.perfil-container section {
+    display: grid; /* Usar diseño de cuadrícula */
+    grid-template-columns: 1fr 2fr; /* 1 columna para etiquetas, 2 columnas para contenido */
+    grid-gap: 10px; /* Espacio entre elementos */
+}
+
+.perfil-container section img {
+    display: block; /* Mostrar imagen como bloque */
+    margin: 0 auto; /* Centrar horizontalmente */
+    border-radius: 50%; /* Forma circular */
+}
+
+.perfil-container section article {
+    padding: 10px; /* Espaciado interno */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.perfil-container section article h3 {
+    margin-bottom: 5px; /* Espaciado inferior */
+    color: #FF1493; /* Color rosa */
+}
+
+.perfil-container section article p {
+    margin: 0; /* Eliminar margen predeterminado */
+}
