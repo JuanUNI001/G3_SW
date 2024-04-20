@@ -413,4 +413,32 @@ class Usuario
         return $profesores;
     }
 
+    public static function listarUsuariosEnConversacion($idUsuario)
+    {
+        //devuelve los usuarios con los que el user $idUsuario tiene al menos un mensaje intercambiado
+        $conn = BD::getInstance()->getConexionBd();
+        $query ="SELECT DISTINCT u.id, u.nombre, u.correo, u.rolUser, u.avatar
+                FROM usuarios u
+                JOIN mensajes m ON u.id = m.idEmisor OR u.id = m.idDestinatario
+                WHERE u.id != '$idUsuario'";
+         
+         $rs = $conn->query($query);
+         $usuarios = array(); 
+         if ($rs) {
+         while ($fila = $rs->fetch_assoc()) {
+         $usuario = new Usuario(      
+         $fila['rolUser'],         
+         $fila['nombre'],   
+         '',
+         $fila['correo'],  
+         $fila['avatar'],   
+         $fila['id']
+         );
+         $usuarios[] = $usuario; 
+         }
+         $rs->free();
+         }
+         return $usuarios;
+    }
+
 }
