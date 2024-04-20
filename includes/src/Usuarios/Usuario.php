@@ -417,10 +417,10 @@ class Usuario
     {
         //devuelve los usuarios con los que el user $idUsuario tiene al menos un mensaje intercambiado
         $conn = BD::getInstance()->getConexionBd();
-        $query ="SELECT DISTINCT u.id, u.nombre, u.correo, u.rolUser, u.avatar
-                FROM usuarios u
-                JOIN mensajes m ON u.id = m.idEmisor OR u.id = m.idDestinatario
-                WHERE u.id != '$idUsuario'";
+        $query = "SELECT DISTINCT u.id, u.nombre, u.correo, u.rolUser, u.avatar
+                    FROM usuarios u
+                    JOIN mensajes m ON u.id = m.idEmisor OR u.id = m.idDestinatario
+                    WHERE (m.idEmisor = '$idUsuario' OR m.idDestinatario = '$idUsuario') AND u.id != '$idUsuario'";
          
          $rs = $conn->query($query);
          $usuarios = array(); 
