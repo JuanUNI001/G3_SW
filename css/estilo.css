@@ -537,6 +537,10 @@ nav li:last-child {
 }
 
 /* Resto de estilos... */
+/* Estilos para el contenedor del correo electrónico */
+.email-container {
+    width: 100%; /* Ancho completo */
+}
 
 /* Estilos para los elementos dentro del contenedor */
 .perfil-container h2 {

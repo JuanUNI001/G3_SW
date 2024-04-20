@@ -20,30 +20,33 @@ function mostrar_contenidoPerfil()
         $imagenRuta = resuelve('/images/editar_producto.png');
 
         $contenido =<<<EOS
-        <div class="perfil-container">
-            <section>
-                <img src="$avatar" width="140" height="140" alt="Avatar">
-                <h2>Información sobre mi perfil</h2>
-                <article>
-                    <h3>Nombre:</h3>
-                    <p>$nombre</p>
-                </article>
-                <article>
-                    <h3>Rol:</h3>
-                    <p>$rol</p>
-                </article>
-                <article>
-                    <h3>Correo electrónico:</h3>
-                    <p>$correo_usuario</p>
-                </article>
-                <div class="editar_Usuario">
-                    <a href="{$direccionEditor}?id={$usuario->getId()}">
-                        <img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
-                    </a>   
-                </div>
-            </section>
-        </div>
-        EOS;
+	<div class="perfil-container">
+		<section>
+			<img src="$avatar" width="140" height="140" alt="Avatar">
+			<h2>Información sobre mi perfil</h2>
+			<article>
+				<h3>Nombre:</h3>
+				<p>$nombre</p>
+			</article>
+			<article>
+				<h3>Rol:</h3>
+				<p>$rol</p>
+			</article>
+			<article>
+            <h3>Correo electrónico:</h3>
+				<div class="email-container">
+					<p>$correo_usuario</p>
+				</div>
+			</article>
+			<div class="editar_Usuario">
+				<a href="{$direccionEditor}?id={$usuario->getId()}">
+					<img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
+				</a>   
+			</div>
+		</section>
+	</div>
+EOS;
+
 
     } else {
         $contenido=<<<EOS
