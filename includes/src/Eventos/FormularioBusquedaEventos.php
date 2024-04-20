@@ -3,7 +3,6 @@ namespace es\ucm\fdi\aw\src\Eventos;
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
-require_once 'includes/src/Eventos/listaEventos.php';
 
 use es\ucm\fdi\aw\src\Formulario;
 
@@ -45,14 +44,14 @@ class FormularioBusquedaEventos extends Formulario
     {
     // Verificar si se ha enviado el formulario por POST
         // Capturar valores de los filtros
-        $buscar = $_SESSION['filtro_buscar'] ?? '';
-        $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
-        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
-        $orden = $_SESSION['filtro_orden'] ?? '';
-        $categoria =  $_SESSION['filtro_categoria'] ?? '';
-        $estado = $_SESSION['filtro_estado'] ?? '';
-        $fechaDesde =  $_SESSION['filtro_fecha_desde']  ?? '';
-        $fechaHasta = $_SESSION['filtro_fecha_hasta'] ?? '';
+        $buscar = $_SESSION['filtro_buscar_ev'] ?? '';
+        $buscaPrecioDesde = $_SESSION['filtro_precio_desde_ev'] ?? '';
+        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta_ev'] ?? '';
+        $orden = $_SESSION['filtro_orden_ev'] ?? '';
+        $categoria =  $_SESSION['filtro_categoria_ev'] ?? '';
+        $estado = $_SESSION['filtro_estado_ev'] ?? '';
+        $fechaDesde =  $_SESSION['filtro_fecha_desde_ev']  ?? '';
+        $fechaHasta = $_SESSION['filtro_fecha_hasta_ev'] ?? '';
         $eventos = listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
        
     
@@ -172,14 +171,14 @@ class FormularioBusquedaEventos extends Formulario
     protected function procesaFormulario(&$datos)
     {
         // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
-        $_SESSION['filtro_buscar'] = $datos['buscar'] ?? '';
-        $_SESSION['filtro_precio_desde'] = $datos['buscaPrecioDesde'] ?? '';
-        $_SESSION['filtro_precio_hasta'] = $datos['buscaPrecioHasta'] ?? '';
-        $_SESSION['filtro_orden'] = $datos['orden'] ?? '';
-        $_SESSION['filtro_categoria'] = $datos['categoria'] ?? ''; // Nueva línea
-        $_SESSION['filtro_estado'] = $datos['estado'] ?? ''; // Nueva línea
-        $_SESSION['filtro_fecha_desde'] = $datos['fechaDesde'] ?? '';
-        $_SESSION['filtro_fecha_hasta'] = $datos['fechaHasta'] ?? '';
+        $_SESSION['filtro_buscar_ev'] = $datos['buscar'] ?? '';
+        $_SESSION['filtro_precio_desde_ev'] = $datos['buscaPrecioDesde'] ?? '';
+        $_SESSION['filtro_precio_hasta_ev'] = $datos['buscaPrecioHasta'] ?? '';
+        $_SESSION['filtro_orden_ev'] = $datos['orden'] ?? '';
+        $_SESSION['filtro_categoria_ev'] = $datos['categoria'] ?? ''; // Nueva línea
+        $_SESSION['filtro_estado_ev'] = $datos['estado'] ?? ''; // Nueva línea
+        $_SESSION['filtro_fecha_desde_ev'] = $datos['fechaDesde'] ?? '';
+        $_SESSION['filtro_fecha_hasta_ev'] = $datos['fechaHasta'] ?? '';
 
 
         // Procesar los datos

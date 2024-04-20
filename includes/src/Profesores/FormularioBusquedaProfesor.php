@@ -3,7 +3,6 @@ namespace es\ucm\fdi\aw\src\Profesores;
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
-require_once 'includes/src/Profesores/listaProfesores.php';
 
 use es\ucm\fdi\aw\src\Formulario;
 
@@ -21,11 +20,11 @@ class FormularioBusquedaProfesor extends Formulario
     // Verificar si se ha enviado el formulario por POST
         
         // Capturar valores de los filtros
-        $buscar = $_SESSION['filtro_buscar'] ?? '';
-        $correo = $_SESSION['filtro_buscar_correo'] ?? '';
-        $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
-        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
-        $orden = $_SESSION['filtro_orden'] ?? '';
+        $buscar = $_SESSION['filtro_buscar_pr'] ?? '';
+        $correo = $_SESSION['filtro_buscar_correo_pr'] ?? '';
+        $buscaPrecioDesde = $_SESSION['filtro_precio_desde_pr'] ?? '';
+        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta_pr'] ?? '';
+        $orden = $_SESSION['filtro_orden_pr'] ?? '';
         $profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
        
     
@@ -125,11 +124,11 @@ class FormularioBusquedaProfesor extends Formulario
     protected function procesaFormulario(&$datos)
     {
         // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
-        $_SESSION['filtro_buscar'] = $datos['buscar'] ?? '';
-        $_SESSION['filtro_buscar_correo'] = $datos['correo'] ?? '';
-        $_SESSION['filtro_precio_desde'] = $datos['buscaPrecioDesde'] ?? '';
-        $_SESSION['filtro_precio_hasta'] = $datos['buscaPrecioHasta'] ?? '';
-        $_SESSION['filtro_orden'] = $datos['orden'] ?? '';
+        $_SESSION['filtro_buscar_pr'] = $datos['buscar'] ?? '';
+        $_SESSION['filtro_buscar_correo_pr'] = $datos['correo'] ?? '';
+        $_SESSION['filtro_precio_desde_pr'] = $datos['buscaPrecioDesde'] ?? '';
+        $_SESSION['filtro_precio_hasta_pr'] = $datos['buscaPrecioHasta'] ?? '';
+        $_SESSION['filtro_orden_pr'] = $datos['orden'] ?? '';
     
         // Procesar los datos
         $this->errores = [];

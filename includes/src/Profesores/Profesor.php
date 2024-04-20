@@ -14,11 +14,15 @@ class Profesor extends Usuario
    
     public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null)
     {
-        parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
+        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
         $this->anunciable = true;
+    }
+    public static function anadeContrasena($password){
+       
+        return  parent::hashPassword($password);
     }
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {

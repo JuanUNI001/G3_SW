@@ -246,7 +246,7 @@ class Evento
 
         // Filtrar por nombre del evento
         if (!empty($buscar)) {
-            $query .= " AND nombre LIKE '%$buscar%'";
+            $query .= " AND nombre LIKE '%" . $conn->real_escape_string($buscar) . "%'";
         }
 
         // Filtrar por tasa de inscripción

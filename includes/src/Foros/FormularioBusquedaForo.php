@@ -1,41 +1,29 @@
 <?php
-namespace es\ucm\fdi\aw\src\Usuarios;
+namespace es\ucm\fdi\aw\src\Foros;
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
+
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioBusquedaUsuarios extends Formulario
+class FormularioBusquedaForo extends Formulario
 {
     
-    public $usuarios;
+    public $foros;
 
     public function __construct() {
-        parent::__construct('FormularioBusquedaUsuarios', ['urlRedireccion' => 'usuariosView.php']);
+        parent::__construct('FormularioBusquedaForo', ['urlRedireccion' => 'foros.php']);
     }
-    protected function generarSelectorUsuario() {
-        $disponible = ['Usuario', 'Profesor'];
-        $html = ' <div class="col-11 categoria-selector">
-                    <h4 class="card-title">Tipo usuario</h4>	
-                    <select class="form-control mt-2" name="tipo">
-                        <option value="">Todos</option>';
-        foreach ($disponible as $dispo) {
-            $html .= '<option value="' . $dispo . '">' . $dispo . '</option>';
-        }
-        $html .= '</select>
-                </div>';
-        return $html;
-    }
+   
     protected function generaCamposFormulario(&$datos)
     {
     // Verificar si se ha enviado el formulario por POST
         
         // Capturar valores de los filtros
-        $buscar = $_SESSION['filtro_buscar_usr'] ?? '';
-        $correo = $_SESSION['filtro_buscar_correo_usr'] ?? '';
-        $tipo = $_SESSION['filtro_tipo_usr'] ?? '';
-        $orden = $_SESSION['filtro_orden_usr'] ?? '';
-        $usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
+        $autor = $_SESSION['filtro_autor'] ?? '';
+        $tema = $_SESSION['filtro_tema'] ?? '';       
+        $orden = $_SESSION['filtro_orden_foro'] ?? '';
+        $foros = listarForosBusqueda($autor, $tema,$orden);
        
     
     
@@ -47,22 +35,18 @@ class FormularioBusquedaUsuarios extends Formulario
                 <div class="col-12 grid-margin">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Usuarios</h4>
+                            <h4 class="card-title">Chatea aprende y diviertete en los foros</h4>
                             <form id="form2" name="form2" method="POST" action="<?php echo $ruta; ?>">
                                 <div class="col-12 row">
                                     <div class="mb-3 textomitad">
-                                        <label class="form-label">Nombre a buscar</label>
-                                        <input type="text" class="form-control" id="buscar" name="buscar" value="' .  $buscar  . '">
+                                        <label class="form-label">Autor a buscar</label>
+                                        <input type="text" class="form-control" id="autor" name="autor" value="' .  $autor  . '">
                                     </div>
                                     <div class="mb-3 textomitad">
-                                        <label class="form-label">Correo a buscar</label>
-                                        <input type="text" class="form-control" id="correo" name="correo" value="' .  $correo  . '">
-                                    </div>';
-                                    
-                                    
-                                    $html .= $this->generarSelectorUsuario();
-                                    $html .= '
-                                   
+                                        <label class="form-label">Tema a buscar</label>
+                                        <input type="text" class="form-control" id="tema" name="tema" value="' .  $tema  . '">
+                                    </div>
+                                  
                                     <div class="col-11">
                                         <h4 class="card-title">Filtro para ordenar</h4>	
                                         <table class="table">
@@ -73,8 +57,8 @@ class FormularioBusquedaUsuarios extends Formulario
                                                         <select id="assigned-tutor-filter" id="orden" name="orden" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;">
                                                                                                                    
                                                             <option value=""></option>
-                                                            <option value="1">Ordenar por nombre</option>
-                                                            <option value="2">Ordenar por correo</option>
+                                                            <option value="1">Ordenar por autor</option>
+                                                            <option value="2">Ordenar por tema</option>
                                                         </select>
                                                     </th>
                                                 </tr>
@@ -92,7 +76,7 @@ class FormularioBusquedaUsuarios extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $usuarios . '
+                                ' . $foros . '
                             </div>
                         </div>	
                     </div>
@@ -104,11 +88,10 @@ class FormularioBusquedaUsuarios extends Formulario
     <script>
         document.getElementById("limpiar-filtros-btn").addEventListener("click", function() {
             // Limpiar los campos del formulario
-            document.getElementById("buscar").value = "";
-            document.getElementById("correo").value = "";
-            document.getElementById("tipo").value = "";
+            document.getElementById("autor").value = "";
+            document.getElementById("tema").value = "";
             document.getElementById("orden").value = "";
-            
+           
         });
     </script>';
 
@@ -120,31 +103,31 @@ class FormularioBusquedaUsuarios extends Formulario
     protected function procesaFormulario(&$datos)
     {
         // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
-        $_SESSION['filtro_buscar_usr'] = $datos['buscar'] ?? '';
-        $_SESSION['filtro_buscar_correo_usr'] = $datos['correo'] ?? '';
-        $_SESSION['filtro_tipo_usr'] = $datos['tipo'] ?? '';
-        $_SESSION['filtro_orden_usr'] = $datos['orden'] ?? '';
-    
+        $_SESSION['filtro_autor'] = $datos['autor'] ?? '';
+        $_SESSION['filtro_tema'] = $datos['tema'] ?? '';
+        $_SESSION['filtro_orden_foro'] = $datos['orden'] ?? '';
+       
+        
         // Procesar los datos
         $this->errores = [];
-        $buscar = trim($datos['buscar'] ?? '');
-        $buscar = filter_var($buscar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $correo = trim($datos['correo'] ?? '');
-        $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $tipo = trim($datos['tipo'] ?? '');
-        $tipo = filter_var($buscar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // Aquí establecemos el valor de $orden a vacío si se hace clic en "Limpiar filtros"
+        $autor = trim($datos['autor'] ?? '');
+        $autor = filter_var($autor, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $tema = trim($datos['tema'] ?? '');
+        $tema = filter_var($tema, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+       
         $orden = isset($datos['limpiar-filtros-btn']) ? '' : trim($datos['orden'] ?? '');
         $orden = filter_var($orden, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         // Validación de los datos recibidos
-        if (empty($buscar) && empty($correo) && empty($tipo) && empty($orden)) {
+        if (empty($autor) && empty($tema) && empty($orden)) {
             $this->errores['general'] = 'Debes proporcionar al menos un filtro para realizar la búsqueda.';
         }
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
+            $foros = listarForosBusqueda($autor, $tema, $orden);
         }
     }
     

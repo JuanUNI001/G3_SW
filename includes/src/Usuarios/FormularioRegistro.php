@@ -153,7 +153,9 @@ class FormularioRegistro extends Formulario
             if (!$precio) {
                 $this->errores[] = 'Por favor, introduce un precio válido.';
             } else {
+                $password = Profesor::anadeContrasena( $password);
                 $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar, null);
+                
                 if (!$profesor) {
                     $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
                 }

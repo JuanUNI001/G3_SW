@@ -15,14 +15,14 @@ class Foro
 
     private function __construct($id, $autor, $titulo)
     {
-        $this->id = $id !== null ? intval($id) : null;
+        $this->id =  intval($id) ;
         $this->autor = $autor;
         $this->titulo = $titulo;
     }
 
     public static function crea($id, $autor, $titulo)
     {
-        $m = new  es\ucm\fdi\aw\Foros\Foro($id, $autor, $titulo);
+        $m = new Foro($id, $autor, $titulo);
         return $m;
     }
 
@@ -49,7 +49,53 @@ class Foro
         }
         return  $foros;
     }
-    
+    public static function listarForosBusqueda($autor, $tema, $orden)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Inicializar la consulta SQL con la parte común
+        $query = "SELECT * FROM foros WHERE 1 = 1";
+        
+        // Agregar filtros según los parámetros proporcionados
+        if (!empty($autor)) {
+            $query .= " AND autor LIKE '%" . $conn->real_escape_string($autor) . "%'";
+        }
+        if (!empty($tema)) {
+            $query .= " AND titulo LIKE '%" . $conn->real_escape_string($tema) . "%'";
+        }
+        
+        // Agregar filtro de ordenamiento si se proporciona
+        switch ($orden) {
+            case '1':
+                // Ordenar por autor
+                $query .= " ORDER BY autor ASC";
+                break;
+            case '2':
+                // Ordenar por tema
+                $query .= " ORDER BY titulo ASC";
+                break;
+            default:
+                // No hacer nada si el orden no es válido
+                break;
+        }
+
+        // Ejecutar la consulta
+        $rs = $conn->query($query);
+        $foros = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $foro = new Foro(
+                    $fila['id'],      
+                    $fila['autor'],   
+                    $fila['titulo']
+                );
+                $foros[] = $foro; 
+            }
+            $rs->free();
+        }
+        return $foros;
+    }
+
     public function getId()
     {
         return $this->id;

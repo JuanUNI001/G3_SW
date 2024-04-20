@@ -466,7 +466,7 @@ nav li:last-child {
     border-radius: 20px; /* Esquinas redondeadas */
     padding: 10px; /* Espaciado interno */
     margin-bottom: 20px; /* Espaciado inferior */
-    width: 100%; /* Ancho del contenedor */
+    width: 90%; /* Ancho del contenedor */
     margin: auto; /* Centrar el contenedor horizontalmente */
 }
 
