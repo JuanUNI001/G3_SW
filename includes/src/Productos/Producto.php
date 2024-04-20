@@ -412,7 +412,7 @@ class Producto
             $producto->num_valoraciones,
             $producto->cantidad
         );
-        try {
+        /*try {
             $conn->query($query);
             $usuario->id = $conn->insert_id;
             $result = $producto;
@@ -421,6 +421,12 @@ class Producto
             if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
                 throw new ProductoYaExistenteException("Ya existe el producto {$producto->nombre}");
             }
+        }*/
+        if($conn->query($query)){
+            $usuario->id = $conn->insert_id;
+            result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
     }
 
