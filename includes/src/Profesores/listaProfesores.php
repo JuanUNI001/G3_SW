@@ -57,7 +57,7 @@ function visualizaProfesor($profesor) {
         $app = BD::getInstance();
         if ($app->usuarioLogueado()) 
         {
-            $rutaChat = resuelve('/ChatViewProfesor.php');
+            $rutaChat = resuelve('/ChatView.php');
             $html = <<<EOF
             <div class="profesor">
                 <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
@@ -67,7 +67,7 @@ function visualizaProfesor($profesor) {
                     <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
                     <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
                     <div>
-                        <a href="$rutaChat?id_profesor=$id" class="button-like-link">Contactar</a>
+                        <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
                     </div>
                 </div>
             </div>
