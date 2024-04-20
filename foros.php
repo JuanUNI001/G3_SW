@@ -1,20 +1,19 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/src/Foros/Foro.php';
-require_once __DIR__.'/includes/src/Foros/listaForos.php';
+require_once 'includes/config.php';
+require_once 'includes/src/Foros/listaForos.php';
 
+$form = new es\ucm\fdi\aw\src\Foros\FormularioBusquedaForo();
+$htmlFormLogin = $form->gestiona();
 $tituloPagina = 'Chatea aprende y diviertete en los foros';
 
-$foros = listaForos(); // Llama a la función para obtener la lista de foros
+$contenidoPrincipal = <<<EOF
+  	
+$htmlFormLogin
 
-$contenidoPrincipal = <<<HTML
-    <h1>Lista de Foros</h1>
-    <div class="contenedor-foros">
-        $foros
-    </div>
-HTML;
+EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
+

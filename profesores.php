@@ -1,18 +1,16 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/src/Profesores/listaProfesores.php';
+require_once 'includes/config.php';
+require_once 'includes/src/Profesores/listaProfesores.php';
 
-$tituloPagina = 'Lista de Profesores';
+$tituloPagina = 'Búsqueda Profesor';
 
-$profesores = listaProfesores(); // Llama a la función para obtener la lista de profesores
+$form = new es\ucm\fdi\aw\src\Profesores\FormularioBusquedaProfesor();
+$htmlFormLogin = $form->gestiona();
 
-$contenidoPrincipal = <<<HTML
-    <h1>Lista de Profesores</h1>
-    <div class="contenedor-profesores">
-        $profesores
-    </div>
-HTML;
+$contenidoPrincipal = <<<EOF
+$htmlFormLogin
+EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);

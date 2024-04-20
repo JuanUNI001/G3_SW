@@ -1,19 +1,18 @@
 <?php
-namespace es\ucm\fdi\aw\src\Productos;
+namespace es\ucm\fdi\aw\src\Profesores;
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
-require_once 'includes/src/Productos/listaProductos.php';
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioBusquedaProducto extends Formulario
+class FormularioBusquedaProfesor extends Formulario
 {
     
-    public $productos;
+    public $profesores;
 
     public function __construct() {
-        parent::__construct('FormularioBusquedaProducto', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('FormularioBusquedaProfesor', ['urlRedireccion' => 'profesores.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -21,11 +20,12 @@ class FormularioBusquedaProducto extends Formulario
     // Verificar si se ha enviado el formulario por POST
         
         // Capturar valores de los filtros
-        $buscar = $_SESSION['filtro_buscar'] ?? '';
-        $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
-        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
-        $orden = $_SESSION['filtro_orden'] ?? '';
-        $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+        $buscar = $_SESSION['filtro_buscar_pr'] ?? '';
+        $correo = $_SESSION['filtro_buscar_correo_pr'] ?? '';
+        $buscaPrecioDesde = $_SESSION['filtro_precio_desde_pr'] ?? '';
+        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta_pr'] ?? '';
+        $orden = $_SESSION['filtro_orden_pr'] ?? '';
+        $profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
        
     
     
@@ -40,9 +40,13 @@ class FormularioBusquedaProducto extends Formulario
                             <h4 class="card-title">Productos a la venta</h4>
                             <form id="form2" name="form2" method="POST" action="<?php echo $ruta; ?>">
                                 <div class="col-12 row">
-                                    <div class="mb-3 col-12">
+                                    <div class="mb-3 textomitad">
                                         <label class="form-label">Nombre a buscar</label>
                                         <input type="text" class="form-control" id="buscar" name="buscar" value="' .  $buscar  . '">
+                                    </div>
+                                    <div class="mb-3 textomitad">
+                                        <label class="form-label">Correo a buscar</label>
+                                        <input type="text" class="form-control" id="correo" name="correo" value="' .  $correo  . '">
                                     </div>
                                     <div class="col-11">
                                         <h4 class="card-title">Filtro Precio</h4>
@@ -91,7 +95,7 @@ class FormularioBusquedaProducto extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $productos . '
+                                ' . $profesores . '
                             </div>
                         </div>	
                     </div>
@@ -104,6 +108,7 @@ class FormularioBusquedaProducto extends Formulario
         document.getElementById("limpiar-filtros-btn").addEventListener("click", function() {
             // Limpiar los campos del formulario
             document.getElementById("buscar").value = "";
+            document.getElementById("correo").value = "";
             document.getElementById("buscaPrecioDesde").value = "";
             document.getElementById("buscaPrecioHasta").value = "";
             document.getElementById("orden").value = "";
@@ -119,16 +124,18 @@ class FormularioBusquedaProducto extends Formulario
     protected function procesaFormulario(&$datos)
     {
         // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
-        $_SESSION['filtro_buscar'] = $datos['buscar'] ?? '';
-        $_SESSION['filtro_precio_desde'] = $datos['buscaPrecioDesde'] ?? '';
-        $_SESSION['filtro_precio_hasta'] = $datos['buscaPrecioHasta'] ?? '';
-        $_SESSION['filtro_orden'] = $datos['orden'] ?? '';
+        $_SESSION['filtro_buscar_pr'] = $datos['buscar'] ?? '';
+        $_SESSION['filtro_buscar_correo_pr'] = $datos['correo'] ?? '';
+        $_SESSION['filtro_precio_desde_pr'] = $datos['buscaPrecioDesde'] ?? '';
+        $_SESSION['filtro_precio_hasta_pr'] = $datos['buscaPrecioHasta'] ?? '';
+        $_SESSION['filtro_orden_pr'] = $datos['orden'] ?? '';
     
         // Procesar los datos
         $this->errores = [];
         $buscar = trim($datos['buscar'] ?? '');
         $buscar = filter_var($buscar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
+        $correo = trim($datos['correo'] ?? '');
+        $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $buscaPrecioDesde = trim($datos['buscaPrecioDesde'] ?? '');
         $buscaPrecioDesde = filter_var($buscaPrecioDesde, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
@@ -140,13 +147,13 @@ class FormularioBusquedaProducto extends Formulario
         $orden = filter_var($orden, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         // Validación de los datos recibidos
-        if (empty($buscar) && empty($buscaPrecioDesde) && empty($buscaPrecioHasta) && empty($orden)) {
+        if (empty($buscar) && empty($buscaPrecioDesde) && empty($buscaPrecioHasta) && empty($orden)&& empty($correo)) {
             $this->errores['general'] = 'Debes proporcionar al menos un filtro para realizar la búsqueda.';
         }
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+            $profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
         }
     }
     

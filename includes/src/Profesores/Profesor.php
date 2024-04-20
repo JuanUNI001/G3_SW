@@ -11,13 +11,18 @@ class Profesor extends Usuario
     private $categoria;
     private $anunciable;
 
+   
     public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null)
     {
-        parent::__construct($rol, $nombre, self::hashPassword($password), $correo, $avatar, $id);
+        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
         $this->anunciable = true;
+    }
+    public static function anadeContrasena($password){
+       
+        return  parent::hashPassword($password);
     }
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
@@ -70,7 +75,7 @@ class Profesor extends Usuario
         $profesor = new Profesor(      
         $fila['rolUser'],         
         $fila['nombre'],   
-        $fila['password'],
+       '',
         $fila['correo'],
         $fila['precio'],   
         $fila['avatar'],   
@@ -83,6 +88,68 @@ class Profesor extends Usuario
         }
         return $profesores;
     }
+    public static function listarProfesoresBusqueda($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Inicializar la consulta SQL con la parte común
+        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE;
+
+        // Agregar filtros según los parámetros proporcionados
+        if (!empty($buscar)) {
+            // Agregar filtro de búsqueda por nombre o correo
+            $query .= " AND (nombre LIKE '%$buscar%' )";
+        }
+        if (!empty($correo)) {
+            // Agregar filtro de búsqueda por nombre o correo
+            $query .= " AND (correo LIKE '%$correo%')";
+        }
+        if (!empty($buscaPrecioDesde) && !empty($buscaPrecioHasta)) {
+            // Agregar filtro de rango de precio
+            $query .= " AND precio BETWEEN $buscaPrecioDesde AND $buscaPrecioHasta";
+        }
+        
+        // Agregar filtro de ordenamiento
+        switch ($orden) {
+            case '1':
+                // Ordenar por nombre
+                $query .= " ORDER BY nombre ASC";
+                break;
+            case '2':
+                // Ordenar por precio
+                $query .= " ORDER BY precio ASC";
+                break;
+            case '3':
+                // Ordenar por valoración
+                $query .= " ORDER BY valoracion DESC";
+                break;
+            default:
+                // Por defecto, no se aplica orden
+                break;
+        }
+
+        // Ejecutar la consulta
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor(
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['precio'],   
+                    $fila['avatar'],   
+                    $fila['valoracion'],
+                    $fila['id']
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
+        }
+        return $profesores;
+    }
+
 
     public static function buscaPorId($idPprofesor)
     {

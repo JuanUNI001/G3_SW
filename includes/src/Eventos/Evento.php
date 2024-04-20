@@ -238,7 +238,99 @@ class Evento
         }
         return $eventos;
     }
+    public static function listaEventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado)
+    {
+        $conn = BD::getInstance()->getConexionBd();
 
+        $query = "SELECT * FROM eventos WHERE 1";
+
+        // Filtrar por nombre del evento
+        if (!empty($buscar)) {
+            $query .= " AND nombre LIKE '%" . $conn->real_escape_string($buscar) . "%'";
+        }
+
+        // Filtrar por tasa de inscripción
+        if (!empty($buscaPrecioDesde)) {
+            $query .= " AND tasaInscripcion >= $buscaPrecioDesde";
+        }
+
+        if (!empty($buscaPrecioHasta)) {
+            $query .= " AND tasaInscripcion <= $buscaPrecioHasta";
+        }
+
+        // Filtrar por fecha
+        if (!empty($fechaDesde)) {
+            $fechaDesde = date('Y-m-d', strtotime(str_replace('/', '-', $fechaDesde)));
+            $query .= " AND fecha >= '$fechaDesde'";
+        }
+
+        if (!empty($fechaHasta)) {
+            $fechaHasta = date('Y-m-d', strtotime(str_replace('/', '-', $fechaHasta)));
+            $query .= " AND fecha <= '$fechaHasta'";
+        }
+
+        // Filtrar por categoría
+        if (!empty($categoria)) {
+            $query .= " AND categoria = '$categoria'";
+        }
+
+        // Filtrar por estado
+ 
+        switch ($estado) {
+            case 'Disponible':
+                $query .= " AND estado = 'Abierto'";
+                break;
+            case 'Cerrado':
+                $query .= " AND estado = 'Terminado'";
+                break;
+            default:
+                // No se aplica ordenamiento
+                break;
+        }
+        
+        // Ordenar los eventos según el criterio seleccionado
+        switch ($orden) {
+            case '1':
+                $query .= " ORDER BY nombre";
+                break;
+            case '2':
+                $query .= " ORDER BY tasaInscripcion";
+                break;
+            case '3':
+                $query .= " ORDER BY fecha";
+                break;
+            default:
+                // No se aplica ordenamiento
+                break;
+        }
+
+        // Ejecutar la consulta
+        $rs = $conn->query($query);
+
+        $eventos = [];
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $evento = new Evento(
+                    $fila['idEvento'],
+                    $fila['inscritos'],
+                    $fila['categoria'],
+                    $fila['numJugadores'],
+                    $fila['nombre'],
+                    $fila['descripcion'],
+                    $fila['fecha'],
+                    $fila['lugar'],
+                    $fila['estado'],
+                    $fila['premio'],
+                    $fila['ganador'],
+                    $fila['tasaInscripcion']
+                );
+                $eventos[] = $evento;
+            }
+            $rs->free();
+        }
+
+        return $eventos;
+    }
 
     public static function inscribirseEvento($idEvento) {
         $conn = BD::getInstance()->getConexionBd();

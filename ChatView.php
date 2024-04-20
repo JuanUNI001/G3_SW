@@ -12,29 +12,28 @@ use es\ucm\fdi\aw\src\BD;
 
 
 <?php
-$id_Usuario = $_GET['id'];
+$id_usuario_receptor = $_GET['id'];
 
-$Usuario = getUsuario($id_Usuario);
+$usuario_receptor = Usuario::buscaPorId($id_usuario_receptor);
 
-$profView = visualizaUsuario($Usuario);
+$receptorView = visualizaUsuario($usuario_receptor);
 
-$idReceptor = $id_Usuario;
-$usuario = Usuario::buscaUsuario($_SESSION['correo']);
-$idEmisor = $usuario->getId();
-$mensajesView = visualizaMensajes($idEmisor, $idReceptor, $idEmisor);
+$usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
+$id_usuario_emisor = $usuario_emisor->getId();
+$mensajesView = visualizaMensajes($id_usuario_emisor, $id_usuario_receptor, $id_usuario_emisor);
 
-$rutaChat = resuelve('/ChatViewUsuario.php');
-$form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id_Usuario=$id_Usuario");
+$rutaChat = resuelve('/ChatView.php');
+$form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajePrivado("$rutaChat?id=$id_usuario_receptor");
 
-$form->idEmisor = $usuario->getId();
-$form->idDestinatario = $id_Usuario;
+$form->idEmisor = $id_usuario_emisor;
+$form->idDestinatario = $id_usuario_receptor;
 
 $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Chat Usuario';
 $contenidoPrincipal=<<<EOF
   	<h1>Chat en linea</h1>
-    $profView
+    $receptorView
     $mensajesView
     $htmlFormLogin
 EOF;
@@ -84,40 +83,23 @@ function visualizaMensaje($mensaje, $viewPoint)
 
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
+   
     $id =  $Usuario->getId();
     
     $app = BD::getInstance();
     
     $html = <<<EOF
-    <div class="Usuario">
-        <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="Usuario_avatar">
-        <div class="Usuario_info">
-            <div class="Usuario_nombre"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
-            <div class="Usuario_correo"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+    <div class="tarjeta_usuario">
+        <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
+        <div class="info_usuario">
+            <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
+            <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
             <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
         </div>
     </div>
     EOF;
-
-    
-
-
-
     return $html;
   }
-
-function getUsuario($idUsuario)
-{
-    $Usuarios = Usuario::listarUsuarios();
-
-    foreach ($Usuarios as $Usuario) {
-        if($idUsuario == $Usuario->getId())
-        {
-            return $Usuario;
-        }
-    }
-    return null;
-}
 
 
   ?>

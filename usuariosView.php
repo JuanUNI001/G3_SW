@@ -3,14 +3,14 @@
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/src/Usuarios/ListaUsuarios.php';
 
+$form = new es\ucm\fdi\aw\src\Usuarios\FormularioBusquedaUsuarios();
 $tituloPagina = 'Lista de Usuarios';
-
-$usuarios = listaUsuarios();
-
+  
+$htmlFormLogin = $form->gestiona();
 $contenidoPrincipal = <<<HTML
-    <h1>Lista de Usuarios</h1>
-    <div class="contenedor-usuarios">
-        $usuarios
+    
+    <div>
+        $htmlFormLogin
     </div>
 HTML;
 

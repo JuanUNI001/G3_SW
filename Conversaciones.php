@@ -1,18 +1,38 @@
-
 <?php
 
-    use es\ucm\fdi\aw\src\Usuarios\Usuario;
-    use es\ucm\fdi\aw\src\BD;
-    require_once __DIR__.'/../../config.php';
-    $tituloPagina = 'Lista de Usuarios';
-    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-    $contenidoPrincipal = listaUsuarios();
-?>
+require_once __DIR__.'/includes/config.php';
 
-<?php
-function listaUsuarios()
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
+use es\ucm\fdi\aw\src\BD;
+$tituloPagina = 'Mis Conversaciones';
+
+
+
+$conversaciones="logueate para ver tus conversaciones";
+
+if ($app->usuarioLogueado()) 
 {
-    $Usuarios = Usuario::listarUsuarios();
+    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
+    $id_usuario = $usuario->getId();
+
+    $conversaciones = listaConversaciones($id_usuario);
+}
+
+
+$contenidoPrincipal = <<<HTML
+    
+    <div>
+        $conversaciones
+    </div>
+HTML;
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
+
+
+function listaConversaciones($id_usuario)
+{
+    $Usuarios = Usuario::listarUsuariosEnConversacion($id_usuario);
 
     $html = "<div class='Usuarios'>";
 
@@ -23,19 +43,7 @@ function listaUsuarios()
     $html .= "</div>";
     return $html;
 }
-function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
-{
-    $Usuarios = Usuario::listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
 
-    $html = "<div class='Usuarios'>";
-
-    foreach ($Usuarios as $Usuario) {
-        $html .= visualizaUsuario($Usuario);
-    }
-
-    $html .= "</div>";
-    return $html;
-}
 function visualizaUsuario($Usuario) {
         $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
         $id =  $Usuario->getId();
@@ -75,6 +83,5 @@ function visualizaUsuario($Usuario) {
 
     return $html;
 }
-
 
 ?>

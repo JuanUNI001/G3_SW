@@ -1,31 +1,29 @@
 <?php
-namespace es\ucm\fdi\aw\src\Productos;
+namespace es\ucm\fdi\aw\src\Foros;
 
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
-require_once 'includes/src/Productos/listaProductos.php';
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioBusquedaProducto extends Formulario
+class FormularioBusquedaForo extends Formulario
 {
     
-    public $productos;
+    public $foros;
 
     public function __construct() {
-        parent::__construct('FormularioBusquedaProducto', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('FormularioBusquedaForo', ['urlRedireccion' => 'foros.php']);
     }
-    
+   
     protected function generaCamposFormulario(&$datos)
     {
     // Verificar si se ha enviado el formulario por POST
         
         // Capturar valores de los filtros
-        $buscar = $_SESSION['filtro_buscar'] ?? '';
-        $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
-        $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
-        $orden = $_SESSION['filtro_orden'] ?? '';
-        $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+        $autor = $_SESSION['filtro_autor'] ?? '';
+        $tema = $_SESSION['filtro_tema'] ?? '';       
+        $orden = $_SESSION['filtro_orden_foro'] ?? '';
+        $foros = listarForosBusqueda($autor, $tema,$orden);
        
     
     
@@ -37,30 +35,18 @@ class FormularioBusquedaProducto extends Formulario
                 <div class="col-12 grid-margin">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Productos a la venta</h4>
+                            <h4 class="card-title">Chatea aprende y diviertete en los foros</h4>
                             <form id="form2" name="form2" method="POST" action="<?php echo $ruta; ?>">
                                 <div class="col-12 row">
-                                    <div class="mb-3 col-12">
-                                        <label class="form-label">Nombre a buscar</label>
-                                        <input type="text" class="form-control" id="buscar" name="buscar" value="' .  $buscar  . '">
+                                    <div class="mb-3 textomitad">
+                                        <label class="form-label">Autor a buscar</label>
+                                        <input type="text" class="form-control" id="autor" name="autor" value="' .  $autor  . '">
                                     </div>
-                                    <div class="col-11">
-                                        <h4 class="card-title">Filtro Precio</h4>
-                                        <table class="table">
-                                            <thead>
-                                                <tr class="filters">
-                                                    <th>
-                                                        Precio desde:
-                                                        <input type="number" id="buscaPrecioDesde" name="buscaPrecioDesde" class="form-control mt-2" value="' . $buscaPrecioDesde . '" style="border: #bababa 1px solid; color:#000000;" step="0.01" min="0">
-                                                    </th>
-                                                    <th>
-                                                        Precio hasta:
-                                                        <input type="number" id="buscaPrecioHasta" name="buscaPrecioHasta" class="form-control mt-2" value="' . $buscaPrecioHasta . '" style="border: #bababa 1px solid; color:#000000;" step="0.01" min="0">
-                                                    </th>
-                                                </tr>                                     
-                                            </thead>
-                                        </table>
+                                    <div class="mb-3 textomitad">
+                                        <label class="form-label">Tema a buscar</label>
+                                        <input type="text" class="form-control" id="tema" name="tema" value="' .  $tema  . '">
                                     </div>
+                                  
                                     <div class="col-11">
                                         <h4 class="card-title">Filtro para ordenar</h4>	
                                         <table class="table">
@@ -71,9 +57,8 @@ class FormularioBusquedaProducto extends Formulario
                                                         <select id="assigned-tutor-filter" id="orden" name="orden" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;">
                                                                                                                    
                                                             <option value=""></option>
-                                                            <option value="1">Ordenar por nombre</option>
-                                                            <option value="2">Ordenar por precio</option>
-                                                            <option value="3">Ordenar por valoración</option>
+                                                            <option value="1">Ordenar por autor</option>
+                                                            <option value="2">Ordenar por tema</option>
                                                         </select>
                                                     </th>
                                                 </tr>
@@ -91,7 +76,7 @@ class FormularioBusquedaProducto extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $productos . '
+                                ' . $foros . '
                             </div>
                         </div>	
                     </div>
@@ -103,11 +88,10 @@ class FormularioBusquedaProducto extends Formulario
     <script>
         document.getElementById("limpiar-filtros-btn").addEventListener("click", function() {
             // Limpiar los campos del formulario
-            document.getElementById("buscar").value = "";
-            document.getElementById("buscaPrecioDesde").value = "";
-            document.getElementById("buscaPrecioHasta").value = "";
+            document.getElementById("autor").value = "";
+            document.getElementById("tema").value = "";
             document.getElementById("orden").value = "";
-            
+           
         });
     </script>';
 
@@ -119,34 +103,31 @@ class FormularioBusquedaProducto extends Formulario
     protected function procesaFormulario(&$datos)
     {
         // Asignar los valores de los filtros a $_SESSION antes de procesar los datos
-        $_SESSION['filtro_buscar'] = $datos['buscar'] ?? '';
-        $_SESSION['filtro_precio_desde'] = $datos['buscaPrecioDesde'] ?? '';
-        $_SESSION['filtro_precio_hasta'] = $datos['buscaPrecioHasta'] ?? '';
-        $_SESSION['filtro_orden'] = $datos['orden'] ?? '';
-    
+        $_SESSION['filtro_autor'] = $datos['autor'] ?? '';
+        $_SESSION['filtro_tema'] = $datos['tema'] ?? '';
+        $_SESSION['filtro_orden_foro'] = $datos['orden'] ?? '';
+       
+        
         // Procesar los datos
         $this->errores = [];
-        $buscar = trim($datos['buscar'] ?? '');
-        $buscar = filter_var($buscar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
-        $buscaPrecioDesde = trim($datos['buscaPrecioDesde'] ?? '');
-        $buscaPrecioDesde = filter_var($buscaPrecioDesde, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
-        $buscaPrecioHasta = trim($datos['buscaPrecioHasta'] ?? '');
-        $buscaPrecioHasta = filter_var($buscaPrecioHasta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
-        // Aquí establecemos el valor de $orden a vacío si se hace clic en "Limpiar filtros"
+        $autor = trim($datos['autor'] ?? '');
+        $autor = filter_var($autor, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $tema = trim($datos['tema'] ?? '');
+        $tema = filter_var($tema, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+       
         $orden = isset($datos['limpiar-filtros-btn']) ? '' : trim($datos['orden'] ?? '');
         $orden = filter_var($orden, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         // Validación de los datos recibidos
-        if (empty($buscar) && empty($buscaPrecioDesde) && empty($buscaPrecioHasta) && empty($orden)) {
+        if (empty($autor) && empty($tema) && empty($orden)) {
             $this->errores['general'] = 'Debes proporcionar al menos un filtro para realizar la búsqueda.';
         }
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+            $foros = listarForosBusqueda($autor, $tema, $orden);
         }
     }
     

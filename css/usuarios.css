@@ -2,7 +2,7 @@
 .tarjeta_usuario {
     display: flex;
     align-items: center;
-    width: 300px; /* ajusta el ancho según sea necesario */
+    width: 400px; /* ajusta el ancho según sea necesario */
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
