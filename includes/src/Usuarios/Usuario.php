@@ -26,7 +26,58 @@ class Usuario
         
         return $user->guarda();
     }
-
+    public function usuarioSigue($idUsuario, $idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para verificar si el usuario sigue al otro en la misma fila
+        $consulta = "SELECT COUNT(*) AS sigue FROM seguir WHERE idUsuario = $idUsuario AND idUsuarioSeguir = $idUsuarioSeguir";
+        $resultado = $conexion->query($consulta);
+    
+        // Verificar si hay algún resultado
+        if ($resultado) {
+            $row = $resultado->fetch_assoc();
+            // Devuelve true si sigue al usuario en la misma fila, false si no
+            return $row['sigue'] > 0;
+        } else {
+            // Manejar el error si la consulta falla
+            error_log("Error en la consulta de usuarioSigue: {$conexion->error}");
+            return false;
+        }
+    }
+    public function insertarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para insertar una nueva fila en la tabla seguir
+        $consultaInsert = "INSERT INTO seguir (idUsuario, idUsuarioSeguir) VALUES ($idUsuario, $idUsuarioSeguir)";
+        $resultadoInsert = $conexion->query($consultaInsert);
+        
+        if ($resultadoInsert) {
+            return true; // Se ha añadido la nueva relación de seguimiento
+        } else {
+            // Manejar el error si la inserción falla
+            error_log("Error al añadir la nueva relación de seguimiento: {$conexion->error}");
+            return false;
+        }
+    }
+    public function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar la relación de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuario = $idUsuario AND idUsuarioSeguir = $idUsuarioSeguir";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se ha eliminado la relación de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar la relación de seguimiento: {$conexion->error}");
+            return false;
+        }
+    }
+    
     public static function buscaUsuario($correo)
     {
         $conn = \es\ucm\fdi\aw\src\BD::getInstance()->getConexionBd();
@@ -320,11 +371,49 @@ class Usuario
         }
         return false;
     }
-
-    public static function listarUsuarios()
+    public static function obtenerUsuariosSeguidos($idUsuario) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para obtener los usuarios seguidos por el usuario actual
+        $consulta = "SELECT U.*
+                     FROM usuarios U
+                     JOIN seguir S ON U.id = S.idUsuarioSeguir
+                     WHERE S.idUsuario = $idUsuario";
+    
+        $resultados = $conexion->query($consulta);
+    
+        // Verificar si hay resultados
+        if ($resultados) {
+            $usuariosSeguidos = array();
+    
+            // Iterar sobre los resultados y crear objetos Usuario
+            while ($fila = $resultados->fetch_assoc()) {
+                $usuario = new Usuario(
+                    $fila['rolUser'],
+                    $fila['nombre'],
+                    '',
+                    $fila['correo'],
+                    $fila['avatar'],
+                    $fila['id']
+                );
+                $usuariosSeguidos[] = $usuario;
+            }
+    
+            // Liberar los resultados y devolver la lista de usuarios seguidos
+            $resultados->free();
+            return $usuariosSeguidos;
+        } else {
+            // Manejar el error si la consulta falla
+            error_log("Error en la consulta obtenerUsuariosSeguidos: {$conexion->error}");
+            return false;
+        }
+    }
+    
+    public static function listarUsuarios($idUser)
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query ="SELECT * FROM usuarios WHERE rolUser != '1'";
+        $query ="SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser";
          
         $rs = $conn->query($query);
         $usuarios = array(); 
@@ -344,12 +433,13 @@ class Usuario
         }
         return $usuarios;
     }
-    public static function listarUsuariosBusqueda($buscar, $correo, $tipo,$orden)
+    public static function listarUsuariosBusqueda($buscar, $correo, $tipo,$orden, $idUser)
     {
         $conn = BD::getInstance()->getConexionBd();
         
         // Inicializar la consulta SQL con la parte común
-        $query ="SELECT * FROM usuarios WHERE rolUser != '1'";
+        $query = "SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser";
+
 
         // Agregar filtros según los parámetros proporcionados
         if (!empty($buscar)) {

@@ -271,9 +271,33 @@ INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valora
 
 
 --
--- Índices para tablas volcadas
+-- Estructura de tabla para la tabla `seguir`
 --
+CREATE TABLE `seguir` (
+  `idUsuario` int(11) NOT NULL,
+  `idUsuarioSeguir` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `seguir`
+--
+INSERT INTO `seguir` (`idUsuario`, `idUsuarioSeguir`) VALUES
+(32, 2),
+(32, 50);
+
+--
+-- Indices de la tabla `seguir`
+--
+ALTER TABLE `seguir`
+  ADD UNIQUE KEY `unique_seguimiento` (`idUsuario`,`idUsuarioSeguir`),
+  ADD KEY `fk_usuario_seguir` (`idUsuarioSeguir`);
+--
+-- Filtros para la tabla `seguir`
+--
+ALTER TABLE `seguir`
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `fk_usuario_seguir` FOREIGN KEY (`idUsuarioSeguir`) REFERENCES `usuarios` (`id`);
+COMMIT;
 --
 -- Indices de la tabla `eventos`
 --

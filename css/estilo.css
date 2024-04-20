@@ -41,8 +41,19 @@ header a:hover {
 	font-weight: bold;
 	text-decoration: underline;
 } 
+.tarjeta_usuario {
+    position: relative;
+}
 
-
+.corazon {
+    color: red; /* Cambia el color del corazón según tus preferencias */
+}
+.corazon_vacio {
+    color: black; /* Cambia el color del corazón vacío según tus preferencias */
+}
+.corazon_lleno {
+    color: red; /* Cambia el color del corazón según tus preferencias */
+}
 
 
 nav a, nav a:visited {
@@ -402,6 +413,14 @@ footer {
     width: 50px; /* Cambia el ancho de la imagen */
     height: 50px; /* Cambia la altura de la imagen */
 	margin-top: -50px; /* Mueve la imagen hacia arriba ajustando el margen superior */
+}
+.rectangulo-usuarios {
+    background-color: #ffffff; /* Color de fondo del rectángulo */
+    border: 2px solid #000000; /* Borde sólido de 2px de grosor */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin: 20px auto; /* Margen exterior, auto para centrar horizontalmente */
+    width: 95%; /* Ancho del rectángulo */
 }
 
 nav {

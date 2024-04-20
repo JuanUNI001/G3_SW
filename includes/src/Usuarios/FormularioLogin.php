@@ -63,6 +63,7 @@ class FormularioLogin extends Formulario
             } else {
                 $usuario = Usuario::buscaUsuario($correo);
                 $_SESSION['correo'] = $correo;
+                $_SESSION['id'] = $usuario->getId();
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['rolUser'] = Usuario::rolUsuario($usuario);
