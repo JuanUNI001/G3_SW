@@ -61,6 +61,22 @@ class Usuario
             return false;
         }
     }
+    public function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar la relación de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuario = $idUsuario AND idUsuarioSeguir = $idUsuarioSeguir";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se ha eliminado la relación de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar la relación de seguimiento: {$conexion->error}");
+            return false;
+        }
+    }
     
     public static function buscaUsuario($correo)
     {
