@@ -14,13 +14,18 @@ function listaAmigos()
     $idUser = $_SESSION['id'];
     
     $Usuarios = Usuario::obtenerUsuariosSeguidos($idUser); // Llamar al método en la instancia
-        
-    $html = "<div class='rectangulo-usuarios'>";
+    if($Usuarios){
+            $html = "<div class='rectangulo-usuarios'>";
 
-    foreach ($Usuarios as $Usuario) {
-        $html .= visualizaUsuario($Usuario);
+        foreach ($Usuarios as $Usuario) {
+            $html .= visualizaUsuario($Usuario);
+        }
+    }    
+    else{
+        $html = "<div class='rectangulo-usuarios'>";
+        $html .= "<h1>No tienes gente siguiendo :(</h1>";
+    
     }
-
     $html .= "</div>";
     return $html;
 }
