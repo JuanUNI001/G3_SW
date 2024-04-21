@@ -7,7 +7,6 @@ class Producto
 {
     const MAX_SIZE = 500;
     
-   
     private $id;
 
     private $nombre;
@@ -24,7 +23,9 @@ class Producto
 
     private $cantidad;
 
-    private function __construct($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
+    private $archivado;
+
+    private function __construct($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad, $archivado)
     {
         $this->id = intval($id);
         $this->nombre = $nombre;
@@ -34,11 +35,12 @@ class Producto
         $this->valoracion = floatval($valoracion);
         $this->num_valoraciones = intval($num_valoraciones);
         $this->cantidad = intval($cantidad);
+        $this->archivado = intval($archivado);
         $this->id = $id !== null ? intval($id) : null;
     }
     public static function crea($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad)
     {
-        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad);
+        $m = new Producto($id, $nombre, $precio, $descripcion, $imagen, $valoracion, $num_valoraciones,$cantidad, 0);
         return $m;
     }
     public static function listarProducto()
@@ -46,9 +48,8 @@ class Producto
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
        
-        $query = sprintf("SELECT * FROM productos WHERE archivado = '0'");
+        $query = sprintf("SELECT * FROM productos WHERE archivado <= '0' ");
             
-        
         $rs = $conn->query($query);
         $productos = array(); 
         if ($rs) {
@@ -62,6 +63,7 @@ class Producto
                     $fila['valoracion'],
                     $fila['num_valoraciones'],
                     $fila['cantidad'],
+                    $fila['archivado']
                 );
                 $productos[] = $producto; 
             }
@@ -99,9 +101,15 @@ class Producto
     {
         return $this->valoracion;
     }
+
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+
+    public function getArchivado()
+    {
+        return $this->archivado;
     }
     
     public function getNumValoraciones()
@@ -137,6 +145,12 @@ class Producto
     {
         $this->cantidad = $cantidad;
     }
+
+    public function setArchivado($nuevo_estado)
+    {
+        $this->archivado = $archivado;
+    }
+
     public function guarda()
     {
         if (!$this->id) {
@@ -170,7 +184,7 @@ class Producto
     }
 
 
-    public static function borraPorId($id_producto)
+    /*public static function borraPorId($id_producto)
     {
         if (!$id_producto) {
             return false;
@@ -184,7 +198,24 @@ class Producto
         );
         $conn->query($query);
 
+    }*/
+    public static function borraPorId($id_producto)
+    {
+        $result = false;
+        if (!$id_producto) {
+            return $result;
+        }
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE productos SET archivado = %d WHERE id = %d",
+            1, $id_producto);
+
+        $result = $conn->query($query);
+        if (!$result) {
+            error_log($conn->error);
+        } 
+        return $result;
     }
+
     public static function buscaPorId($idProducto)
     {
         $result = null;
@@ -196,7 +227,7 @@ class Producto
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad']);
+                $result = new Producto($fila['id'], $fila['nombre'], $fila['precio'], $fila['descripcion'], $fila['imagen'], $fila['valoracion'], $fila['num_valoraciones'], $fila['cantidad'], $fila['archivado']);
             }
         } finally {
             if ($rs != null) {
@@ -281,7 +312,8 @@ class Producto
                         $fila['imagen'],
                         $fila['valoracion'],
                         $fila['num_valoraciones'],
-                        $fila['cantidad']
+                        $fila['cantidad'],
+                        $fila['archivado']
                     );
                     $productos[] = $producto; 
                 }
@@ -338,9 +370,6 @@ class Producto
           
         }
     }
-    
-    
-    
 
     public static function contarProductos()
     {
@@ -403,14 +432,15 @@ class Producto
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones, cantidad) VALUES ('%s', %f, '%s', '%s', %f, %d, %d)",
+            "INSERT INTO productos (nombre, precio, descripcion, imagen, valoracion, num_valoraciones, cantidad, archivado) VALUES ('%s', %f, '%s', '%s', %f, %d, %d, %d)",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
             $producto->num_valoraciones,
-            $producto->cantidad
+            $producto->cantidad,
+            $producto->archivado
         );
         /*try {
             $conn->query($query);
@@ -422,12 +452,14 @@ class Producto
                 throw new ProductoYaExistenteException("Ya existe el producto {$producto->nombre}");
             }
         }*/
-        if($conn->query($query)){
-            $usuario->id = $conn->insert_id;
-            result = true;
+        $result = $conn->query($query);
+        if($result){
+            $producto->id = $conn->insert_id;
+
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
+        return $result;
     }
 
 
@@ -437,13 +469,14 @@ class Producto
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d WHERE P.id = %d",
+            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d , archivado = %d WHERE P.id = %d",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
             $producto->num_valoraciones,
+            $producto->archivado,
             $producto->id
         );
         $result = $conn->query($query);        
