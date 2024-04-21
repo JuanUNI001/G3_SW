@@ -10,6 +10,7 @@ class FormularioEdicionProducto extends Formulario
     public $precio;
     public $descripcion;
     public $imagen;
+    public $cantidad = null;
 
     public function __construct() {
         parent::__construct('formEdicionProducto', ['urlRedireccion' => 'tienda.php']);
@@ -24,10 +25,11 @@ class FormularioEdicionProducto extends Formulario
         $descripcion = $this->descripcion;
         $imagen = $this->imagen;
         $eliminar = 0;
+        $cantidad = $this->cantidad;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreProducto', 'precio', 'descripcion', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreProducto', 'precio', 'descripcion', 'cantidad', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -54,6 +56,15 @@ class FormularioEdicionProducto extends Formulario
                 <textarea id="descripcion" name="descripcion">$descripcion</textarea>
             </div>
             <div class="error-message">{$erroresCampos['descripcion']}</div>
+
+            <div>
+            <label for="cantidad" class="input-label">Cantidad:</label>
+            <input id="cantidad" type="number"  name="cantidad" class="input-label" value="$cantidad"
+             style="border: #bababa 1px solid; color:#000000;" step="1" min="0">
+
+            </div>
+            <div class="error-message">{$erroresCampos['cantidad']}</div>
+
             <div>
                 <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
                 <label for="eliminar" class="input-label">Eliminar</label>
@@ -94,6 +105,12 @@ class FormularioEdicionProducto extends Formulario
             $this->errores['imagen'] = 'La imagen no puede estar vacía.';
         }
 
+        $cantidad = trim($datos['cantidad'] ?? '');
+        $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ($cantidad == null) {
+            $this->errores['cantidad'] = 'Cantidad no puede estar vacía.';
+        }
+
         $eliminar = isset($_POST['eliminar']);
         
         if (count($this->errores) === 0) {
@@ -103,7 +120,7 @@ class FormularioEdicionProducto extends Formulario
             } else
             {
                 $prodActual = Producto::buscaPorId($this->id);
-                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$prodActual->getCantidad());
+                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
                 Producto::actualiza($nuevoProducto);
             }
         }

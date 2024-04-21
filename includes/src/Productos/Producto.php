@@ -48,7 +48,7 @@ class Producto
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
        
-        $query = sprintf("SELECT * FROM productos WHERE archivado <= '0' ");
+        $query = sprintf("SELECT * FROM productos WHERE archivado = 0 ");
             
         $rs = $conn->query($query);
         $productos = array(); 
@@ -469,13 +469,14 @@ class Producto
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d , archivado = %d WHERE P.id = %d",
+            "UPDATE productos P SET nombre = '%s', precio = %f, descripcion = '%s', imagen = '%s', valoracion = %f, num_valoraciones = %d , cantidad = %d , archivado = %d WHERE P.id = %d",
             $conn->real_escape_string($producto->nombre),
             $producto->precio,
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->valoracion,
             $producto->num_valoraciones,
+            $producto->cantidad,
             $producto->archivado,
             $producto->id
         );
