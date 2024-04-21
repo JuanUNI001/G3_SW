@@ -56,6 +56,7 @@ function mostrarInfoUsuario() {
         echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
         echo "<li><a href='" . resuelve('/verEventosInscritos.php') . "'>Eventos Inscritos</a></li>";
         echo "<li><a href='" . resuelve('/includes/carrito_usuario.php') . "'>Carrito</a></li>"; // Enlace al carrito
+        echo "<li><a href='" . resuelve('/seguidos.php') . "'>Follows</a></li>"; // Enlace al carrito
         echo "</ul></div></div>";
     }
 }

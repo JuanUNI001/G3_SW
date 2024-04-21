@@ -3,40 +3,34 @@
 use es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
 
-require_once __DIR__.'/../../config.php';
+require_once 'includes/config.php';
 
 $tituloPagina = 'Lista de Usuarios';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-$contenidoPrincipal = listaUsuarios();
+$contenidoPrincipal = listaAmigos();
 
-function listaUsuarios()
+function listaAmigos()
 {
     $idUser = $_SESSION['id'];
-    $Usuarios = Usuario::listarUsuarios($idUser);
-        
-    $html = "<div class='Usuarios'>";
+    
+    $Usuarios = Usuario::obtenerUsuariosSeguidos($idUser); // Llamar al método en la instancia
+    if($Usuarios){
+            $html = "<div class='rectangulo-usuarios'>";
 
-    foreach ($Usuarios as $Usuario) {
-        $html .= visualizaUsuario($Usuario);
+        foreach ($Usuarios as $Usuario) {
+            $html .= visualizaUsuario($Usuario);
+        }
+    }    
+    else{
+        $html = "<div class='rectangulo-usuarios'>";
+        $html .= "<h1>No tienes gente siguiendo :(</h1>";
+    
     }
-
     $html .= "</div>";
     return $html;
 }
-function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
-{
-    $idUser = $_SESSION['id'];
-    $Usuarios = Usuario::listarUsuariosBusqueda($buscar, $correo,$tipo, $orden,$idUser);
 
-    $html = "<div class='Usuarios'>";
 
-    foreach ($Usuarios as $Usuario) {
-        $html .= visualizaUsuario($Usuario);
-    }
-
-    $html .= "</div>";
-    return $html;
-}
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
