@@ -63,7 +63,8 @@ function mostrarInfoUsuario() {
 
 ?>
 
-<header>
+
+<header style="background-image: url('<?php echo resuelve("images/background.png"); ?>'); background-repeat: no-repeat; background-position: center; background-size: cover;">
     <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
 
     <div class="saludo">

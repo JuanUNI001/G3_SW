@@ -107,21 +107,26 @@ class Pedido
         return $result;
     }
     public static function buscarPedidosAnteriores($id_usuario)
-    {
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM pedidos WHERE estado = "comprado" AND id_user = %d', $id_usuario);
-        $result = $conn->query($query);
+{
+    $conn = BD::getInstance()->getConexionBd();
+    $query = sprintf('SELECT * FROM pedidos WHERE estado = "comprado" AND id_user = %d', $id_usuario);
+    $result = $conn->query($query);
 
-        $pedidosAnteriores = array();
+    $pedidosAnteriores = array();
 
-        if ($result && $result->num_rows > 0) {
-            while ($pedido = $result->fetch_assoc()) {
-                $pedidosAnteriores[] = new Pedido($pedido['id_pedido'], $pedido['id_user'], $pedido['estado'], $pedido['fecha'], $pedido['total']);
-            }
+    if ($result && $result->num_rows > 0) {
+        while ($pedido = $result->fetch_assoc()) {
+            $pedidosAnteriores[] = new Pedido($pedido['id_pedido'], $pedido['id_user'], $pedido['estado'], $pedido['fecha'], $pedido['total']);
         }
-
-        return $pedidosAnteriores;
+        // Liberar los recursos del resultado
+        $result->free();
     }
+
+    
+
+    return $pedidosAnteriores;
+}
+
 
     public static function buscarPedidoPorEstadoUsuario($estado, $id_usuario)
     {

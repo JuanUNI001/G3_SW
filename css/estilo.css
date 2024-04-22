@@ -592,3 +592,113 @@ nav li:last-child {
 .perfil-container section article p {
     margin: 0; /* Eliminar margen predeterminado */
 }
+/* Estilos para la lista de pedidos */
+#listaPedidos {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.pedido {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 95%; /* Establecer el ancho al 95% */
+    margin: 0 auto; /* Centrar horizontalmente */
+    display: flex; /* Usar flexbox */
+    flex-direction: column; /* Dirección de flexbox: columna */
+    position: relative; /* Establecer la posición relativa */
+}
+
+/* Estilos para el precio */
+.precio {
+    position: absolute; /* Establecer la posición absoluta */
+    top: 10px; /* Espacio desde arriba */
+    right: 10px; /* Espacio desde la derecha */
+    margin-left: 60px;
+}
+.fecha {
+    margin-right: 10px; /* Margen derecho */
+}
+
+/* Estilos para la tabla de detalles del pedido */
+.pedido table {
+    width: 100%;
+}
+
+/* Estilos para las celdas de la tabla */
+.pedido th, .pedido td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilos para el encabezado de la tabla */
+.pedido th {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para el contenedor principal del detalle del pedido */
+#contenedor_principal {
+    border: 2px solid #ccc; /* Borde de 2px sólido gris */
+    border-radius: 10px; /* Bordes redondeados de 10px */
+    padding: 10px; /* Espaciado interno de 10px */
+    background-color: white; /* Fondo blanco */
+    margin-bottom: 20px; /* Espaciado inferior */
+    width:95% ; /* Ajustamos el ancho para compensar los márgenes */
+    margin-left: +30px; /* Margen izquierdo negativo */
+    margin-right: +260px; /* Margen derecho negativo */
+}
+
+/* Estilos para cada producto dentro del detalle del pedido */
+.deta_pedido {
+    border: 1px solid #ccc; /* Borde de 1px sólido de color gris */
+    border-radius: 8px; /* Bordes redondeados de 8px */
+    padding: 10px; /* Espaciado interno de 10px */
+    margin-bottom: 20px; /* Espaciado inferior */
+    display: flex; /* Usar flexbox para alinear elementos */
+    justify-content: space-between; /* Distribuir elementos horizontalmente */
+    align-items: center; /* Alinear elementos verticalmente */
+}
+
+/* Estilos para la imagen del producto dentro del detalle del pedido */
+.deta_detalle {
+    max-width: 200px; /* Ancho máximo de la imagen */
+    height: auto; /* Altura automática para mantener la proporción de aspecto */
+    border-radius: 5px; /* Bordes redondeados de 5px */
+    margin-right: 10px; /* Margen derecho de 10px para separar la imagen del texto */
+}
+
+/* Estilos para el nombre del producto dentro del detalle del pedido */
+.deta_nombre {
+    font-size: 16px; /* Tamaño de fuente de 16px */
+    font-weight: bold; /* Texto en negrita */
+    margin: 0; /* Eliminar todos los márgenes */
+}
+.fecha {
+    text-align: right; /* Alinear texto a la derecha */
+    margin: 0; /* Eliminar todos los márgenes */
+    font-size: 14px; /* Tamaño de fuente de 14px */
+    color: #666; /* Color gris */
+}
+/* Estilos para el precio del producto dentro del detalle del pedido */
+.deta_precio {
+    font-size: 14px; /* Tamaño de fuente de 14px */
+    color: #FF1493; /* Color rosa */
+    margin: 0; /* Eliminar todos los márgenes */
+}
+
+/* Estilos para el botón de detalles del producto dentro del detalle del pedido */
+.botonPedido {
+   
+    bottom: 20px; /* Ajustar la distancia desde la parte inferior */
+    right: 20px; /* Ajustar la distancia desde la derecha */
+    background-color: #eb7be1; /* Fondo rosa */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; 
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados de 4px */
+    cursor: pointer; /* Cursor apuntador */
+    font-size: 16px; /* Tamaño de fuente de 16px */
+    text-decoration: none; /* Sin subrayado */
+}
