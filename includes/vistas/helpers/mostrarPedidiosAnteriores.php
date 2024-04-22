@@ -21,25 +21,38 @@ $id_usuario = $usuario->getId();
 
 // Obtener los pedidos anteriores del usuario con estado "comprado"
 $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
-
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
-    $contenidoPrincipal = '<ul id="listaPedidos">';
+    $contenidoPrincipal = <<<EOF
+    <ul id="listaPedidos">
+    EOF;
+    
     foreach ($pedidosAnteriores as $pedido) {
-        $contenidoPrincipal .= '<li class="pedido">';
-        $contenidoPrincipal .= '<p style="margin-right: 80px;"><strong>Fecha:</strong> ' . $pedido->getFecha() . '</p>';
-        $contenidoPrincipal .= '<table>';
         $totalProductos = count(Pedidos_producto::buscaPorIdPedido_Producto($pedido->getIdPedido()));
-        $contenidoPrincipal .= '<tr><th>Total Productos: ' . $totalProductos . '</th></tr>';
-        $contenidoPrincipal .= '<tr><td class="precio"><strong>Total:</strong> ' . $pedido->getPrecioTotal() . ' €</td></tr>';
-        $contenidoPrincipal .= '</table>';
-        $contenidoPrincipal .= '<a class="detalle-btn" href="includes/src/Pedidos/detalle_pedido.php?id=' . $pedido->getIdPedido() . '">Detalles</a>';
-        $contenidoPrincipal .= '</li>';
-
+        $fecha_pedido = date_format(date_create($pedido->getFecha()), 'd/m/Y');
         
-
+        $contenidoPrincipal .= <<<EOF
+        <li class="pedido">
+            <div class="pedido-header">
+                <p class="fecha"><strong>Fecha:</strong> $fecha_pedido </p>
+                <p class="total">Total: {$pedido->getPrecioTotal()} €</p>
+            </div>
+            <div class="pedido-content">
+                <table>
+                    <tr>
+                        <th><a class="total-productos" href="includes/src/Pedidos/detalle_pedido.php?id={$pedido->getIdPedido()}">Total Productos: {$totalProductos}</a></th>
+                    </tr>
+                   
+                </table>
+            </div>
+            
+        </li>
+    EOF;
     }
-    $contenidoPrincipal .= '</ul>';
+    
+    $contenidoPrincipal .= <<<EOF
+    </ul>
+    EOF;
 } else {
     $contenidoPrincipal = "No tienes pedidos anteriores :(";
 }

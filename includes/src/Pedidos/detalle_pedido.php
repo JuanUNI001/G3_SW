@@ -29,7 +29,8 @@ $tituloPagina = 'Detalles del Pedido';
 $contenidoPrincipal = '<div id="contenedor_principal">'; 
 $contenidoPrincipal .= '<h2>Detalles del Pedido </h2>';
 $contenidoPrincipal .=  '<div class="info_pedido">';
-$contenidoPrincipal .=  '<p class="fecha"><strong>Fecha:</strong> ' . $pedido->getFecha() . '</p>'; 
+$fecha_pedido = date_format(date_create($pedido->getFecha()), 'd/m/Y');
+$contenidoPrincipal .=  '<p class="fecha"><strong>Fecha:</strong> ' . $fecha_pedido . '</p>'; 
 $contenidoPrincipal .=  '<p><strong>Precio Total:</strong> ' . $pedido->getPrecioTotal() . ' €</p>';
 $contenidoPrincipal .=  '</div>'; 
 

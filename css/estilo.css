@@ -599,17 +599,24 @@ nav li:last-child {
     margin: 0;
 }
 
-
 .pedido {
     border: 1px solid #ccc;
     margin-bottom: 20px;
+    margin-top: 20px; /* Margen superior */
     padding: 20px;
     width: 95%; /* Establecer el ancho al 95% */
-    margin: 0 auto; /* Centrar horizontalmente */
+    margin-left: auto; /* Centrar horizontalmente */
+    margin-right: auto; /* Centrar horizontalmente */
     display: flex; /* Usar flexbox */
     flex-direction: column; /* Dirección de flexbox: columna */
     position: relative; /* Establecer la posición relativa */
+    background-color: rgb(206, 145, 174);
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
+
 
 /* Estilos para el precio */
 .precio {
@@ -619,9 +626,17 @@ nav li:last-child {
     margin-left: 60px;
 }
 .fecha {
-    margin-right: 10px; /* Margen derecho */
+    margin-right: 80px; /* Margen derecho */
+    color: black;
+    font-size: 18px; /* Tamaño de fuente más grande */
 }
-
+.total-productos {
+    background-color: rgb(133, 66, 227);
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 /* Estilos para la tabla de detalles del pedido */
 .pedido table {
     width: 100%;
