@@ -4,13 +4,14 @@
 /* */
 
 // Parámetros de configuración generales
-
+//define('RUTA_APP', '/Practica2/G3_SW');
 define('RUTA_APP', '/G3_SW');
 
 define('RUTA_IMGS', RUTA_APP . '/');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
-define('RUTA_VISTAS', __DIR__ . '/vistas/comun');
+define('RUTA_VISTAS_COMUN', __DIR__ . '/vistas/comun');
+define('RUTA_VISTAS', RUTA_APP . '/includes/vistas');
 define('INSTALADA', true);
 
 // Parámetros de configuración de la BD
@@ -18,47 +19,62 @@ define('BD_HOST', 'localhost');
 define('BD_NAME', 'mesamaestra');
 define('BD_USER', 'root');
 define('BD_PASS', '');
+/*
+define('RUTA_APP', '');
 
-/* */
-/* Utilidades básicas de la aplicación */
-/* */
+define('RUTA_IMGS', RUTA_APP . '/');
+define('RUTA_CSS', RUTA_APP . '/css');
+define('RUTA_JS', RUTA_APP . '/js');
+define('RUTA_VISTAS_COMUN', __DIR__ . '/vistas/comun');
+define('RUTA_VISTAS', RUTA_APP . '/includes/vistas');
+define('INSTALADA', true);
 
-require_once __DIR__.'/src/Utils.php';
+// Parámetros de configuración de la BD
+define('BD_HOST', 'vm007.db.swarm.test');
+define('BD_NAME', 'practica3');
+define('BD_USER', 'practica3');
+define('BD_PASS', 'practica3');
 
-/* */
-/* Inicialización de la aplicación */
-/* */
-
-if (!INSTALADA) {
-	Utils::paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');
-}
-
-/* */
-/* Configuración de Codificación y timezone */
-/* */
-
+*/
+/**
+ * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
+ */
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
-/* */
-/* Clases y Traits de la aplicación */
-/* */
-require_once 'src/Arrays.php';
-require_once 'src/traits/MagicProperties.php';
+spl_autoload_register(function ($clase) {
+      
+    $prefix = 'es\\ucm\\fdi\\aw\\';
+       
+    $base_dir = __DIR__ . '/';
+      
+    $len = strlen($prefix);
+    if (strncmp($prefix, $clase, $len) !== 0) {       
+        return;
+    }
+    
+    $relative_class = substr($clase, $len);
+    
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    if (file_exists($file)) {
+        require $file;
+    }
+});
+// Inicializa la aplicación
 
-/*
- * Configuramos e inicializamos la sesión para todas las peticiones
+$app = es\ucm\fdi\aw\src\BD::getInstance();
+$app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
+
+if (! INSTALADA) {
+	$app->paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');
+}
+/**
+ * @see http://php.net/manual/en/function.register-shutdown-function.php
+ * @see http://php.net/manual/en/language.types.callable.php
  */
-/*session_start([
-	'cookie_path' => RUTA_APP, // Para evitar problemas si tenemos varias aplicaciones en htdocs
-]);*/
 
+register_shutdown_function(array($app, 'shutdown'));
 
-/* */
-/* Clases que usan una BD para almacenar el estado */
-/* */
-require_once 'src/BD.php';
-require_once 'src/usuarios/bd/Usuario.php';
-require_once 'src/mensajes/bd/Mensaje.php';
-
+// Incluimos funciones de utiliría básicas que se utilizan en la mayoría de páginas
+require_once __DIR__ . '/vistas/helpers/utils.php';

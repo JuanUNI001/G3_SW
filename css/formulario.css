@@ -1,0 +1,180 @@
+.fieldset-form {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 400px;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    /* Grey background color */
+    display: flex;
+    /* Use flexbox */
+    flex-direction: column;
+    /* Align items vertically */
+}
+
+.legend-form {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+    /* Grey background color */
+    border-radius: 5px;
+    text-align: center;
+    /* Center the text */
+    width: 100%;
+    /* Occupy entire width */
+    border: 2px solid #000000;
+}
+
+.fieldset-form>div {
+    display: flex;
+    /* Use flexbox */
+    align-items: center;
+    /* Align items horizontally */
+    margin-bottom: 10px;
+    /* Add space between each row */
+}
+
+.fieldset-form label {
+    flex: 1;
+    /* Distribute remaining space evenly */
+    margin-right: 10px;
+    /* Add space between label and input */
+}
+
+.input-label {
+    font-weight: bold;
+}
+
+
+.fieldset-form input[type="text"] {
+    flex: 2;
+    /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.fieldset-form input[type="password"] {
+    flex: 2;
+    /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.fieldset-form input[type="number"] {
+    flex: 2;
+    /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.fieldset-form textarea {
+    flex: 2;
+    /* Expand input field */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 13px;
+    margin-top: 1px;
+    flex: 1;
+    /* Expand to occupy the same width as input field */
+}
+
+.enviar-button {
+    display: flex;
+    /* Use flexbox */
+    justify-content: flex-end;
+    /* Align button to the right */
+}
+
+.enviar-button button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.enviar-button button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+/*
+*   Formulario envio mensajes 
+*/
+.formDirect {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    /* Grey background color */
+    display: flex;
+    /* Use flexbox */
+    flex-direction: row;
+    /* Align items in row */
+}
+
+.inputDirect {
+    display: flex; /* Hace que los elementos hijos estén en línea */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+.labelDirect {
+    flex: 0 0 auto; /* No se expandirá, mantendrá su tamaño original */
+    font-weight: bold;
+}
+
+#mensaje {
+    flex: 1; /* Se expandirá para ocupar todo el espacio restante */
+   
+    padding: 0px; /* Ajusta el padding para que se vea mejor */
+    border: 1px solid #ccc;
+
+    font-size: 16px;
+}
+
+.enviarDirect {
+    display: flex; /* Make the elements inside inline */
+    align-items: center; /* Align elements vertically */
+}
+
+.enviarDirect button {
+    background-color: #3897f0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px; /* Add space between the textarea and the button */
+
+}
+
+.enviarDirect button:hover {
+    background-color: #3578e5;
+}
+
+.errorDirect {
+    color: red;
+    margin-top: 10px; /* Añade espacio entre el botón y el mensaje de error */
+}
+

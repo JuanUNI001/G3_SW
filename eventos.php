@@ -1,14 +1,15 @@
 <?php
-//Inicio del procesamiento
-session_start();
 
 require_once 'includes/config.php';
+require_once 'includes/src/Eventos/listaEventos.php';
 
+
+
+$eventos = listaeventos();
 $tituloPagina = 'Eventos';
-
-$contenidoPrincipal=<<<EOS
-	<h1>Evento 1</h1>
-	<p>descripción</p>
-EOS;
-
-require 'includes/vistas/comun/layout.php';
+$contenidoPrincipal=<<<EOF
+    $eventos
+EOF;
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
+?>

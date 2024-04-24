@@ -1,14 +1,10 @@
 <?php
+require_once __DIR__.'/includes/config.php';
 
-require_once 'includes/config.php';
-require_once 'includes/vistas/helpers/usuarios.php';
 
-logout();
+if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
+    $app->redirige('/index.php');
+}
 
-$tituloPagina = 'Logout';
-
-$contenidoPrincipal=<<<EOS
-	<h1>Hasta pronto!</h1>
-EOS;
-
-require 'includes/vistas/comun/layout.php';
+$formLogout = new \es\ucm\fdi\aw\src\Usuarios\FormularioLogout();
+$formLogout->gestiona();

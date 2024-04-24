@@ -1,15 +1,19 @@
 <?php
 
-//Inicio del procesamiento
-session_start();
+require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/src/Profesores/listaProfesores.php';
 
-require_once 'includes/config.php';
+$tituloPagina = 'Lista de Profesores';
 
-$tituloPagina = 'Profesores';
+$profesores = listaProfesores(); // Llama a la función para obtener la lista de profesores
 
-$contenidoPrincipal=<<<EOS
-	<h1>Profesor 1</h1>
-	<p>Descripción</p>
-EOS;
+$contenidoPrincipal = <<<HTML
+    <h1>Lista de Profesores</h1>
+    <div class="contenedor-profesores">
+        $profesores
+    </div>
+HTML;
 
-require 'includes/vistas/comun/layout.php';
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantilla.php', $params);
+?>

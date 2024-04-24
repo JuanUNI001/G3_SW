@@ -1,16 +1,41 @@
+<?php
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use \es\ucm\fdi\aw\src\Profesores\Profesor;
+use es\ucm\fdi\aw\src\BD;
+?>
+
 <aside id="sidebarDer">
 
-<div class="sidebar-section" id="usuario">
-        <p><a href="/G3_SW/verPerfil.php" target="_self">Perfil</a></p>
+<?php 
+$app = BD::getInstance();
 
-    </div>
+if (!$app->usuarioLogueado())  : $avatar =(RUTA_IMGS . 'images/avatarPorDefecto.png');?>
+        <!-- Si el usuario no está logueado, muestra la foto por defecto -->
+        
+        <img src="<?php echo $avatar; ?>" alt="Avatar por defecto" width="60" height="60">
+    <?php else: ?>
+        <!-- Si el usuario está logueado, muestra la foto del usuario si está disponible -->
+            <?php 
+            $correo_usuario = $_SESSION['correo'];
+            $usuario = Usuario::buscaUsuario($correo_usuario);
+            $avatar = $usuario->getAvatar() ? (RUTA_IMGS . $usuario->getAvatar()) : (RUTA_IMGS . 'images/avatarPorDefecto.png');
+            ?>
+            <ul class="dropdown">
+                <li class="menu1"><img src="<?php echo $avatar; ?>" alt="Avatar de <?php echo $usuario->getNombre(); ?>" width="60" height="60">
 
+                    <ul class="dropdown-content">
+                    <li><a href="<?php echo resuelve('/verPerfil.php'); ?>" class="sideBarDerButton">Mi cuenta</a></li>
+                    <li><a href="<?php echo resuelve('/verPedidosAnteriores.php'); ?>" class="sideBarDerButton">Pedidos anteriores</a></li>
+                    <li><a href="<?php echo resuelve('/includes/carrito_usuario.php'); ?>" class="sideBarDerButton">Carrito</a></li>
+                </ul>
+            </li>   
+        </ul>
+    <?php endif; ?>
+    
     <!--AQUI HAY QUE HACER LO DEL CARRO QUE EXPLICO EN CLASE-->
     <div class="sidebar-section" id="carrito">
-        <p><a href="/G3_SW/carrito.php" target="_self">Carrito</a></p>
+        <p><a href="<?php echo resuelve('/includes/carrito_usuario.php'); ?>" class="button-like-link">Carrito</a></p>
     </div>
 
-    <div class="sidebar-section" id="pedidos">
-        <p><a href="mostrarPedidiosAnteriores.php" target="_self">Pedidos anteriores</a></p>
-    </div>	
+   
 </aside>
