@@ -13,7 +13,7 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 
 <?php
-$id_foro = $_GET['id_foro'];
+$id_foro = $_POST['id_foro'];
 
 $foro = getForo($id_foro);
 
@@ -27,7 +27,7 @@ $rutaChat = resuelve('/ForoView.php');
 $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajeForo("$rutaChat?id_foro=$id_foro",$id_foro);
 
 $form->idEmisor = $usuario->getId();
-//$form->idForo = $_GET['id_foro'];
+//$form->idForo = $_POST['id_foro'];
 
 $htmlFormLogin = $form->gestiona();
 
