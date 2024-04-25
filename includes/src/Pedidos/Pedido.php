@@ -480,6 +480,45 @@ class Pedido
 
         return $result;
     }
+    public static function obtenerPedidosEnCarrito()
+    {
+        $pedido = null;
+    
+        // Obtener el pedido con estado "carrito"
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT id_pedido, id_user, estado, fecha, total FROM pedidos WHERE estado = 'carrito' LIMIT 1";
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows > 0) {
+            $fila = $result->fetch_assoc();
+            $pedido = new Pedido(
+                $fila['id_pedido'],
+                $fila['id_user'],
+                $fila['estado'],
+                $fila['fecha'],
+                $fila['total']
+            );
+            $result->free();
+        }
+    
+        return $pedido;
+    }
+    
 
+    public static function obtenerProductosPorPedido($id_pedido)
+    {
+        $productos = array();
 
+        // Obtener todos los productos asociados a un pedido
+        $productos_pedido = Pedidos_producto::buscaPorIdPedido_Producto($id_pedido);
+
+        foreach ($productos_pedido as $id_producto => $cantidad) {
+            $productos[$id_producto] = $cantidad;
+        }
+
+        return $productos;
+    }
+
+    
+    
 }
