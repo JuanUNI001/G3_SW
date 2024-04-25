@@ -13,7 +13,7 @@ use es\ucm\fdi\aw\src\BD;
 
 <?php
 
-$id_usuario_receptor = $_GET['id'];
+$id_usuario_receptor = $_POST['id'];
 
 $usuario_receptor = Usuario::buscaPorId($id_usuario_receptor);
 

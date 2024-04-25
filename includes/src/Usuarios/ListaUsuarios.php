@@ -88,9 +88,10 @@ function visualizaUsuario($Usuario) {
                 <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
                 <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                 <div id="corazon_$id" class="corazon $corazonClase" style="font-size: 24px; cursor: pointer;" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
-                <div>
-                    <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
-                </div>
+                <form action="{$rutaChat}" method="post">
+                    <input type="hidden" name="id" value="{$id}">
+                    <button type="submit" class="button-like-link">Contactar</button>
+                </form>
             </div>
         </div>
 

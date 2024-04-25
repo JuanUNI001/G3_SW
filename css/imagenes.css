@@ -79,6 +79,12 @@
     width: auto; /* Ancho automático para ajustarse al contenido */
     margin-right: 10px; /* Espacio a la derecha */
 }
+.botonCaracteristicaDisabled {
+    background-color: #ccc; /* Fondo gris cuando está desactivado */
+    color: #666; /* Color de texto gris cuando está desactivado */
+    
+}
+
 .producto_info h2 {
     margin: 0; /* Elimina todos los márgenes */
 }

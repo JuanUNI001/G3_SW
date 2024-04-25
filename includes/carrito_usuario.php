@@ -70,14 +70,15 @@ if($pedido){
                         <p>{$producto->getPrecio()} €</p>
                         <div class="producto_detalle">
                             <!-- Formulario para actualizar la cantidad -->
-                            <div style="display: flex; align-items: center;">
-                                <span style="margin-right: 10px;margin-top: 80px">Cantidad:</span>
+                            <div style="display: flex; align-items: center; margin-top: 80px;">
+                                <span style="margin-right: 10px; margin-bottom: +15px;"">Cantidad:</span>
                                 <form id="$formActualizarId" action="$direccion_actualizar" method="post">
                                     <input type="hidden" name="idPedido" value="$idPedido">
                                     <input type="hidden" name="idProducto" value="$idProducto">
-                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" onchange="actualizarCantidad(this.value, '$formActualizarId')">
+                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
                                 </form>
                             </div>
+                            
                             <!-- Formulario para eliminar el producto -->
                             <form id="$formEliminarId" action="$direccion_eliminar" method="post">
                                 <input type="hidden" name="idPedido" value="$idPedido">
