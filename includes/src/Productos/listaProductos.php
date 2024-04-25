@@ -4,7 +4,7 @@
     require_once __DIR__.'/caracteristicaProducto.php';
     $tituloPagina = 'Características Producto';
     echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-    $contenidoPrincipal = listaproductos();
+   
 ?>
 <?php
 
@@ -81,3 +81,6 @@ function listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $
 ?>
 
 
+<?php
+ $contenidoPrincipal = listaproductos();
+?>

@@ -1,16 +1,11 @@
 <?php
-require_once 'config.php';
 
-
-use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+require_once __DIR__.'/config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Carrito\Carrito;
 use \es\ucm\fdi\aw\src\Productos\Producto;
-
-// Incluye el CSS necesario
-echo '<link rel="stylesheet" type="text/css" href="../css/imagenes.css">';
-
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     // Redirige al usuario a la página de inicio de sesión
@@ -45,13 +40,21 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             $precioTotal = $precioProducto * $cantidad;
             $pedido = Pedido::buscaPorId($idPedido);
             $total = $pedido->getPrecioTotal();
+            
             // Construir el href con la URL proporcionada
             $rutaCar = resuelve('/includes/src/Productos/caracteristicaProducto.php');
             $rutaEliminar = resuelve('/includes/src/Pedidos/eliminar_producto.php');
             $rutaActualizar =  resuelve('/includes/src/Pedidos/actualizar_cantidad.php');
             $href = $rutaCar."?idProducto=" . $producto->getIdProducto();
             $direccion_eliminar = $rutaEliminar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;
-            $direccion_actualizar = $rutaActualizar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ;            // Agregar el enlace al contenido principal
+            $direccion_actualizar = $rutaActualizar.'?idPedido=' . $idPedido . '&idProducto=' . $idProducto ; 
+            
+            // Generar un ID único para el formulario de actualización de cantidad
+            $formActualizarId = "form-actualizar-cantidad-$idProducto";
+            // Generar un ID único para el formulario de eliminación
+            $formEliminarId = "form-eliminar-producto-$idProducto";
+            
+            // Agregar el enlace al contenido principal
             $contenidoPrincipal .= <<<EOF
                 <div class="producto_carrito">
                     <div class="producto_info">
@@ -65,31 +68,44 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
                     <div class="producto_precio">
                         <p>{$producto->getPrecio()} €</p>
                         <div class="producto_detalle">
+                            <!-- Formulario para actualizar la cantidad -->
                             <div style="display: flex; align-items: center;">
                                 <span style="margin-right: 10px;margin-top: 80px">Cantidad:</span>
-                                <input type='number' id='cantidad_$idProducto' name='cantidad' value='$cantidad' min='1' style='width: 30px; margin-right: 10px;margin-top: 80px' onchange="actualizarCantidad(this.value);">
+                                <form id="$formActualizarId" action="$direccion_actualizar" method="post">
+                                    <input type="hidden" name="idPedido" value="$idPedido">
+                                    <input type="hidden" name="idProducto" value="$idProducto">
+                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" onchange="actualizarCantidad(this.value, '$formActualizarId')">
+                                </form>
                             </div>
+                            <!-- Formulario para eliminar el producto -->
+                            <form id="$formEliminarId" action="$direccion_eliminar" method="post">
+                                <input type="hidden" name="idPedido" value="$idPedido">
+                                <input type="hidden" name="idProducto" value="$idProducto">
+                                <button type="submit" class="botonCarrito" style="margin-top: 10px; margin-top: 20px">Eliminar</button>
+                            </form>
                         </div>
-                        <button class="botonCarrito" style="margin-top: 10px;  margin-top: 20px" onclick="window.location.href='$direccion_eliminar'">Eliminar</button>
-                        
-                    </div>                                           
+                    </div>
                 </div>
                 <hr>
-
+                
                 <script>
-                function actualizarCantidad( nuevaCantidad) {
-                    var direccionActualizar = "$direccion_actualizar . &nuevaCantidad=" + nuevaCantidad;
-                    window.location.href = direccionActualizar;
+                function actualizarCantidad(nuevaCantidad, formId) {
+                    // Obtener el formulario por su ID único
+                    var form = document.getElementById(formId);
+                    // Enviar el formulario automáticamente
+                    form.submit();
                 }
                 </script>
             EOF;
         } 
-        
     }
 }
+
+
 $pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
 
 if ($pedido_carrito) {
+    $total = $pedido_carrito->getPrecioTotal();
     $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
     <div>

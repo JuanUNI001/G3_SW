@@ -6,7 +6,7 @@ use \es\ucm\fdi\aw\src\Eventos\Evento;
 
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioEdicionEvento();
 
-$id_Evento = $_GET['id_evento'];
+$id_Evento = $_POST['id_evento'];
 $Evento = Evento::buscaPorId($id_Evento);
 $nombre = $Evento->getNombre();
 

@@ -6,13 +6,13 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 echo '<link rel="stylesheet" type="text/css" href="../../../css/imagenes.css">';
 
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_POST['id']) || empty($_POST['id'])) {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();
 }
 
-$idPedido = $_GET['id'];
+$idPedido = $_POST['id'];
 
 $pedido = Pedido::buscaPorId($idPedido);
 

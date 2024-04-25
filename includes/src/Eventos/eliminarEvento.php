@@ -8,8 +8,8 @@ $app = BD::getInstance();
 
 
 // Verificar si se recibieron los datos esperados por GET
-if (isset($_GET['idEvento'])) {
-    $idEven = $_GET['idEvento'];
+if (isset($_POST['idEvento'])) {
+    $idEven = $_POST['idEvento'];
    
     // Verificar si se proporcionaron ambos IDs
     if (!empty($idEven)) {

@@ -10,7 +10,7 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioInscripcion();
 $tituloPagina = 'Inscripción en Evento';
 
-$idEvento = $_GET['id'];
+$idEvento = $_POST['id'];
 $correo = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo);
 $idUsuario = $usuario->getId();
