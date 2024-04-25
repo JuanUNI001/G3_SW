@@ -7,12 +7,11 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use es\ucm\fdi\aw\src\Productos\Producto;
 use es\ucm\fdi\aw\src\BD;
 $app = BD::getInstance();
-// Verificar si se recibieron los datos esperados por GET
-if (isset($_GET['idPedido']) && isset($_GET['idProducto']) && isset($_GET['nuevaCantidad'])) {
-    // Obtener el ID del pedido, el ID del producto y la nueva cantidad del formulario
-    $idPedido = $_GET['idPedido'];
-    $idProducto = $_GET['idProducto'];
-    $nuevaCantidad = $_GET['nuevaCantidad'];
+
+if (isset($_POST['idPedido']) && isset($_POST['idProducto']) && isset($_POST['nuevaCantidad'])) {
+    $idPedido = $_POST['idPedido'];
+    $idProducto = $_POST['idProducto'];
+    $nuevaCantidad = $_POST['nuevaCantidad'];
     
     // Verificar si se proporcionaron todos los IDs y la cantidad
     if (!empty($idPedido) && !empty($idProducto) && !empty($nuevaCantidad)) {
