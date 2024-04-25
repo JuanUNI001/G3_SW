@@ -9,7 +9,8 @@ sidebarDer sobre el avatar. Y puede modificar sus propios datos en â€œMi cuentaâ
 encuentra en el mismo sitio que pedidos anteriores.
 El administrador tiene la posibilidad de editar los productos de la tienda y eliminarlos.
 Por otro lado hay una vista Profesores donde se ofertan todos los profesores actuales
-Eventos tanto mostrarlos como inscribirse. todavia no esta la bd eventos-usuarios por lo que los usuarios pueden 
-inscribirse infinitas veces
 Foro donde se listan y m,uestran diferentes temas y la gente puede comentar
 Chat privado con profesores
+Los usuarios pueden inscribirse en eventos y desinscrbirse, y, no pueden volver a inscribirse en iun evento
+si ya lo estan ya que se incluyen en la tabla de inscritos junto con su id y el id del evento
+
