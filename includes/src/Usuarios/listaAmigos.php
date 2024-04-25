@@ -11,7 +11,10 @@ $contenidoPrincipal = listaAmigos();
 
 function listaAmigos()
 {
-    $idUser = $_SESSION['id'];
+    $correo_usuario = $_SESSION['correo'];
+
+    $usuario = Usuario::buscaUsuario($correo_usuario);
+    $idUser = $usuario->getId();
     
     $Usuarios = Usuario::obtenerUsuariosSeguidos($idUser); // Llamar al método en la instancia
     if($Usuarios){
@@ -35,7 +38,10 @@ function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
     
-    $idUser = $_SESSION['id'];
+    $correo_usuario = $_SESSION['correo'];
+
+    $usuario = Usuario::buscaUsuario($correo_usuario);
+    $idUser = $usuario->getId();
 
     $app = BD::getInstance();
     if ($app->usuarioLogueado()) 
