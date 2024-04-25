@@ -22,23 +22,24 @@ $correo_usuario = $_SESSION['correo'];
 
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
-
-$detallesCarrito = Carrito::obtenerDetallesCarrito();
-
 $contenidoPrincipal = "";
+$pedido = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
+if($pedido){
+    $idPedido = $pedido->getIdPedido();
+   
+    $productosPorPedido = Pedido::obtenerProductosPorPedido($idPedido);
 
-foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
-    
-    foreach ($productosPorPedido as $idProducto => $cantidad) {
         
+    foreach ($productosPorPedido as $idProducto => $cantidad) {
+            
         $producto = Producto::buscaPorId($idProducto);
 
-        // Verificar si se encontró el producto
+            // Verificar si se encontró el producto
         if ($producto) {
             $imagenPath = RUTA_IMGS . $producto->getImagen();
             $precioProducto = $producto->getPrecio();
             $precioTotal = $precioProducto * $cantidad;
-            $pedido = Pedido::buscaPorId($idPedido);
+            
             $total = $pedido->getPrecioTotal();
             
             // Construir el href con la URL proporcionada
@@ -99,22 +100,17 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             EOF;
         } 
     }
-}
-
-
-$pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
-
-if ($pedido_carrito) {
-    $total = $pedido_carrito->getPrecioTotal();
+    $total = $pedido->getPrecioTotal();
     $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
     <div>
         <button onclick="location.href='{$rutaComprar}'" type="button">Comprar</button> Total compra: {$total} €
     </div>
     EOF;
-    
 }
 else{
+
+
     $contenidoPrincipal .= <<<EOF
     <div>
         <p>No tienes ningún artículo en la cesta :(</p>
