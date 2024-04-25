@@ -70,7 +70,7 @@ class FormularioEdicionProducto extends Formulario
                 <label for="eliminar" class="input-label">Eliminar</label>
             </div>
             <div class="enviar-button">
-                <button type="submit" name="crear">Crear</button>
+                <button type="submit" name="crear">Aceptar</button>
             </div>
         </fieldset> 
         EOF;
