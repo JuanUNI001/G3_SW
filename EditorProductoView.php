@@ -5,7 +5,7 @@ use \es\ucm\fdi\aw\src\Productos\Producto;
 
 $form = new es\ucm\fdi\aw\src\Productos\FormularioEdicionProducto();
 
-$id_producto = $_GET['id_producto'];
+$id_producto = $_POST['id_producto'];
 $producto = Producto::buscaPorId($id_producto);
 $nombre = $producto->getNombre();
 

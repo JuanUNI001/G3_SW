@@ -5,7 +5,7 @@ use \es\ucm\fdi\aw\src\Profesores\Profesor;
 
 $form = new es\ucm\fdi\aw\src\Profesores\FormularioEdicionProfesor();
 
-$id_Profesor = $_GET['id_profesor'];
+$id_Profesor = $_POST['id_profesor'];
 $Profesor = Profesor::buscaPorId($id_Profesor);
 $nombre = $Profesor->getNombre();
 
