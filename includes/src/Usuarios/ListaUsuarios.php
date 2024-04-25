@@ -9,11 +9,22 @@ $tituloPagina = 'Lista de Usuarios';
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 $contenidoPrincipal = listaUsuarios();
 
+
 function listaUsuarios()
 {
-    $idUser = $_SESSION['id'];
+    $app = BD::getInstance();
+    if ($app->usuarioLogueado())  {
+        $correo_usuario = $_SESSION['correo'];
+
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $idUser = $usuario->getId();
+    }
+    else{
+        $idUser = 0;
+    }
+
     $Usuarios = Usuario::listarUsuarios($idUser);
-        
+    
     $html = "<div class='Usuarios'>";
 
     foreach ($Usuarios as $Usuario) {
@@ -22,10 +33,21 @@ function listaUsuarios()
 
     $html .= "</div>";
     return $html;
+
 }
 function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
 {
-    $idUser = $_SESSION['id'];
+    $app = BD::getInstance();
+    
+    if ($app->usuarioLogueado())  {
+        $correo_usuario = $_SESSION['correo'];
+
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $idUser = $usuario->getId();
+    }
+    else{
+        $idUser = 0;
+    }
     $Usuarios = Usuario::listarUsuariosBusqueda($buscar, $correo,$tipo, $orden,$idUser);
 
     $html = "<div class='Usuarios'>";
@@ -41,11 +63,15 @@ function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
     
-    $idUser = $_SESSION['id'];
+   
 
     $app = BD::getInstance();
     if ($app->usuarioLogueado()) 
     {
+        $correo_usuario = $_SESSION['correo'];
+
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $idUser = $usuario->getId();
         $rutaChat = resuelve('/ChatView.php');
 
         // Verificar si el usuario logueado sigue al usuario actual

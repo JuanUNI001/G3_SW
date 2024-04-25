@@ -10,7 +10,7 @@ $formLogin = $formLogin->gestiona();
 $tituloPagina = 'Login';
 $contenidoPrincipal=<<<EOF
   <div class="centerer">
-  	<h1>Acceso al sistema</h1>
+  	<h1>Inicio de sesión</h1>
     $formLogin
 EOF;
 

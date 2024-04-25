@@ -3,7 +3,7 @@ require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
-use \es\ucm\fdi\aw\src\Productos\Producto;
+
 function mostrar_pedidosAnteriores()
 {
 
@@ -21,35 +21,38 @@ $id_usuario = $usuario->getId();
 
 // Obtener los pedidos anteriores del usuario con estado "comprado"
 $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
-
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
-    $contenidoPrincipal = '';
+    $contenidoPrincipal = <<<EOF
+    <ul id="listaPedidos">
+    EOF;
+    
     foreach ($pedidosAnteriores as $pedido) {
-        $contenidoPrincipal .= '<div>';
-        $contenidoPrincipal .= '<p><strong>Fecha:</strong> ' . $pedido->getFecha() . '</p>';
-        $contenidoPrincipal .= '<p><strong>Precio Total:</strong> ' . $pedido->getPrecioTotal() . ' €</p>';
-        $contenidoPrincipal .= '<p><strong>Productos Comprados:</strong></p>';
+        $totalProductos = count(Pedidos_producto::buscaPorIdPedido_Producto($pedido->getIdPedido()));
+        $fecha_pedido = date_format(date_create($pedido->getFecha()), 'd/m/Y');
         
-        // Obtener los detalles de los productos comprados en este pedido
-        $detallesProductos = Pedidos_producto::buscaPorIdPedido_Producto($pedido->getIdPedido());
-        $contenidoPrincipal .= '<ul>';
-        foreach ($detallesProductos as $idProducto => $cantidad) {
-            $producto = Producto::buscaPorId($idProducto);
-
-            // Verificar si el producto se encontró correctamente
-            if ($producto) {
-                $nombreProducto = $producto->getNombre();
-                // Agregar cada producto como un elemento de la lista
-                $contenidoPrincipal .= '<li><strong> Nombre: </strong>' . $nombreProducto . ', <strong>Cantidad: </strong>' . $cantidad . '</li>';
-            } 
-        }
-        $contenidoPrincipal .= '</ul>';
-
-        
-        $contenidoPrincipal .= '</div>';
-        $contenidoPrincipal .= '<hr>'; 
+        $contenidoPrincipal .= <<<EOF
+        <li class="pedido">
+            <div class="pedido-header">
+                <p class="fecha"><strong>Fecha:</strong> $fecha_pedido </p>
+                <p class="total">Total: {$pedido->getPrecioTotal()} €</p>
+            </div>
+            <div class="pedido-content">
+                <table>
+                    <tr>
+                        <th><a class="total-productos" href="includes/src/Pedidos/detalle_pedido.php?id={$pedido->getIdPedido()}">Total Productos: {$totalProductos}</a></th>
+                    </tr>
+                   
+                </table>
+            </div>
+            
+        </li>
+    EOF;
     }
+    
+    $contenidoPrincipal .= <<<EOF
+    </ul>
+    EOF;
 } else {
     $contenidoPrincipal = "No tienes pedidos anteriores :(";
 }

@@ -170,7 +170,6 @@ class FormularioRegistro extends Formulario
             $_SESSION['nombre'] = $nombre;
             $_SESSION['correo'] = $correo;
             $_SESSION['rolUser'] = $rolSeleccionado;
-            $_SESSION['id'] = $usuario->getId();
             header('Location: ' . $this->urlRedireccion);
             exit;
         }
