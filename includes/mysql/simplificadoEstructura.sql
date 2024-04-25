@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 CREATE TABLE IF NOT EXISTS `foros` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(25) NOT NULL,
+  `descripcion` varchar(25) NOT NULL,
   `autor` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `valoracion` decimal(4,2) DEFAULT NULL,
   `num_valoraciones` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
+  `archivado` int(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -128,4 +130,3 @@ ALTER TABLE `pedidos`
   MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 COMMIT;
-``

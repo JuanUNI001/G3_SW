@@ -13,8 +13,8 @@
     echo '<link rel="stylesheet" type="text/css" href="' . $rutaCSS . '">';
 
     // Verifica si se ha proporcionado un ID de producto
-    if(isset($_POST['id_producto'])) {
-        $id_producto = $_POST['id_producto'];
+    if(isset($_GET['id_producto'])) {
+        $id_producto = $_GET['id_producto'];
 
         // Busca el producto por su ID
         $producto = Producto::buscaPorId($id_producto);

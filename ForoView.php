@@ -13,7 +13,7 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 
 <?php
-$id_foro = $_POST['id_foro'];
+$id_foro = $_GET['id_foro'];
 
 $foro = getForo($id_foro);
 

@@ -408,11 +408,6 @@ ALTER TABLE `productos`
 -- Filtros para la tabla `mensajes`
 --
 
-ALTER TABLE `mensajes`
-  ADD CONSTRAINT `mensajes_idEmisor` FOREIGN KEY (`idEmisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mensajes_idDestinatario` FOREIGN KEY (`idDestinatario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mensajes_idForo` FOREIGN KEY (`idForo`) REFERENCES `foros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 --
 -- Filtros para la tabla `pedidos`
 --

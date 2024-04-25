@@ -5,7 +5,7 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 $form = new es\ucm\fdi\aw\src\Usuarios\FormularioEdicionUsuario();
 
-$id_usuario = $_POST['id'];
+$id_usuario = $_GET['id'];
 $Usuario = Usuario::buscaPorId($id_usuario);
 $nombre = $Usuario->getNombre();
 

@@ -62,7 +62,6 @@ function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
-    
    
 
     $app = BD::getInstance();
@@ -90,10 +89,7 @@ function visualizaUsuario($Usuario) {
                 <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                 <div id="corazon_$id" class="corazon $corazonClase" style="font-size: 24px; cursor: pointer;" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
                 <div>
-                    <form action="{$rutaChat}" method="post">
-                        <input type="hidden" name="id" value="{$id}">
-                        <button type="submit" class="button-like-link">Contactar</button>
-                    </form>
+                    <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
                 </div>
             </div>
         </div>
