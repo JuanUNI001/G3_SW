@@ -9,21 +9,20 @@ class Carrito
 {
     public static function obtenerPedidosEnCarrito()
     {
-        $pedidos = array();
+        $pedido = null;
 
-        // Obtener todos los pedidos con estado "carrito"
+        // Obtener el pedido con estado "carrito"
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT id_pedido FROM pedidos WHERE estado = 'carrito'";
+        $query = "SELECT id_pedido FROM pedidos WHERE estado = 'carrito' LIMIT 1";
         $result = $conn->query($query);
 
         if ($result && $result->num_rows > 0) {
-            while ($fila = $result->fetch_assoc()) {
-                $id_pedido = $fila['id_pedido'];
-                $pedidos[] = $id_pedido;
-            }
+            $fila = $result->fetch_assoc();
+            $pedido = $fila['id_pedido'];
+            $result->free();
         }
 
-        return $pedidos;
+        return $pedido;
     }
 
     public static function obtenerProductosPorPedido($id_pedido)
@@ -45,13 +44,13 @@ class Carrito
         $detallesCarrito = array();
 
         // Obtener pedidos en estado "carrito"
-        $pedidosEnCarrito = self::obtenerPedidosEnCarrito();
+        $id_pedido = self::obtenerPedidosEnCarrito();
 
         // Para cada pedido en el carrito, obtener los productos asociados
-        foreach ($pedidosEnCarrito as $id_pedido) {
+        
             $productosPorPedido = self::obtenerProductosPorPedido($id_pedido);
             $detallesCarrito[$id_pedido] = $productosPorPedido;
-        }
+        
 
         return $detallesCarrito;
     }

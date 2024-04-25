@@ -8,10 +8,10 @@ $app = BD::getInstance();
 
 
 // Verificar si se recibieron los datos esperados por GET
-if (isset($_GET['idPedido']) && isset($_GET['idProducto'])) {
+if (isset($_POST['idPedido']) && isset($_POST['idProducto'])) {
     // Obtener el ID del pedido y el ID del producto a eliminar del formulario
-    $idPedido = $_GET['idPedido'];
-    $idProducto = $_GET['idProducto'];
+    $idPedido = $_POST['idPedido'];
+    $idProducto = $_POST['idProducto'];
    
     // Verificar si se proporcionaron ambos IDs
     if (!empty($idPedido) && !empty($idProducto)) {

@@ -1,6 +1,12 @@
 <?php
+require_once __DIR__.'/../../config.php';
+
+use es\ucm\fdi\aw\src\BD;
+// Incluye el CSS necesario
+echo '<link rel="stylesheet" type="text/css" href="../css/imagenes.css">';
 $params['app']->doInclude('/vistas/helpers/plantilla.php');
 $mensajes = mensajesPeticionAnterior();
+
 ?>
 <!DOCTYPE html>
 <html>

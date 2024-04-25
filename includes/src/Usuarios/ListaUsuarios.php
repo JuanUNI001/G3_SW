@@ -95,6 +95,7 @@ function visualizaUsuario($Usuario) {
             </div>
         </div>
         <script>
+        //https://stackoverflow.com/questions/9713058/send-post-data-using-xmlhttprequest
         // Función para cambiar el estado del corazón y agregar/eliminar la relación de seguimiento
         function toggleSeguir(idUsuario, idUsuarioSeguir) {
             var corazon = document.getElementById('corazon_' + idUsuarioSeguir);
