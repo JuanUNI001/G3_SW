@@ -3,7 +3,7 @@ require_once 'config.php';
 
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
-use \es\ucm\fdi\aw\src\Carrito\Carrito;
+
 use \es\ucm\fdi\aw\src\Productos\Producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
@@ -24,28 +24,28 @@ $pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
 
 if ($pedido_carrito) {
         // Si no hay ningún pedido en estado "carrito", redirigir al usuario a su perfil o a la página de inicio con un mensaje de error
-    $detallesCarrito = Carrito::obtenerDetallesCarrito();
+    $productosPorPedido = Pedido::obtenerPedidosEnCarrito();
+    $idPedido =  $productosPorPedido->getIdPedido();
+   
+    foreach ($productosPorPedido as $idProducto => $cantidad) {
+        $producto = Producto::buscaPorId($idProducto);
 
-    foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
-        foreach ($productosPorPedido as $idProducto => $cantidad) {
-            $producto = Producto::buscaPorId($idProducto);
-
-            if ($producto) {
-                if ($producto->getCantidad() >= $cantidad) {
-                    $nuevaCantidad = $producto->getCantidad() - $cantidad;
-                    $producto->setCantidad($nuevaCantidad);
-                    $producto->guarda();             
-                    
-                } else {
-                    // No hay suficiente cantidad del producto en el stock
-                    echo "No hay suficiente cantidad disponible del producto '{$producto->getNombre()}' en el stock.";
-                }
+        if ($producto) {
+            if ($producto->getCantidad() >= $cantidad) {
+                $nuevaCantidad = $producto->getCantidad() - $cantidad;
+                $producto->setCantidad($nuevaCantidad);
+                $producto->guarda();             
+                
             } else {
-                // Producto no encontrado
-                echo "Producto no encontrado en la base de datos.";
+                // No hay suficiente cantidad del producto en el stock
+                echo "No hay suficiente cantidad disponible del producto '{$producto->getNombre()}' en el stock.";
             }
+        } else {
+            // Producto no encontrado
+            echo "Producto no encontrado en la base de datos.";
         }
     }
+    
     $pedido = Pedido::buscaPorId($idPedido);
     $pedido->setEstado("comprado");
     $pedido->guarda();

@@ -740,3 +740,165 @@ nav li:last-child {
     text-decoration: none; /* Sin subrayado */
 }
 
+.botonValorar {
+    margin-left: 10px; /* Agregar margen izquierdo para separar del enlace "Ir a la página" */
+}
+/* Estilos para las estrellas */
+.estrella {
+    font-size: 90px; /* Tamaño de fuente grande para las estrellas */
+    cursor: pointer; /* Cambia el cursor al pasar sobre las estrellas */
+}
+
+/* Estilo para las estrellas seleccionadas (amarillas) */
+.estrella.seleccionada {
+    color: yellow; /* Cambia el color de la estrella seleccionada a amarillo */
+}
+#comentario {
+    border: 2px solid #FF1493; /* Borde rosa de 2px */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    width: 100%; /* Ancho del input al 100% */
+    background-color: #d2abeb; /* Color de fondo azul cian */
+    margin-top: 10px; /* Margen superior */
+    margin-bottom: 10px; /* Margen inferior */
+    color: #333; /* Color del texto */
+    font-size: 16px; /* Tamaño de fuente */
+    resize: none; /* Evita que el usuario pueda cambiar el tamaño del textarea */
+}
+#formulario-valoracion button[type="submit"] {
+    background-color: #e160a5cd; /* Color de fondo rosa */
+    border: 2px solid #FF1493; /* Borde rosa de 2px */
+    border-radius: 8px; /* Bordes redondeados *
+    color: white; /* Color del texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+   
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de fuente */
+    text-decoration: none; /* Sin subrayado */
+}
+
+#formulario-valoracion button[type="submit"]:hover {
+    background-color: #ff69b478; /* Cambio de color de fondo al pasar el ratón */
+}
+.formulario-container-val {
+    border: 2px solid #fff; /* Borde blanco */
+    padding: 20px; /* Espaciado interior */
+    background-color: #f0f0f0; /* Fondo gris claro */
+    margin-left: -80px; /* Margen izquierdo automático */
+    margin-right:  80px; /* Margen derecho automático */
+}
+
+.valoracionRealizada {
+    background-color: #60e187cd; /* Color de fondo rosa */
+    border: 2px solid #ff6e14; /* Borde rosa de 2px */
+    border-radius: 8px; /* Bordes redondeados */
+    color: white; /* Color del texto blanco */
+    padding: 5px 10px; /* Espaciado interno */
+    margin-right: 5px; /* Margen derecho */
+    display: inline-block; /* Mostrar en línea */
+}
+
+.valoracion {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: rgba(153, 177, 220, 0.467); /* Color de fondo rosa */
+    border: 2px solid #ff6e14; /* Borde rosa de 2px */
+    align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+}
+
+
+
+
+
+.estrellas_val {
+    float: right; /* Hace que las estrellas se alineen a la derecha */
+    
+}
+
+
+/* Estilos para el nombre del autor */
+.autor_val {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+/* Estilos para el contenido de la valoración */
+.contenido_val {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: rgba(131, 159, 203, 0.467); /* Color de fondo rosa */
+    border: none; /* Borde rosa de 2px */
+}
+
+.contenedor-principal {
+    display: flex;
+}
+.producto_val {
+    width: auto; /* Ancho automático */
+    max-width: 100%; /* Ancho máximo de 250px */
+    height: auto; /* Altura automática */
+    margin-right: 20px; /* Margen derecho de 20px */
+}
+/* Estilos para los productos en el carrito */
+.producto_val {
+    border: 2px solid #ccc; /* Borde de 2px sólido gris */
+    border-radius: 10px; /* Bordes redondeados de 10px */
+    padding: 10px; /* Espacio interno de 10px */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    margin-bottom: 20px;
+    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    display: block; /* Hace que el texto aparezca debajo de todo el contenido */
+
+}
+.barra-lateral {
+    width: 80%; /* Ancho deseado de la barra lateral */
+    background-color: #f0f0f0; /* Color de fondo de la barra lateral */
+    padding: 20px; /* Espaciado interno */
+}
+
+.contenido {
+    flex: 1; /* El contenido principal ocupa el espacio restante */
+    padding: 20px; /* Espaciado interno */
+}
+/* Estilo para el contenedor de las valoraciones */
+.valoraciones-container {
+    overflow-y: auto !important;
+    max-height: 300px; /* Altura máxima del contenedor para que aparezca la barra de desplazamiento */
+    border: 1px solid #ccc; /* Borde para el contenedor */
+    padding-right: 20px; /* Ajusta el espacio para evitar solapamiento con la barra de desplazamiento */
+}
+
+/* Estilo para las valoraciones */
+.valoracion {
+    padding: 10px; /* Espaciado interior de las valoraciones */
+    border-bottom: 1px solid #ccc; /* Borde inferior para separar las valoraciones */
+}
+
+/* Estilo para la barra de desplazamiento */
+.valoraciones-container::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo para el riel de la barra de desplazamiento */
+.valoraciones-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del riel */
+}
+
+/* Estilo para el pulgar de la barra de desplazamiento */
+.valoraciones-container::-webkit-scrollbar-thumb {
+    background: #888; /* Color del pulgar */
+    border-radius: 5px; /* Borde redondeado para el pulgar */
+}
+
+/* Cambiar el color del pulgar cuando se pasa sobre él */
+.valoraciones-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Nuevo color del pulgar al pasar el ratón */
+}

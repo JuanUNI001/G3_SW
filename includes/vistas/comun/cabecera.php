@@ -42,14 +42,9 @@ function mostrarInfoUsuario() {
     if (!$app->usuarioLogueado())  {
         $avatar = (RUTA_IMGS . 'images/avatarPorDefecto.png');
         // Si el usuario no está logueado, muestra la foto por defecto
-        echo "<div class='info-usuario'>";
-        echo "<div class='dropdown'>";
-        echo "<div class='avatar-container' style='height: 60px;'>"; // Contenedor con altura fija
+        
         echo "<img src='{$avatar}' alt='Avatar' class='avatar-dropdown'>";
-        echo "</div>";
-        echo "<ul class='dropdown-content'>";
-        echo "<img src='{$avatar}' alt='Avatar' width='60' height='60' class='avatar-dropdown'>";
-        echo "</ul></div></div>";
+        
     } else {
         $correo_usuario = $_SESSION['correo'];
         $usuario = Usuario::buscaUsuario($correo_usuario);

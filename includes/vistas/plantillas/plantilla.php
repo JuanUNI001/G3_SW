@@ -13,10 +13,13 @@ $mensajes = mensajesPeticionAnterior();
 <head>
 	<meta charset="UTF-8">
     <title><?= $params['tituloPagina'] ?></title>
+	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/imagenes.css') ?>" /></head>
 	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" /></head>
 	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/formulario.css') ?>" /></head>
 	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/conversacion.css') ?>" /></head>
 	<link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/usuarios.css') ?>" /></head>
+	<script type="text/javascript" src="<?= $params['app']->resuelve('/js/jquery-3.7.1.min.js') ?>"></script>
+    <script type="text/javascript" src="<?= $params['app']->resuelve('/js/valoraciones.js') ?>"></script>
 <body>
 <?= $mensajes ?>
 <div id="contenedor">

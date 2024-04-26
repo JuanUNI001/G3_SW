@@ -39,6 +39,15 @@
     background: linear-gradient(to bottom right, #5d9cd7, #FF69B4); /* Fondo verde degradado a rosa */
     padding: 10px; /* Espacio alrededor de la imagen */
 }
+.valoracion_imagen {
+    max-width: 150px; /* La imagen ocupará como máximo el 100% del ancho del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+    display: block; /* Evita espacio adicional debajo de la imagen */
+    margin-bottom: 10px; /* Añade un espacio adicional debajo de la imagen */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd7, #FF69B4); /* Fondo verde degradado a rosa */
+    padding: 10px; /* Espacio alrededor de la imagen */
+}
 /* Estilos para la imagen del producto en el carrito */
 .producto_caracteristica {
     width: auto; /* Ancho automático */
@@ -48,6 +57,26 @@
 }
 /* Estilos para los productos en el carrito */
 .producto_caracteristica {
+    border: 2px solid #ccc; /* Borde de 2px sólido gris */
+    border-radius: 10px; /* Bordes redondeados de 10px */
+    padding: 10px; /* Espacio interno de 10px */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    margin-bottom: 20px;
+    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
+    background-color: white; /* Fondo blanco */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    display: block; /* Hace que el texto aparezca debajo de todo el contenido */
+
+}
+.producto_valoracion {
+    width: auto; /* Ancho automático */
+    max-width: 100%; /* Ancho máximo de 250px */
+    height: auto; /* Altura automática */
+    margin-right: 20px; /* Margen derecho de 20px */
+}
+/* Estilos para los productos en el carrito */
+.producto_valoracion {
     border: 2px solid #ccc; /* Borde de 2px sólido gris */
     border-radius: 10px; /* Bordes redondeados de 10px */
     padding: 10px; /* Espacio interno de 10px */
@@ -165,6 +194,7 @@
     color: orange; /* Color de las estrellas */
     font-size: 20px; /* Tamaño de las estrellas */
 }
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;

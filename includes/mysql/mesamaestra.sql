@@ -478,6 +478,39 @@ ALTER TABLE `inscritos`
   ADD PRIMARY KEY (`idEvento`,`idUsuario`);
 COMMIT;
 
+
+
+--
+-- Estructura de tabla para la tabla `valoraciones`
+--
+
+CREATE TABLE `valoraciones` (
+  `id_user` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `valoracion` float NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `valoraciones`
+--
+
+INSERT INTO `valoraciones` (`id_user`, `id_producto`, `valoracion`, `comentario`) VALUES
+(32, 1, 1, 'un asco de juego\r\n'),
+(61, 1, 4, 'Un juego muy divertido'),
+(63, 1, 5, 'Increíble, el mejor juego del mundo');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `valoraciones`
+--
+ALTER TABLE `valoraciones`
+  ADD PRIMARY KEY (`id_user`,`id_producto`),
+  ADD UNIQUE KEY `unique_id_usuario` (`id_user`,`id_producto`) USING BTREE;
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

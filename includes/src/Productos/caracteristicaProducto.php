@@ -2,15 +2,11 @@
     // Incluye los archivos necesarios
     require_once __DIR__.'/../../config.php';
     use \es\ucm\fdi\aw\src\Productos\Producto;
+    
     use \es\ucm\fdi\aw\src\BD;
-    // Define el título de la página
     $tituloPagina = 'Características Producto';
 
-    // Incluye el CSS necesario
-    $rutaCSS = resuelve('/css/imagenes.css');
-
-// Imprimir la etiqueta link con la ruta al archivo CSS
-    echo '<link rel="stylesheet" type="text/css" href="' . $rutaCSS . '">';
+    require_once __DIR__.'/../Valoraciones/listaValoraciones.php';
 
     // Verifica si se ha proporcionado un ID de producto
     if(isset($_GET['id_producto'])) {
@@ -36,7 +32,7 @@
                     </div>
                 </div>
                 <p><strong>Precio:</strong> {$producto->getPrecio()} €</p>
-                <!-- Resto de tu contenido -->
+                
             EOF;
         
             for ($i = 1; $i <= 5; $i++) {
@@ -76,7 +72,7 @@
                     </form>
                 HTML;
             }
-
+            
 
             if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
                 $editarProductoRuta=resuelve('EditorProductoView.php');
@@ -92,6 +88,11 @@
             }
             $contenidoPrincipal .= "</div>";
 
+            $contenidoPrincipal .=listarValoraciones($id_producto);
+          
+
+
+            
         } else {
             $contenidoPrincipal = 'Producto no encontrado.';
         }

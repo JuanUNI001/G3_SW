@@ -77,3 +77,8 @@ INSERT INTO `foros` (`id`, `titulo`,`descripcion`, `autor`) VALUES
 (2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia', 'jaime'),
 (3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar', 'Juan García');
 
+INSERT INTO `valoraciones` (`id_user`, `id_producto`, `valoracion`, `comentario`) VALUES
+(32, 1, 1, 'un asco de juego\r\n'),
+(61, 1, 4, 'Un juego muy divertido'),
+(63, 1, 5, 'Increíble, el mejor juego del mundo');
+

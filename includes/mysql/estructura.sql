@@ -316,3 +316,21 @@ CREATE TABLE `inscritos` (
 ALTER TABLE `inscritos`
   ADD PRIMARY KEY (`idEvento`,`idUsuario`);
 COMMIT;
+
+
+--
+-- Estructura de tabla para la tabla `valoraciones`
+--
+
+CREATE TABLE `valoraciones` (
+  `id_user` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `valoracion` float NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE `valoraciones`
+  ADD PRIMARY KEY (`id_user`,`id_producto`),
+  ADD UNIQUE KEY `unique_id_usuario` (`id_user`,`id_producto`) USING BTREE;
+COMMIT;
