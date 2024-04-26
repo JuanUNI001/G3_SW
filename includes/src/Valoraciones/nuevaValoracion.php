@@ -2,6 +2,7 @@
 require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Valoraciones\Valoracion;
 use \es\ucm\fdi\aw\src\Productos\Producto;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\BD;
 
 $app = BD::getInstance();
@@ -26,7 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nuevaValoracion = Valoracion::crea($id_usuario, $id_producto, $valoracion, $comentario);
     
     if ($nuevaValoracion->guarda()) {
-        $rutaDetalleProducto = resuelve('/includes/src/Pedidos/detalle_pedido.php');
+        $producto = Producto::buscaPorId($id_producto);
+        if ($producto) {
+            $producto->actualizarValoracion($valoracion);
+        }
+        $rutaDetalleProducto = resuelve('verPedidosAnteriores.php');
         header("Location: $rutaDetalleProducto");
         $mensajes = ['Producto valorado correctamente'];
         exit();

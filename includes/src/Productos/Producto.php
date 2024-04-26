@@ -359,17 +359,15 @@ class Producto
             $this->id
         );
     
-        try {
-            $result = $conn->query($query);
-            if ($result) {              
-                $this->valoracion = $nuevaValoracionPromedio;
-                $this->num_valoraciones = $nuevoNumValoraciones;
-            }
-        
-        } finally {
-          
+        $result = $conn->query($query);
+        if ($result) {              
+            $this->valoracion = $nuevaValoracionPromedio;
+            $this->num_valoraciones = $nuevoNumValoraciones;
         }
     }
+    
+    
+    
 
     public static function contarProductos()
     {
