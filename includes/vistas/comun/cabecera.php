@@ -84,11 +84,14 @@ if ($app->usuarioLogueado())  {
     $pedidoEnCarrito = Pedido::obtenerPedidosEnCarrito($idUser);
     if ($pedidoEnCarrito) {
         $productosEnCarrito = Pedidos_producto::buscaPorIdPedido_Producto($pedidoEnCarrito->getIdPedido());
+        
         // Calcula la cantidad total de productos en el carrito
-        foreach ($productosEnCarrito as $cantidad) {
-            $cantidadEnCarrito += $cantidad;
+        foreach ($productosEnCarrito as $producto) {
+            // Suma la cantidad de cada producto al total
+            $cantidadEnCarrito += $producto->getCantidad();
         }
     }
+    
 }
 ?>
 

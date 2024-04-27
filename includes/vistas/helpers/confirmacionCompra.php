@@ -33,8 +33,11 @@ if ($ultimoPedido) {
 
     // Lista de productos
     $contenidoPrincipal .= "<ul class='lista_productos'>";
-    foreach ($detallesProductos as $idProducto => $cantidad) {
+    foreach ($detallesProductos as $pedido_producto) {
+        $idProducto = $pedido_producto->getIdProducto();
+        $cantidad = $pedido_producto->getCantidad();
         $producto = Producto::buscaPorId($idProducto);
+        
         if ($producto) {
             $nombreProducto = $producto->getNombre();
             $imagenProducto = RUTA_IMGS . $producto->getImagen();
@@ -53,10 +56,10 @@ if ($ultimoPedido) {
                 </div>
             </div>
         EOF;
-        
         }
     }
-    
+
+        
     $contenidoPrincipal .= "</ul>";
 
     // Precio total de la compra

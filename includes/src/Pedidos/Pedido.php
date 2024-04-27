@@ -526,12 +526,19 @@ class Pedido
         // Obtener todos los productos asociados a un pedido
         $productos_pedido = Pedidos_producto::buscaPorIdPedido_Producto($id_pedido);
 
-        foreach ($productos_pedido as $id_producto => $cantidad) {
+        foreach ($productos_pedido as $pedido_producto) {
+            // Obtener el ID del producto y la cantidad
+            $id_producto = $pedido_producto->getId_producto_pedido();
+            $cantidad = $pedido_producto->getCantidad();
+            
+            // Agregar el ID del producto y la cantidad al array de productos
             $productos[$id_producto] = $cantidad;
         }
 
         return $productos;
     }
+
+
 
     
     

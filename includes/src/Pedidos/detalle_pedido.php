@@ -6,9 +6,6 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 use \es\ucm\fdi\aw\src\Valoraciones\Valoracion;
 
-
-echo '<link rel="stylesheet" type="text/css" href="../../../css/imagenes.css">';
-
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     $dir = resuelve('/login.php');
     header("Location: $dir");
@@ -54,18 +51,19 @@ if ($detallesProductos) {
 
     
 
-    foreach ($detallesProductos as $idProducto => $cantidad) {
-        $valoracionRealizada = Valoracion::comrpuebaExisteValoracion($id_usuario, $idProducto);
+    foreach ($detallesProductos as $pedido_producto) {
+        $producto = Producto::buscaPorId($pedido_producto->getId_producto_pedido());
+        $cantidad = $pedido_producto->getCantidad();
+        $valoracionRealizada = Valoracion::comrpuebaExisteValoracion($id_usuario, $pedido_producto->getId_producto_pedido());
         $enlacesValoracion = '';
         if (!$valoracionRealizada) {
-            $rutaValoracion = resuelve('includes/src/Valoraciones/newValoracion.php?id_producto=' . $idProducto);
+            $rutaValoracion = resuelve('includes/src/Valoraciones/newValoracion.php?id_producto=' . $pedido_producto->getId_producto_pedido());
             $enlaceValorar = '<a href="' . $rutaValoracion . '" class="botonPedido botonValorar">Valorar</a>';
         } else {
             // Si ya se ha realizado una valoración, mostrar un mensaje indicándolo
             $enlaceValorar = '<span class="valoracionRealizada">Valoración realizada</span>';
         }
-        $enlacesValoracion .= $enlaceValoracion . '<br>'; // Agregar el enlace a la lista
-        $producto = Producto::buscaPorId($idProducto);
+        $enlacesValoracion .= $enlaceValorar . '<br>'; // Agregar el enlace a la lista
         if ($producto) {
             $imagenPath = RUTA_IMGS . $producto->getImagen();
             $precioProducto = $producto->getPrecio();
