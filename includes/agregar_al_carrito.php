@@ -8,7 +8,7 @@ use \es\ucm\fdi\aw\src\Productos\Producto;
 use es\ucm\fdi\aw\src\BD;
 $app = BD::getInstance();
 
-if ($app->usuarioLogueado())  {
+if (!$app->usuarioLogueado())  {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();
