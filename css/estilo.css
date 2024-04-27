@@ -939,13 +939,13 @@ nav li:last-child {
 
 
 .producto_info_compra p {
-    font-size: 28px; /* Tamaño de letra del precio del producto */
+    font-size: 18px; /* Tamaño de letra del precio del producto */
 } 
 /* Estilos para el precio del producto */
 .producto_precio {
     margin-top: 10px; /* Espacio en la parte superior */
     text-align: left; /* Alinea el texto a la izquierda */
-    font-size: 20px; 
+    font-size: 15px; 
 }
 
 
