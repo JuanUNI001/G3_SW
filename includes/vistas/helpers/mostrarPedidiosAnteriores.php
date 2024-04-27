@@ -19,7 +19,6 @@ $correo_usuario = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
 
-// Obtener los pedidos anteriores del usuario con estado "comprado"
 $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
