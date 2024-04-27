@@ -6,9 +6,9 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 use es\ucm\fdi\aw\src\BD;
-// Verifica si el usuario ha iniciado sesión
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    // Redirige al usuario a la página de inicio de sesión
+$app = BD::getInstance();
+
+if ($app->usuarioLogueado())  {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();

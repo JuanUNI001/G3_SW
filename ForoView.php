@@ -10,40 +10,7 @@ use \es\ucm\fdi\aw\src\Foros\Foro;
 use es\ucm\fdi\aw\src\BD;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 ?>
-
-
 <?php
-$id_foro = $_GET['id_foro'];
-
-$foro = getForo($id_foro);
-
-$foroView = visualizaForo($foro);
-
-$usuario = Usuario::buscaUsuario($_SESSION['correo']);
-$idEmisor = $usuario->getId();
-$mensajesView = visualizaMensajes($idEmisor, $id_foro, $idEmisor);
-
-$rutaChat = resuelve('/ForoView.php');
-$form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajeForo("$rutaChat?id_foro=$id_foro",$id_foro);
-
-$form->idEmisor = $usuario->getId();
-//$form->idForo = $_POST['id_foro'];
-
-$htmlFormLogin = $form->gestiona();
-
-$tituloPagina = 'Conversacion Foro';
-$contenidoPrincipal=<<<EOF
-  	<h1>Conversacion Foro</h1>
-    $foroView
-    $mensajesView
-    $htmlFormLogin
-EOF;
-
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Conversacion en Foro'];
-$app->generaVista('/plantillas/plantilla.php', $params);
-
-
-
 function visualizaMensajes($idEmisor,$idForo, $viewPoint)
 {
     $mensajes = Mensaje::GetMensajesInForoChat($idForo);
@@ -118,6 +85,43 @@ function getForo($idForo)
     }
     return null;
 }
+
+?>
+
+<?php
+$id_foro = $_GET['id_foro'];
+
+$foro = getForo($id_foro);
+
+$foroView = visualizaForo($foro);
+$app = BD::getInstance();
+
+if ($app->usuarioLogueado())  {
+    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
+    $idEmisor = $usuario->getId();
+    $mensajesView = visualizaMensajes($idEmisor, $id_foro, $idEmisor);
+
+    $rutaChat = resuelve('/ForoView.php');
+    $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajeForo("$rutaChat?id_foro=$id_foro",$id_foro);
+
+    $form->idEmisor = $usuario->getId();
+    //$form->idForo = $_POST['id_foro'];
+
+    $htmlFormLogin = $form->gestiona();
+
+    $tituloPagina = 'Conversacion Foro';
+    $contenidoPrincipal=<<<EOF
+        <h1>Conversacion Foro</h1>
+        $foroView
+        $mensajesView
+        $htmlFormLogin
+    EOF;
+}
+    $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Conversacion en Foro'];
+    $app->generaVista('/plantillas/plantilla.php', $params);
+
+
+
 
 
   ?>

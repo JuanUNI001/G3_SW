@@ -43,7 +43,7 @@ if ($ultimoPedido) {
             // Agregar cada detalle del producto como un ítem de lista
             $contenidoPrincipal .= <<<EOF
             <div class='producto_compra_'>
-                <div class='producto_info'>
+                <div class='producto_info_compra'>
                     <p>$nombreProducto</p> <br>
                     <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' width='100'><br>
                     <div class='producto_precio'>

@@ -938,7 +938,7 @@ nav li:last-child {
 }
 
 
-.producto_info p {
+.producto_info_compra p {
     font-size: 28px; /* Tamaño de letra del precio del producto */
 } 
 /* Estilos para el precio del producto */
