@@ -62,7 +62,6 @@ function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
-    
    
 
     $app = BD::getInstance();
@@ -89,11 +88,14 @@ function visualizaUsuario($Usuario) {
                 <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
                 <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                 <div id="corazon_$id" class="corazon $corazonClase" style="font-size: 24px; cursor: pointer;" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
-                <div>
-                    <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
-                </div>
+                <form action="{$rutaChat}" method="post">
+                    <input type="hidden" name="id" value="{$id}">
+                    <button type="submit" class="button-like-link">Contactar</button>
+                </form>
             </div>
         </div>
+
+
         <script>
         //https://stackoverflow.com/questions/9713058/send-post-data-using-xmlhttprequest
         // Función para cambiar el estado del corazón y agregar/eliminar la relación de seguimiento

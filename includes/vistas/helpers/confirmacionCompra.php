@@ -5,14 +5,17 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
+
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();
 }
-$tituloPagina = 'Compra';
-$correo_usuario = $_SESSION['correo'];
 
+$tituloPagina = 'Compra';
+$contenidoPrincipal = "";
+
+$correo_usuario = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
 
@@ -22,27 +25,53 @@ $ultimoPedido = Pedido::getUltimoPedidoUsuario($id_usuario);
 // Verificar si se encontró el último pedido
 if ($ultimoPedido) {
     // Mostrar mensaje de confirmación de compra
-    $mensajeConfirmacion = "¡Compra realizada con éxito!";
+    $contenidoPrincipal .= "<div class='producto_compra'>";
+    $contenidoPrincipal .= "<h1>¡Compra realizada con éxito!</h1>";
 
     $detallesProductos = Pedidos_producto::buscaPorIdPedido_Producto($ultimoPedido->getIdPedido());
+    $contenidoPrincipal .= "<h3>Detalles de los productos comprados:</h3>";
 
-    $listaProductos = '<ul>';
-    foreach ($detallesProductos as $idProducto => $cantidad) {
-        $producto = Producto::buscaPorId($idProducto); // Suponiendo que tienes una clase Producto y un método buscaPorId para obtener el nombre del producto
+    // Lista de productos
+    $contenidoPrincipal .= "<ul class='lista_productos'>";
+    foreach ($detallesProductos as $pedido_producto) {
+        $idProducto = $pedido_producto->getIdProducto();
+        $cantidad = $pedido_producto->getCantidad();
+        $producto = Producto::buscaPorId($idProducto);
+        
         if ($producto) {
             $nombreProducto = $producto->getNombre();
-            $listaProductos .= "<li>$nombreProducto -> Cantidad: $cantidad</li>";
+            $imagenProducto = RUTA_IMGS . $producto->getImagen();
+            $precioProducto = $producto->getPrecio();
+            
+            // Agregar cada detalle del producto como un ítem de lista
+            $contenidoPrincipal .= <<<EOF
+            <div class='producto_compra_'>
+                <div class='producto_info_compra'>
+                    <p>$nombreProducto</p> <br>
+                    <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' width='100'><br>
+                    <div class='producto_precio'>
+                        <strong>Precio:</strong> $precioProducto € <br>
+                        <strong>Cantidad:</strong> $cantidad <br>
+                    </div>
+                </div>
+            </div>
+        EOF;
         }
     }
-    $listaProductos .= '</ul>';
 
-    // Agregar la lista de productos comprados al mensaje de confirmación
-    $mensajeConfirmacion .= "<h3>Detalles de los productos comprados:</h3>$listaProductos";
+        
+    $contenidoPrincipal .= "</ul>";
+
+    // Precio total de la compra
+    $precioTotal = $ultimoPedido->getPrecioTotal();
+    $contenidoPrincipal .= "<p><strong>Precio total de la compra:</strong> $precioTotal €</p>";
+
+    $contenidoPrincipal .= "</div>";
 
 } else {
-    $mensajeConfirmacion = "No se encontraron pedidos para mostrar detalles.";
+    $contenidoPrincipal = "<p>No se encontraron pedidos para mostrar detalles.</p>";
 }
-$contenidoPrincipal = $mensajeConfirmacion ;
+
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

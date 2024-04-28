@@ -103,27 +103,31 @@ class Pedidos_producto
 
     public static function buscaPorIdPedido_Producto($id_pedido)
     {
-        $result[] = null;
-    
+        $result = array();
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT id_producto, cantidad FROM pedidos_productos P WHERE P.id_pedido = %d;', $id_pedido); 
+        $query = sprintf('SELECT id_producto, cantidad FROM pedidos_productos WHERE id_pedido = %d', $id_pedido);
+        
         $rs = null;
-        try{
+        
+        try {
             $rs = $conn->query($query);
-           while($fila = $rs->fetch_assoc()){
-
-                $id_prod = $fila['id_producto'];
-                $cant = $fila['cantidad'];
-                $result[$id_prod] = $cant;
-           }
-        }
-        finally {
-            if ($rs != null) {
+            
+            while ($fila = $rs->fetch_assoc()) {
+                // Crear una nueva instancia de Pedidos_producto con los datos de la fila
+                $pedido_producto = Pedidos_producto::crea($id_pedido, $fila['id_producto'], $fila['cantidad']);
+                
+                // Agregar la instancia al array de resultados
+                $result[] = $pedido_producto;
+            }
+        } finally {
+            if ($rs !== null) {
                 $rs->free();
             }
         }
+        
         return $result;
     }
+    
     public static function buscaPorIdPedidoProducto($id_pedido, $id_producto)
     {
         $result = null;

@@ -42,7 +42,9 @@ function mostrarInfoUsuario() {
     if (!$app->usuarioLogueado())  {
         $avatar = (RUTA_IMGS . 'images/avatarPorDefecto.png');
         // Si el usuario no está logueado, muestra la foto por defecto
-        echo "<img src='{$avatar}' alt='Avatar por defecto' width='60' height='60'>";
+        
+        echo "<img src='{$avatar}' alt='Avatar' class='avatar-dropdown'>";
+        
     } else {
         $correo_usuario = $_SESSION['correo'];
         $usuario = Usuario::buscaUsuario($correo_usuario);
@@ -50,21 +52,50 @@ function mostrarInfoUsuario() {
 
         echo "<div class='info-usuario'>";
         echo "<div class='dropdown'>";
-        echo "<img src='{$avatar}' alt='Avatar de {$usuario->getNombre()}' width='60' height='60' class='avatar-dropdown'>";
+        echo "<div class='avatar-container' style='height: 60px;'>"; // Contenedor con altura fija
+        echo "<img src='{$avatar}' alt='Avatar de {$usuario->getNombre()}' class='avatar-dropdown'>";
+        echo "</div>";
         echo "<ul class='dropdown-content'>";
         echo "<li><a href='" . resuelve('/verPerfil.php') . "'>Ver mi cuenta</a></li>";
         echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
         echo "<li><a href='" . resuelve('/verEventosInscritos.php') . "'>Eventos Inscritos</a></li>";
-        echo "<li><a href='" . resuelve('/includes/carrito_usuario.php') . "'>Carrito</a></li>"; // Enlace al carrito
         echo "<li><a href='" . resuelve('/seguidos.php') . "'>Follows</a></li>"; // Enlace al carrito
         echo "</ul></div></div>";
     }
 }
 
 ?>
+<?php
+// Importa las clases necesarias
+use es\ucm\fdi\aw\src\Pedidos\Pedido;
+use es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 
+// Suponiendo que $cantidadEnCarrito contiene la cantidad de elementos en el carrito
+$cantidadEnCarrito = 0; // Aquí debes asignar el valor adecuado
 
-<header style="background-image: url('<?php echo resuelve("images/background.png"); ?>'); background-repeat: no-repeat; background-position: center; background-size: cover;">
+$app = BD::getInstance();
+
+if ($app->usuarioLogueado())  {
+    $correo_usuario = $_SESSION['correo'];
+
+    $usuario = Usuario::buscaUsuario($correo_usuario);
+    $idUser = $usuario->getId();
+
+    $pedidoEnCarrito = Pedido::obtenerPedidosEnCarrito($idUser);
+    if ($pedidoEnCarrito) {
+        $productosEnCarrito = Pedidos_producto::buscaPorIdPedido_Producto($pedidoEnCarrito->getIdPedido());
+        
+        // Calcula la cantidad total de productos en el carrito
+        foreach ($productosEnCarrito as $producto) {
+            // Suma la cantidad de cada producto al total
+            $cantidadEnCarrito += $producto->getCantidad();
+        }
+    }
+    
+}
+?>
+
+<header style="background-image: url('<?php echo resuelve("images/background.png"); ?>');">
     <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
 
     <div class="saludo">
@@ -79,12 +110,26 @@ function mostrarInfoUsuario() {
             <li><a href="<?= RUTA_APP?>/eventos.php"class="sideBarDerButton">Eventos</a></li>
             <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Profesores</a></li>
             <li><a href="<?= RUTA_APP?>/usuariosView.php"class="sideBarDerButton">Usuarios</a></li>
-            <li><a href="<?= RUTA_APP?>/Conversaciones.php"class="sideBarDerButton">Mensajes</a></li>
+            <li>
+            <div class="carrito">
+                <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
+
+                <a href="<?= RUTA_APP?>/includes/carrito_usuario.php" class="sideBarDerButton cart-icon">
+                    <span class="cart-count"><?= $cantidadEnCarrito ?></span>
+                    &#x1F6D2;
+                </a>
+
+            </div>
+        </li>
         </ul>
+        
     </nav>
+    
+
+
     <div class="info-usuario">
         <?= mostrarInfoUsuario(); ?>
     </div>
-
+   
 
 </header>

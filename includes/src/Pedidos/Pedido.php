@@ -70,7 +70,7 @@ class Pedido
         $this->estado = $nuevoEstado;
     }
     public function setPrecioTotal($nuevoPrecio){
-        $this->total = $nuevoPrecio;
+        $this->total += $nuevoPrecio;
     }
     
     
@@ -394,8 +394,8 @@ class Pedido
             }
         }
 
-        // Actualiza el precio total del pedido
-        if (!self::actualizarPrecioTotalPedido($this->id_pedido, $this->total)) {
+        
+        if (!self::actualizarPrecio($this->id_pedido, $this->total)) {
             // Manejar el caso en el que la actualización del precio total falla
             return false;
         }
@@ -425,13 +425,27 @@ class Pedido
     
         return $result;
     }
-    
+    public static function actualizarPrecio($idPedido, $ajustePrecioTotal)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Actualizar el precio total del pedido en la tabla 'pedidos'
+        $query = sprintf("UPDATE pedidos SET total = %f WHERE id_pedido = %d", $ajustePrecioTotal, $idPedido);
+        $result = $conn->query($query);
+        
+        if (!$result) {
+            error_log($conn->error);
+            return false; // Error al ejecutar la consulta
+        }
+        
+        return true; // Éxito al actualizar el precio total del pedido
+    }
     public static function actualizarPrecioTotalPedido($idPedido, $ajustePrecioTotal)
     {
         $conn = BD::getInstance()->getConexionBd();
         
         // Actualizar el precio total del pedido en la tabla 'pedidos'
-        $query = sprintf("UPDATE pedidos SET total = total + %f WHERE id_pedido = %d", $ajustePrecioTotal, $idPedido);
+        $query = sprintf("UPDATE pedidos SET total =  total +%f WHERE id_pedido = %d", $ajustePrecioTotal, $idPedido);
         $result = $conn->query($query);
         
         if (!$result) {
@@ -480,6 +494,52 @@ class Pedido
 
         return $result;
     }
+    public static function obtenerPedidosEnCarrito()
+    {
+        $pedido = null;
+    
+        // Obtener el pedido con estado "carrito"
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT id_pedido, id_user, estado, fecha, total FROM pedidos WHERE estado = 'carrito' LIMIT 1";
+        $result = $conn->query($query);
+    
+        if ($result && $result->num_rows > 0) {
+            $fila = $result->fetch_assoc();
+            $pedido = new Pedido(
+                $fila['id_pedido'],
+                $fila['id_user'],
+                $fila['estado'],
+                $fila['fecha'],
+                $fila['total']
+            );
+            $result->free();
+        }
+    
+        return $pedido;
+    }
+    
+
+    public static function obtenerProductosPorPedido($id_pedido)
+    {
+        $productos = array();
+
+        // Obtener todos los productos asociados a un pedido
+        $productos_pedido = Pedidos_producto::buscaPorIdPedido_Producto($id_pedido);
+
+        foreach ($productos_pedido as $pedido_producto) {
+            // Obtener el ID del producto y la cantidad
+            $id_producto = $pedido_producto->getId_producto_pedido();
+            $cantidad = $pedido_producto->getCantidad();
+            
+            // Agregar el ID del producto y la cantidad al array de productos
+            $productos[$id_producto] = $cantidad;
+        }
+
+        return $productos;
+    }
 
 
+
+    
+    
 }

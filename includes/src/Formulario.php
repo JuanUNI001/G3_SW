@@ -188,7 +188,7 @@ abstract class Formulario
     {
         $datos = &$_POST;
         if (strcasecmp('GET', $this->method) == 0) {
-            $datos = &$_POST;
+            $datos = &$_GET;
         }
         $this->errores = [];
 

@@ -2,8 +2,7 @@
     use \es\ucm\fdi\aw\src\Foros\Foro;
     require_once 'includes/config.php';
     $tituloPagina = 'Chatea aprende y diviertete en los foros';
-    echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-    
+    use es\ucm\fdi\aw\src\BD;
 ?>
 <?php
 function listaForos()
@@ -34,28 +33,39 @@ function listarForosBusqueda($autor, $nombre,$orden)
 }
 function visualizaForo($foro) {
 
+    $app = BD::getInstance();
+    $usuarioLogueado = $app->usuarioLogueado();
+
     $rutaForo = resuelve('/ForoView.php');
     $idForo = $foro->getId();
-    $html = <<<HTML
+   
+    $rutaForo = resuelve('/ForoView.php');
+    $idForo = $foro->getId();
+    $html = <<<EOF
     <div class="foro">
         <div class="foro_info">
-            
-                <div class="foro_autor">
-                    <strong> {$foro->getAutor()}</strong>
-                </div>
-                <div class="foro_titulo">
-                    <strong>{$foro->getTitulo()}</strong> 
-                </div>
-            
+            <div class="foro_autor">
+                <strong>{$foro->getAutor()}</strong>
+            </div>
+            <div class="foro_titulo">
+            <strong>{$foro->getTitulo()}</strong> 
+            </div>
             <div class="foro_contenido">
                 Contenido del foro aquí...
             </div>
             <div>
-                <a href="$rutaForo?id_foro=$idForo" class="button-like-link">Ver</a>
+    EOF;
+    
+    // Display the "Ver" link only if the user is logged in
+    if ($usuarioLogueado) {
+        $html .= '<a href="' . $rutaForo . '?id_foro=' . $idForo . '" class="button-like-link">Ver</a>';
+    }
+    
+    $html .= <<<'EOF'
             </div>
         </div>
     </div>
-    HTML;
+    EOF;
     
     return $html;
     

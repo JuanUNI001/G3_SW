@@ -16,7 +16,7 @@ class Foro
 
     private $titulo;
 
-    private function __construct($id, $autor, $titulo, $descripcion)
+    private function __construct($id, $autor, $titulo, $descripcion = null)
     {
         $this->id =  intval($id) ;
         $this->autor = $autor;

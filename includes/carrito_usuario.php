@@ -3,7 +3,7 @@
 require_once __DIR__.'/config.php';
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Pedidos\Pedido;
-use \es\ucm\fdi\aw\src\Carrito\Carrito;
+
 use \es\ucm\fdi\aw\src\Productos\Producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
@@ -22,23 +22,24 @@ $correo_usuario = $_SESSION['correo'];
 
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
-
-$detallesCarrito = Carrito::obtenerDetallesCarrito();
-
 $contenidoPrincipal = "";
+$pedido = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
+if($pedido){
+    $idPedido = $pedido->getIdPedido();
+   
+    $productosPorPedido = Pedido::obtenerProductosPorPedido($idPedido);
 
-foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
-    
-    foreach ($productosPorPedido as $idProducto => $cantidad) {
         
+    foreach ($productosPorPedido as $idProducto => $cantidad) {
+            
         $producto = Producto::buscaPorId($idProducto);
 
-        // Verificar si se encontró el producto
+            // Verificar si se encontró el producto
         if ($producto) {
             $imagenPath = RUTA_IMGS . $producto->getImagen();
             $precioProducto = $producto->getPrecio();
             $precioTotal = $precioProducto * $cantidad;
-            $pedido = Pedido::buscaPorId($idPedido);
+            
             $total = $pedido->getPrecioTotal();
             
             // Construir el href con la URL proporcionada
@@ -69,14 +70,15 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
                         <p>{$producto->getPrecio()} €</p>
                         <div class="producto_detalle">
                             <!-- Formulario para actualizar la cantidad -->
-                            <div style="display: flex; align-items: center;">
-                                <span style="margin-right: 10px;margin-top: 80px">Cantidad:</span>
+                            <div style="display: flex; align-items: center; margin-top: 80px;">
+                                <span style="margin-right: 10px; margin-bottom: +15px;"">Cantidad:</span>
                                 <form id="$formActualizarId" action="$direccion_actualizar" method="post">
                                     <input type="hidden" name="idPedido" value="$idPedido">
                                     <input type="hidden" name="idProducto" value="$idProducto">
-                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" onchange="actualizarCantidad(this.value, '$formActualizarId')">
+                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
                                 </form>
                             </div>
+                            
                             <!-- Formulario para eliminar el producto -->
                             <form id="$formEliminarId" action="$direccion_eliminar" method="post">
                                 <input type="hidden" name="idPedido" value="$idPedido">
@@ -99,22 +101,18 @@ foreach ($detallesCarrito as $idPedido => $productosPorPedido) {
             EOF;
         } 
     }
-}
-
-
-$pedido_carrito = Pedido::buscarPedidoPorEstadoUsuario('carrito', $id_usuario);
-
-if ($pedido_carrito) {
-    $total = $pedido_carrito->getPrecioTotal();
+    $total = $pedido->getPrecioTotal();
     $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
-    <div>
-        <button onclick="location.href='{$rutaComprar}'" type="button">Comprar</button> Total compra: {$total} €
+    <div class="producto_carrito">
+        <button onclick="location.href='{$rutaComprar}'" type="button" class="botonCarrito">Comprar</button> Total compra: {$total} €
     </div>
     EOF;
-    
+
 }
 else{
+
+
     $contenidoPrincipal .= <<<EOF
     <div>
         <p>No tienes ningún artículo en la cesta :(</p>
