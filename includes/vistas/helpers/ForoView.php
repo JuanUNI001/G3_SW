@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/../../config.php';
 
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+
 
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Foros\Foro;
@@ -14,14 +14,15 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 function visualizaMensajes($idEmisor,$idForo, $viewPoint)
 {
     $mensajes = Mensaje::GetMensajesInForoChat($idForo);
-
-    $html = "<div class='chatPrivado'>";
+    $html = "<div class ='foro-container'>";
+    $html .= "<div class='chatPrivado'>";
     if($mensajes != null){
         foreach ($mensajes as $mensaje) {
             $html .= visualizaMensaje($mensaje, $viewPoint);
         }
     }
     
+    $html .= "</div>";
     $html .= "</div>";
     return $html;
 }
@@ -31,16 +32,17 @@ function visualizaMensaje($mensaje, $viewPoint)
 {
     $usuario = Usuario::buscaPorId($mensaje->getIdEmisor());
     $autor = $usuario->getNombre();
-    
+    $nombreAutor = $autor ? $autor : "Desconocido";
     // Determinar la clase CSS del mensaje según el viewPoint
     if ($viewPoint == $mensaje->getIdEmisor()) {
         $mensaje_class = 'conv-mensaje_emisor';
     } else {
         $mensaje_class = 'conv-mensaje_receptor';
     }
-    
+    //$fechaHora = $mensaje->getFechaYHora();
     $html = '<div class="conv-mensaje ' . $mensaje_class . '">';
-    $html .= '<div class="autor_mensaje">' . $autor . '</div>';
+    //$html .= '<div class="fecha_hora">' . $fechaHora . '</div>';
+    $html .= '<div class="autor_mensaje">' . $nombreAutor . '</div>';
     $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
     $html .= '</div>';
     
@@ -50,21 +52,24 @@ function visualizaMensaje($mensaje, $viewPoint)
 
 
 function visualizaForo($foro) {
-
+    
+    $autor_id = $foro->getAutor();
+    $autor = \es\ucm\fdi\aw\src\Usuarios\Usuario::buscaPorId($autor_id);
+    $nombreAutor = $autor ? $autor->getNombre() : "Desconocido";
     $html = <<<HTML
+   
+
     <div class="foro">
         <div class="foro_info">
 
                 <div class="foro_autor">
-                    <strong> {$foro->getAutor()}</strong>
+                    <strong> $nombreAutor</strong>
                 </div>
                 <div class="foro_titulo">
                     <strong>{$foro->getTitulo()}</strong> 
                 </div>
             </a>
-            <div class="foro_contenido">
-                Contenido del foro aquí...
-            </div>
+           
         </div>
     </div>
     HTML;
@@ -73,25 +78,14 @@ function visualizaForo($foro) {
     
   }
 
-function getForo($idForo)
-{
-    $foros = Foro::listarForos();
 
-    foreach ($foros as $foro) {
-        if($idForo == $foro->getId())
-        {
-            return $foro;
-        }
-    }
-    return null;
-}
 
 ?>
 
 <?php
 $id_foro = $_GET['id_foro'];
 
-$foro = getForo($id_foro);
+$foro = Foro::buscaForo($id_foro);
 
 $foroView = visualizaForo($foro);
 $app = BD::getInstance();
@@ -101,7 +95,7 @@ if ($app->usuarioLogueado())  {
     $idEmisor = $usuario->getId();
     $mensajesView = visualizaMensajes($idEmisor, $id_foro, $idEmisor);
 
-    $rutaChat = resuelve('/ForoView.php');
+    $rutaChat =resuelve('/includes/vistas/helpers/ForoView.php');
     $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajeForo("$rutaChat?id_foro=$id_foro",$id_foro);
 
     $form->idEmisor = $usuario->getId();
@@ -121,7 +115,4 @@ if ($app->usuarioLogueado())  {
     $app->generaVista('/plantillas/plantilla.php', $params);
 
 
-
-
-
-  ?>
+?>

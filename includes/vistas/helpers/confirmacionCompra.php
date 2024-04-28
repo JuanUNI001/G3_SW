@@ -34,7 +34,7 @@ if ($ultimoPedido) {
     // Lista de productos
     $contenidoPrincipal .= "<ul class='lista_productos'>";
     foreach ($detallesProductos as $pedido_producto) {
-        $idProducto = $pedido_producto->getIdProducto();
+        $idProducto = $pedido_producto->getId_producto_pedido();
         $cantidad = $pedido_producto->getCantidad();
         $producto = Producto::buscaPorId($idProducto);
         

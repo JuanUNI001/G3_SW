@@ -1,7 +1,7 @@
 <?php 
 namespace es\ucm\fdi\aw\src\Foros;
 use \es\ucm\fdi\aw\src\BD;
-
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 class Foro
 {
@@ -16,16 +16,17 @@ class Foro
 
     private $titulo;
 
-    private function __construct($id, $autor, $titulo, $descripcion = null)
+    private function __construct($id, $autor, $titulo, $descripcion )
     {
         $this->id =  intval($id) ;
-        $this->autor = $autor;
+        $this->autor = intval($autor);
         $this->titulo = $titulo;
+        $this->descripcion = $descripcion;
     }
 
-    public static function crea($id, $autor, $titulo)
+    public static function crea($id, $autor, $titulo,$descripcion)
     {
-        $m = new Foro($id, $autor, $titulo);
+        $m = new Foro($id, $autor, $titulo,$descripcion);
         return $m;
     }
 
@@ -43,7 +44,7 @@ class Foro
             while ($fila = $rs->fetch_assoc()) {
                 $foro = new Foro(
                     $fila['id'],
-                    $fila['autor'],
+                    $fila['autor_id'],
                     $fila['titulo'],
                     $fila['descripcion']
                 );
@@ -57,47 +58,72 @@ class Foro
     {
         $conn = BD::getInstance()->getConexionBd();
         
-        // Inicializar la consulta SQL con la parte común
         $query = "SELECT * FROM foros WHERE 1 = 1";
         
-        // Agregar filtros según los parámetros proporcionados
         if (!empty($autor)) {
-            $query .= " AND autor LIKE '%" . $conn->real_escape_string($autor) . "%'";
+            // Buscar usuario por nombre
+            $usuarios = Usuario::listarUsuariosBusquedaForo($autor, '', '', '');
+            $autorIds = array_map(function($usuario) {
+                return $usuario->getId();
+            }, $usuarios);
+            $autorIdsString = implode(',', $autorIds);
+            $query .= " AND autor_id IN ($autorIdsString)";
         }
         if (!empty($tema)) {
             $query .= " AND titulo LIKE '%" . $conn->real_escape_string($tema) . "%'";
         }
         
-        // Agregar filtro de ordenamiento si se proporciona
         switch ($orden) {
             case '1':
-                // Ordenar por autor
                 $query .= " ORDER BY autor ASC";
                 break;
             case '2':
-                // Ordenar por tema
                 $query .= " ORDER BY titulo ASC";
                 break;
             default:
-                // No hacer nada si el orden no es válido
                 break;
         }
-
-        // Ejecutar la consulta
+    
         $rs = $conn->query($query);
         $foros = array(); 
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
                 $foro = new Foro(
                     $fila['id'],      
-                    $fila['autor'],   
-                    $fila['titulo']
+                    $fila['autor_id'],   
+                    $fila['titulo'],
+                    $fila['descripcion']
                 );
                 $foros[] = $foro; 
             }
             $rs->free();
         }
         return $foros;
+    }
+    
+
+    public static function buscaForo($idForo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        $query = "SELECT * FROM foros WHERE id = " . $idForo;
+        
+        $rs = $conn->query($query);
+        $foro = null; 
+        if ($rs) {
+            $fila = $rs->fetch_assoc(); // Obtener la fila de resultados
+            // Verificar si se encontraron resultados
+            if ($fila) {
+                $foro = new Foro(
+                    $fila['id'],      
+                    $fila['autor_id'],   
+                    $fila['titulo'],
+                    $fila['descripcion']
+                );
+            }
+            $rs->free();
+        }
+        return $foro;
     }
 
     public function getId()
@@ -199,7 +225,7 @@ class Foro
             if ($fila) {
                 $result = new Foro(
                     $fila['id'],
-                    $fila['autor'],
+                    $fila['autor_id'],
                     $fila['titulo'],
                     $fila['descripcion']
                 );
@@ -228,7 +254,7 @@ class Foro
             while($fila) {
                 $result[] = new Foro(
                     $fila['id'],
-                    $fila['autor'],
+                    $fila['autor_id'],
                     $fila['titulo'],
                     $fila['descripcion']
                 );
@@ -265,9 +291,9 @@ class Foro
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "INSERT INTO foros (titulo, autor, descripcion) VALUES ('%s', '%s', '%s')",
+            "INSERT INTO foros (titulo, autor_id, descripcion) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($foro->getTitulo()),
-            $conn->real_escape_string($foro->getAutor()),
+            $conn->$foro->getAutor(),
             $conn->real_escape_string($foro->getDescripcion())
         );
 
@@ -286,9 +312,9 @@ class Foro
     
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE foros F SET titulo = '%s', autor = %s, descripcion = '%s' WHERE F.id = %d",
+            "UPDATE foros F SET titulo = '%s', autor_id = %s, descripcion = '%s' WHERE F.id = %d",
             $conn->real_escape_string($foro->titulo),
-            $conn->real_escape_string($foro->autor),
+            $conn->$foro->autor,
             $conn->real_escape_string($foro->getDescripcion())
         );
         $result = $conn->query($query);        

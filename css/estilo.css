@@ -499,36 +499,72 @@ nav li:last-child {
     background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
 }
 .foro {
-    margin-bottom: 50px;
+    margin: 10px; /* Márgenes entre los elementos foro */
+    border: 2px solid #4CAF50; /* Borde sólido con un tono de verde */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    background-color: #f0f8f0; /* Color de fondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_info {
-    background-color: #FFC0CB; /* Color de fondo rosa del recuadro del autor */
+    background-color: #d4ecd4; /* Color de fondo verde claro */
     border-radius: 20px; /* Esquinas redondeadas */
-    padding: 10px; /* Espaciado interno */
+    padding: 15px; /* Espaciado interno */
     margin-bottom: 20px; /* Espaciado inferior */
-    width: 90%; /* Ancho del contenedor */
-    margin: auto; /* Centrar el contenedor horizontalmente */
+    width: 95%; /* Ancho del contenedor */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_autor {
-    color: black; /* Color del texto */
+    color: #333; /* Color del texto gris oscuro */
     font-weight: bold; /* Texto en negrita */
     float: right; /* Alinear el autor a la derecha */
+    font-size: 20px; /* Tamaño de la letra */
 }
 
 .foro_titulo {
-    color: black; /* Color del texto */
+    color: #222; /* Color del texto gris */
     font-weight: bold; /* Texto en negrita */
     margin-left: 10px; /* Espacio a la izquierda del título */
     display: inline; /* Mostrar el título en línea con el autor */
     width: calc(100% - 100px); /* Ancho del título (ajustar según sea necesario) */
+    font-size: 26px; /* Tamaño de la letra */
 }
 
 .foro_descripcion {
-    background-color: #e5e5e5; /* Color de fondo del recuadro de la descripcion */
+    background-color: #e0ffe0; /* Color de fondo verde claro */
     border-radius: 10px; /* Esquinas redondeadas */
-    padding: 50px; /* Espaciado interno */
+    padding: 20px; /* Espaciado interno */
+    color: #666; /* Color del texto gris */
+}
+
+.foro-container {
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado inferior */
+    background-color: #ffffff00; /* Color de fondo blanco */
+    height: 60vh;
+    width: 95%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.button-foro {
+    display: inline-block;
+    background-color: #2a96b1; /* Color de fondo naranja */
+    color: white; /* Color del texto */
+    padding: 12px 24px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Eliminar subrayado */
+    border: none; /* Eliminar borde */
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    font-weight: bold; /* Texto en negrita */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.button-foro:hover {
+    background-color: #E64A19; /* Nuevo color de fondo al pasar el cursor */
 }
 
 
@@ -810,7 +846,9 @@ nav li:last-child {
 }
 
 
-
+.pedido-content {
+    margin-top: 10px; /* Espacio entre el encabezado y el contenido */
+}
 
 
 .estrellas_val {
@@ -947,5 +985,18 @@ nav li:last-child {
     text-align: left; /* Alinea el texto a la izquierda */
     font-size: 15px; 
 }
+
+
+.pedidos-container {
+    height: 100vh;
+    width: 180%;
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+    background-color: #f0f0f0; /* Color de fondo opcional */
+    overflow: auto; /* Agrega barras de desplazamiento cuando sea necesario */
+    padding-top: 20px; /* Agrega un espacio superior de 20px */
+}
+
 
 

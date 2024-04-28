@@ -55,7 +55,7 @@ if ($detallesProductos) {
         $producto = Producto::buscaPorId($pedido_producto->getId_producto_pedido());
         $cantidad = $pedido_producto->getCantidad();
         $valoracionRealizada = Valoracion::comrpuebaExisteValoracion($id_usuario, $pedido_producto->getId_producto_pedido());
-        $enlacesValoracion = '';
+       
         if (!$valoracionRealizada) {
             $rutaValoracion = resuelve('includes/src/Valoraciones/newValoracion.php?id_producto=' . $pedido_producto->getId_producto_pedido());
             $enlaceValorar = '<a href="' . $rutaValoracion . '" class="botonPedido botonValorar">Valorar</a>';
@@ -63,7 +63,7 @@ if ($detallesProductos) {
             // Si ya se ha realizado una valoración, mostrar un mensaje indicándolo
             $enlaceValorar = '<span class="valoracionRealizada">Valoración realizada</span>';
         }
-        $enlacesValoracion .= $enlaceValorar . '<br>'; // Agregar el enlace a la lista
+        
         if ($producto) {
             $imagenPath = RUTA_IMGS . $producto->getImagen();
             $precioProducto = $producto->getPrecio();
