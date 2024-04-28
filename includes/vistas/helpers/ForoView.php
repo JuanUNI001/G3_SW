@@ -3,9 +3,7 @@
 require_once __DIR__.'/../../config.php';
 
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/conversacion.css">';
 
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Foros\Foro;

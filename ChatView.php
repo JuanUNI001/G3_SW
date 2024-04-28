@@ -3,7 +3,6 @@
 require_once 'includes/config.php'; 
 
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;

@@ -6,7 +6,6 @@ use es\ucm\fdi\aw\src\BD;
 require_once 'includes/config.php';
 
 $tituloPagina = 'Lista de Usuarios';
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
 $contenidoPrincipal = listaAmigos();
 
 function listaAmigos()
