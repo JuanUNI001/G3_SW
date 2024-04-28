@@ -6,6 +6,8 @@ use es\ucm\fdi\aw\src\BD;
 echo '<link rel="stylesheet" type="text/css" href="../css/imagenes.css">';
 echo '<link rel="stylesheet" type="text/css" href="../css/conversacion.css">';
 echo '<link rel="stylesheet" type="text/css" href="../css/busqueda.css">';
+echo '<link rel="stylesheet" type="text/css" href="../css/formulario.css">';
+echo '<link rel="stylesheet" type="text/css" href="../css/usuarios.css">';
 $params['app']->doInclude('/vistas/helpers/plantilla.php');
 $mensajes = mensajesPeticionAnterior();
 

@@ -61,4 +61,13 @@
     overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
 }
 
-
+.eliminar-mensaje {
+    display: inline-block; /* Para que el formulario aparezca en línea */
+    margin-left: auto; /* Mueve el formulario hacia la derecha */
+    font-size: 18px;
+}
+.eliminar-foro {
+    display: inline-block; /* Para que el formulario aparezca en línea */
+    margin-left: auto; /* Mueve el formulario hacia la derecha */
+    font-size: 30px;
+}

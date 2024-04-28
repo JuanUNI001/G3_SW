@@ -18,7 +18,7 @@ function visualizaMensajes($idEmisor,$idForo, $viewPoint)
     $html .= "<div class='chatPrivado'>";
     if($mensajes != null){
         foreach ($mensajes as $mensaje) {
-            $html .= visualizaMensaje($mensaje, $viewPoint);
+            $html .= visualizaMensaje($mensaje, $viewPoint, $idForo);
         }
     }
     
@@ -28,27 +28,43 @@ function visualizaMensajes($idEmisor,$idForo, $viewPoint)
 }
 
 
-function visualizaMensaje($mensaje, $viewPoint)
+function visualizaMensaje($mensaje, $viewPoint, $idForo)
 {
     $usuario = Usuario::buscaPorId($mensaje->getIdEmisor());
     $autor = $usuario->getNombre();
     $nombreAutor = $autor ? $autor : "Desconocido";
-    // Determinar la clase CSS del mensaje según el viewPoint
+
     if ($viewPoint == $mensaje->getIdEmisor()) {
         $mensaje_class = 'conv-mensaje_emisor';
     } else {
         $mensaje_class = 'conv-mensaje_receptor';
     }
-    //$fechaHora = $mensaje->getFechaYHora();
+
     $html = '<div class="conv-mensaje ' . $mensaje_class . '">';
-    //$html .= '<div class="fecha_hora">' . $fechaHora . '</div>';
+
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+        $idMensaje = $mensaje->getId();
+        $eliminarMensaje = resuelve('includes/src/Foros/eliminarMensajeForo.php');
+
+        $html .=<<<EOF
+        <form class="eliminar-mensaje" action="$eliminarMensaje" method="post" style="float: right;">
+            <input type="hidden" name="id_foro" value="$idForo">
+            <input type="hidden" name="id_mensaje" value="$idMensaje"> 
+            <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
+                🗑️
+            </button>
+        </form>
+    EOF;
+        
+    }
+
     $html .= '<div class="autor_mensaje">' . $nombreAutor . '</div>';
     $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
     $html .= '</div>';
-    
-    return $html;
-    
+
+    return $html;  
 }
+
 
 
 function visualizaForo($foro) {
