@@ -87,7 +87,9 @@ CREATE TABLE `foros` (
   `id` int(11) NOT NULL,
   `titulo` varchar(25) NOT NULL,
   `descripcion` varchar(25) NOT NULL,
-  `autor` varchar(50) NOT NULL
+  `autor_id` int(11) NOT NULL, /* Cambiar 'autor' por 'autor_id' */
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`autor_id`) REFERENCES `usuarios`(`id`) /* Establecer la clave foránea */
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

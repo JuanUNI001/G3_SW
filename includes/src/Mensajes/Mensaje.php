@@ -72,7 +72,7 @@ class Mensaje
 
     public function getFechaYHora()
     {
-        return $this->fechaHora?->format(self::DATE_FORMAT);
+        return $this->fechaHora;
     }
 
     public function setIdEmisor($idEmisor)
@@ -407,7 +407,7 @@ class Mensaje
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf("SELECT * FROM mensajes M WHERE M.idForo = %d", $idForo);
-        $query .= ' ORDER BY fechaHora ASC';
+        $query .= ' ORDER BY fechaHora DESC';
     
     
         $rs = $conn->query($query);

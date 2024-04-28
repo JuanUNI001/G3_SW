@@ -43,3 +43,22 @@
     font-size: 16px;
 }
 
+.fecha_hora {
+    color: #888; /* Color del texto gris */
+    font-size: 12px; /* Tamaño de la fuente */
+    float: right; /* Alinear a la derecha */
+    margin-top: -15px; /* Mover hacia arriba para colocar encima del autor */
+    margin-right: 5px; /* Margen derecho */
+}
+.foro-container {
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado inferior */
+    background-color: #ffffff; /* Color de fondo blanco */
+    height: 60vh; /* Altura del contenedor al 60% del viewport height */
+    width: 95%; /* Ancho del contenedor al 95% del contenedor padre */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+}
+
+

@@ -22,7 +22,8 @@ $id_usuario = $usuario->getId();
 $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
-    $contenidoPrincipal = <<<EOF
+    $contenidoPrincipal = '<div class="pedidos-container">';
+    $contenidoPrincipal .= <<<EOF
     <ul id="listaPedidos">
     EOF;
     
