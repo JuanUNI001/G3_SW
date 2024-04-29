@@ -52,6 +52,13 @@ function visualizaUsuario($Usuario) {
         if ($app->usuarioLogueado()) 
         {
             $rutaChat = resuelve('/ChatView.php');
+            $formHtml = <<<HTML
+            <form action="$rutaChat" method="POST" style="display: inline;">
+                <input type="hidden" name="id" value="$id">
+                <button type="submit" class="button-like-link">Contactar</button>
+            </form>
+        HTML;
+
             $html = <<<EOF
             <div class="tarjeta_usuario">
                 <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
@@ -60,7 +67,7 @@ function visualizaUsuario($Usuario) {
                     <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
                     <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
                     <div>
-                        <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
+                        $formHtml
                     </div>
                 </div>
             </div>
