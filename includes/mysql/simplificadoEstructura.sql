@@ -108,6 +108,13 @@ CREATE TABLE IF NOT EXISTS `inscritos` (
   PRIMARY KEY (`idEvento`,`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `valoraciones` (
+  `id_user` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `valoracion` float NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
