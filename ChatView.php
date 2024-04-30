@@ -2,11 +2,9 @@
 
 require_once 'includes/config.php'; 
 
-
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
-
 
 function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
 {
@@ -200,5 +198,11 @@ function obtenerMensajes() {
 
 // Llamar a obtenerMensajes() cuando se cargue la página por primera vez
 window.addEventListener("load", obtenerMensajes);
+
+// Definir el intervalo en milisegundos (por ejemplo, cada 5 segundos)
+let intervalo = 5000; // 5000 milisegundos = 5 segundos
+
+// Función para llamar a obtenerMensajes() cada cierto intervalo de tiempo
+setInterval(obtenerMensajes, intervalo);
 
 </script>
