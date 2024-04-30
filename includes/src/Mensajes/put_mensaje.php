@@ -10,7 +10,7 @@ echo("Error al enviar el mensaje.");
     $idEmisor = isset($_POST['idEmisor']) ? $_POST['idEmisor'] : null;
     $idDestinatario = isset($_POST['idDestinatario']) ? $_POST['idDestinatario'] : null;
     echo("Error al enviar el mensaje.");
-    $textoMensaje = isset($_POST['mensaje']) ? $_POST['mensaje'] : null;
+    $textoMensaje = isset($_POST['message']) ? $_POST['message'] : null;
 
 
     // Creamos el objeto Mensaje

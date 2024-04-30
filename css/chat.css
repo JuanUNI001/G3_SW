@@ -13,6 +13,12 @@
 .form{
   padding: 25px 30px;
 }
+.custom-header {
+  background-color: rgb(57, 122, 179); /* Cambia el color de fondo según sea necesario */
+  border-radius: 10px; /* Ajusta el radio de las esquinas según lo desees */
+  height: 80px; 
+}
+
 .form header{
   font-size: 25px;
   font-weight: 600;
@@ -243,7 +249,7 @@ font-weight: 400;
   padding: 18px 30px;
 }
 .chat-area header .back-icon{
-  color: #2196f3;
+  color: #000000;
   font-size: 18px;
 }
 .chat-area header img{
@@ -461,3 +467,18 @@ font-weight: 400;
 }
 
 }
+.enviar-mensaje {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.enviar-mensaje:hover {
+  background-color: #0056b3;
+}
+
+

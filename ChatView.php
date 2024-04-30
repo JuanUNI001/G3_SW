@@ -20,11 +20,11 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
         $nombreUsuario = $usuario->getNombre();
         $imagenUsuario = $usuario->getAvatar();
     }
-    $autor = $usuario->getNombre();
+    
     $idEmisor = $usuario->getId();
     $idReceptor = $_POST['id'];
     $receptor = Usuario::buscaPorId($idReceptor);
-    // Construir el HTML para el mensaje
+    $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $rutaNew = resuelve('includes/src/Mensajes/nuevo_mensaje.php');
     $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje.php');
@@ -35,17 +35,14 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     </div>
     <div class="wrapper">
         <section class="chat-area">
-            <header>
-          
-               
-                <img src="{$imagenPath}" alt="Avatar de {$usuario->getNombre()}" class="avatar_usuario">
-                    
-                
+            <header class="custom-header">          
+                <a href="javascript:history.back()" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <img src="{$imagenPath}" alt="Avatar de {$usuario->getNombre()}" class="avatar_usuario">               
                 <div class="details">
                     <span>$autor</span>
                     
                     </div>
-                    </div>
+            </header>
             <div class="chat-box">
 HTML;
 
@@ -55,10 +52,14 @@ HTML;
         $mensaje_class .= <<<HTML
                 </div>
                 <form action="#" class="typing-area">
-                    <input type="hidden" name="idEmisor" value="<?php echo $idEmisor; ?>">
-                    <input type="hidden" name="idDestinatario" value="<?php echo $idReceptor; ?>">
+                    <input type="hidden" name="idEmisor" value="$idEmisor">
+                    <input type="hidden" name="idDestinatario" value="$idReceptor">
                     <input type="text" name="message" class="input-field" placeholder="Escribe un mensaje aquí ..." autocomplete="off">
-                    <button><i class="fab fa-telegram-plane"></i></button>
+                    <div id="enviarMensaje" class="enviar-mensaje" onclick="enviarMensaje()">
+                        <button><i class="fab fa-telegram-plane"></i></button>
+                    </div>
+
+
                 </form>
 
             </section>
@@ -97,71 +98,51 @@ $app->generaVista('/plantillas/plantilla.php', $params);
 
 
 <script>
-    // Código JavaScript para el manejo de mensajes en tiempo real
-    let idUsuarioEmisor = "<?php echo $id_usuario_emisor; ?>";
-    let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
-    let rutaNuevoMensaje = "../../src/Mensajes/nuevo_mensaje.php";
-    let rutaObtenerMensajes = "../../src/Mensajes/get_mensaje.php";
-    
-    document.addEventListener("DOMContentLoaded", function() {
-        let form = document.querySelector(".typing-area"),
-            inputField = form.querySelector(".input-field"),
-            sendBtn = form.querySelector("button"),
-            chatBox = document.querySelector(".chat-box");
+// Definir chatBox como una variable global
+let chatBox;
 
-        form.onsubmit = (e) => {
-            e.preventDefault();
+// Código JavaScript para el manejo de mensajes en tiempo real
+let idUsuarioEmisor = "<?php echo $id_usuario_emisor; ?>";
+let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
+let rutaNuevoMensaje = "../../src/Mensajes/nuevo_mensaje.php";
+let rutaObtenerMensajes = "../../src/Mensajes/get_mensaje.php";
+
+// Definir la función scrollToBottom
+function scrollToBottom() {
+    if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector(".typing-area"),
+        inputField = form.querySelector(".input-field"),
+        sendBtn = form.querySelector("button");
+
+    chatBox = document.querySelector(".chat-box"); // Asignar chatBox dentro del evento DOMContentLoaded
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+    }
+
+    inputField.focus();
+    inputField.onkeyup = () => {
+        if (inputField.value.trim() !== "") {
+            sendBtn.classList.add("active");
+        } else {
+            sendBtn.classList.remove("active");
         }
+    }
 
-        inputField.focus();
-        inputField.onkeyup = () => {
-            if (inputField.value.trim() !== "") {
-                sendBtn.classList.add("active");
-            } else {
-                sendBtn.classList.remove("active");
-            }
-        }
+    chatBox.onmouseenter = () => {
+        chatBox.classList.add("active");
+    }
 
-        sendBtn.onclick = () => {
-            console.log("Botón de enviar clicado");
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "/includes/src/Mensajes/put_mensaje.php", true);
-            xhr.onload = () => {
-                console.log("Respuesta del servidor recibida");
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        console.log("Mensaje enviado correctamente");
-                        inputField.value = "";
-                        scrollToBottom();
-                    } else if (xhr.status === 302) { // Redirección encontrada
-                        console.log("Redireccionando...");
-                        window.location.href = xhr.getResponseHeader("Location");
-                    } else {
-                        console.error("Error en la solicitud: " + xhr.status);
-                    }
-                }
-                
-            }
+    chatBox.onmouseleave = () => {
+        chatBox.classList.remove("active");
+    }
 
-            xhr.onerror = () => {
-                console.error("Error en la solicitud");
-            }
-            let formData = new FormData(form);
-            
-            xhr.send(formData);
-        }
-
-
-        chatBox.onmouseenter = () => {
-            chatBox.classList.add("active");
-        }
-
-        chatBox.onmouseleave = () => {
-            chatBox.classList.remove("active");
-        }
-
-        
-        setInterval(() => {
+    setInterval(() => {
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "includes/src/Mensajes/get_mensaje.php", true);
         xhr.onload = () => {
@@ -178,9 +159,47 @@ $app->generaVista('/plantillas/plantilla.php', $params);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("incoming_id=<?php echo $id_usuario_receptor; ?>");
     }, 500);
+});
 
-        function scrollToBottom() {
-            chatBox.scrollTop = chatBox.scrollHeight;
+function enviarMensaje() {
+    let inputField = document.querySelector(".input-field");
+    let message = inputField.value.trim(); // Obtener el valor del campo de texto y eliminar espacios en blanco al principio y al final
+    
+    // Verificar si el mensaje está vacío
+    if (message === "") {
+        console.log("El mensaje está vacío. No se puede enviar.");
+        return; // Salir de la función si el mensaje está vacío
+    }
+
+    // Si el mensaje no está vacío, continuar con el proceso de envío
+    console.log("Botón de enviar clicado");
+    let xhr = new XMLHttpRequest();
+    let form = document.querySelector(".typing-area");
+
+    xhr.open("POST", "includes/src/Mensajes/put_mensaje.php", true);
+    xhr.onload = () => {
+        console.log("Respuesta del servidor recibida");
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log("Mensaje enviado correctamente");
+                inputField.value = ""; // Limpiar el campo de texto después de enviar el mensaje
+                scrollToBottom();
+            } else if (xhr.status === 302) { // Redirección encontrada
+                console.log("Redireccionando...");
+                window.location.href = xhr.getResponseHeader("Location");
+            } else {
+                console.error("Error en la solicitud: " + xhr.status);
+            }
         }
-    });
+    };
+
+    xhr.onerror = () => {
+        console.error("Error en la solicitud");
+    };
+
+    let formData = new FormData(form);
+    xhr.send(formData);
+}
+
+
 </script>

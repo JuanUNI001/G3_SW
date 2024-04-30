@@ -30,6 +30,7 @@ $mensajes = mensajesPeticionAnterior();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <script type="text/javascript" src="<?= $params['app']->resuelve('/js/jquery-3.7.1.min.js') ?>"></script>
     <script type="text/javascript" src="<?= $params['app']->resuelve('/js/valoraciones.js') ?>"></script>
+    <script type="text/javascript" src="<?= $params['app']->resuelve('/js/mensajes.js') ?>"></script>
 </head>
 <body>
 <?= $mensajes ?>
