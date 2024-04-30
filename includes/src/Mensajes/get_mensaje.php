@@ -16,7 +16,8 @@ if ($id_usuario_receptor !== null) {
         
         
         foreach ($mensajes as $mensaje) {
-            if ($mensaje->getIdEmisor() === $id_usuario_emisor) {
+            $idEmisor = $mensaje->getIdEmisor();
+            if ($idEmisor === $id_usuario_emisor) {
                     $output .= '<div class="chat incoming">
                     <div class="details">
                         <p>'. $mensaje->getTexto() .'</p>

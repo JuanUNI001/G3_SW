@@ -130,7 +130,6 @@ EOF;
     }
     else
     {
-        // Si no está logueado, muestra solo la información del usuario sin el corazón
         $html = <<<EOF
         <div class="tarjeta_usuario">
             <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
