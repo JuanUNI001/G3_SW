@@ -8,7 +8,6 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
 
 
-
 function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
 {
     $mensajes = Mensaje::GetMensajesInPrivateChat($idEmisor, $idReceptor);
@@ -71,11 +70,8 @@ HTML;
     return $mensaje_class;
 }
 
-
-
-
-
 ?>
+
 <?php
 
 $id_usuario_receptor = $_POST['id'];
@@ -141,24 +137,6 @@ document.addEventListener("DOMContentLoaded", function() {
     chatBox.onmouseleave = () => {
         chatBox.classList.remove("active");
     }
-
-    setInterval(() => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "includes/src/Mensajes/get_mensaje.php", true);
-        xhr.onload = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let data = xhr.responseText;
-                    chatBox.innerHTML = data;
-                    if (!chatBox.classList.contains("active")) {
-                        scrollToBottom();
-                    }
-                }
-            }
-        }
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send("incoming_id=<?php echo $id_usuario_receptor; ?>");
-    }, 500);
 });
 
 function enviarMensaje() {
@@ -184,6 +162,8 @@ function enviarMensaje() {
                 console.log("Mensaje enviado correctamente");
                 inputField.value = ""; // Limpiar el campo de texto después de enviar el mensaje
                 scrollToBottom();
+                // Llamar a get_mensaje después de enviar el mensaje exitosamente
+                obtenerMensajes();
             } else if (xhr.status === 302) { // Redirección encontrada
                 console.log("Redireccionando...");
                 window.location.href = xhr.getResponseHeader("Location");
@@ -201,5 +181,24 @@ function enviarMensaje() {
     xhr.send(formData);
 }
 
+// Función para obtener mensajes del chat
+function obtenerMensajes() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "includes/src/Mensajes/get_mensaje.php", true);
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let data = xhr.responseText;
+                chatBox.innerHTML = data;
+                scrollToBottom();
+            }
+        }
+    }
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("incoming_id=<?php echo $id_usuario_receptor; ?>");
+}
+
+// Llamar a obtenerMensajes() cuando se cargue la página por primera vez
+window.addEventListener("load", obtenerMensajes);
 
 </script>
