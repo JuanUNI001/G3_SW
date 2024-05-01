@@ -62,15 +62,7 @@ header a:hover {
     position: relative;
 }
 
-.corazon {
-    color: red; /* Cambia el color del corazón según tus preferencias */
-}
-.corazon_vacio {
-    color: black; /* Cambia el color del corazón vacío según tus preferencias */
-}
-.corazon_lleno {
-    color: red; /* Cambia el color del corazón según tus preferencias */
-}
+
 
 
 nav a, nav a:visited {
@@ -498,6 +490,13 @@ nav li:last-child {
 .dropdown-content a:hover {
     background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
 }
+
+/*
+
+    FOROS 
+
+*/
+
 .foro {
     margin: 10px; /* Márgenes entre los elementos foro */
     border: 2px solid #4CAF50; /* Borde sólido con un tono de verde */
@@ -561,11 +560,20 @@ nav li:last-child {
     cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
     font-weight: bold; /* Texto en negrita */
     transition: background-color 0.3s; /* Transición suave */
+    margin: 10px; /* Margen alrededor del botón */
 }
 
 .button-foro:hover {
     background-color: #E64A19; /* Nuevo color de fondo al pasar el cursor */
 }
+
+
+
+/*
+
+    EVENTOS
+
+*/
 
 
 

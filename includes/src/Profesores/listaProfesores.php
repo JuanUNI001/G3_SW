@@ -73,7 +73,7 @@ function visualizaProfesor($profesor) {
                     <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
                     <form action="{$rutaChat}" method="post">
                         <input type="hidden" name="id" value="{$id}">
-                        <button type="submit" class="button-like-link">Contactar</button>
+                        <button type="submit" class="button-profesor">Contactar</button>
                     </form>
                 </div>
              </div>

@@ -55,19 +55,19 @@ function visualizaForo($foro) {
                     <strong>{$foro->getTitulo()}</strong> 
                 </div>
                 <div class="foro_descripcion">
-                     <p>{$foro->getDescripcion()}</p>   
+                    <p>{$foro->getDescripcion()}</p>   
                 </div>
-                <div>
-
+            
     EOF;
    
     
     if ($usuarioLogueado) {
-        $html .= '<form action="' . $rutaForo . '" method="post">
-        <input type="hidden" name="id" value="' . $idForo . '">
-        <button type="submit" class="button-like-link">Contactar</button>
-        </form>';
-        
+        $html .= <<<EOF
+            <form action="{$rutaForo}" method="post">
+                <input type="hidden" name="id" value="{$idForo}">
+                <button type="submit" class="button-foro">Acceder</button>
+            </form>
+        EOF;    
     }
     if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
         
@@ -81,14 +81,10 @@ function visualizaForo($foro) {
                 🗑️
             </button>
         </form>
-    EOF;
+        EOF;
     }
-    $html .= <<<'EOF'
-                </div>
-            </div>
-        </div>
     
-    EOF;
+    $html .= '</div></div>'; // Cierre de las etiquetas div de foro_info y foro
     
     return $html;
 }

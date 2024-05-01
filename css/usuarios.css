@@ -2,27 +2,132 @@
 .tarjeta_usuario {
     display: flex;
     align-items: center;
-    width: 400px; /* ajusta el ancho según sea necesario */
+    width: 80%; /* Utiliza el ancho completo disponible */
     padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 20px;
-    background-color: #ffffff; /* color del botón */
+    
+    background-color: #f9f9f9; /* Fondo gris claro */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 /* Estilos para el avatar */
 .avatar_usuario {
-    width: 80px; /* ajusta el tamaño del avatar según sea necesario */
-    height: 80px; /* ajusta el tamaño del avatar según sea necesario */
-    border-radius: 50%; /* para hacerlo circular */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
     margin-right: 15px;
+    border: 2px solid #fff; /* Borde blanco */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 /* Estilos para la información del usuario */
 .tarjeta_usuario .info_usuario {
-    flex-grow: 1; /* permite que ocupe el espacio restante */
+    flex-grow: 1;
 }
 
 .tarjeta_usuario .texto {
     margin-bottom: 8px;
+    color: #333; /* Color del texto más oscuro */
+}
+
+.button-user {
+	display: inline-block;
+	background-color: #58d6d8; /* Color de fondo */
+	color: white; /* Color del texto */
+	padding: 10px 20px; /* Espaciado interno */
+	text-align: center; /* Alineación del texto */
+	text-decoration: none; /* Eliminar subrayado */
+	border: none; /* Eliminar borde */
+	border-radius: 4px; /* Redondear esquinas */
+	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+}
+
+.tarjeta_usuario .button-user:hover {
+    text-decoration: none;
+}
+
+.tarjeta_usuario:not(:hover) .button-user {
+    background-color: #9c27b0; /* Fondo morado cuando el cursor no está sobre el botón */
+    color: #fff; /* Texto blanco */
+}
+
+/* Estilos para el contenedor del corazón */
+.tarjeta_usuario .corazon-container {
+    position: relative;
+    width: 36px; /* Ajusta el tamaño del contenedor según sea necesario */
+    height: 36px; /* Ajusta el tamaño del contenedor según sea necesario */
+    border-radius: 50%; /* Hacerlo circular */
+    background-color: black; /* Fondo negro */
+    margin-left: auto; /* Mueve el contenedor hacia la derecha */
+    margin-top: 10px; /* Espacio entre el corazón y el avatar */
+}
+
+/* Estilos para el corazón dentro del contenedor */
+.tarjeta_usuario .corazon_lleno {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: rgb(252, 4, 4); /* Color del corazón vacío */
+    cursor: pointer;
+    transition: color 0.3s; /* Agregar una transición suave para el cambio de color */
+}
+
+/* Estilos para el corazón vacío dentro del contenedor */
+.tarjeta_usuario .corazon_vacio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white; /* Color del corazón vacío */
+    cursor: pointer;
+    transition: color 0.3s; /* Agregar una transición suave para el cambio de color */
+}
+
+/* Estilos para el contenedor de profesores */
+.profesor {
+    border: 1px solid #ccc; /* Borde del contenedor */
+    padding: 10px; /* Espacio interno del contenedor */
+    margin-bottom: 20px; /* Margen inferior entre profesores */
+    background-color: #f9f9f9; /* Color de fondo del contenedor */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilos para la imagen del profesor */
+.profesor_avatar {
+    width: 70px; /* Ancho de la imagen */
+    height: 70px; /* Altura de la imagen */
+    border-radius: 50%; /* Hacer la imagen redonda (puedes ajustar el porcentaje según tus necesidades) */
+    margin-right: 20px; /* Margen derecho para separar la imagen del contenido */
+    float: left; /* Flotar la imagen a la izquierda para que el contenido se alinee a su derecha */
+}
+
+/* Estilos para la información del profesor */
+.profesor_info {
+    overflow: hidden; /* Limpiar el float de la imagen */
+}
+/* Estilos para el botón de contacto del profesor */
+.profesor .button-profesor {
+    display: inline-block;
+    background-color: #58d6d8; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Eliminar subrayado */
+    border: none; /* Eliminar borde */
+    border-radius: 4px; /* Redondear esquinas */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+}
+
+.profesor .button-profesor:hover {
+    text-decoration: none;
+}
+
+.profesor:not(:hover) .button-profesor {
+    background-color: #9c27b0; /* Fondo morado cuando el cursor no está sobre el botón */
+    color: #fff; /* Texto blanco */
 }
