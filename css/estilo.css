@@ -470,6 +470,39 @@ nav li:last-child {
     border-radius: 8px; /* Redondea los bordes del dropdown */
 }
 
+
+#campo_precio label,
+#campo_precio input {
+    display: inline-block;
+    vertical-align: top; /* Alinear verticalmente al principio */
+}
+#campo_precio input {
+    width: 85px; /* Ancho del label */
+}
+#campo_precio label {
+    width: 100px; /* Ancho del label */
+    text-align: right; /* Alinear el texto a la derecha */
+    margin-right: 10px; /* Espacio a la derecha del label */
+    margin-top: 10px; 
+}
+
+#avatar-anterior,
+#avatar-siguiente {
+    background-color: rgb(41, 148, 214); /* Fondo azul */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 5px 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+#avatar-anterior:hover,
+#avatar-siguiente:hover {
+    background-color: darkblue; /* Cambia el color de fondo al pasar el cursor */
+}
+
 /* Mostrar el dropdown al hacer hover */
 .dropdown:hover .dropdown-content {
     display: block; /* Muestra el contenido del dropdown al pasar el ratón sobre él */
