@@ -157,6 +157,8 @@ input {
 
 .form-field-error {
 	display: block;
+    visibility: visible; /* Asegúrate de que sea 'visible' */
+    opacity: 1;
 }
 
 .mensajes {

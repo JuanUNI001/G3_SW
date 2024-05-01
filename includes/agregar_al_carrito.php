@@ -17,7 +17,7 @@ if (!$app->usuarioLogueado())  {
 // Obtiene el ID del producto y la cantidad del formulario
 $id_producto = $_POST['id_producto'] ?? null;
 $cantidad = $_POST['cantidad'] ?? 1;
-$app = BD::getInstance();
+
 // Verifica si se proporcionó un ID de producto válido y una cantidad válida
 if ($id_producto && is_numeric($id_producto) && $cantidad && is_numeric($cantidad) && $cantidad > 0) {
     // Obtiene el producto

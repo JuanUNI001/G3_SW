@@ -20,36 +20,36 @@ class FormularioRegistro extends Formulario
         $correo = $datos['correo'] ?? '';
         
         // Se generan los mensajes de error si existen.
-        $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
+        
         $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
-            $htmlErroresGlobales
+           
             <fieldset class="fieldset-form">
             <legend class="legend-form">Datos para el registro</legend>
                 
                 
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input id="nombre" type="text" name="nombre" value="$nombre" />
-                    {$erroresCampos['nombre']}
-                </div>
-                <div>
-                    <label for="correo">Correo electrónico:</label>
-                    <input id="correo" type="text" name="correo" value="$correo" />
-                    {$erroresCampos['correo']}
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" />
-                    {$erroresCampos['password']}
-                </div>
-                <div>
-                    <label for="password2">Reintroduce el password:</label>
-                    <input id="password2" type="password" name="password2" />
-                    {$erroresCampos['password2']}
-                </div>
-              
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" type="text" name="nombre" value="$nombre" />
+                <span id="nombre-validacion"></span> 
+            </div>
+            <div>
+                <label for="correo">Correo electrónico:</label>
+                <input id="correo" type="text" name="correo" value="$correo" />
+                <span id="correo-validacion"></span> 
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" />
+                <span id="password-validacion"></span> 
+            </div>
+            <div>
+                <label for="password2">Reintroduce el password:</label>
+                <input id="password2" type="password" name="password2" />
+                <span id="password2-validacion"></span> 
+            </div>
+        
 
                 <div id="avatar-selector">
                     <button id="avatar-anterior" type="button">&lt;</button>
@@ -72,7 +72,7 @@ class FormularioRegistro extends Formulario
                    
                     <label for="precio">Precio:</label>
                     <input id="precio" type="number" step="0.01" name="precio" value="0" size="10" />
-                    {$erroresCampos['precio']}
+                  
                     
                 </div>
                
@@ -85,54 +85,70 @@ class FormularioRegistro extends Formulario
 
            
         $html .= '<script src="js/avatares.js" ></script>';
+        $html .= <<<EOF
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var nombreInput = document.getElementById('nombre');
+                var correoInput = document.getElementById('correo');
+                var passwordInput = document.getElementById('password');
+                var password2Input = document.getElementById('password2');
+                var nombreValidacion = document.getElementById('nombre-validacion');
+                var correoValidacion = document.getElementById('correo-validacion');
+                var passwordValidacion = document.getElementById('password-validacion');
+                var password2Validacion = document.getElementById('password2-validacion');
+
+                // Función para mostrar mensajes de error
+                function mostrarError(input, mensaje) {
+                    input.nextElementSibling.textContent = mensaje;
+                    input.nextElementSibling.style.color = 'red';
+                }
+
+                // Función para mostrar mensajes de éxito
+                function mostrarExito(input) {
+                    input.nextElementSibling.textContent = '✔️';
+                    input.nextElementSibling.style.color = 'green';
+                }
+
+                nombreInput.addEventListener('input', function() {
+                    if (nombreInput.value.length >= 3) {
+                        mostrarExito(nombreInput);
+                    } else {
+                        mostrarError(nombreInput, '❌ El nombre debe tener al menos 3 caracteres.');
+                    }
+                });
+
+                correoInput.addEventListener('input', function() {
+                    if (correoInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                        mostrarExito(correoInput);
+                    } else {
+                        mostrarError(correoInput, '❌ El correo electrónico es inválido.');
+                    }
+                });
+
+                passwordInput.addEventListener('input', function() {
+                    if (passwordInput.value.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(passwordInput.value)) {
+                        mostrarExito(passwordInput);
+                    } else {
+                        mostrarError(passwordInput, '❌ La contraseña debe contener al menos 8 caracteres y un carácter especial.');
+                    }
+                });
+
+                password2Input.addEventListener('input', function() {
+                    if (password2Input.value === passwordInput.value) {
+                        mostrarExito(password2Input);
+                    } else {
+                        mostrarError(password2Input, '❌ Las contraseñas no coinciden.');
+                    }
+                });
+            });
+        </script>
+        EOF;
+
         return $html;
     }
     
     
-    protected function procesaFormulario(&$datos)
-    {
-        $this->errores = [];
+   
     
-        // Recoge los datos del formulario
-        $nombre = $datos['nombre'] ?? '';
-        $correo = $datos['correo'] ?? '';
-        $password = $datos['password'] ?? '';
-        $password2 = $datos['password2'] ?? '';
-        $rolSeleccionado = $datos['rol'] ?? '';
-        $rutaAvatar = $datos['rutaAvatar'] ?? '';
-        $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
-        
-        // Valida los campos del formulario
-        
-        // Crea el usuario o profesor según corresponda
-        if ($rolSeleccionado === 'Usuario') {
-            $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
-            if (!$usuario) {
-                $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
-            }
-        } elseif ($rolSeleccionado === 'Profesor') {
-            if (!$precio) {
-                $this->errores[] = 'Por favor, introduce un precio válido.';
-            } else {
-                $password = Profesor::anadeContrasena( $password);
-                $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar, null);
-                
-                if (!$profesor) {
-                    $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
-                }
-            }
-        } else {
-            $this->errores[] = 'Debe seleccionar un rol válido.';
-        }
-        
-        // Si no hay errores, inicia sesión y redirige
-        if (empty($this->errores)) {
-            $_SESSION['login'] = true;
-            $_SESSION['nombre'] = $nombre;
-            $_SESSION['correo'] = $correo;
-            $_SESSION['rolUser'] = $rolSeleccionado;
-            header('Location: ' . $this->urlRedireccion);
-            exit;
-        }
-    }
+
 }
