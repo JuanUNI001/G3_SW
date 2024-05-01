@@ -14,58 +14,63 @@ use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 function visualizaMensajes($idEmisor,$idForo, $viewPoint)
 {
     $mensajes = Mensaje::GetMensajesInForoChat($idForo);
-    $html = "<div class ='foro-container'>";
-    $html .= "<div class='chatPrivado'>";
-    if($mensajes != null){
-        foreach ($mensajes as $mensaje) {
-            $html .= visualizaMensaje($mensaje, $viewPoint, $idForo);
-        }
+    $mensaje_class = '';
+    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
+    $rutaJS = resuelve('/js/mensajes.js');
+    $rutaJS2 = resuelve('/js/jquery-3.7.1.min.js');
+    if ($usuario) {
+        $nombreUsuario = $usuario->getNombre();
+        $imagenUsuario = $usuario->getAvatar();
     }
     
-    $html .= "</div>";
-    $html .= "</div>";
-    return $html;
-}
+    $idEmisor = $usuario->getId();
+    $emisor = Usuario::buscaPorId($idEmisor);
+    $autor = $emisor->getNombre();
+    $imagenPath = $emisor->getAvatar() ? RUTA_IMGS . $emisor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
+    $rutaNew = resuelve('includes/src/Mensajes/nuevo_mensaje.php');
+    $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje_foro.php');
 
-
-function visualizaMensaje($mensaje, $viewPoint, $idForo)
-{
-    $usuario = Usuario::buscaPorId($mensaje->getIdEmisor());
-    $autor = $usuario->getNombre();
-    $nombreAutor = $autor ? $autor : "Desconocido";
-
-    if ($viewPoint == $mensaje->getIdEmisor()) {
-        $mensaje_class = 'conv-mensaje_emisor';
-    } else {
-        $mensaje_class = 'conv-mensaje_receptor';
-    }
-
-    $html = '<div class="conv-mensaje ' . $mensaje_class . '">';
-
-    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
-        $idMensaje = $mensaje->getId();
-        $eliminarMensaje = resuelve('includes/src/Foros/eliminarMensajeForo.php');
-
-        $html .=<<<EOF
-        <form class="eliminar-mensaje" action="$eliminarMensaje" method="post" style="float: right;">
-            <input type="hidden" name="id_foro" value="$idForo">
-            <input type="hidden" name="id_mensaje" value="$idMensaje"> 
-            <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
-                🗑️
-            </button>
-        </form>
-    EOF;
+    $mensaje_class .= <<<HTML
+    <div class="conv-mensaje ">
         
-    }
+    </div>
+    <div class="wrapper">
+        <section class="chat-area">
+            <header class="custom-header">          
+                <a href="javascript:history.back()" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <img src="{$imagenPath}" alt="Avatar de {$usuario->getNombre()}" class="avatar_usuario">               
+                <div class="details">
+                    <span>$autor</span>
+                    
+                    </div>
+            </header>
+            <div class="chat-box">
+HTML;
 
-    $html .= '<div class="autor_mensaje">' . $nombreAutor . '</div>';
-    $html .= '<div class="texto_mensaje">' . $mensaje->getTexto() . '</div>';
-    $html .= '</div>';
+    // Obtener mensajes del chat
+    
+    
+        $mensaje_class .= <<<HTML
+                </div>
+                <form action="#" class="typing-area">
+                    <input type="hidden" name="idEmisor" value="$idEmisor">
+                    <input type="hidden" name="idForo" value="$idForo">
+                    <input type="text" name="message" class="input-field" placeholder="Escribe un mensaje aquí ..." autocomplete="off">
+                    <div id="enviarMensaje" class="enviar-mensaje" onclick="enviarMensaje()">
+                        <button><i class="fab fa-telegram-plane"></i></button>
+                    </div>
 
-    return $html;  
+
+                </form>
+
+            </section>
+        </div>
+        
+
+    HTML;
+
+    return $mensaje_class;
 }
-
-
 
 function visualizaForo($foro) {
     
@@ -99,7 +104,7 @@ function visualizaForo($foro) {
 ?>
 
 <?php
-$id_foro = $_GET['id_foro'];
+$id_foro = $_POST['id'];
 
 $foro = Foro::buscaForo($id_foro);
 
@@ -111,20 +116,12 @@ if ($app->usuarioLogueado())  {
     $idEmisor = $usuario->getId();
     $mensajesView = visualizaMensajes($idEmisor, $id_foro, $idEmisor);
 
-    $rutaChat =resuelve('/includes/vistas/helpers/ForoView.php');
-    $form = new es\ucm\fdi\aw\src\Mensajes\FormularioMensajeForo("$rutaChat?id_foro=$id_foro",$id_foro);
-
-    $form->idEmisor = $usuario->getId();
-    //$form->idForo = $_POST['id_foro'];
-
-    $htmlFormLogin = $form->gestiona();
 
     $tituloPagina = 'Conversacion Foro';
     $contenidoPrincipal=<<<EOF
         <h1>Conversacion Foro</h1>
         $foroView
         $mensajesView
-        $htmlFormLogin
     EOF;
 }
     $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Conversacion en Foro'];
@@ -132,3 +129,121 @@ if ($app->usuarioLogueado())  {
 
 
 ?>
+
+<script>
+// Definir chatBox como una variable global
+let chatBox;
+
+// Código JavaScript para el manejo de mensajes en tiempo real
+let idUsuarioEmisor = "<?php echo $id_usuario_emisor; ?>";
+let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
+let rutaNuevoMensaje = "../../src/Mensajes/nuevo_mensaje.php";
+let rutaObtenerMensajes = "../../src/Mensajes/get_mensaje_foro.php";
+
+// Definir la función scrollToBottom
+function scrollToBottom() {
+    if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector(".typing-area"),
+        inputField = form.querySelector(".input-field"),
+        sendBtn = form.querySelector("button");
+
+    chatBox = document.querySelector(".chat-box"); // Asignar chatBox dentro del evento DOMContentLoaded
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+    }
+
+    inputField.focus();
+    inputField.onkeyup = () => {
+        if (inputField.value.trim() !== "") {
+            sendBtn.classList.add("active");
+        } else {
+            sendBtn.classList.remove("active");
+        }
+    }
+
+    chatBox.onmouseenter = () => {
+        chatBox.classList.add("active");
+    }
+
+    chatBox.onmouseleave = () => {
+        chatBox.classList.remove("active");
+    }
+});
+
+function enviarMensaje() {
+    let inputField = document.querySelector(".input-field");
+    let message = inputField.value.trim(); // Obtener el valor del campo de texto y eliminar espacios en blanco al principio y al final
+    
+    // Verificar si el mensaje está vacío
+    if (message === "") {
+        console.log("El mensaje está vacío. No se puede enviar.");
+        return; // Salir de la función si el mensaje está vacío
+    }
+
+    // Si el mensaje no está vacío, continuar con el proceso de envío
+    console.log("Botón de enviar clicado");
+    let xhr = new XMLHttpRequest();
+    let form = document.querySelector(".typing-area");
+
+    //xhr.send("idForo=<?php echo $id_foro; ?>");
+    xhr.open("POST", "includes/src/Mensajes/put_mensaje_foro.php", true);
+    xhr.onload = () => {
+        console.log("Respuesta del servidor recibida");
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log("Mensaje enviado correctamente");
+                inputField.value = ""; // Limpiar el campo de texto después de enviar el mensaje
+                scrollToBottom();
+                // Llamar a get_mensaje después de enviar el mensaje exitosamente
+                obtenerMensajes();
+            } else if (xhr.status === 302) { // Redirección encontrada
+                console.log("Redireccionando...");
+                window.location.href = xhr.getResponseHeader("Location");
+            } else {
+                console.error("Error en la solicitud: " + xhr.status);
+            }
+        }
+    };
+
+    xhr.onerror = () => {
+        console.error("Error en la solicitud");
+    };
+
+    let formData = new FormData(form);
+    xhr.send(formData);
+
+}
+
+// Función para obtener mensajes del chat
+function obtenerMensajes() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "includes/src/Mensajes/get_mensaje_foro.php", true);
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let data = xhr.responseText;
+                chatBox.innerHTML = data;
+                scrollToBottom();
+            }
+        }
+    }
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("incoming_id=<?php echo $id_foro; ?>");
+}
+
+// Llamar a obtenerMensajes() cuando se cargue la página por primera vez
+window.addEventListener("load", obtenerMensajes);
+
+// Definir el intervalo en milisegundos (por ejemplo, cada 5 segundos)
+let intervalo = 5000; // 5000 milisegundos = 5 segundos
+
+// Función para llamar a obtenerMensajes() cada cierto intervalo de tiempo
+setInterval(obtenerMensajes, intervalo);
+
+</script>

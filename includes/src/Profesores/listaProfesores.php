@@ -105,7 +105,7 @@ function visualizaProfesor($profesor) {
         
         /* 
             edicion profesor es la unica edicion sin implementar
-*/
+        */
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
             $dirProfesores=resuelve('/EditorProfesorView.php');
             $dirEditor=resuelve('/images/editar_producto.png');

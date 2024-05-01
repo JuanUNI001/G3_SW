@@ -63,7 +63,11 @@ function visualizaForo($foro) {
    
     
     if ($usuarioLogueado) {
-        $html .= '<a href="' . $rutaForo . '?id_foro=' . $idForo . '" class="button-foro">Ver</a>';
+        $html .= '<form action="' . $rutaForo . '" method="post">
+        <input type="hidden" name="id" value="' . $idForo . '">
+        <button type="submit" class="button-like-link">Contactar</button>
+        </form>';
+        
     }
     if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
         
