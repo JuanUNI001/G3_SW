@@ -22,7 +22,7 @@ class Usuario
     
     public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
-        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar);
+        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null);
         
         return $user->guarda();
     }
@@ -270,9 +270,9 @@ class Usuario
     protected $avatar;//será la foto que el usuario puede incluir
 
 
-    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id = null)
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id )
     {
-        $this->id =null;
+        $this->id = $id;
         $this->rolUser = $rol;
         $this->password = $password;
         $this->nombre = $nombre;
