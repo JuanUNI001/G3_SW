@@ -201,16 +201,18 @@ class Foro
         if (!$id_foro) {
             return false;
         } 
-        
+    
         $conn = BD::getInstance()->getConexionBd();
-
+    
         $query = sprintf(
             "DELETE FROM foros WHERE id = %d",
             $id_foro
         );
-        $conn->query($query);
-
+        $result = $conn->query($query);
+       
+        return true;
     }
+    
 
     public static function buscaPorId($id_foro)
     {
@@ -303,7 +305,12 @@ class Foro
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
+        
+        $conn->free();
+        
+        return $result;
     }
+
 
 
     public static function actualiza($foro)

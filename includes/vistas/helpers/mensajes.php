@@ -59,7 +59,7 @@ function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
 // XXX Esta función es muy similar a la funcion listaMensajesPaginados y en un proyecto real sólo debería de existir una de ellas
 function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
 {
-    $mensajes = Mensaje::buscaPorMensajePadre($id);
+    $mensajes = Mensaje::buscaPorId($id);
     if (count($mensajes) == 0) {
         return '';
     }

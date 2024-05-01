@@ -6,7 +6,10 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
 
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+$app = BD::getInstance();
+    
+
+if (!$app->usuarioLogueado())  {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();

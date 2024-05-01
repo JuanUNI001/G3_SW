@@ -1,5 +1,5 @@
 body {
-	background-color: #CDCDCD;
+	background-color: #e9a9e9;
 }
 
 div#contenedor {
@@ -17,7 +17,7 @@ header {
     background-size: cover; /* Ajusta la imagen de fondo para que cubra todo el encabezado */
     padding: 30px;
     height: 160px; /* Ajusta la altura del encabezado */
-    background-color: #e8f17ea4;
+    background-color: #84b8c4a4;
     color: rgb(10, 10, 10);
 }
 

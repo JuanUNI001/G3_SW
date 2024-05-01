@@ -25,7 +25,14 @@
     margin-right: -15px;
     margin-left: -15px;
 }
-
+.col-11 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+.col-10 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
 .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -179,3 +186,4 @@
     font-weight: bold; /* Aumenta el peso de la fuente */
     margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
 }
+

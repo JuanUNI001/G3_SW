@@ -58,13 +58,31 @@ function visualizaForo($foro) {
                      <p>{$foro->getDescripcion()}</p>   
                 </div>
                 <div>
+
     EOF;
+   
     
-    // Mostrar el enlace "Ver" solo si el usuario está logueado
     if ($usuarioLogueado) {
-        $html .= '<a href="' . $rutaForo . '?id_foro=' . $idForo . '" class="button-foro">Ver</a>';
+        $html .= '<form action="' . $rutaForo . '" method="post">
+        <input type="hidden" name="id" value="' . $idForo . '">
+        <button type="submit" class="button-like-link">Contactar</button>
+        </form>';
+        
     }
-    
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+        
+        $eliminarForo = resuelve('includes/src/Foros/eliminarForo.php');
+
+        $html .=<<<EOF
+        <form class="eliminar-foro" action="$eliminarForo" method="post" style="float: right;">
+            <input type="hidden" name="id_foro" value="$idForo">
+            
+            <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
+                🗑️
+            </button>
+        </form>
+    EOF;
+    }
     $html .= <<<'EOF'
                 </div>
             </div>
