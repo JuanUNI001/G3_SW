@@ -993,9 +993,9 @@ nav li:last-child {
     justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
     flex-wrap: wrap;
     margin-bottom: 20px;
-    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
-    margin-left: -50px; /* Margen izquierdo negativo */
-    margin-right: +260px; /* Margen derecho negativo */
+    width: 60%; /* Ajustamos el ancho para compensar los márgenes */
+    margin-left: +60px; /* Margen izquierdo negativo */
+    margin-right: +10px; /* Margen derecho negativo */
     background-color: white; /* Fondo blanco */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
     font-family: "Comic Sans MS", cursive; /* Aplicar la fuente Comic Sans MS */
@@ -1004,6 +1004,7 @@ nav li:last-child {
 .lista_productos {
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 .producto_compra_ {
     background-image: linear-gradient(to right, #eb7be1, #9ffaff); /* Borde degradado rosa a verde */
@@ -1015,7 +1016,7 @@ nav li:last-child {
 /* Estilos para la imagen del producto */
 .producto_imagen {
     margin: 10px auto; /* Margen alrededor de la imagen */
-    width: 120px;
+    width: 40px;
 }
 
 

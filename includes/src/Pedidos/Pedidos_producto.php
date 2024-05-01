@@ -200,12 +200,7 @@ class Pedidos_producto
     {
         $result = false;
 
-        $datos_pedido = Pedidos_producto::buscaPorIdPedido_Producto($pedido_producto->id_pedido);
-
-        if($datos_pedido[0] != null){
-            $pedido_producto->cantidad += $datos_pedido[$pedido_producto->id_producto];
-            return self::actualiza($pedido_producto);
-        }
+       
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(

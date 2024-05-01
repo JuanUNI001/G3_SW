@@ -77,7 +77,8 @@ if ($detallesProductos) {
                     </div>
                 </div>
                 <div class="producto_precio">
-                    <p>{$producto->getPrecio()} €</p>
+                    <p> Cantidad:  $cantidad</p>
+                    <p> $precioTotal  €</p>
                 
             <hr>
         HTML;
