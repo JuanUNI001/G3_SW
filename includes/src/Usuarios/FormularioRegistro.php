@@ -20,7 +20,7 @@ class FormularioRegistro extends Formulario
         $correo = $datos['correo'] ?? '';
         
         // Se generan los mensajes de error si existen.
-        
+        self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
@@ -126,12 +126,16 @@ class FormularioRegistro extends Formulario
                 });
 
                 passwordInput.addEventListener('input', function() {
-                    if (passwordInput.value.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/.test(passwordInput.value)) {
+                    // Expresión regular para verificar si hay al menos 8 caracteres, una mayúscula y un carácter especial
+                    var regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,})/;
+                    
+                    if (regex.test(passwordInput.value)) {
                         mostrarExito(passwordInput);
                     } else {
-                        mostrarError(passwordInput, '❌ La contraseña debe contener al menos 8 caracteres y un carácter especial.');
+                        mostrarError(passwordInput, '❌ La contraseña debe contener al menos 8 caracteres, una mayúscula y un carácter especial.');
                     }
                 });
+                
 
                 password2Input.addEventListener('input', function() {
                     if (password2Input.value === passwordInput.value) {
@@ -148,7 +152,78 @@ class FormularioRegistro extends Formulario
     }
     
     
-   
+    protected function procesaFormulario(&$datos)
+    {
+        $this->errores = [];
+    
+        // Recoge los datos del formulario
+        $nombre = $datos['nombre'] ?? '';
+        $correo = $datos['correo'] ?? '';
+        $password = $datos['password'] ?? '';
+        $password2 = $datos['password2'] ?? '';
+        $rolSeleccionado = $datos['rol'] ?? '';
+        $rutaAvatar = $datos['rutaAvatar'] ?? '';
+        $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
+    
+        // Validación de campos
+        if (empty($nombre) || strlen($nombre) < 3) {
+            $this->errores[] = "El nombre debe tener al menos 3 caracteres.";
+        }
+        
+        if (empty($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            $this->errores[] = "El correo electrónico es inválido.";
+        }
+    
+        if (empty($password) || empty($password2)) {
+            $this->errores[] = "La contraseña no puede estar vacía.";
+        } elseif ($password !== $password2) {
+            $this->errores[] = "Las contraseñas no coinciden.";
+        } elseif (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+            $this->errores[] = "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula y un carácter especial.";
+        }
+        
+    
+        if (empty($rolSeleccionado) || !in_array($rolSeleccionado, ['Usuario', 'Profesor'])) {
+            $this->errores[] = "Debe seleccionar un rol válido.";
+        }
+    
+        if ($rolSeleccionado === 'Profesor' && (!$precio || $precio <= 0)) {
+            $this->errores[] = "Por favor, introduce un precio válido para el profesor.";
+        }
+    
+        // Si no hay errores, crea el usuario o profesor y redirige
+        if (empty($this->errores)) {
+            if(!Usuario::buscaUsuario($correo) ){
+                if ($rolSeleccionado === 'Usuario') {
+                    $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
+                    if (!$usuario) {
+                        $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
+                    }
+                } elseif ($rolSeleccionado === 'Profesor') {
+                    $password = Profesor::anadeContrasena($password);
+                    $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar, null);
+                    if (!$profesor) {
+                        $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
+                    }
+                }
+            }
+            else{
+                $this->errores[] = "Este correo ya es usado por un usuario";
+            }
+            // Si no hay errores después de intentar crear el usuario o profesor, inicia sesión y redirige
+            if (empty($this->errores)) {
+                $_SESSION['login'] = true;
+                $_SESSION['nombre'] = $nombre;
+                $_SESSION['correo'] = $correo;
+                $_SESSION['rolUser'] = $rolSeleccionado;
+                header('Location: ' . $this->urlRedireccion);
+                exit;
+            }
+        }
+    
+        $app = BD::getInstance();
+        $app->putAtributoPeticion('mensajes', $this->errores);
+    }
     
 
 }
