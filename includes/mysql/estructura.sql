@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 CREATE TABLE `foros` (
   `id` int(11) NOT NULL,
   `titulo` varchar(25) NOT NULL,
-  `descripcion` varchar(25) NOT NULL,
-  `autor` varchar(50) NOT NULL
+  `descripcion` varchar(400) NOT NULL,
+  `autor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -100,16 +100,9 @@ CREATE TABLE `seguir` (
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `mensajes_idEmisor` (`idEmisor`),
-  ADD KEY `mensajes_idDestinatario` (`idDestinatario`),
-  ADD KEY `mensajes_idForo` (`idForo`);
-
---
--- Indices de la tabla `foros`
---
-ALTER TABLE `foros`
   ADD PRIMARY KEY (`id`);
+
+
 
 --
 -- Indices de la tabla `pedidos`
@@ -165,6 +158,16 @@ COMMIT;
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+ALTER TABLE `foros`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `autor_id` (`autor_id`);
+
+
+ALTER TABLE `foros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+ALTER TABLE `foros`
+  ADD CONSTRAINT `foros_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `usuarios` (`id`);
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
@@ -173,9 +176,6 @@ ALTER TABLE `mensajes`
 
 --
 -- AUTO_INCREMENT de la tabla `foros`
---
-ALTER TABLE `foros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -204,10 +204,6 @@ ALTER TABLE `productos`
 ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
-ALTER TABLE `mensajes`
-  ADD CONSTRAINT `mensajes_idEmisor` FOREIGN KEY (`idEmisor`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mensajes_idDestinatario` FOREIGN KEY (`idDestinatario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mensajes_idForo` FOREIGN KEY (`idForo`) REFERENCES `foros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedidos`
@@ -223,28 +219,13 @@ ALTER TABLE `pedidos_productos`
   ADD CONSTRAINT `pedidos_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
 
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost
--- Tiempo de generación: 26-03-2024 a las 13:23:08
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Estructura de tabla para la tabla `eventos`
 --
@@ -271,7 +252,6 @@ ALTER TABLE `eventos`
 COMMIT;
 
 
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
@@ -286,11 +266,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `mesamaestra`

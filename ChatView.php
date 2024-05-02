@@ -11,8 +11,6 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $mensajes = Mensaje::GetMensajesInPrivateChat($idEmisor, $idReceptor);
     $mensaje_class = '';
     $usuario = Usuario::buscaUsuario($_SESSION['correo']);
-    $rutaJS = resuelve('/js/mensajes.js');
-    $rutaJS2 = resuelve('/js/jquery-3.7.1.min.js');
     if ($usuario) {
         $nombreUsuario = $usuario->getNombre();
         $imagenUsuario = $usuario->getAvatar();
@@ -23,7 +21,7 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $receptor = Usuario::buscaPorId($idReceptor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
-    $rutaNew = resuelve('includes/src/Mensajes/nuevo_mensaje.php');
+    $rutaNew = resuelve('includes/src/Mensajes/put_mensaje.php');
     $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje.php');
 
     $mensaje_class .= <<<HTML
@@ -98,8 +96,7 @@ let chatBox;
 // Código JavaScript para el manejo de mensajes en tiempo real
 let idUsuarioEmisor = "<?php echo $id_usuario_emisor; ?>";
 let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
-let rutaNuevoMensaje = "../../src/Mensajes/nuevo_mensaje.php";
-let rutaObtenerMensajes = "../../src/Mensajes/get_mensaje.php";
+
 
 // Definir la función scrollToBottom
 function scrollToBottom() {

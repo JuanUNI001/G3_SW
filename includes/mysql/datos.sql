@@ -2,8 +2,6 @@
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
 
-TRUNCATE TABLE `Roles`;
-TRUNCATE TABLE `Usuarios`;
 
 
 --
@@ -72,10 +70,11 @@ INSERT INTO `seguir` (`idUsuario`, `idUsuarioSeguir`) VALUES
 (32, 2),
 (32, 50);
 
-INSERT INTO `foros` (`id`, `titulo`,`descripcion`, `autor_id`) VALUES
-(1, 'Foro sobre Poker','Debates sobre las mejors estrategias y consejos', 'Paula'),
-(2, 'Los amos del Parchís','Chistes sobre el parchís e historias que ya no quedarán en familia', 'jaime'),
-(3, 'Los locos por el Catan','Si te gusta el Catan este es tu lugar', 'Juan García');
+INSERT INTO `foros` (`id`, `titulo`, `descripcion`, `autor_id`) VALUES
+(1, 'Pokerizate', 'Viciado al póker? Este es tu sitio. Que mejor forma de disfrutar del tiempo que enseñando tus mejores juagas y compartiéndolas con la mejor comunidad. :)', 2),
+(2, 'Parchisme', 'Foro para aquellos lunáticos al parchís. Quién crea que el parchís es un juego aburrido mejor que no entre. Solo verdaderos locos del parchís', 32),
+(3, 'Trivial', 'Cansado de las típicas preguntas de trivial. Aquí encontrarás nuevas diariamente. Apúntate y plantea tus preguntas. :)', 32),
+(4, 'MaestrosAjedrecistas', 'Te crees malo? Eso es que no has entrado todavía en nuestro foro y descubierto las mejores jugadas. Solemos quedar una vez a la semana para poder poner a prueba lo aprendido.', 3);
 
 INSERT INTO `valoraciones` (`id_user`, `id_producto`, `valoracion`, `comentario`) VALUES
 (32, 1, 1, 'un asco de juego\r\n'),
