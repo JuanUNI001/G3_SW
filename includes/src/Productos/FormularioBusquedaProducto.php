@@ -1,7 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\src\Productos;
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
 require_once 'includes/src/Productos/listaProductos.php';
 

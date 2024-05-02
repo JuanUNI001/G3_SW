@@ -1,5 +1,5 @@
 body {
-	background-color: #CDCDCD;
+	background-color: #e9a9e9;
 }
 
 div#contenedor {
@@ -17,7 +17,7 @@ header {
     background-size: cover; /* Ajusta la imagen de fondo para que cubra todo el encabezado */
     padding: 30px;
     height: 160px; /* Ajusta la altura del encabezado */
-    background-color: #e8f17ea4;
+    background-color: #84b8c4a4;
     color: rgb(10, 10, 10);
 }
 
@@ -62,15 +62,7 @@ header a:hover {
     position: relative;
 }
 
-.corazon {
-    color: red; /* Cambia el color del corazón según tus preferencias */
-}
-.corazon_vacio {
-    color: black; /* Cambia el color del corazón vacío según tus preferencias */
-}
-.corazon_lleno {
-    color: red; /* Cambia el color del corazón según tus preferencias */
-}
+
 
 
 nav a, nav a:visited {
@@ -165,6 +157,8 @@ input {
 
 .form-field-error {
 	display: block;
+    visibility: visible; /* Asegúrate de que sea 'visible' */
+    opacity: 1;
 }
 
 .mensajes {
@@ -478,6 +472,39 @@ nav li:last-child {
     border-radius: 8px; /* Redondea los bordes del dropdown */
 }
 
+
+#campo_precio label,
+#campo_precio input {
+    display: inline-block;
+    vertical-align: top; /* Alinear verticalmente al principio */
+}
+#campo_precio input {
+    width: 85px; /* Ancho del label */
+}
+#campo_precio label {
+    width: 100px; /* Ancho del label */
+    text-align: right; /* Alinear el texto a la derecha */
+    margin-right: 10px; /* Espacio a la derecha del label */
+    margin-top: 10px; 
+}
+
+#avatar-anterior,
+#avatar-siguiente {
+    background-color: rgb(41, 148, 214); /* Fondo azul */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 5px 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de la fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+#avatar-anterior:hover,
+#avatar-siguiente:hover {
+    background-color: darkblue; /* Cambia el color de fondo al pasar el cursor */
+}
+
 /* Mostrar el dropdown al hacer hover */
 .dropdown:hover .dropdown-content {
     display: block; /* Muestra el contenido del dropdown al pasar el ratón sobre él */
@@ -498,38 +525,90 @@ nav li:last-child {
 .dropdown-content a:hover {
     background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
 }
+
+/*
+
+    FOROS 
+
+*/
+
 .foro {
-    margin-bottom: 50px;
+    margin: 10px; /* Márgenes entre los elementos foro */
+    border: 2px solid #4CAF50; /* Borde sólido con un tono de verde */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    background-color: #f0f8f0; /* Color de fondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_info {
-    background-color: #FFC0CB; /* Color de fondo rosa del recuadro del autor */
+    background-color: #d4ecd4; /* Color de fondo verde claro */
     border-radius: 20px; /* Esquinas redondeadas */
-    padding: 10px; /* Espaciado interno */
+    padding: 15px; /* Espaciado interno */
     margin-bottom: 20px; /* Espaciado inferior */
-    width: 90%; /* Ancho del contenedor */
-    margin: auto; /* Centrar el contenedor horizontalmente */
+    width: 95%; /* Ancho del contenedor */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_autor {
-    color: black; /* Color del texto */
+    color: #333; /* Color del texto gris oscuro */
     font-weight: bold; /* Texto en negrita */
     float: right; /* Alinear el autor a la derecha */
+    font-size: 20px; /* Tamaño de la letra */
 }
 
 .foro_titulo {
-    color: black; /* Color del texto */
+    color: #222; /* Color del texto gris */
     font-weight: bold; /* Texto en negrita */
     margin-left: 10px; /* Espacio a la izquierda del título */
     display: inline; /* Mostrar el título en línea con el autor */
     width: calc(100% - 100px); /* Ancho del título (ajustar según sea necesario) */
+    font-size: 26px; /* Tamaño de la letra */
 }
 
 .foro_descripcion {
-    background-color: #e5e5e5; /* Color de fondo del recuadro de la descripcion */
+    background-color: #e0ffe0; /* Color de fondo verde claro */
     border-radius: 10px; /* Esquinas redondeadas */
-    padding: 50px; /* Espaciado interno */
+    padding: 20px; /* Espaciado interno */
+    color: #666; /* Color del texto gris */
 }
+
+.foro-container {
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espaciado inferior */
+    background-color: #ffffff00; /* Color de fondo blanco */
+    height: 60vh;
+    width: 95%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.button-foro {
+    display: inline-block;
+    background-color: #2a96b1; /* Color de fondo naranja */
+    color: white; /* Color del texto */
+    padding: 12px 24px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Eliminar subrayado */
+    border: none; /* Eliminar borde */
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    font-weight: bold; /* Texto en negrita */
+    transition: background-color 0.3s; /* Transición suave */
+    margin: 10px; /* Margen alrededor del botón */
+}
+
+.button-foro:hover {
+    background-color: #E64A19; /* Nuevo color de fondo al pasar el cursor */
+}
+
+
+
+/*
+
+    EVENTOS
+
+*/
 
 
 
@@ -810,7 +889,9 @@ nav li:last-child {
 }
 
 
-
+.pedido-content {
+    margin-top: 10px; /* Espacio entre el encabezado y el contenido */
+}
 
 
 .estrellas_val {
@@ -912,9 +993,9 @@ nav li:last-child {
     justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
     flex-wrap: wrap;
     margin-bottom: 20px;
-    width: calc(100% + 10px); /* Ajustamos el ancho para compensar los márgenes */
-    margin-left: -50px; /* Margen izquierdo negativo */
-    margin-right: +260px; /* Margen derecho negativo */
+    width: 60%; /* Ajustamos el ancho para compensar los márgenes */
+    margin-left: +60px; /* Margen izquierdo negativo */
+    margin-right: +10px; /* Margen derecho negativo */
     background-color: white; /* Fondo blanco */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
     font-family: "Comic Sans MS", cursive; /* Aplicar la fuente Comic Sans MS */
@@ -923,6 +1004,7 @@ nav li:last-child {
 .lista_productos {
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 .producto_compra_ {
     background-image: linear-gradient(to right, #eb7be1, #9ffaff); /* Borde degradado rosa a verde */
@@ -934,7 +1016,7 @@ nav li:last-child {
 /* Estilos para la imagen del producto */
 .producto_imagen {
     margin: 10px auto; /* Margen alrededor de la imagen */
-    width: 120px;
+    width: 40px;
 }
 
 
@@ -947,5 +1029,18 @@ nav li:last-child {
     text-align: left; /* Alinea el texto a la izquierda */
     font-size: 15px; 
 }
+
+
+.pedidos-container {
+    height: 100vh;
+    width: 180%;
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+    background-color: #f0f0f0; /* Color de fondo opcional */
+    overflow: auto; /* Agrega barras de desplazamiento cuando sea necesario */
+    padding-top: 20px; /* Agrega un espacio superior de 20px */
+}
+
 
 

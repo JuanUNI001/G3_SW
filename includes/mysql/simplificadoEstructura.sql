@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `foros` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(25) NOT NULL,
   `descripcion` varchar(25) NOT NULL,
-  `autor` varchar(50) NOT NULL,
+  `autor_id` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -106,6 +106,13 @@ CREATE TABLE IF NOT EXISTS `inscritos` (
   `idEvento` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   PRIMARY KEY (`idEvento`,`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `valoraciones` (
+  `id_user` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `valoracion` float NOT NULL,
+  `comentario` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `productos`

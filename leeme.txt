@@ -4,13 +4,15 @@ Tiene opciones para ver la lista de productos que se ofertan en la tienda y si e
 podrá añadirlos al carrito. Tiene una vista de carrito que permite al usuario modificar la
 cantidad del producto que quiera dando luego a Actualizar, o eliminar el producto de la
 cesta. Si el usuario no está logueado no tendrá acceso a la cesta.
-El usuario también puede ver sus pedidos anteriores, que se encuentra seleccionando en el
-sidebarDer sobre el avatar. Y puede modificar sus propios datos en “Mi cuenta” que se
-encuentra en el mismo sitio que pedidos anteriores.
+El usuario también puede ver sus pedidos anteriores, que se encuentra seleccionando en el sidebarDer sobre el avatar, 
+pudiendo ver si da a “Total Productos” el resumen de ese pedido en concreto, y si sigue disponible el producto podrá 
+verlo en detalle en la tienda. También desde aquí si el usuario no ha valorado antes el producto podrá hacerlo. 
 El administrador tiene la posibilidad de editar los productos de la tienda y eliminarlos.
 Por otro lado hay una vista Profesores donde se ofertan todos los profesores actuales
-Foro donde se listan y m,uestran diferentes temas y la gente puede comentar
+Foro donde se listan y muestran diferentes temas y la gente puede comentar
 Chat privado con profesores
+Sobre los campos “tienda”, “profesores”, “usuarios”, “eventos” se puede buscar o filtrar por entradas
 Los usuarios pueden inscribirse en eventos y desinscrbirse, y, no pueden volver a inscribirse en iun evento
 si ya lo estan ya que se incluyen en la tabla de inscritos junto con su id y el id del evento
-
+Si en la ventana “usuarios” das al corazón negro de un user, este quedará marcado como follow cambiando su color a rojo. 
+Aparecerá en “follows” dentro de “mi perfil”.

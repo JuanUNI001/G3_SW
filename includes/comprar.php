@@ -24,13 +24,17 @@ if ($pedido) {
     
     $productosPorPedido = Pedidos_producto::buscaPorIdPedido_Producto($idPedido);
     
-    foreach ($productosPorPedido as $idProducto => $cantidad) {
-        $producto = Producto::buscaPorId($idProducto);
+    foreach ($productosPorPedido as $productoPorPedido) {
+        $idProductoPedido = $productoPorPedido->getId_producto_pedido();
+        $producto = Producto::buscaPorId($idProductoPedido);
         
         if ($producto) {
-            echo "Producto encontrado: {$producto->getNombre()}, Cantidad: $cantidad <br>";
+            if(! $producto->getCantidad() >= $producto->getCantidad()){
+                $idProductoPedido-> buscaPorIdPedidoProducto( $idPedido , $idProductoPedido);
+            }
+          
         } else {
-            echo "Producto no encontrado con ID: $idProducto <br>";
+            echo "Producto no encontrado con ID: $idProductoPedido <br>";
         }
     }
     

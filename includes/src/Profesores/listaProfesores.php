@@ -59,35 +59,45 @@ function visualizaProfesor($profesor) {
         {
             $rutaChat = resuelve('/ChatView.php');
             $html = <<<EOF
+            <div class="profesor_container">
             <div class="profesor">
-                <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
-                <div class="profesor_info">
+                <div class="avatar_container">
+                    <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
+                </div>
+                <div class="separator_vertical"><br></br></div> <!-- Separador vertical -->
+                <div class="info_container">
                     <div class="profesor_nombre"><strong>Nombre:</strong> {$profesor->getNombre()}</div>
+                    <div class="separator_horizontal"></div> <!-- Separador horizontal -->
                     <div class="profesor_precio"><strong>Precio:</strong> {$precioTexto}</div>
                     <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
                     <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
-                    <div>
                     <form action="{$rutaChat}" method="post">
                         <input type="hidden" name="id" value="{$id}">
-                        <button type="submit" class="button-like-link">Contactar</button>
+                        <button type="submit" class="button-profesor">Contactar</button>
                     </form>
                 </div>
-                </div>
-            </div>
+             </div>
+             </div> 
         EOF;
         }
         else
         {
             $html = <<<EOF
+            <div class="profesor_container">
             <div class="profesor">
-                <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
-                <div class="profesor_info">
+                <div class="avatar_container">
+                    <img src="{$imagenPath}" alt="Avatar de {$profesor->getNombre()}" class="profesor_avatar">
+                </div>
+                <div class="separator_vertical"><br></br></div> <!-- Separador vertical -->
+                <div class="info_container">
                     <div class="profesor_nombre"><strong>Nombre:</strong> {$profesor->getNombre()}</div>
+                    <div class="separator_horizontal"></div> <!-- Separador horizontal -->
                     <div class="profesor_precio"><strong>Precio:</strong> {$precioTexto}</div>
                     <div class="profesor_valoracion"><strong>Valoracion:</strong> {$valoracionTexto}</div>
                     <div class="profesor_correo"><strong>Correo:</strong> {$profesor->getCorreo()}</div>
                 </div>
-            </div>
+             </div>
+             </div>
         EOF;
 
         }
@@ -95,7 +105,7 @@ function visualizaProfesor($profesor) {
         
         /* 
             edicion profesor es la unica edicion sin implementar
-*/
+        */
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
             $dirProfesores=resuelve('/EditorProfesorView.php');
             $dirEditor=resuelve('/images/editar_producto.png');

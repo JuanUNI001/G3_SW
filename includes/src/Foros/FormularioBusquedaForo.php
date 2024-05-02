@@ -1,7 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\src\Foros;
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
 
 use es\ucm\fdi\aw\src\Formulario;
@@ -47,7 +47,7 @@ class FormularioBusquedaForo extends Formulario
                                         <input type="text" class="form-control" id="tema" name="tema" value="' .  $tema  . '">
                                     </div>
                                   
-                                    <div class="col-11">
+                                    <div class="col-11 ">
                                         <h4 class="card-title">Filtro para ordenar</h4>	
                                         <table class="table">
                                             <thead>

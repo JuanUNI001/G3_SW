@@ -22,14 +22,19 @@ $id_usuario = $usuario->getId();
 $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
-    $contenidoPrincipal = <<<EOF
+    $contenidoPrincipal = '<div class="pedidos-container">';
+    $contenidoPrincipal .= <<<EOF
     <ul id="listaPedidos">
     EOF;
     
     foreach ($pedidosAnteriores as $pedido) {
-        $totalProductos = count(Pedidos_producto::buscaPorIdPedido_Producto($pedido->getIdPedido()));
+        $totalProductos =0;
+        $productosPorPedido = Pedidos_producto::buscaPorIdPedido_Producto($pedido->getIdPedido());
+        foreach ($productosPorPedido as $productoPorPedido) {
+            $totalProductos += $productoPorPedido->getCantidad();
+        }
         $fecha_pedido = date_format(date_create($pedido->getFecha()), 'd/m/Y');
-        
+        $rutaDetalle = resuelve('includes/src/Pedidos/detalle_pedido.php');
         $contenidoPrincipal .= <<<EOF
         <li class="pedido">
             <div class="pedido-header">
@@ -39,7 +44,7 @@ if ($pedidosAnteriores) {
             <div class="pedido-content">
                 <table>
                     <tr>
-                        <th><a class="total-productos" href="includes/src/Pedidos/detalle_pedido.php?id={$pedido->getIdPedido()}">Total Productos: {$totalProductos}</a></th>
+                        <th><a class="total-productos" href="$rutaDetalle?id={$pedido->getIdPedido()}">Total Productos: {$totalProductos}</a></th>
                     </tr>
                    
                 </table>

@@ -208,6 +208,27 @@ abstract class Formulario
             exit();
         }
     }
+    public function gestionasinEnviar()
+    {
+        $datos = &$_POST;
+        if (strcasecmp('GET', $this->method) == 0) {
+            $datos = &$_GET;
+        }
+        $this->errores = [];
+
+        if (!$this->formularioEnviado($datos)) {
+            return $this->generaFormulario();
+        }
+
+        $this->procesaFormulario($datos);
+        $esValido = count($this->errores) === 0;
+
+        if (! $esValido ) {
+            return $this->generaFormulario($datos);
+        }
+
+        
+    }
 
     /**
      * Genera el HTML necesario para presentar los campos del formulario.

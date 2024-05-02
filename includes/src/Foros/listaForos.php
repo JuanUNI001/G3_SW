@@ -1,15 +1,16 @@
 <?php
-    use \es\ucm\fdi\aw\src\Foros\Foro;
-    require_once 'includes/config.php';
-    $tituloPagina = 'Chatea aprende y diviertete en los foros';
-    use es\ucm\fdi\aw\src\BD;
+use \es\ucm\fdi\aw\src\Foros\Foro;
+require_once 'includes/config.php';
+$tituloPagina = 'Chatea aprende y diviértete en los foros';
+use es\ucm\fdi\aw\src\BD;
+
 ?>
 <?php
 function listaForos()
 {
     $foros = Foro::listarForos();
 
-    $html = "<div>";
+    $html = '<div class="foro-container">';
 
     foreach ($foros as $foro) {
         $html .= visualizaForo($foro);
@@ -22,7 +23,7 @@ function listarForosBusqueda($autor, $nombre,$orden)
 {
     $foros = Foro::listarForosBusqueda($autor, $nombre,$orden);
 
-    $html = "<div>";
+    $html = '<div class="foro-container">';
 
     foreach ($foros as $foro) {
         $html .= visualizaForo($foro);
@@ -32,46 +33,60 @@ function listarForosBusqueda($autor, $nombre,$orden)
     return $html;
 }
 function visualizaForo($foro) {
-
     $app = BD::getInstance();
     $usuarioLogueado = $app->usuarioLogueado();
 
-    $rutaForo = resuelve('/ForoView.php');
+    $rutaForo = resuelve('/includes/vistas/helpers/ForoView.php');
     $idForo = $foro->getId();
-   
-    $rutaForo = resuelve('/ForoView.php');
-    $idForo = $foro->getId();
+    $autorId = $foro->getAutor(); // Obtener el ID del autor del foro
+
+    // Obtener el nombre del autor a partir de su ID
+    $autor = \es\ucm\fdi\aw\src\Usuarios\Usuario::buscaPorId($autorId);
+    $nombreAutor = $autor ? $autor->getNombre() : "Desconocido";
+
     $html = <<<EOF
-    <div class="foro">
-        <div class="foro_info">
-            <div class="foro_autor">
-                <strong>{$foro->getAutor()}</strong>
-            </div>
-            <div class="foro_titulo">
-            <strong>{$foro->getTitulo()}</strong> 
-            </div>
-            <div class="foro_contenido">
-                Contenido del foro aquí...
-            </div>
-            <div>
-    EOF;
     
-    // Display the "Ver" link only if the user is logged in
+        <div class="foro">
+            <div class="foro_info">
+                <div class="foro_autor">
+                    <strong>{$nombreAutor}</strong> <!-- Mostrar el nombre del autor -->
+                </div>
+                <div class="foro_titulo">
+                    <strong>{$foro->getTitulo()}</strong> 
+                </div>
+                <div class="foro_descripcion">
+                    <p>{$foro->getDescripcion()}</p>   
+                </div>
+            
+    EOF;
+   
+    
     if ($usuarioLogueado) {
-        $html .= '<a href="' . $rutaForo . '?id_foro=' . $idForo . '" class="button-like-link">Ver</a>';
+        $html .= <<<EOF
+            <form action="{$rutaForo}" method="post">
+                <input type="hidden" name="id" value="{$idForo}">
+                <button type="submit" class="button-foro">Acceder</button>
+            </form>
+        EOF;    
+    }
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+        
+        $eliminarForo = resuelve('includes/src/Foros/eliminarForo.php');
+
+        $html .=<<<EOF
+        <form class="eliminar-foro" action="$eliminarForo" method="post" style="float: right;">
+            <input type="hidden" name="id_foro" value="$idForo">
+            
+            <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
+                🗑️
+            </button>
+        </form>
+        EOF;
     }
     
-    $html .= <<<'EOF'
-            </div>
-        </div>
-    </div>
-    EOF;
+    $html .= '</div></div>'; // Cierre de las etiquetas div de foro_info y foro
     
     return $html;
-    
 }
-
-
-
 
 ?>

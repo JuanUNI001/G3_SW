@@ -1,7 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\src\Profesores;
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
+
 echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
 
 use es\ucm\fdi\aw\src\Formulario;

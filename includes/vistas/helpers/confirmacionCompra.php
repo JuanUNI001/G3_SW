@@ -5,8 +5,11 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
+use es\ucm\fdi\aw\src\BD;
+$app = BD::getInstance();
+    
 
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+if (!$app->usuarioLogueado())  {
     $dir = resuelve('/login.php');
     header("Location: $dir");
     exit();
@@ -34,7 +37,7 @@ if ($ultimoPedido) {
     // Lista de productos
     $contenidoPrincipal .= "<ul class='lista_productos'>";
     foreach ($detallesProductos as $pedido_producto) {
-        $idProducto = $pedido_producto->getIdProducto();
+        $idProducto = $pedido_producto->getId_producto_pedido();
         $cantidad = $pedido_producto->getCantidad();
         $producto = Producto::buscaPorId($idProducto);
         
@@ -48,7 +51,7 @@ if ($ultimoPedido) {
             <div class='producto_compra_'>
                 <div class='producto_info_compra'>
                     <p>$nombreProducto</p> <br>
-                    <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' width='100'><br>
+                    <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' ><br>
                     <div class='producto_precio'>
                         <strong>Precio:</strong> $precioProducto € <br>
                         <strong>Cantidad:</strong> $cantidad <br>

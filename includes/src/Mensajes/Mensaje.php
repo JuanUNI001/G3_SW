@@ -72,7 +72,7 @@ class Mensaje
 
     public function getFechaYHora()
     {
-        return $this->fechaHora?->format(self::DATE_FORMAT);
+        return $this->fechaHora;
     }
 
     public function setIdEmisor($idEmisor)
@@ -268,23 +268,31 @@ class Mensaje
 
     public static function buscaPorId($idMensaje)
     {
-       /* $result = null;
+        $result = null;
 
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf('SELECT * FROM mensajes M WHERE M.id = %d;', $idMensaje);
+        $query = sprintf('SELECT * FROM mensajes WHERE id = %d', $idMensaje);
         $rs = $conn->query($query);
+        
         if ($rs && $rs->num_rows == 1) {
-            while ($fila = $rs->fetch_assoc()) {
-                $result =  new Mensaje($idMensaje, $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'] $fila['mensaje'],
-                $fila['fechaHora']);
-            }
+            $fila = $rs->fetch_assoc();
+            $result = new Mensaje(
+                $fila['id'],
+                $fila['idEmisor'],
+                $fila['idDestinatario'],
+                $fila['idForo'],
+                $fila['mensaje'],
+                $fila['fechaHora']
+            );
+        }
+
+        if ($rs) {
             $rs->free();
         }
-        else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;*/
+        
+        return $result;
     }
+
 
     private static function inserta($mensaje)
     {
@@ -407,7 +415,7 @@ class Mensaje
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf("SELECT * FROM mensajes M WHERE M.idForo = %d", $idForo);
-        $query .= ' ORDER BY fechaHora ASC';
+        $query .= ' ORDER BY fechaHora DESC';
     
     
         $rs = $conn->query($query);

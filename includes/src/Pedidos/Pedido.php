@@ -109,7 +109,7 @@ class Pedido
     public static function buscarPedidosAnteriores($id_usuario)
 {
     $conn = BD::getInstance()->getConexionBd();
-    $query = sprintf('SELECT * FROM pedidos WHERE estado = "comprado" AND id_user = %d', $id_usuario);
+    $query = sprintf('SELECT * FROM pedidos WHERE estado = "comprado" AND id_user = %d ORDER BY fecha DESC', $id_usuario);
     $result = $conn->query($query);
 
     $pedidosAnteriores = array();

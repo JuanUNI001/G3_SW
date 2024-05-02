@@ -5,20 +5,22 @@ use es\ucm\fdi\aw\src\Formulario;
 
 class FormularioEdicionProducto extends Formulario
 {
+    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+
     public $id;
     public $nombre;
     public $precio;
     public $descripcion;
     public $imagen;
     public $cantidad = null;
+    public $nueva_imagen;
 
     public function __construct() {
-        parent::__construct('formEdicionProducto', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('formEdicionProducto', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-
         $datos['id'] =  $this->id;
         $nombreProducto = $this->nombre;
         $precio = $this->precio;
@@ -26,16 +28,21 @@ class FormularioEdicionProducto extends Formulario
         $imagen = $this->imagen;
         $eliminar = 0;
         $cantidad = $this->cantidad;
+        $nueva_imagen = $this->nueva_imagen;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreProducto', 'precio', 'descripcion', 'cantidad', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreProducto', 'precio', 'descripcion', 'cantidad', 'nueva_imagen'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
+        $rutadir = RUTA_IMGS;
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset class="fieldset-form">
             <legend class="legend-form">Datos producto</legend>
+
+            <img id="imagen_producto" src="{$imagen}" alt="Imagen Producto" style="width: 30%;">
+
             <div class="input-text">
                 <label for="nombreProducto" class="input-label">Nombre:</label>
                 <input id="nombreProducto" type="text" name="nombreProducto" value="$nombreProducto" />
@@ -46,11 +53,13 @@ class FormularioEdicionProducto extends Formulario
                 <input id="precio" type="text" name="precio" value="$precio"/>
             </div>
             <div class="error-message">{$erroresCampos['precio']}</div>
-            <div class="input-text">
-                <label for="imagen" class="input-label">Imagen:</label>
-                <input id="imagen" type="text" name="imagen" value="$imagen"/>
+
+            <div class="input-file">
+            <label for="nueva_imagen" class="input-label">Nueva Imagen:</label>
+            <input id="nueva_imagen" type="file" name="nueva_imagen" value="$nueva_imagen"/>
             </div>
-            <div class="error-message">{$erroresCampos['imagen']}</div>
+            <div class="error-message">{$erroresCampos['nueva_imagen']}</div>
+
             <div class="input-textarea">
                 <label for="descripcion" class="input-label">Descripcion:</label>
                 <textarea id="descripcion" name="descripcion">$descripcion</textarea>
@@ -70,7 +79,7 @@ class FormularioEdicionProducto extends Formulario
                 <label for="eliminar" class="input-label">Eliminar</label>
             </div>
             <div class="enviar-button">
-                <button type="submit" name="crear">Crear</button>
+                <button type="submit" name="crear">Aceptar</button>
             </div>
         </fieldset> 
         EOF;
@@ -99,16 +108,28 @@ class FormularioEdicionProducto extends Formulario
             $this->errores['descripcion'] = 'La descripcion no puede estar vacía.';
         }
 
-        $imagen = trim($datos['imagen'] ?? '');
-        $imagen = filter_var($imagen, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $imagen || empty($imagen) ) {
-            $this->errores['imagen'] = 'La imagen no puede estar vacía.';
-        }
-
         $cantidad = trim($datos['cantidad'] ?? '');
         $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($cantidad == null) {
             $this->errores['cantidad'] = 'Cantidad no puede estar vacía.';
+        }
+
+        $imagen = $this->imagen;
+        if (isset($_FILES['nueva_imagen']) && $_FILES['nueva_imagen']['error'] === UPLOAD_ERR_OK
+             && count($_FILES) == 1 && count($this->errores) === 0) {
+            $nueva_imagen = $_FILES['nueva_imagen']['tmp_name'];
+            if (!empty($nueva_imagen)) {
+                $extension = pathinfo($_FILES['nueva_imagen']['name'], PATHINFO_EXTENSION);
+                if (self::comprobarExtension($extension)) {
+                    $tmp_name = $_FILES['nueva_imagen']['tmp_name'];
+                    if (file_exists($imagen)) {
+                        unlink($imagen);
+                    }
+                    if (!move_uploaded_file($tmp_name, $imagen)) {
+                        $this->errores['nueva_imagen'] = 'Error al mover el archivo';
+                    }
+                }
+            }
         }
 
         $eliminar = isset($_POST['eliminar']);
@@ -120,9 +141,29 @@ class FormularioEdicionProducto extends Formulario
             } else
             {
                 $prodActual = Producto::buscaPorId($this->id);
-                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $prodActual->getImagen(), $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
+                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $imagen, $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
                 Producto::actualiza($nuevoProducto);
             }
         }
     }
+
+    private function comprobarExtension($extension){
+        /*Comprueba el tipo de extension de la imagen */
+        if (! in_array($extension, self::EXTENSIONES_PERMITIDAS)) {
+            $this->errores['nueva_imagen'] = 'Error, la extensión del archivo no está permitida.';
+            return false;
+        }
+
+        /*Comprueba el tipo mime del archivo corresponde a una imagen imagen */
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['nueva_imagen']['tmp_name']);
+        if (! (preg_match('/image\/.+/', $mimeType) === 1)) {
+            $this->errores['nueva_imagen'] = 'Error, el tipo de archivo no está permitido.';
+            return false;
+        }
+
+        return true;
+    }
+
+    
 }

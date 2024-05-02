@@ -14,7 +14,9 @@ $form->nombre = $nombre;
 $form->precio = $producto->getPrecio();
 $form->descripcion = $producto->getDescripcion();
 $form->imagen = $producto->getImagen();
+$form->nueva_imagen = "";
 $form->cantidad = $producto->getCantidad();
+
 
 $htmlFormLogin = $form->gestiona();
 
