@@ -5,7 +5,7 @@ use \es\ucm\fdi\aw\src\Pedidos\Pedido;
 use \es\ucm\fdi\aw\src\Pedidos\Pedidos_producto;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\Productos\Producto;
-
+use es\ucm\fdi\aw\src\BD;
 $app = BD::getInstance();
     
 
@@ -51,7 +51,7 @@ if ($ultimoPedido) {
             <div class='producto_compra_'>
                 <div class='producto_info_compra'>
                     <p>$nombreProducto</p> <br>
-                    <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' width='100'><br>
+                    <img src='$imagenProducto' alt='$nombreProducto' class='producto_imagen' ><br>
                     <div class='producto_precio'>
                         <strong>Precio:</strong> $precioProducto € <br>
                         <strong>Cantidad:</strong> $cantidad <br>

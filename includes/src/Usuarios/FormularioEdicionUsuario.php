@@ -28,13 +28,13 @@ class FormularioEdicionUsuario extends Formulario
         $rol = $this->rol;
         $correo = $this->correo;
         $avatar = $this->avatar;
-        $rutaAvatar = resuelve('/').$avatar;//la ruta del usuario  avatar
+        $rutaAvatar = $avatar;//la ruta del usuario  avatar
         $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
         $imagen = $this->imagen;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         $checkedUser = ($rol == 2) ? 'checked' : '';
         $checkedTeacher = ($rol == 3) ? 'checked' : '';
@@ -55,7 +55,7 @@ class FormularioEdicionUsuario extends Formulario
                     <label for="user_role">User</label>
 
                     <input id="teacher_role" type="radio" name="rol" value="3" $checkedTeacher>
-                    <label for="teacher_role">Teacher</label>
+                    <label for="teacher_role">Profesor</label>
                 </div>
             </div>
             <div class="error-message">{$erroresCampos['rol']}</div>
@@ -69,25 +69,48 @@ class FormularioEdicionUsuario extends Formulario
                 <img id="avatar-seleccionado" src="{$rutaAvatar}" alt="Avatar seleccionado" style="width: 30%;">     
                 <button id="avatar-siguiente" type="button">&gt;</button>
             </div>
-            <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="{$rutaAvatar}"> 
+            <input type="hidden" id="editar-ruta-avatar" name="rutaAvatar" value="{$rutaAvatar}"> 
 
             <div class="enviar-button">
                 <button type="submit" name="actualizar">Actualizar</button>
             </div>
+            <div id="campo_precio" >
+                   
+                    <label for="precio">Precio:</label>
+                    <input id="precio" type="number" step="0.01" name="precio" value="0" size="10" />
+                    {$erroresCampos['precio']}
+                    
+                </div>
         </fieldset>
         EOF;
         $html .= <<<EOF
         <script>
-        document.addEventListener('DOMContentLoaded', function() {             
+        document.addEventListener('DOMContentLoaded', function() {
+            var usuarioRadio = document.getElementById('user_role');
+            var profesorRadio = document.getElementById('teacher_role');
+            var campoPrecio = document.getElementById('campo_precio');
             var avatarActual = {$avatarActual}; // Obtener el número de avatar actual del usuario
             var numAvatares = 6;
+        
+            function actualizarVisibilidadPrecio() {
+                if (profesorRadio.checked) {
+                    campoPrecio.style.display = 'block';  // Mostrar el campo de precio si el rol es Profesor
+                } else {
+                    campoPrecio.style.display = 'none';   // Ocultar el campo de precio si el rol es Usuario
+                }
+            }
+            
+            usuarioRadio.addEventListener('change', actualizarVisibilidadPrecio);
+            profesorRadio.addEventListener('change', actualizarVisibilidadPrecio);
+            actualizarVisibilidadPrecio();                   
+        
             function actualizarAvatar() {
                 var avatarSeleccionado = document.getElementById('avatar-seleccionado');
                 avatarSeleccionado.src = 'images/opcion' + avatarActual + '.png';
                 avatarSeleccionado.alt = 'Avatar seleccionado ' + avatarActual;
-
+        
                 // Almacena la ruta de la imagen seleccionada en un campo oculto
-                document.getElementById('ruta-avatar').value = 'images/opcion' + avatarActual + '.png';
+                document.getElementById('editar-ruta-avatar').value = 'images/opcion' + avatarActual + '.png';
             }
             
             document.getElementById('avatar-anterior').addEventListener('click', function() {
@@ -100,6 +123,7 @@ class FormularioEdicionUsuario extends Formulario
                 actualizarAvatar();
             });
         });
+       
         </script>
         EOF;
         return $html;
@@ -126,8 +150,8 @@ class FormularioEdicionUsuario extends Formulario
         if ( ! $correo || empty($correo) ) {
             $this->errores['correo'] = 'El correo no puede estar vacío.';
         }
-
-        $rutaAvatar = $datos['rutaAvatar'] ?? '';
+        $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
+        $rutaAvatar = $datos['rutaAvatar'] ?? $this->avatar;
 
         if (count($this->errores) === 0) {
 

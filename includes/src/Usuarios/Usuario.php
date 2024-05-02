@@ -22,7 +22,7 @@ class Usuario
     
     public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
-        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar);
+        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null);
         
         return $user->guarda();
     }
@@ -127,13 +127,13 @@ class Usuario
         $conn = BD::getInstance()->getConexionBd();
         
         // Verificar si el rol existe en la base de datos
-        $rolUser = intval($usuario->rolUser); // Convertir a entero
+        $rolUser = $usuario->rolUser; // Convertir a entero
         $rolExistsQuery = "SELECT COUNT(*) AS count FROM roles WHERE id = $rolUser";
         $result = $conn->query($rolExistsQuery);
         $row = $result->fetch_assoc();
         
         if ($row['count'] > 0) {
-            // El rol existe, entonces inserta el usuario
+            
             $nombre = $conn->real_escape_string($usuario->nombre);
             $password = $conn->real_escape_string($usuario->password);
             $correo = $conn->real_escape_string($usuario->correo);
@@ -270,9 +270,9 @@ class Usuario
     protected $avatar;//será la foto que el usuario puede incluir
 
 
-    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id = null)
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id )
     {
-        $this->id =intval($id);
+        $this->id = $id;
         $this->rolUser = $rol;
         $this->password = $password;
         $this->nombre = $nombre;
@@ -358,6 +358,7 @@ class Usuario
     
     public function guarda()
     {
+        
         if ($this->id !== null) {
             return self::actualiza($this);
         }

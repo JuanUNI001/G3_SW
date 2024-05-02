@@ -14,7 +14,7 @@
   padding: 25px 30px;
 }
 .custom-header {
-  background-color: rgb(57, 122, 179); /* Cambia el color de fondo según sea necesario */
+  background-color: rgb(120, 69, 215); /* Cambia el color de fondo según sea necesario */
   border-radius: 10px; /* Ajusta el radio de las esquinas según lo desees */
   height: 80px; 
 }
@@ -79,7 +79,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 13px;*/
-  background: #2196f3;
+  background: #2128f3;
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   position: relative;
 display: inline-block;
@@ -196,7 +196,7 @@ font-weight: 400;
   cursor: pointer;
   border: none;
   background: #fff;
-  color: #2196f3;
+  color: #5221f3;
   outline: none;
   border-radius: 0 5px 5px 0;
   transition: all 0.2s ease;
@@ -296,7 +296,7 @@ font-weight: 400;
   max-width: calc(100% - 130px);
 }
 .outgoing .details p{
-  background: #2196f3;
+  background: #7858d1;
   color: #fff;
   border-radius: 18px 18px 0 18px;
 }
@@ -313,8 +313,8 @@ font-weight: 400;
   margin-left: 10px;
   max-width: calc(100% - 130px);
 }
-.incoming .details p{
-  background: #fff;
+.incoming .details p{  /*mensaje entrada*/
+  background: #e377e0;
   color: #333;
   border-radius: 18px 18px 18px 0;
 }
@@ -328,17 +328,18 @@ font-weight: 400;
   width: calc(100% - 58px);
   font-size: 16px;
   padding: 0 13px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #e88fdf;
   outline: none;
   border-radius: 5px 0 0 5px;
 }
-.typing-area button{
+.typing-area button {
   color: #fff;
-  width: 55px;
+  width: 50%; /* Ajusta el ancho del botón */
+  padding: 10px 30px; /* Ajusta el padding para aumentar el tamaño */
   border: none;
   outline: none;
-  background: #2196f3;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  background: #bb21f3;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
   font-size: 19px;
   cursor: pointer;
   opacity: 0.7;
@@ -346,6 +347,7 @@ font-weight: 400;
   border-radius: 0 5px 5px 0;
   transition: all 0.3s ease;
 }
+
 .typing-area button.active{
   opacity: 1;
   pointer-events: auto;
@@ -451,34 +453,5 @@ font-weight: 400;
     outline: none;
 }
 
-.typing-area button {
-    background-color: #2196f3;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.typing-area button:hover {
-    background-color: #0d8aed;
-}
 
 }
-.enviar-mensaje {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.enviar-mensaje:hover {
-  background-color: #0056b3;
-}
-
-

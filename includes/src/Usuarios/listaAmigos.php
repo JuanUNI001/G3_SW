@@ -61,12 +61,16 @@ function visualizaUsuario($Usuario) {
                 <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
                 <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
                 <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
-                <div id="corazon_$id" class="corazon $corazonClase" style="font-size: 24px; cursor: pointer;" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
                 <div>
-                    <a href="$rutaChat?id=$id" class="button-like-link">Contactar</a>
+                <a href="$rutaChat?id=$id" class="button-user">Contactar</a>
                 </div>
             </div>
+           
+            <div class="corazon-container">
+                <div id="corazon_$id" class="corazon $corazonClase" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
+            </div>
         </div>
+       
         <script>
         // Función para cambiar el estado del corazón y agregar/eliminar la relación de seguimiento
         function toggleSeguir(idUsuario, idUsuarioSeguir) {

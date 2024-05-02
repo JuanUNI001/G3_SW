@@ -85,14 +85,20 @@ function visualizaUsuario($Usuario) {
             <div class="info_usuario">
                 <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
                 <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
-                <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
-                <div id="corazon_$id" class="corazon $corazonClase" style="font-size: 24px; cursor: pointer;" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
-                <form action="{$rutaChat}" method="post">
-                    <input type="hidden" name="id" value="{$id}">
-                    <button type="submit" class="button-like-link">Contactar</button>
-                </form>
+                <div>
+                    <form action="$rutaChat" method="post">
+                        <input type="hidden" name="id" value="$id">
+                        <button type="submit" class="button-user">Contactar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="corazon-container">
+                <div id="corazon_$id" class="corazon $corazonClase" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
             </div>
         </div>
+    
+
+
 
 
         <script>
@@ -103,9 +109,9 @@ function visualizaUsuario($Usuario) {
             var sigue = corazon.classList.contains('corazon_lleno');
             var nuevaClase = sigue ? 'corazon_vacio' : 'corazon_lleno';
             
-            // Cambiar la clase del corazón
+            // Cambiar la color del corazón
             corazon.className = nuevaClase;
-
+        
             // Enviar una solicitud AJAX para agregar/eliminar la relación de seguimiento
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'agregar_eliminar_seguir.php', true);
@@ -125,6 +131,7 @@ function visualizaUsuario($Usuario) {
             };
             xhr.send('idUsuario=' + idUsuario + '&idUsuarioSeguir=' + idUsuarioSeguir);
         }
+        
         </script>
 EOF;
     }
