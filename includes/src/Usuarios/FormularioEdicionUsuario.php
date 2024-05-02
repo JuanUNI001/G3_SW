@@ -5,14 +5,19 @@ use es\ucm\fdi\aw\src\Formulario;
 
 class FormularioEdicionUsuario extends Formulario
 {
+    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+    const MAX_FILENAME = 250;
+
     public $id;
     public $nombre;
     public $rol;
     public $correo;
     public $avatar;
+    public $imagen;
+
 
     public function __construct() {
-        parent::__construct('formEdicionUsuario', ['urlRedireccion' => 'verPerfil.php']);
+        parent::__construct('formEdicionUsuario', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'verPerfil.php']);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -25,10 +30,11 @@ class FormularioEdicionUsuario extends Formulario
         $avatar = $this->avatar;
         $rutaAvatar = resuelve('/').$avatar;//la ruta del usuario  avatar
         $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
+        $imagen = $this->imagen;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $checkedUser = ($rol == 2) ? 'checked' : '';
         $checkedTeacher = ($rol == 3) ? 'checked' : '';
