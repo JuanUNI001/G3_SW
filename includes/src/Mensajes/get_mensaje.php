@@ -18,7 +18,7 @@ if ($id_usuario_receptor !== null) {
         foreach ($mensajes as $mensaje) {
             $idEmisor = $mensaje->getIdEmisor();
             if ($idEmisor === $id_usuario_emisor) {
-                    $output .= '<div class="chat incoming">
+                    $output .= '<div class="chat outgoing">
                     <div class="details">
                         <p>'. $mensaje->getTexto() .'</p>
                     </div>
@@ -26,7 +26,7 @@ if ($id_usuario_receptor !== null) {
                
             } else {
                 // El mensaje es entrante (del usuario receptor)
-                $output .= '<div class="chat outgoing">
+                $output .= '<div class="chat incoming">
                                 <div class="details">
                                     <p>'. $mensaje->getTexto() .'</p>
                                 </div>
