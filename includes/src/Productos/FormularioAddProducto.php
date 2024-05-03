@@ -98,7 +98,7 @@ class FormularioAddProducto extends Formulario
         }
 
         $imagen='';
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && count($this->errores) === 0) {
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && empty($this->errores)) {
             $imagen = $_FILES['imagen']['tmp_name'];
             if (!empty($imagen)) {
                 $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
@@ -107,19 +107,23 @@ class FormularioAddProducto extends Formulario
                     $fichero = "{$numero_random}.{$extension}";
                     $ruta_imagen = RUTA_IMGS2 . $fichero;
                     if (!move_uploaded_file($imagen, $ruta_imagen)) {
-                        $this->errores['imagen'] = 'Error al mover el archivo';
+                        $this->errores['imagen'] = 'Error al mover el archivo.';
                     }else{
                         $imagen = $ruta_imagen;
+                        $nuevoProducto = Producto::crea(null, $nombreProducto, $precio, $descripcion, $imagen, 0, 0, $cantidad);
+                        $nuevoProducto->guarda(); 
                     }              
                 }
             }
+        }else{
+            $this->errores['imagen'] = 'Debe introducir un archivo.';
         }
         
-        if (count($this->errores) === 0) {
+        /*if (count($this->errores) === 0) {
 
             $nuevoProducto = Producto::crea(null, $nombreProducto, $precio, $descripcion, $imagen, 0, 0, $cantidad);
             $nuevoProducto->guarda();            
-        }
+        }*/
     }
 
     private function comprobarExtension($extension){

@@ -384,8 +384,24 @@ ul.dropdown ul.dropdown-content {
 /* Estilos para el contenido del pie de página */
 .footer-content {
     display: flex; /* Utiliza flexbox para organizar el contenido */
+    margin-left: 5%; /* Establece el margen izquierdo automático */
+    justify-content: space-between; /* Distribuye el espacio disponible entre los elementos */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
 
-    align-items: right; /* Alinea verticalmente los elementos */
+.footer-content .redes-sociales {
+    margin-left: auto; /* Establece el margen izquierdo automático */
+    margin-right: 5%; /* Ajusta el margen derecho para separarlo un poco */
+}
+
+.redes-sociales a {
+    display: inline-block; /* Hace que las imágenes se muestren en línea */
+    margin-right: 10px; /* Agrega un espacio entre cada imagen */
+}
+
+.redes-sociales img {
+    width: 3px !important; /* Define el ancho como el 20% del contenedor padre */
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
 }
 
 /* Estilos para los enlaces del pie de página */

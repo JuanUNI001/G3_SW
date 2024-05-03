@@ -8,10 +8,13 @@ use es\ucm\fdi\aw\src\BD;
 
 class FormularioRegistro extends Formulario
 {
+
+    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+    const MAX_FILENAME = 250;
     private $rutaImagen;
 
     public function __construct() {
-        parent::__construct('formLogin', ['urlRedireccion' => BD::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formLogin', ['enctype' => 'multipart/form-data', 'urlRedireccion' => BD::getInstance()->resuelve('/index.php')]);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -21,13 +24,12 @@ class FormularioRegistro extends Formulario
         
         // Se generan los mensajes de error si existen.
         self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
            
-            <fieldset class="fieldset-form">
+        <fieldset class="fieldset-form">
             <legend class="legend-form">Datos para el registro</legend>
-                
                 
             <div>
                 <label for="nombre">Nombre:</label>
@@ -49,38 +51,43 @@ class FormularioRegistro extends Formulario
                 <input id="password2" type="password" name="password2" />
                 <span id="password2-validacion"></span> 
             </div>
-        
 
-                <div id="avatar-selector">
-                    <button id="avatar-anterior" type="button">&lt;</button>
-                    <img id="avatar-seleccionado" src="images/opcion2.png" alt="Avatar seleccionado" style="width: 150px;">     
-                    <button id="avatar-siguiente" type="button">&gt;</button>
-                </div>
-                <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="images/opcion2.png"> 
-                <div class="radio-buttons">
-                    <label for="rol_usuario">Selecciona tu rol:</label><br>
-                    <div class="rol-option">
-                        <input id="usuario" type="radio" name="rol" value="Usuario" required />
-                        <label for="usuario">Usuario</label>
-                    </div>
-                    <div class="rol-option">
-                        <input id="profesor" type="radio" name="rol" value="Profesor" />
-                        <label for="profesor">Profesor</label>
-                    </div>
-                </div>
-                <div id="campo_precio" >
-                   
-                    <label for="precio">Precio:</label>
-                    <input id="precio" type="number" step="0.01" name="precio" value="0" size="10" />
-                  
-                    
-                </div>
-               
+            <div class="input-file">
+            <label for="imagen" class="input-label">Imagen:</label>
+            <input id="imagen" type="file" name="imagen"/>
+            </div>
+            <div class="error-message">{$erroresCampos['imagen']}</div>
 
-                <div class="enviar-button">
-                    <button type="submit" name="registro">Registrar</button>
+            <div id="avatar-selector">
+                <button id="avatar-anterior" type="button">&lt;</button>
+                <img id="avatar-seleccionado" src="images/opcion2.png" alt="Avatar seleccionado" style="width: 150px;">     
+                <button id="avatar-siguiente" type="button">&gt;</button>
+            </div>
+            <input type="hidden" id="ruta-avatar" name="rutaAvatar" value="images/opcion2.png"> 
+            <div class="radio-buttons">
+                <label for="rol_usuario">Selecciona tu rol:</label><br>
+                <div class="rol-option">
+                    <input id="usuario" type="radio" name="rol" value="Usuario" required />
+                    <label for="usuario">Usuario</label>
                 </div>
-            </fieldset>
+                <div class="rol-option">
+                    <input id="profesor" type="radio" name="rol" value="Profesor" />
+                    <label for="profesor">Profesor</label>
+                </div>
+            </div>
+            <div id="campo_precio" >
+                
+                <label for="precio">Precio:</label>
+                <input id="precio" type="number" step="0.01" name="precio" value="0" size="10" />
+                
+                
+            </div>
+            
+
+            <div class="enviar-button">
+                <button type="submit" name="registro">Registrar</button>
+            </div>
+        </fieldset>
         EOF;
 
            
@@ -190,6 +197,25 @@ class FormularioRegistro extends Formulario
         if ($rolSeleccionado === 'Profesor' && (!$precio || $precio <= 0)) {
             $this->errores[] = "Por favor, introduce un precio válido para el profesor.";
         }
+
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && empty($this->errores)) {
+            $imagen = $_FILES['imagen']['tmp_name'];
+            if (!empty($imagen)) {
+                $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+                if (self::comprobarExtension($extension)) {
+                    $numero_random = uniqid(); //para generar un numero random basado en la hora
+                    $fichero = "{$numero_random}.{$extension}";
+                    $ruta_imagen = RUTA_IMGS2 . $fichero;
+                    if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                        $this->errores['imagen'] = 'Error al mover el archivo.';
+                    }else{
+                        $rutaAvatar = $ruta_imagen;
+                    }              
+                }
+            }
+        }else{
+            $this->errores['imagen'] = 'Debe introducir un archivo.';
+        }
     
         // Si no hay errores, crea el usuario o profesor y redirige
         if (empty($this->errores)) {
@@ -225,5 +251,23 @@ class FormularioRegistro extends Formulario
         $app->putAtributoPeticion('mensajes', $this->errores);
     }
     
+    private function comprobarExtension($extension){
+
+        /*Comprueba el tipo de extension de la imagen */
+        if (! in_array($extension, self::EXTENSIONES_PERMITIDAS)) {
+            $this->errores['imagen'] = 'Error, la extensión del archivo no está permitida.';
+            return false;
+        }
+
+        /*Comprueba el tipo mime del archivo corresponde a una imagen imagen */
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['imagen']['tmp_name']);
+        if (! (preg_match('/image\/.+/', $mimeType) === 1)) {
+            $this->errores['imagen'] = 'Error, el tipo de archivo no está permitido.';
+            return false;
+        }
+
+        return true;
+    }
 
 }

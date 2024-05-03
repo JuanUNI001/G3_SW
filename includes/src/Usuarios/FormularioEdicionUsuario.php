@@ -13,7 +13,7 @@ class FormularioEdicionUsuario extends Formulario
     public $rol;
     public $correo;
     public $avatar;
-    public $imagen;
+    public $nueva_imagen;
 
 
     public function __construct() {
@@ -30,11 +30,11 @@ class FormularioEdicionUsuario extends Formulario
         $avatar = $this->avatar;
         $rutaAvatar = $avatar;//la ruta del usuario  avatar
         $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
-        $imagen = $this->imagen;
+        $nueva_imagen = $this->nueva_imagen;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'precio'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'nueva_imagen', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         $checkedUser = ($rol == 2) ? 'checked' : '';
         $checkedTeacher = ($rol == 3) ? 'checked' : '';
@@ -64,6 +64,13 @@ class FormularioEdicionUsuario extends Formulario
                 <input id="correo" type="text" name="correo" value="$correo"/>
             </div>
             <div class="error-message">{$erroresCampos['correo']}</div>
+
+            <div class="input-file">
+            <label for="nueva_imagen" class="input-label">Subir Avatar:</label>
+            <input id="nueva_imagen" type="file" name="nueva_imagen" value="$nueva_imagen"/>
+            </div>
+            <div class="error-message">{$erroresCampos['nueva_imagen']}</div>
+
             <div id="avatar-selector">
                 <button id="avatar-anterior" type="button">&lt;</button>
                 <img id="avatar-seleccionado" src="{$rutaAvatar}" alt="Avatar seleccionado" style="width: 30%;">     
@@ -90,9 +97,12 @@ class FormularioEdicionUsuario extends Formulario
             var profesorRadio = document.getElementById('teacher_role');
             var campoPrecio = document.getElementById('campo_precio');
             var avatarActual = {$avatarActual}; // Obtener el número de avatar actual del usuario
+            if (typeof avatarActual !== 'number' || isNaN(avatarActual)) {
+                avatarActual = 1;
+            } 
             var numAvatares = 6;
         
-            function actualizarVisibilidadPrecio() {
+            function actualizarVisibilidadProfesor() {
                 if (profesorRadio.checked) {
                     campoPrecio.style.display = 'block';  // Mostrar el campo de precio si el rol es Profesor
                 } else {
@@ -100,9 +110,9 @@ class FormularioEdicionUsuario extends Formulario
                 }
             }
             
-            usuarioRadio.addEventListener('change', actualizarVisibilidadPrecio);
-            profesorRadio.addEventListener('change', actualizarVisibilidadPrecio);
-            actualizarVisibilidadPrecio();                   
+            usuarioRadio.addEventListener('change', actualizarVisibilidadProfesor);
+            profesorRadio.addEventListener('change', actualizarVisibilidadProfesor);
+            actualizarVisibilidadProfesor();                   
         
             function actualizarAvatar() {
                 var avatarSeleccionado = document.getElementById('avatar-seleccionado');
