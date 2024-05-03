@@ -60,9 +60,17 @@ class FormularioInscripcion extends Formulario
    //if (count($this->errores) == 0) {
 
         $even = Evento::buscaPorId($idEvento);
-        //$estado = $even.getEstado();
+        $titulo =$even->getEvento();
+        $fecha =$even->getFecha();
 
-        $inscripcionExitosa = Inscrito::inscribirUsuarioEnEvento($idUsuario, $idEvento);
+        //$estado = $even.getEstado();
+        $incripcion = new Inscrito();
+        $incripcion->setIdEvento($idEvento);
+        $incripcion->setUserId($idUsuario);
+        $incripcion->setTitle($titulo);
+        $incripcion->setStart($fecha);
+        $incripcion->setEnd($fecha);
+        $inscripcionExitosa = Inscrito::guardaOActualiza($incripcion);
 
         if (!$inscripcionExitosa) {
             $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';

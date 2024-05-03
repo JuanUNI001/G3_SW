@@ -1,9 +1,11 @@
 <?php
 // Incluir las clases y archivos necesarios
 require_once __DIR__.'/../../config.php';
-use \es\ucm\fdi\aw\src\Eventos\Evento;
-use \es\ucm\fdi\aw\src\Inscritos\Inscrito;
-use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+
+use es\ucm\fdi\aw\Inscritos\Inscrito as InscritosInscrito;
+use es\ucm\fdi\aw\src\Eventos\Evento;
+use es\ucm\fdi\aw\src\Inscritos\Inscrito;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 // Función para mostrar los eventos inscritos
 function mostrarEventosInscritos()
@@ -22,47 +24,80 @@ function mostrarEventosInscritos()
     $usuario = Usuario::buscaUsuario($correo_usuario);
     $id_usuario = $usuario->getId();
 
-    // Buscar los eventos inscritos por el usuario
-    $eventosInscritos = Inscrito::buscarEventos($id_usuario);
+    // Verificar el tipo de contenido esperado
+    $contentType = $_SERVER['CONTENT_TYPE'] ?? 'application/json';
+    $contentType = strtolower(str_replace(' ', '', $contentType));
 
-    // Crear un array para almacenar los eventos
-    $eventos = [];
-
-    // Recorrer los eventos inscritos y obtener sus detalles
-    foreach ($eventosInscritos as $idEvento) {
-        $detallesEvento = Evento::buscaPorId($idEvento);
-        if ($detallesEvento) {
-            // Obtener los detalles del evento
-            $nombreEvento = $detallesEvento->getEvento();
-            $fecha = $detallesEvento->getFecha();
-            // Agregar el evento al array de eventos
-            $eventos[] = [
-                'title' => $nombreEvento,
-                'start' => $fecha
-            ];
+    // Verificar si el tipo de contenido es compatible
+    $acceptedContentTypes = array('application/json;charset=utf-8', 'application/json');
+    $found = false;
+    foreach ($acceptedContentTypes as $acceptedContentType) {
+        if ($contentType === $acceptedContentType) {
+            $found = true;
+            break;
         }
     }
 
-    // Convertir el array de eventos a formato JSON
-    $eventosJson = json_encode($eventos);
+    if (!$found) {
+        http_response_code(400);
+        echo 'Este servicio REST solo soporta el content-type application/json';
+        die();
+    }
 
-    // Generar el contenido HTML con FullCalendar
-    $contenidoPrincipal = <<<HTML
-    <div id="calendar"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var eventos = $eventosJson;
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: []
-            });
-            calendar.render();
-        });
-    </script>
-    HTML;
+    $result = null;
 
-    // Devolver el contenido principal
-    return $contenidoPrincipal;
+    // Manejar las diferentes peticiones HTTP
+    switch ($_SERVER['REQUEST_METHOD']) {
+        // Consulta de datos
+        case 'GET':
+            try {
+                // Comprobamos si es una consulta de un evento concreto -> eventos.php?idEvento=XXXXX
+                $idEvento = filter_input(INPUT_GET, 'idEvento', FILTER_VALIDATE_INT);
+                if ($idEvento !== null && $idEvento !== false) {
+                    $result = [];
+                    $result[] = Inscrito::buscaPorId($idEvento);
+                } else {
+                    // Comprobamos si es una lista de eventos entre dos fechas -> eventos.php?start=XXXXX&end=YYYYY
+                    // https://fullcalendar.io/docs/events-json-feed
+                    $start = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $end = filter_input(INPUT_GET, 'end', FILTER_SANITIZE_SPECIAL_CHARS);
+                    if ($start !== null && $end !== null) {
+                        $startDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $start);
+                        $endDateTime = \DateTime::createFromFormat(\DateTime::ISO8601, $end);
+                        if ($startDateTime !== false && $endDateTime !== false) {
+                            $result = Inscrito::buscaEntreFechas($id_usuario, $startDateTime, $endDateTime);
+                        } else {
+                            http_response_code(400);
+                            echo 'Formato de fecha inválido';
+                            die();
+                        }
+                    } else {
+                        http_response_code(400);
+                        echo 'Parámetros start o end incorrectos';
+                        die();
+                    }
+                }
+
+                // Generamos un array de eventos en formato JSON
+                $json = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+
+                http_response_code(200); // 200 OK
+                header('Content-Type: application/json; charset=utf-8');
+                header('Content-Length: ' . mb_strlen($json));
+
+                echo $json;
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo 'Error en la aplicación';
+                error_log((string) $e);
+                die();
+            }
+            break;
+
+        default:
+            http_response_code(400);
+            echo $_SERVER['REQUEST_METHOD'] . ' no está soportado';
+            break;
+    }
 }
 ?>
