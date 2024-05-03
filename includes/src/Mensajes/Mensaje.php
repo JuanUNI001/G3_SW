@@ -307,6 +307,8 @@ class Mensaje
             $conn->real_escape_string($mensaje->texto),
             $conn->real_escape_string($mensaje->fechaHora)
         );
+        
+
         $result = $conn->query($query);
         if ($result) {
             $mensaje->id = $conn->insert_id;

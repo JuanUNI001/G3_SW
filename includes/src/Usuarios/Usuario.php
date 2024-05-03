@@ -272,7 +272,7 @@ class Usuario
 
     protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id )
     {
-        $this->id = $id;
+        $this->id = intval($id);
         $this->rolUser = $rol;
         $this->password = $password;
         $this->nombre = $nombre;

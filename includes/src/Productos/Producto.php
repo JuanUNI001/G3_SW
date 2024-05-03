@@ -71,7 +71,34 @@ class Producto
         }
         return $productos;
     }
-    
+    public static function listarProductoDestacado()
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query =" ";
+       
+        $query = "SELECT * FROM productos WHERE archivado = 0 ORDER BY valoracion DESC LIMIT 8";
+            
+        $rs = $conn->query($query);
+        $productos = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $producto = new Producto(
+                    $fila['id'],
+                    $fila['nombre'],
+                    $fila['precio'],
+                    $fila['descripcion'],
+                    $fila['imagen'],
+                    $fila['valoracion'],
+                    $fila['num_valoraciones'],
+                    $fila['cantidad'],
+                    $fila['archivado']
+                );
+                $productos[] = $producto; 
+            }
+            $rs->free();
+        }
+        return $productos;
+    }
     public function getIdProducto()
     {
         return $this->id;
