@@ -53,15 +53,17 @@ CREATE TABLE `pedidos_productos` (
 -- Estructura de tabla para la tabla `productos`
 --
 
+
 CREATE TABLE `productos` (
-  `nombre` varchar(30) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   `precio` decimal(11,2) NOT NULL,
-  `descripcion` varchar(400) NOT NULL,
+  `descripcion` varchar(700) NOT NULL,
   `id` int(11) NOT NULL,
-  `imagen` varchar(40) NOT NULL,
+  `imagen` varchar(60) NOT NULL,
   `valoracion` decimal(4,2) DEFAULT NULL,
   `num_valoraciones` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `archivado` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

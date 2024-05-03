@@ -1,0 +1,80 @@
+.productos-destacados {
+    width: 90%;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 10px;
+    margin: 0 auto; /* Centra horizontalmente */
+    position: relative; /* Añadido */
+    margin-top: 20px;
+    background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
+}
+
+.contenedor-productos {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    padding: 0 10px; /* Añadido */
+    margin: 0 -5px; /* Añadido */
+}
+
+.producto-destacado {
+    flex: 0 0 auto;
+    
+    width: 25%; /* Ajusta el ancho según tus necesidades */
+    margin: 0 5px; /* Añadido */
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 3px solid purple; /* Añade un borde sólido de color morado */
+}
+
+
+.producto-destacado img {
+    width: 120px; /* Tamaño de la imagen */
+    height: 120px; /* Tamaño de la imagen */
+    border-radius: 50%; /* Para que la imagen sea redonda */
+    margin-bottom: 5px;
+}
+
+/* Flechas */
+.flecha-izquierda, .flecha-derecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1;
+    padding-left: 10px; /* Añadido */
+    color: rgb(255, 255, 255); /* Color de las flechas */
+    background: black; /* Fondo verde degradado a rosa */
+}
+
+
+.flecha-izquierda {
+    left: 0;
+}
+
+.flecha-derecha {
+    right: 0;
+}
+
+
+
+.nombre {
+    font-weight: bold;
+}
+
+
+.enlace_destacado {
+    text-decoration: none; /* Quita la decoración predeterminada del enlace */
+    color: inherit; /* Hereda el color del texto del contenedor padre */
+    transition: color 0.3s ease; /* Transición suave del color */
+  
+}
+
+.enlace_destacado:hover {
+    color: #a324bf; /* Cambia el color del texto al pasar el ratón por encima */
+}

@@ -39,10 +39,13 @@ function visualizaProducto($producto, $tipo = null)
 {
     $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
     $rutaCaract = resuelve('/includes/src/Productos/caracteristicaProducto.php'); 
+    
     $html = '<div class="producto">';
+    $html .= '<a href="'.$rutaCaract.'?id_producto='.$producto->getIdProducto().'" class="producto_enlace">';
     $html .= '<div class="producto_precio">' . $producto->getPrecio() . ' €</div>';
 
-    $html .= '<a href="'.$rutaCaract.'?id_producto='.$producto->getIdProducto().'">';
+    
+
     
     $html .= '<img src="' . $imagenPath . '" alt="' . $producto->getNombre() . '" class="producto_imagen" >';
     $html .= '<div class="producto_nombre">' . $producto->getNombre() . '</div>';

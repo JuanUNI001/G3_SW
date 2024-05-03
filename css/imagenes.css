@@ -14,6 +14,20 @@
     
 }
 
+.producto_enlace {
+    display: inline-block;
+    text-decoration: none;
+    background-image: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
+    color: #fff; /* Color del texto */
+    padding: 8px 16px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: background-image 0.3s; /* Transición suave del fondo */
+}
+
+.producto_enlace:hover {
+    background-image: linear-gradient(to bottom right, #FF69B4, #93c53f); /* Fondo rosa claro degradado a rosa */
+}
+
 
 .producto_imagen {
     width: 50%; /* Ancho de la imagen */
@@ -171,6 +185,9 @@
 .producto_precio {
     text-align: right; /* Alinea el texto a la derecha */
     margin-top: 0; /* Elimina el margen superior */
+    color: #7906f4;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* Estilos para el detalle del producto */
@@ -189,7 +206,14 @@
 .producto_nombre {
     text-align: center;
     margin-top: 5px;
+    font-size: 18px;
+    color: #290b2f; /* Color del texto */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Convertir el texto a mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre caracteres */
+    text-shadow: 1px 1px 2px rgba(255, 1, 157, 0.2); /* Sombra suave */
 }
+
 .star {
     color: orange; /* Color de las estrellas */
     font-size: 20px; /* Tamaño de las estrellas */

@@ -2,15 +2,28 @@
 .tarjeta_usuario {
     display: flex;
     align-items: center;
-    width: 80%; /* Utiliza el ancho completo disponible */
+    width: 90%; /* Utiliza el ancho completo disponible */
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
-    
     background-color: #f9f9f9; /* Fondo gris claro */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-height: 400px; /* Altura máxima de la tarjeta */
+    overflow: auto; /* Agrega una barra de desplazamiento si el contenido excede la altura máxima */
 }
-
+.tarjeta_usuario {
+    position: relative;
+}
+.Usuarios{
+   
+    width: 100%; /* Utiliza el ancho completo disponible */  
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Fondo gris claro */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-height: 600px; /* Altura máxima de la tarjeta */
+    overflow: auto; /* Agrega una barra de desplazamiento si el contenido excede la altura máxima */
+}
 /* Estilos para el avatar */
 .avatar_usuario {
     width: 80px;
