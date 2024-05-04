@@ -19,7 +19,7 @@ $form->lugar = $Evento->getLugar();
 $form->premio = $Evento->getPremio();
 $form->tasa = $Evento->getTasaInscripcion();
 $form->inscritos = $Evento->getInscritos();
-$form->aforo = $Evento->getNumJugadores();
+$form->numJugadores = $Evento->getNumJugadores();
 
 $htmlFormLogin = $form->gestiona();
 
