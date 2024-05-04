@@ -69,8 +69,10 @@ HTML;
     return $mensaje_class;
 }
 
-function visualizaForo($foro) {
+function visualizaForo($idForo) {
     
+    $foro = Foro::buscaForo($idForo);
+
     $autor_id = $foro->getAutor();
     $autor = \es\ucm\fdi\aw\src\Usuarios\Usuario::buscaPorId($autor_id);
     $nombreAutor = $autor ? $autor->getNombre() : "Desconocido";
@@ -104,19 +106,22 @@ function visualizaForo($foro) {
 
 $idForo = $_POST['id'];
 
-$usuario_receptor = Usuario::buscaPorId($idForo);
+$foroView = visualizaForo($idForo);
 
 $usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
 $id_usuario_emisor = $usuario_emisor->getId();
+
+$foro = 
 $mensajesView = visualizaMensajes($id_usuario_emisor, $idForo, $id_usuario_emisor);
 
 $tituloPagina = 'Chat Usuario';
 $contenidoPrincipal = <<<HTML
-    <h1>Chat en linea</h1>
+    <h1>Discusión en el Foro</h1>
+    $foroView
     $mensajesView
 HTML;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Chat en línea'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Discusión en el Foro'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
 
