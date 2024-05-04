@@ -2,6 +2,8 @@
 require_once 'includes/config.php';
 require_once 'includes/vistas/helpers/eventosInscritos.php';
 
+
+
 $tituloPagina = 'Eventos Inscritos';
 
 // Obtener el JSON de los eventos utilizando la función mostrarEventosInscritos()
