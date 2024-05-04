@@ -26,26 +26,37 @@ class Inscrito implements \JsonSerializable
         if (!$userId) {
             throw new \BadMethodCallException('$userId no puede ser nulo.');
         }
-
+    
         $result = [];
-        $BD = BD::getInstance();
-        $conn = $BD->conexionBd();
-        $query = sprintf('SELECT E.id, E.userId AS userId, E.title, E.startDate AS start, E.endDate AS end FROM Eventos E WHERE E.userId = %d'
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT E.idEvento, E.userId AS userId, E.title, E.startDate AS start, E.endDate AS end FROM inscritos E WHERE E.userId = %d'
             , $userId);
-
+    
         $rs = $conn->query($query);
         if ($rs) {
             while($fila = $rs->fetch_assoc()) {
-                $e = new Inscrito();
-                $e->asignaDesdeDiccionario($fila);
-                $result[] = $e;
+                $evento = new Inscrito();
+                $evento->setIdEvento($fila['idEvento']);
+                $evento->setUserId($fila['userId']);
+                $evento->setTitle($fila['title']);
+    
+                // Convertir las cadenas de fecha a objetos DateTime
+                $start = new DateTime($fila['start']);
+                $end = new DateTime($fila['end']);
+    
+                $evento->setStart($start);
+                $evento->setEnd($end);
+                
+                $result[] = $evento;
             }
             $rs->free();
         } else {
-            throw new DataAccessException("Se esperaba 1 evento y se han obtenido: ".$rs->num_rows);
+            throw new DataAccessException("Error al obtener los eventos inscritos para el usuario con ID: ".$userId);
         }
         return $result;
     }
+    
+    
 
     /**
      * Busca un evento con id $idEvento.
@@ -68,7 +79,7 @@ class Inscrito implements \JsonSerializable
         if ($rs && $rs->num_rows == 1) {
             while($fila = $rs->fetch_assoc()) {
                 $result = new Inscrito();
-                $result->asignaDesdeDiccionario($fila);
+                //$result->asignaDesdeDiccionario($fila);
             }
             $rs->free();
         } else {
@@ -490,11 +501,11 @@ public static function guardaOActualiza(Inscrito $evento)
      */
     protected function asignaDesdeDiccionario(array $diccionario, array $propiedadesRequeridas = [])
     {
-        foreach($diccionario as $key => $val) {
+        /*foreach($diccionario as $key => $val) {
             if (!in_array($key, self::PROPERTIES)) {
                 throw new \BadMethodCallException('Propiedad no esperada en $diccionario: '.$key);
             }
-        }
+        }*/
 
         foreach($propiedadesRequeridas as $prop) {
             if( ! isset($diccionario[$prop]) ) {
