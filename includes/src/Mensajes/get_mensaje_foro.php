@@ -4,9 +4,10 @@ require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
-$id_foro = isset($_POST['incoming_id']) ? $_POST['incoming_id'] : null;
+// Obtener el ID del usuario receptor de la solicitud POST
+$idForo = isset($_POST['incoming_id']) ? $_POST['incoming_id'] : null;
 
-if ($id_usuario_receptor !== null) {
+if ($idForo !== null) {
     $usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
     $id_usuario_emisor = $usuario_emisor->getId();
     $mensajes = Mensaje::GetMensajesInForoChat($idForo);
@@ -17,7 +18,7 @@ if ($id_usuario_receptor !== null) {
         foreach ($mensajes as $mensaje) {
             $idEmisor = $mensaje->getIdEmisor();
             if ($idEmisor === $id_usuario_emisor) {
-                    $output .= '<div class="chat incoming">
+                    $output .= '<div class="chat outgoing">
                     <div class="details">
                         <p>'. $mensaje->getTexto() .'</p>
                     </div>
@@ -25,7 +26,7 @@ if ($id_usuario_receptor !== null) {
                
             } else {
                 // El mensaje es entrante (del usuario receptor)
-                $output .= '<div class="chat outgoing">
+                $output .= '<div class="chat incoming">
                                 <div class="details">
                                     <p>'. $mensaje->getTexto() .'</p>
                                 </div>

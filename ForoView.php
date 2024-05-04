@@ -1,33 +1,30 @@
 <?php
 
-require_once __DIR__.'/../../config.php';
+require_once 'includes/config.php';
 
 
-
-
-use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
-use \es\ucm\fdi\aw\src\Foros\Foro;
+use es\ucm\fdi\aw\src\Mensajes\Mensaje;
+use es\ucm\fdi\aw\src\Foros\Foro;
 use es\ucm\fdi\aw\src\BD;
-use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 ?>
 <?php
-function visualizaMensajes($idEmisor,$idForo, $viewPoint)
+function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
 {
-    $mensajes = Mensaje::GetMensajesInForoChat($idForo);
+    $mensajes = Mensaje::GetMensajesInPrivateChat($idEmisor, $idReceptor);
     $mensaje_class = '';
     $usuario = Usuario::buscaUsuario($_SESSION['correo']);
-    $rutaJS = resuelve('/js/mensajes.js');
-    $rutaJS2 = resuelve('/js/jquery-3.7.1.min.js');
     if ($usuario) {
         $nombreUsuario = $usuario->getNombre();
         $imagenUsuario = $usuario->getAvatar();
     }
     
     $idEmisor = $usuario->getId();
-    $emisor = Usuario::buscaPorId($idEmisor);
-    $autor = $emisor->getNombre();
-    $imagenPath = $emisor->getAvatar() ? RUTA_IMGS . $emisor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
-    $rutaNew = resuelve('includes/src/Mensajes/nuevo_mensaje.php');
+    $idReceptor = $_POST['id'];
+    $receptor = Usuario::buscaPorId($idReceptor);
+    $autor = $receptor->getNombre();
+    $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
+    $rutaNew = resuelve('includes/src/Mensajes/put_mensaje_foro.php');
     $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje_foro.php');
 
     $mensaje_class .= <<<HTML
@@ -54,7 +51,7 @@ HTML;
                 </div>
                 <form action="#" class="typing-area">
                     <input type="hidden" name="idEmisor" value="$idEmisor">
-                    <input type="hidden" name="idForo" value="$idForo">
+                    <input type="hidden" name="idDestinatario" value="$idReceptor">
                     <input type="text" name="message" class="input-field" placeholder="Escribe un mensaje aquí ..." autocomplete="off">
                     <div id="enviarMensaje" class="enviar-mensaje" onclick="enviarMensaje()">
                         <button><i class="fab fa-telegram-plane"></i></button>
@@ -104,30 +101,23 @@ function visualizaForo($foro) {
 ?>
 
 <?php
-$id_foro = $_POST['id'];
 
-$foro = Foro::buscaForo($id_foro);
+$idForo = $_POST['id'];
 
-$foroView = visualizaForo($foro);
-$app = BD::getInstance();
+$usuario_receptor = Usuario::buscaPorId($idForo);
 
-if ($app->usuarioLogueado())  {
-    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
-    $idEmisor = $usuario->getId();
-    $mensajesView = visualizaMensajes($idEmisor, $id_foro, $idEmisor);
+$usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
+$id_usuario_emisor = $usuario_emisor->getId();
+$mensajesView = visualizaMensajes($id_usuario_emisor, $idForo, $id_usuario_emisor);
 
+$tituloPagina = 'Chat Usuario';
+$contenidoPrincipal = <<<HTML
+    <h1>Chat en linea</h1>
+    $mensajesView
+HTML;
 
-    $tituloPagina = 'Conversacion Foro';
-    $contenidoPrincipal=<<<EOF
-        <h1>Conversacion Foro</h1>
-        $foroView
-        $mensajesView
-    EOF;
-}
-    $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Conversacion en Foro'];
-    $app->generaVista('/plantillas/plantilla.php', $params);
-
-
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Chat en línea'];
+$app->generaVista('/plantillas/plantilla.php', $params);
 ?>
 
 <script>
@@ -136,9 +126,8 @@ let chatBox;
 
 // Código JavaScript para el manejo de mensajes en tiempo real
 let idUsuarioEmisor = "<?php echo $id_usuario_emisor; ?>";
-let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
-let rutaNuevoMensaje = "../../src/Mensajes/nuevo_mensaje.php";
-let rutaObtenerMensajes = "../../src/Mensajes/get_mensaje_foro.php";
+let idUsuarioReceptor = "<?php echo $idForo; ?>";
+
 
 // Definir la función scrollToBottom
 function scrollToBottom() {
@@ -191,7 +180,6 @@ function enviarMensaje() {
     let xhr = new XMLHttpRequest();
     let form = document.querySelector(".typing-area");
 
-    //xhr.send("idForo=<?php echo $id_foro; ?>");
     xhr.open("POST", "includes/src/Mensajes/put_mensaje_foro.php", true);
     xhr.onload = () => {
         console.log("Respuesta del servidor recibida");
@@ -217,7 +205,6 @@ function enviarMensaje() {
 
     let formData = new FormData(form);
     xhr.send(formData);
-
 }
 
 // Función para obtener mensajes del chat
@@ -234,7 +221,7 @@ function obtenerMensajes() {
         }
     }
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("incoming_id=<?php echo $id_foro; ?>");
+    xhr.send("incoming_id=<?php echo $idForo; ?>");
 }
 
 // Llamar a obtenerMensajes() cuando se cargue la página por primera vez
