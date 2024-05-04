@@ -417,7 +417,7 @@ class Mensaje
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf("SELECT * FROM mensajes M WHERE M.idForo = %d", $idForo);
-        $query .= ' ORDER BY fechaHora DESC';
+        $query .= ' ORDER BY fechaHora ASC';
     
     
         $rs = $conn->query($query);
