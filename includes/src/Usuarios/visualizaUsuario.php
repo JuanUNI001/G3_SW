@@ -1,6 +1,7 @@
 <?php
 use es\ucm\fdi\aw\src\Usuarios\Usuario;
 use es\ucm\fdi\aw\src\BD;
+
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();

@@ -32,6 +32,7 @@ $mensajes = mensajesPeticionAnterior();
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/chat.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/contratar.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/anuncio.css') ?>" />
+    <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/academia.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/foro.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/anunciosIndex.css') ?>" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">

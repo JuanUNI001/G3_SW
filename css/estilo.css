@@ -61,8 +61,6 @@ header a:hover {
 
 
 
-
-
 nav a, nav a:visited {
 	color: rgb(224, 13, 140);
 	font-weight: bold;
@@ -361,21 +359,22 @@ ul.dropdown ul.dropdown-content {
 }
 
 .sideBarDerButton {
-	display: inline-block;
-	background-color: #03fee0; /* Fondo verde */
-	color: white; /* Texto blanco */
-	padding: 5px 5px; /* Espaciado interno */
-	text-align: center; /* Alineación del texto */
-	text-decoration: none; /* Eliminar subrayado */
-	border: none; /* Eliminar borde */
-	border-radius: 4px; /* Redondear esquinas */
-	cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
-	font-size: 14px; /* Tamaño del texto */
-	width: 70px; /* Ancho fijo para todos los botones */
+    display: inline-block;
+    padding: 5px 20px 10px 20px; 
+    background-color: #00A9FF; 
+    color: rgb(0, 0, 0);
+    text-align: center; 
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 25px;
 }
 
 .sideBarDerButton:hover {
-	background-color: #ff09b9; /* Cambiar color de fondo al pasar sobre el botón */
+	background-color: #e0a9d1; /* Cambiar color de fondo al pasar sobre el botón */
 }
 
 
@@ -1117,4 +1116,3 @@ nav li:last-child {
     background-color: #0056b3;
   }
   
-

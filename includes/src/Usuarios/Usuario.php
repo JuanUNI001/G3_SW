@@ -568,4 +568,31 @@ class Usuario
          return $usuarios;
     }
 
+    public static function listarAlumnosDeProfesor($idProfesor)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT u.* 
+                  FROM usuarios u 
+                  INNER JOIN alumnos a ON u.id = a.idAlumno 
+                  WHERE a.idProfesor = $idProfesor";
+    
+        $rs = $conn->query($query);
+        $alumnos = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $alumno = new Usuario(      
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],  
+                    $fila['avatar'],   
+                    $fila['id']
+                );
+                $alumnos[] = $alumno; 
+            }
+            $rs->free();
+        }
+        return $alumnos;
+    }
+
 }

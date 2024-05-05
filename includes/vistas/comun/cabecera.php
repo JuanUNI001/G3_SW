@@ -92,7 +92,6 @@ if ($app->usuarioLogueado())  {
             $cantidadEnCarrito += $producto->getCantidad();
         }
     }
-    
 }
 ?>
 
@@ -104,24 +103,25 @@ if ($app->usuarioLogueado())  {
     </div>
 
     <nav>
-        <ul>
+        <ul class="button-container-header">
             <li><a href="<?= RUTA_APP?>/index.php"class="sideBarDerButton">Inicio</a></li>
             <li><a href="<?= RUTA_APP?>/tienda.php" class="sideBarDerButton">Tienda</a></li>
             <li><a href="<?= RUTA_APP?>/foros.php"class="sideBarDerButton">Foro</a></li>
             <li><a href="<?= RUTA_APP?>/eventos.php"class="sideBarDerButton">Eventos</a></li>
-            <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Profesores</a></li>
-            <li><a href="<?= RUTA_APP?>/usuariosView.php"class="sideBarDerButton">Usuarios</a></li>
+            <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Anuncios Profesores</a></li>
+            <li><a href="<?= RUTA_APP?>/usuariosView.php"class="sideBarDerButton">Usuarios &#129485;</a></li>
+            <li><a href="<?= RUTA_APP?>/Academia.php"class="sideBarDerButton">Academia &#127979;</a></li>
             <li>
-            <div class="carrito">
-                <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
+                <div class="carrito">
+                    <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
 
-                <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="sideBarDerButton cart-icon">
-                    <span class="cart-count"><?= $cantidadEnCarrito ?></span>
-                    &#x1F6D2;
-                </a>
+                    <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="sideBarDerButton cart-icon">
+                        <span class="cart-count"><?= $cantidadEnCarrito ?></span>
+                        &#x1F6D2;
+                    </a>
 
-            </div>
-        </li>
+                </div>
+            </li>
         </ul>
         
     </nav>

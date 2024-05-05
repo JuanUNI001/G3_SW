@@ -275,5 +275,34 @@ class Profesor extends Usuario
             return false; // Error al ejecutar la eliminación
         }
     }
+
+    public static function listarProfesoresDeAlumno($idAlumno)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT u.* 
+                  FROM usuarios u 
+                  INNER JOIN alumnos a ON u.id = a.idProfesor 
+                  WHERE a.idAlumno = $idAlumno";
+    
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor(      
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['precio'],   
+                    $fila['avatar'],   
+                    $fila['valoracion'],
+                    $fila['id']
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
+        }
+        return $profesores;
+    }
 }
 
