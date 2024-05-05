@@ -81,8 +81,10 @@ class FormularioAddProducto extends Formulario
         
         $precio = trim($datos['precio'] ?? '');
         $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $precio || empty($precio) ) {
+        if ( ! $precio || empty($precio)) {
             $this->errores['precio'] = 'El precio no puede estar vacío.';
+        }else if(!filter_var($precio, FILTER_VALIDATE_FLOAT)){
+            $this->errores['precio'] = 'El precio debe ser un numero.';
         }
 
         $descripcion = trim($datos['descripcion'] ?? '');
@@ -93,7 +95,7 @@ class FormularioAddProducto extends Formulario
 
         $cantidad = trim($datos['cantidad'] ?? '');
         $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ($cantidad === 0) && (! $cantidad || empty($cantidad)) ) {
+        if ($cantidad < 0 || $cantidad == NULL) {
             $this->errores['cantidad'] = 'La cantidad no puede estar vacía.';
         }
 

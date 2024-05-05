@@ -100,6 +100,8 @@ class FormularioEdicionProducto extends Formulario
         $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $precio || empty($precio) ) {
             $this->errores['precio'] = 'El precio no puede estar vacío.';
+        }else if(!filter_var($precio, FILTER_VALIDATE_FLOAT)){
+            $this->errores['precio'] = 'El precio debe ser un numero.';
         }
 
         $descripcion = trim($datos['descripcion'] ?? '');
@@ -110,25 +112,25 @@ class FormularioEdicionProducto extends Formulario
 
         $cantidad = trim($datos['cantidad'] ?? '');
         $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ($cantidad == null) {
+        if ($cantidad < 0 || $cantidad == NULL) {
             $this->errores['cantidad'] = 'Cantidad no puede estar vacía.';
         }
 
         $imagen = $this->imagen;
-        if (isset($_FILES['nueva_imagen']) && $_FILES['nueva_imagen']['error'] === UPLOAD_ERR_OK
-             && count($_FILES) == 1 && count($this->errores) === 0) {
-            $nueva_imagen = $_FILES['nueva_imagen']['tmp_name'];
-            if (!empty($nueva_imagen)) {
-                $extension = pathinfo($_FILES['nueva_imagen']['name'], PATHINFO_EXTENSION);
-                if (self::comprobarExtension($extension)) {
-                    $tmp_name = $_FILES['nueva_imagen']['tmp_name'];
-                    if (file_exists($imagen)) {
-                        unlink($imagen);
-                    }
-                    if (!move_uploaded_file($tmp_name, $imagen)) {
-                        $this->errores['nueva_imagen'] = 'Error al mover el archivo';
-                    }
-                }
+        $imagen_nueva = $_FILES['nueva_imagen']['tmp_name'];
+        if(isset($_FILES['nueva_imagen']) && $_FILES['nueva_imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && !empty($imagen_nueva)){
+            $extension = pathinfo($_FILES['nueva_imagen']['name'], PATHINFO_EXTENSION);
+
+            if(self::comprobarExtension($extension)){
+    
+                $numero_random = uniqid(); //para generar un numero random basado en la hora
+                $fichero = "{$numero_random}.{$extension}";
+                $ruta_imagen = RUTA_IMGS2 . $fichero;
+                if (!move_uploaded_file($imagen_nueva, $ruta_imagen)) {
+                    $this->errores['nueva_imagen'] = 'Error al mover el archivo.';
+                }else{
+                    $imagen = $ruta_imagen;
+                }     
             }
         }
 
