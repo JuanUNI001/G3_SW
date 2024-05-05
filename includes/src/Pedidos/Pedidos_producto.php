@@ -100,7 +100,23 @@ class Pedidos_producto
 
         return $result;
     }
-
+    public static function borrarProducto($idProducto)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("DELETE FROM pedidos_productos WHERE id_producto = %d", $idProducto);
+    
+        $result = $conn->query($query);
+    
+        if (!$result) {
+            error_log($conn->error);
+        } else if ($conn->affected_rows != 1) {
+            error_log("Se han borrado '$conn->affected_rows' !");
+        }
+    
+        return $result;
+    }
+    
     public static function buscaPorIdPedido_Producto($id_pedido)
     {
         $result = array();

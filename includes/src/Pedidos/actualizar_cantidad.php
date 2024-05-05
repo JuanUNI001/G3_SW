@@ -45,7 +45,7 @@ if (isset($_POST['idPedido']) && isset($_POST['idProducto']) && isset($_POST['nu
     $mensajes = ['Ha ocurrido un problema :('];
 }
 
-$url = resuelve('/includes/carrito_usuario.php');
+$url = resuelve('/includes/vistas/helpers/carrito_usuario.php');
 header("Location: $url");
 
 $app->putAtributoPeticion('mensajes', $mensajes);

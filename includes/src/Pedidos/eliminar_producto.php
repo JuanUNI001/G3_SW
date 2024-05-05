@@ -36,7 +36,7 @@ if (isset($_POST['idPedido']) && isset($_POST['idProducto'])) {
 }
 
 $app->putAtributoPeticion('mensajes', $mensajes);
-$url = resuelve('/includes/carrito_usuario.php');
+$url = resuelve('/includes/vistas/helpers/carrito_usuario.php');
 header("Location: $url");
 exit();
 ?>

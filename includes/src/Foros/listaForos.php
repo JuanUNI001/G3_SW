@@ -49,7 +49,7 @@ function visualizaForo($foro) {
         <div class="foro">
             <div class="foro_info">
                 <div class="foro_autor">
-                    <strong>{$nombreAutor}</strong> <!-- Mostrar el nombre del autor -->
+                    <strong>{$nombreAutor}</strong>
                 </div>
                 <div class="foro_titulo">
                     <strong>{$foro->getTitulo()}</strong> 
