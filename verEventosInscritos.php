@@ -9,7 +9,7 @@ $eventosJSON = mostrarEventosInscritos();
 
 // Construir el contenido principal con el script de FullCalendar y el div con el id "calendar"
 $contenidoPrincipal = <<<HTML
-<div style="max-width:1000px" id="calendar"></div>
+<div id="calendar"></div>
 <script>   $eventosJSON </script>
 
 HTML;
