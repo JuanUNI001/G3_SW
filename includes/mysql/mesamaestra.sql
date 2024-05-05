@@ -181,6 +181,15 @@ INSERT INTO `pedidos` (`id_pedido`, `id_user`, `estado`, `fecha`, `total`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `alumnos`
+--
+
+CREATE TABLE IF NOT EXISTS `alumnos` (
+  `idProfesor` int(11) NOT NULL,
+  `idAlumno` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- Estructura de tabla para la tabla `pedidos_productos`
 --
 

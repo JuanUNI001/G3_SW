@@ -1,0 +1,47 @@
+.contratar-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    text-align: center;
+    height: 100%;
+    padding-top: 10px; 
+}
+
+.avatar_container_contratar {
+    margin-bottom: 20px; 
+}
+
+.profesor_avatar_contratar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    margin: 30px auto;
+}
+
+.contratar-text h1 {
+    margin-bottom: 20px;
+}
+
+.boton_retroceder {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.boton_retroceder:hover {
+    background-color: #e0e0e0;
+    color: #222;
+    border-color: #aaa;
+}
+
+.boton_retroceder i {
+    margin-right: 10px;
+    font-size: 20px;
+}
