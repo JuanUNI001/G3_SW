@@ -44,13 +44,13 @@ $contenidoPrincipal ='';
             $contenidoPrincipal .= "<p class='abierto'>Evento en curso...</p>";
         }
 
-           
+        $fechaFormateada = $fec->format('Y-m-d H:i:s');
         
         $contenidoPrincipal .= <<<EOF
             <div class="Evento caracteristicas">
                 <p><strong>Descripción: </strong>{$des}</p>
                 <p><strong>Categoría:</strong> {$cat}</p>
-                <p><strong>Fecha:</strong> {$fec}</p>
+                <p><strong>Fecha:</strong> {$fechaFormateada}</p>
                 <p><strong>Lugar:</strong> {$lug}</p>
                 <p><strong>Premio:</strong> {$prem}</p>
                 <p><strong>Tasa de inscripción:</strong> {$ins}€</p>

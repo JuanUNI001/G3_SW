@@ -2,6 +2,7 @@
 require_once __DIR__.'/../../config.php';
 use \es\ucm\fdi\aw\src\Inscritos\Inscrito;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
+use  \es\ucm\fdi\aw\src\Eventos\Evento;
 
 function mostrarEventosInscritos()
 {
@@ -17,6 +18,7 @@ function mostrarEventosInscritos()
     $id_usuario = $usuario->getId();
 
     $EventosInscritos = Inscrito::buscaTodosEventos($id_usuario);
+    
 
     $eventos = [];
 
@@ -26,6 +28,7 @@ function mostrarEventosInscritos()
             $evento = [
                 'title' => $inscrito->getTitle(), // Utiliza el título del evento
                 'start' => $inscrito->getStart()->format('Y-m-d'), // Obtener la fecha de inicio del evento en el formato adecuado
+
             ];
             // Agregar el evento al array de eventos
             $eventos[] = $evento;
@@ -37,6 +40,7 @@ function mostrarEventosInscritos()
             'start' => date('Y-m-d'), // Puedes ajustar esta fecha según lo necesites
         ];
     }
+
 
     // Convertir el array de eventos a formato JSON
     return json_encode($eventos);
