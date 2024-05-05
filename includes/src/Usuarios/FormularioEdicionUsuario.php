@@ -13,7 +13,7 @@ class FormularioEdicionUsuario extends Formulario
     public $rol;
     public $correo;
     public $avatar;
-    public $nueva_imagen;
+    //public $imagen;
 
 
     public function __construct() {
@@ -30,11 +30,12 @@ class FormularioEdicionUsuario extends Formulario
         $avatar = $this->avatar;
         $rutaAvatar = $avatar;//la ruta del usuario  avatar
         $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
-        $nueva_imagen = $this->nueva_imagen;
+        //$imagen = $this->imagen;
+        $imagen = "";
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'nueva_imagen', 'precio'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'rol', 'correo', 'avatar', 'imagen', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         $checkedUser = ($rol == 2) ? 'checked' : '';
         $checkedTeacher = ($rol == 3) ? 'checked' : '';
@@ -66,10 +67,10 @@ class FormularioEdicionUsuario extends Formulario
             <div class="error-message">{$erroresCampos['correo']}</div>
 
             <div class="input-file">
-            <label for="nueva_imagen" class="input-label">Subir Avatar:</label>
-            <input id="nueva_imagen" type="file" name="nueva_imagen" value="$nueva_imagen"/>
+            <label for="imagen" class="input-label">Subir Avatar:</label>
+            <input id="imagen" type="file" name="imagen" value="$imagen"/>
             </div>
-            <div class="error-message">{$erroresCampos['nueva_imagen']}</div>
+            <div class="error-message">{$erroresCampos['imagen']}</div>
 
             <div id="avatar-selector">
                 <button id="avatar-anterior" type="button">&lt;</button>
@@ -115,6 +116,12 @@ class FormularioEdicionUsuario extends Formulario
             actualizarVisibilidadProfesor();                   
         
             function actualizarAvatar() {
+                if(isNaN(avatarActual) || avatarActual > numAvatares){
+                    avatarActual = 1; 
+                }
+                else if(avatarActual < 1){
+                    avatarActual = numAvatares; 
+                }
                 var avatarSeleccionado = document.getElementById('avatar-seleccionado');
                 avatarSeleccionado.src = 'images/opcion' + avatarActual + '.png';
                 avatarSeleccionado.alt = 'Avatar seleccionado ' + avatarActual;
@@ -124,12 +131,14 @@ class FormularioEdicionUsuario extends Formulario
             }
             
             document.getElementById('avatar-anterior').addEventListener('click', function() {
-                avatarActual = (avatarActual === 1) ? numAvatares : avatarActual - 1;
+                //avatarActual = (avatarActual === 1) ? numAvatares : avatarActual - 1;
+                avatarActual = avatarActual - 1;
                 actualizarAvatar();
             });
         
             document.getElementById('avatar-siguiente').addEventListener('click', function() {
-                avatarActual = (avatarActual === numAvatares) ? 1 : avatarActual + 1;
+                //avatarActual = (avatarActual === numAvatares) ? 1 : avatarActual + 1;
+                avatarActual = avatarActual + 1;
                 actualizarAvatar();
             });
         });
@@ -163,6 +172,28 @@ class FormularioEdicionUsuario extends Formulario
         $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
         $rutaAvatar = $datos['rutaAvatar'] ?? $this->avatar;
 
+
+        $imagen = $_FILES['imagen']['tmp_name'];
+        if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK || count($_FILES) != 1 || empty($imagen)){
+            $this->errores['imagen'] = 'Debe introducir un archivo.';
+        }else{
+            $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+
+            if(self::comprobarExtension($extension)){
+    
+                $numero_random = uniqid(); //para generar un numero random basado en la hora
+                $fichero = "{$numero_random}.{$extension}";
+                $ruta_imagen = RUTA_IMGS2 . $fichero;
+                if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                    $this->errores['imagen'] = 'Error al mover el archivo.';
+                }else{
+                    $rutaAvatar = $ruta_imagen;
+                }     
+            }
+        }
+
+       
+
         if (count($this->errores) === 0) {
 
             $nuevoUsuario = Usuario::buscaPorId($this->id);
@@ -175,5 +206,24 @@ class FormularioEdicionUsuario extends Formulario
             $_SESSION['correo'] = $correo;
             $_SESSION['rolUser'] = $rol;            
         }
+    }
+
+    private function comprobarExtension($extension){
+
+        /*Comprueba el tipo de extension de la imagen */
+        if (! in_array($extension, self::EXTENSIONES_PERMITIDAS)) {
+            $this->errores['imagen'] = 'Error, la extensión del archivo no está permitida.';
+            return false;
+        }
+
+        /*Comprueba el tipo mime del archivo corresponde a una imagen imagen */
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['imagen']['tmp_name']);
+        if (! (preg_match('/image\/.+/', $mimeType) === 1)) {
+            $this->errores['imagen'] = 'Error, el tipo de archivo no está permitido.';
+            return false;
+        }
+
+        return true;
     }
 }

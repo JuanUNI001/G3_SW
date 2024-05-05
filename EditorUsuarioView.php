@@ -14,7 +14,7 @@ $form->nombre = $nombre;
 $form->rol = $Usuario->getrolUser();
 $form->correo = $Usuario->getCorreo();
 $form->avatar = $Usuario->getAvatar();
-$form->nueva_imagen = "";
+//$form->imagen = "";
 
 
 $htmlFormLogin = $form->gestiona();
