@@ -4,6 +4,7 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/src/Productos/productosDestacados.php';
+require_once __DIR__.'/includes/src/Eventos/eventosDestacados.php';
 $tituloPagina = 'MesaMaestra';
 $login = resuelve('/login.php');
 
@@ -16,6 +17,7 @@ $contenidoPrincipal = <<<EOS
     </div>
 EOS;
 $contenidoPrincipal .= '<div>'.productosDestacados().'</div>';
+$contenidoPrincipal .= '<div>'.eventossDestacados().'</div>';
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
