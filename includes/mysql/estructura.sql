@@ -94,6 +94,11 @@ CREATE TABLE `seguir` (
   `idUsuarioSeguir` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `alumnos` (
+  `idProfesor` int(11) NOT NULL,
+  `idAlumno` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --

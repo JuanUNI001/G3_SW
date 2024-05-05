@@ -222,6 +222,7 @@ class FormularioRegistro extends Formulario
             if(!Usuario::buscaUsuario($correo) ){
                 if ($rolSeleccionado === 'Usuario') {
                     $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
+                    $usuario ->guarda();
                     if (!$usuario) {
                         $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
                     }

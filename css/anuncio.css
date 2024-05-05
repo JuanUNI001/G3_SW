@@ -25,7 +25,7 @@
 
 .separator_vertical {
     width: 2px; /* Ancho del separador vertical */
-    height: 200px; /* Altura igual al contenedor */
+    height: 240px; /* Altura igual al contenedor */
     background-color: #000000; /* Color del separador vertical */
     margin-right: 40px; /* Espacio entre el avatar y la información */
 }

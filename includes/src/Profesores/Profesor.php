@@ -198,5 +198,82 @@ class Profesor extends Usuario
     {
         $this->anunciable = false;
     }
+
+    //devuelve true si el alumno es alumno del profesor
+    public static function EsAlumnoDe($idProfesor, $idAlumno)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Consulta para verificar si el alumno es alumno del profesor
+        $query = "SELECT COUNT(*) AS count FROM alumnos WHERE idProfesor = $idProfesor AND idAlumno = $idAlumno";
+
+        // Ejecutar la consulta
+        $result = $conn->query($query);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            // Si se encuentra al menos una fila, significa que el alumno es alumno del profesor
+            if ($row['count'] > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // Manejar errores de consulta
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+    }
+
+    //añade una fila a la base de datos si no existe ya, de un  profesor y un alumno a la tabla alumnos
+    public static function AddAlumno($idProfesor, $idAlumno)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Verificar si ya existe una fila con el mismo profesor y alumno
+        $query = "SELECT COUNT(*) AS count FROM alumnos WHERE idProfesor = $idProfesor AND idAlumno = $idAlumno";
+    
+        // Ejecutar la consulta
+        $result = $conn->query($query);
+    
+        if ($result) {
+            $row = $result->fetch_assoc();
+            // Si no hay filas que coincidan, insertar una nueva fila en la tabla
+            if ($row['count'] == 0) {
+                $insertQuery = "INSERT INTO alumnos (idProfesor, idAlumno) VALUES ($idProfesor, $idAlumno)";
+                if ($conn->query($insertQuery)) {
+                    return true; // La inserción fue exitosa
+                } else {
+                    error_log("Error al insertar fila en la tabla alumnos ({$conn->errno}): {$conn->error}");
+                    return false; // Error al ejecutar la inserción
+                }
+            } else {
+                return true; // La fila ya existe, no es necesario insertarla
+            }
+        } else {
+            // Manejar errores de consulta
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+    }
+
+    
+    //elimina de la base de datos el contrato de un profesor y un alumno a la tabla alumnos
+    public static function DeleteAlumno($idProfesor, $idAlumno)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Consulta para eliminar la fila que coincida con el profesor y el alumno
+        $query = "DELETE FROM alumnos WHERE idProfesor = $idProfesor AND idAlumno = $idAlumno";
+    
+        // Ejecutar la consulta
+        if ($conn->query($query)) {
+            return true; // Eliminación exitosa
+        } else {
+            // Manejar errores de consulta
+            error_log("Error al eliminar fila de la tabla alumnos ({$conn->errno}): {$conn->error}");
+            return false; // Error al ejecutar la eliminación
+        }
+    }
 }
 

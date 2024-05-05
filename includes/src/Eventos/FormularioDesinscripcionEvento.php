@@ -58,7 +58,7 @@ class FormularioDesinscripcionEvento extends Formulario
     //$er=count($this->errores);
    // echo $er; 
    //if (count($this->errores) == 0) {
-        $desinscripcion = Inscrito::eliminarPorUserYEven($idEvento, $idUsuario);
+        $desinscripcion = Inscrito::borraPorId($idEvento, $idUsuario);
 
         if (!$desinscripcion) {
             $this->errores['desinscribirse'] = 'Hubo un error al desinscribirse en el evento.';
