@@ -20,7 +20,8 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     }
     
     $idEmisor = $usuario->getId();
-    $idReceptor = $_POST['id'];
+    $idForo = $_POST['id'];
+    $idReceptor = $idForo;
     $receptor = Usuario::buscaPorId($idReceptor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
@@ -31,12 +32,20 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     <div class="conv-mensaje ">
         
     </div>
-    <div class="wrapper">
-        <section class="chat-area">
-            <header class="custom-header">          
+    <div class="wrapper-foro">
+        <section class="foro-area">
+HTML;
+
+//cabecera
+$foroView = visualizaForo($idForo);
+
+$mensaje_class .= <<<HTML
+            <header class="custom-header-foro">          
                 <a href="javascript:history.back()" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <h1>Discusión en el Foro</h1>
+                $foroView
             </header>
-            <div class="chat-box">
+            <div class="foro-box">
 HTML;
 
     // Obtener mensajes del chat
@@ -47,7 +56,7 @@ HTML;
                 <form action="#" class="typing-area">
                     <input type="hidden" name="idEmisor" value="$idEmisor">
                     <input type="hidden" name="idDestinatario" value="$idReceptor">
-                    <input type="text" name="message" class="input-field" placeholder="Escribe un mensaje aquí ..." autocomplete="off">
+                    <textarea name="message" class="input-field-foro" placeholder="Escribe un mensaje aquí ..." autocomplete="off"></textarea>
                     <div id="enviarMensaje" class="enviar-mensaje" onclick="enviarMensaje()">
                         <button><i class="fab fa-telegram-plane"></i></button>
                     </div>
@@ -101,18 +110,14 @@ function visualizaForo($idForo) {
 
 $idForo = $_POST['id'];
 
-$foroView = visualizaForo($idForo);
 
 $usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
 $id_usuario_emisor = $usuario_emisor->getId();
 
-$foro = 
 $mensajesView = visualizaMensajes($id_usuario_emisor, $idForo, $id_usuario_emisor);
 
 $tituloPagina = 'Chat Usuario';
 $contenidoPrincipal = <<<HTML
-    <h1>Discusión en el Foro</h1>
-    $foroView
     $mensajesView
 HTML;
 
@@ -141,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         inputField = form.querySelector(".input-field"),
         sendBtn = form.querySelector("button");
 
-    chatBox = document.querySelector(".chat-box"); // Asignar chatBox dentro del evento DOMContentLoaded
+    chatBox = document.querySelector(".foro-box"); // Asignar chatBox dentro del evento DOMContentLoaded
 
     form.onsubmit = (e) => {
         e.preventDefault();
@@ -166,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function enviarMensaje() {
-    let inputField = document.querySelector(".input-field");
+    let inputField = document.querySelector(".input-field-foro");
     let message = inputField.value.trim(); // Obtener el valor del campo de texto y eliminar espacios en blanco al principio y al final
     
     // Verificar si el mensaje está vacío
@@ -228,7 +233,7 @@ function obtenerMensajes() {
 window.addEventListener("load", obtenerMensajes);
 
 // Definir el intervalo en milisegundos (por ejemplo, cada 5 segundos)
-let intervalo = 5000; // 5000 milisegundos = 5 segundos
+let intervalo = 15000; // 5000 milisegundos = 5 segundos
 
 // Función para llamar a obtenerMensajes() cada cierto intervalo de tiempo
 setInterval(obtenerMensajes, intervalo);

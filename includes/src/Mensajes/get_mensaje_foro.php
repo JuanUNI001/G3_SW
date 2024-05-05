@@ -19,6 +19,21 @@ if ($idForo !== null) {
             $idEmisor = $mensaje->getIdEmisor();
             $autor = Usuario::buscaPorId($idEmisor);
 
+            //incluir saltos de linea al mensaje si es muy largo
+            $texto = $mensaje->getTexto();
+            $longitud_por_linea = 110;
+            $texto_formateado = '';
+            $caracteres_contados = 0;
+            for ($i = 0; $i < strlen($texto); $i++) {
+                $texto_formateado .= $texto[$i];
+                $caracteres_contados++;
+
+                if ($caracteres_contados % $longitud_por_linea == 0) {
+                    $texto_formateado .= "\n";
+                }
+            }
+
+
             if ($idEmisor === $id_usuario_emisor) {
                 $output .= '<div class="comentarioForoOutgoing">
                                 <div class="avatarComentarioForo">
@@ -28,7 +43,7 @@ if ($idForo !== null) {
                                     <div class="autorComentarioForo">'. $autor->getNombre() .'</div>
                                     <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
                                     <div class="textoComentarioForo">
-                                        <p>'. $mensaje->getTexto() .'</p>
+                                        <p>'. $texto_formateado .'</p>
                                     </div>
                                 </div>
                             </div>';
@@ -44,7 +59,7 @@ if ($idForo !== null) {
                                     <div class="autorComentarioForo">'. $autor->getNombre() .'</div>
                                     <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
                                     <div class="textoComentarioForo">
-                                        <p>'. $mensaje->getTexto() .'</p>
+                                        <p>'. $texto_formateado .'</p>
                                     </div>
                                 </div>
                             </div>';
