@@ -13,3 +13,4 @@ DROP TABLE IF EXISTS `eventos`;
 DROP TABLE IF EXISTS `inscritos`;
 DROP TABLE IF EXISTS `seguir`;
 DROP TABLE IF EXISTS `valoraciones`;
+DROP TABLE IF EXISTS `alumnos`;

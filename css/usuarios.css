@@ -46,7 +46,7 @@
 
 .button-user {
 	display: inline-block;
-	background-color: #58d6d8; /* Color de fondo */
+    background-color: #9c27b0;
 	color: white; /* Color del texto */
 	padding: 10px 20px; /* Espaciado interno */
 	text-align: center; /* Alineación del texto */
@@ -57,12 +57,7 @@
 }
 
 .tarjeta_usuario .button-user:hover {
-    text-decoration: none;
-}
-
-.tarjeta_usuario:not(:hover) .button-user {
-    background-color: #9c27b0; /* Fondo morado cuando el cursor no está sobre el botón */
-    color: #fff; /* Texto blanco */
+    background-color: #58d6d8;
 }
 
 /* Estilos para el contenedor del corazón */
@@ -136,11 +131,28 @@
     cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
 }
 
+
+
 .profesor .button-profesor:hover {
-    text-decoration: none;
+    background-color: #9c27b0;
 }
 
-.profesor:not(:hover) .button-profesor {
-    background-color: #9c27b0; /* Fondo morado cuando el cursor no está sobre el botón */
-    color: #fff; /* Texto blanco */
+.profesor .button-profesor-contratar {
+    display: inline-block;
+    background-color: #56c46c; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Eliminar subrayado */
+    border: none; /* Eliminar borde */
+    border-radius: 4px; /* Redondear esquinas */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
 }
+
+
+
+.profesor .button-profesor-contratar:hover {
+    background-color: #9c27b0;
+}
+
+
