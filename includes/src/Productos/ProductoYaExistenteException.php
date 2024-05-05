@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+use \es\ucm\fdi\aw\src\Productos\Producto;
 
 class ProductoYaExistenteException extends \Exception
 {
