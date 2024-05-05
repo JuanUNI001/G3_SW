@@ -198,25 +198,23 @@ class FormularioRegistro extends Formulario
             $this->errores[] = "Por favor, introduce un precio válido para el profesor.";
         }
 
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && empty($this->errores)) {
-            $imagen = $_FILES['imagen']['tmp_name'];
-            if (!empty($imagen)) {
-                $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-                if (self::comprobarExtension($extension)) {
-                    $numero_random = uniqid(); //para generar un numero random basado en la hora
-                    $fichero = "{$numero_random}.{$extension}";
-                    $ruta_imagen = RUTA_IMGS2 . $fichero;
-                    if (!move_uploaded_file($imagen, $ruta_imagen)) {
-                        $this->errores['imagen'] = 'Error al mover el archivo.';
-                    }else{
-                        $rutaAvatar = $ruta_imagen;
-                    }              
-                }
-            }
-        }else{
-            $this->errores['imagen'] = 'Debe introducir un archivo.';
-        }
+        $imagen = $_FILES['imagen']['tmp_name'];
+        if(isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && !empty($imagen)){
+            $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+
+            if(self::comprobarExtension($extension)){
     
+                $numero_random = uniqid(); //para generar un numero random basado en la hora
+                $fichero = "{$numero_random}.{$extension}";
+                $ruta_imagen = RUTA_IMGS2 . $fichero;
+                if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                    $this->errores['imagen'] = 'Error al mover el archivo.';
+                }else{
+                    $rutaAvatar = $ruta_imagen;
+                }     
+            }
+        }
+
         // Si no hay errores, crea el usuario o profesor y redirige
         if (empty($this->errores)) {
             if(!Usuario::buscaUsuario($correo) ){

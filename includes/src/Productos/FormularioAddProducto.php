@@ -93,37 +93,29 @@ class FormularioAddProducto extends Formulario
 
         $cantidad = trim($datos['cantidad'] ?? '');
         $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $cantidad || empty($cantidad) ) {
+        if ( ($cantidad === 0) && (! $cantidad || empty($cantidad)) ) {
             $this->errores['cantidad'] = 'La cantidad no puede estar vacía.';
         }
 
-        $imagen='';
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && empty($this->errores)) {
-            $imagen = $_FILES['imagen']['tmp_name'];
-            if (!empty($imagen)) {
-                $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-                if (self::comprobarExtension($extension)) {
-                    $numero_random = uniqid(); //para generar un numero random basado en la hora
-                    $fichero = "{$numero_random}.{$extension}";
-                    $ruta_imagen = RUTA_IMGS2 . $fichero;
-                    if (!move_uploaded_file($imagen, $ruta_imagen)) {
-                        $this->errores['imagen'] = 'Error al mover el archivo.';
-                    }else{
-                        $imagen = $ruta_imagen;
-                        $nuevoProducto = Producto::crea(null, $nombreProducto, $precio, $descripcion, $imagen, 0, 0, $cantidad);
-                        $nuevoProducto->guarda(); 
-                    }              
-                }
-            }
-        }else{
+        $imagen = $_FILES['imagen']['tmp_name'];
+        if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK || count($_FILES) != 1 || empty($imagen)){
             $this->errores['imagen'] = 'Debe introducir un archivo.';
         }
-        
-        /*if (count($this->errores) === 0) {
 
-            $nuevoProducto = Producto::crea(null, $nombreProducto, $precio, $descripcion, $imagen, 0, 0, $cantidad);
-            $nuevoProducto->guarda();            
-        }*/
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        if(empty($this->errores) && self::comprobarExtension($extension)){
+
+            $numero_random = uniqid(); //para generar un numero random basado en la hora
+            $fichero = "{$numero_random}.{$extension}";
+            $ruta_imagen = RUTA_IMGS2 . $fichero;
+            if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                $this->errores['imagen'] = 'Error al mover el archivo.';
+            }else{
+                $imagen = $ruta_imagen;
+                $nuevoProducto = Producto::crea(null, $nombreProducto, $precio, $descripcion, $imagen, 0, 0, $cantidad);
+                $nuevoProducto->guarda(); 
+            }     
+        }
     }
 
     private function comprobarExtension($extension){
