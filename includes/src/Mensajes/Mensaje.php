@@ -431,5 +431,41 @@ class Mensaje
         }
         return $mensajes;
     }
+    public static function obtenerDosMensajesForoDiferente()
+        {
+            $conn = BD::getInstance()->getConexionBd();
+
+            $query = "SELECT * FROM mensajes AS m1
+            WHERE idForo != -1
+            AND EXISTS (
+                SELECT 1 FROM mensajes AS m2
+                WHERE m2.idForo != m1.idForo
+                LIMIT 1
+            )
+            ORDER BY m1.fechaHora DESC
+            LIMIT 2";
+
+            $rs = $conn->query($query);
+            $mensajes = [];
+            if ($rs) {
+                while ($fila = $rs->fetch_assoc()) {
+                    $mensaje = new Mensaje(
+                        $fila['id'],
+                        $fila['idEmisor'],
+                        $fila['idDestinatario'],
+                        $fila['idForo'],
+                        $fila['mensaje'],
+                        $fila['fechaHora']
+                    );
+                    $mensajes[] = $mensaje;
+                }
+                $rs->free();
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+
+            return $mensajes;
+        }
+
     
 }

@@ -6,7 +6,8 @@
     margin: 0 auto; /* Centra horizontalmente */
     position: relative; /* Añadido */
     margin-top: 20px;
-    background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
+    background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado suave */
+    border-radius: 15px;
 }
 
 .contenedor-productos {
@@ -24,9 +25,9 @@
     width: 25%; /* Ajusta el ancho según tus necesidades */
     margin: 0 5px; /* Añadido */
     text-align: center;
-    background-color: #fff;
+    background: linear-gradient(135deg, #a4d7eb, #cc88db); /* Degradado suave */
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: 3px solid purple; /* Añade un borde sólido de color morado */
 }
@@ -77,4 +78,69 @@
 
 .enlace_destacado:hover {
     color: #a324bf; /* Cambia el color del texto al pasar el ratón por encima */
+}
+
+
+
+.custom-foros-destacados {
+    width: 70%;
+    margin: 20px auto 0; /* Margen automático en los lados y 20px en la parte superior */
+    background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado suave */
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.custom-foro-destacado {
+    width: 80%;
+    margin: 20px auto 0; /* Margen automático en los lados y 20px en la parte superior */
+    background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado suave */
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.custom-foro-info {
+    background: linear-gradient(180deg, #FFFFFF, #EFEFEF); /* Degradado suave */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-foro-titulo {
+    color: #6B5B95; /* Púrpura suave */
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.custom-foro-descripcion {
+    background: linear-gradient(180deg, #d7bee8, #cdd3fe); /* Degradado suave */
+    padding: 20px; /* Aumenta el espacio interior */
+    border-radius: 15px; /* Redondea aún más los bordes */
+    margin-top: 10px; /* Margen superior */
+}
+
+.custom-button-foro {
+    background: linear-gradient(180deg, #6B5B95, #a154b5); /* Degradado de púrpura a naranja */
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+.custom-foro-autor {
+    float: right; /* Alinea el autor a la derecha */
+    width: 30%; /* Ajusta el ancho del autor según sea necesario */
+    text-align: right; /* Alinea el texto del autor a la derecha */
+    margin-top: -10px;
+}
+.custom-button-foro:hover {
+    background: linear-gradient(180deg, #4B0082, #FF4500); /* Degradado de violeta oscuro a naranja rojizo */
 }
