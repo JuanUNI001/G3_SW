@@ -33,7 +33,7 @@ if ($idForo !== null) {
                 }
             }
 
-
+            $eliminarMensaje = resuelve('includes/src/Foros/eliminarMensajeForo.php');
             if ($idEmisor === $id_usuario_emisor) {
                 $output .= '<div class="comentarioForoOutgoing">
                                 <div class="avatarComentarioForo">
@@ -44,8 +44,18 @@ if ($idForo !== null) {
                                     <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
                                     <div class="textoComentarioForo">
                                         <p>'. $texto_formateado .'</p>
-                                    </div>
-                                </div>
+                                    </div>';
+                if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+                    $output .= '<form class="eliminar-foro" action="' . $eliminarMensaje . '" method="post" style="float: right;">
+                                    <input type="hidden" name="id_foro" value="' . $idForo . '">
+                                    <input type="hidden" name="id_mensaje" value="' . $mensaje->getId() . '">
+                                    <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
+                                        🗑️
+                                    </button>
+                                </form>';
+                }
+                                    
+                $output .=      '</div>
                             </div>';
                
             } else {
@@ -60,8 +70,17 @@ if ($idForo !== null) {
                                     <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
                                     <div class="textoComentarioForo">
                                         <p>'. $texto_formateado .'</p>
-                                    </div>
-                                </div>
+                                    </div>';
+                if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+                    $output .= '<form class="eliminar-foro" action="' . $eliminarMensaje . '" method="post" style="float: right;">
+                                    <input type="hidden" name="id_foro" value="' . $idForo . '">
+                                    <input type="hidden" name="id_mensaje" value="' . $mensaje->getId() . '">
+                                    <button type="submit" style="background:none; border:none; padding:0; font-size:inherit; cursor:pointer;">
+                                        🗑️
+                                    </button>
+                                </form>';
+                }
+                $output .=   '</div>
                             </div>';
             }
         }

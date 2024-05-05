@@ -19,13 +19,13 @@ if(isset($_POST["id_mensaje"]) &&isset($_POST["id_foro"])&& isset($_SESSION["rol
     } else {
         $mensajes = ['El mensaje del foro no se encontró.'];
     }
-    $rutaForo = resuelve('/includes/vistas/helpers/ForoView.php');
-    $url .= $rutaForo . '?id_foro=' . $id_foro;
+    $url = resuelve('foros.php');
+    
 }
     
 else {
     $mensajes = ['Acceso no autorizado.'];
-    $url .= resuelve('foros.php');
+    $url = resuelve('foros.php');
 }
 
 

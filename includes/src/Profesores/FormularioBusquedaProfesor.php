@@ -37,7 +37,7 @@ class FormularioBusquedaProfesor extends Formulario
                 <div class="col-12 grid-margin">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Productos a la venta</h4>
+                            <h4 class="card-title">Profesores</h4>
                             <form id="form2" name="form2" method="POST" action="<?php echo $ruta; ?>">
                                 <div class="col-12 row">
                                     <div class="mb-3 textomitad">
