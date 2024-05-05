@@ -23,8 +23,8 @@ class Usuario
     public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
         $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null);
-        
-        return $user->guarda();
+        $user->id = null;
+            return  $user;
     }
     public function usuarioSigue($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
@@ -181,19 +181,14 @@ class Usuario
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("UPDATE usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s' WHERE U.id=%d"
-            , $conn->$usuario->rolUser
+            , $usuario->rolUser
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->avatar)
             , $usuario->id
         );
-        if ( $conn->query($query) ) {
-            $result = self::borraRoles($usuario);
-            
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
+       
         
         return $result;
     }
@@ -359,7 +354,7 @@ class Usuario
     public function guarda()
     {
         
-        if ($this->id !== null) {
+        if ($this->id !== null ) {
             return self::actualiza($this);
         }
         return self::inserta($this);
