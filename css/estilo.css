@@ -586,6 +586,20 @@ nav li:last-child {
     padding: 20px; /* Espaciado interno */
     color: #666; /* Color del texto gris */
 }
+.boton-crear-foro {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+.boton-crear-foro:hover {
+    background-color: #45a049 !important;
+}
 
 .foro-container {
     border-radius: 12px; /* Bordes redondeados */
@@ -615,6 +629,7 @@ nav li:last-child {
 .button-foro:hover {
     background-color: #E64A19; /* Nuevo color de fondo al pasar el cursor */
 }
+
 
 
 

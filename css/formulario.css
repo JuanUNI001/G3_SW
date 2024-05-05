@@ -177,3 +177,93 @@
     color: red;
     margin-top: 10px; /* Añade espacio entre el botón y el mensaje de error */
 }
+/* Estilos llamativos para el formulario de creación de foros */
+.formulario-llamativo {
+    border: 2px solid #ff7f00; /* Borde naranja */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 30px; /* Espaciado interior */
+    width: 400px;
+    font-family: 'Arial', sans-serif;
+    background-color: #7aacde; /* Fondo amarillo */
+}
+
+.formulario-llamativo legend {
+    color: #000000; /* Texto negro */
+    font-size: 24px; /* Tamaño de fuente grande */
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 20px; /* Espaciado inferior */
+    background-color: #71bccb; /* Fondo rosa claro */
+    padding: 5px 10px; /* Espaciado interior */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.formulario-llamativo label {
+    color: #000000; /* Texto naranja */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.formulario-llamativo input[type="text"] {
+    padding: 10px; /* Espaciado interior */
+    border: 2px solid #ff7f00; /* Borde naranja */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.formulario-llamativo .error-message {
+    color: #ff0000; /* Texto rojo */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+.formulario-llamativo button[type="submit"] {
+    background-color: #ff7f00; /* Botón naranja */
+    color: white; /* Texto blanco */
+    padding: 12px 20px; /* Espaciado interior */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de puntero */
+    font-size: 18px; /* Tamaño de fuente grande */
+    transition: background-color 0.3s; /* Transición de color de fondo */
+}
+/* Estilos para el campo de descripción */
+.formulario-llamativo textarea {
+    width: 100%; /* Llenar el espacio disponible */
+    height: 100px; /* Altura inicial */
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    padding: 10px; /* Espaciado interior */
+    border: 2px solid #ff7f00; /* Borde naranja */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.formulario-llamativo button[type="submit"]:hover {
+    background-color: #ff5a00; /* Botón naranja más oscuro al pasar el ratón */
+}
+/* Estilos para el contenedor de los campos */
+/* Estilos para el contenedor de los campos */
+.formulario-llamativo .campos-container {
+    display: grid; /* Usar grid layout */
+    grid-template-columns: 1fr; /* Solo una columna */
+    gap: 10px; /* Espacio entre los elementos */
+}
+
+/* Estilos para los campos */
+.formulario-llamativo .campo {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para la etiqueta */
+.formulario-llamativo label {
+    margin-bottom: 5px; /* Espacio inferior */
+}
+
+/* Estilos para el campo de descripción */
+.formulario-llamativo #descripcion {
+    height: 100px; /* Altura más grande */
+}
+
+/* Estilos para el botón Crear */
+.formulario-llamativo button[name="crear"] {
+    margin-top: 20px; /* Margen superior */
+}
+
