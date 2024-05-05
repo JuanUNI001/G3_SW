@@ -2,7 +2,7 @@
 require_once __DIR__.'/../../config.php';
 
 use \es\ucm\fdi\aw\src\Foros\Foro;
-
+use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 
 if(isset($_POST["id_foro"])&& isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
     

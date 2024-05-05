@@ -22,7 +22,7 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $idEmisor = $usuario->getId();
     $idForo = $_POST['id'];
     $idReceptor = $idForo;
-    $receptor = Usuario::buscaPorId($idReceptor);
+    $receptor = Usuario::buscaPorId($idEmisor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $rutaNew = resuelve('includes/src/Mensajes/put_mensaje_foro.php');

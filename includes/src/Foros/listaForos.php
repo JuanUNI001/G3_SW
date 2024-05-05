@@ -1,6 +1,7 @@
 <?php
 use \es\ucm\fdi\aw\src\Foros\Foro;
 require_once 'includes/config.php';
+require_once 'FormularioCrearForo.php'; 
 $tituloPagina = 'Chatea aprende y diviértete en los foros';
 use es\ucm\fdi\aw\src\BD;
 
@@ -9,9 +10,20 @@ use es\ucm\fdi\aw\src\BD;
 function listaForos()
 {
     $foros = Foro::listarForos();
-
+    
+   
+    
+    $AddForoRuta = resuelve('includes/vistas/helpers/AddForoView.php');
+    
+    $botonAñadirForo = <<<EOF
+    <div>
+        <a href="$AddForoRuta" class="button-like-link">Crear foro</a>
+    </div>
+    EOF;
+    
+   
     $html = '<div class="foro-container">';
-
+    $html .= $botonAñadirForo;
     foreach ($foros as $foro) {
         $html .= visualizaForo($foro);
     }
@@ -22,9 +34,19 @@ function listaForos()
 function listarForosBusqueda($autor, $nombre,$orden)
 {
     $foros = Foro::listarForosBusqueda($autor, $nombre,$orden);
+    
 
+    $AddForoRuta = resuelve('includes/vistas/helpers/AddForoView.php');
+    
+    $botonAñadirForo = <<<EOF
+    <div>
+        <a href="$AddForoRuta" class="button-like-link">Crear foro</a>
+    </div>
+    EOF;
+    
+   
     $html = '<div class="foro-container">';
-
+    $html .= $botonAñadirForo;
     foreach ($foros as $foro) {
         $html .= visualizaForo($foro);
     }
@@ -43,7 +65,7 @@ function visualizaForo($foro) {
     // Obtener el nombre del autor a partir de su ID
     $autor = \es\ucm\fdi\aw\src\Usuarios\Usuario::buscaPorId($autorId);
     $nombreAutor = $autor ? $autor->getNombre() : "Desconocido";
-
+   
     $html = <<<EOF
     
         <div class="foro">

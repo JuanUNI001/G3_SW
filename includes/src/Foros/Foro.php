@@ -291,11 +291,11 @@ class Foro
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-
+       // $autor_id=$foro->getAutor();
         $query = sprintf(
-            "INSERT INTO foros (titulo, autor_id, descripcion) VALUES ('%s', '%s', '%s')",
+            "INSERT INTO foros (id, titulo, autor_id, descripcion) VALUES ('','%s', %d, '%s')",
             $conn->real_escape_string($foro->getTitulo()),
-            $conn->$foro->getAutor(),
+            $foro->getAutor(),
             $conn->real_escape_string($foro->getDescripcion())
         );
 
@@ -306,7 +306,7 @@ class Foro
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         
-        $conn->free();
+      
         
         return $result;
     }
