@@ -230,26 +230,32 @@ public static function guardaOActualiza(Inscrito $evento)
      * @param int $idEvento Id del evento a borrar.
      *
      */
-    public static function borraPorId(int $idEvento)
-    {
-        if (!$idEvento) {
-            throw new \BadMethodCallException('$idEvento no puede ser nulo.');
-        }
-        $result = false;
-        $BD = BD::getInstance();
-        $conn = $BD->conexionBd();
-        $query = sprintf('DELETE FROM inscritos WHERE id=%d', $idEvento);
-        $result = $conn->query($query);
-        if ($result && $conn->affected_rows == 1) {
-            $result = true;
-        } else {
-            if ($conn->affected_rows == 0) {
-                throw new EventoNoEncontradoException("No se ha encontrado el evento: ".$idEvento); 
-            }
-            throw new DataAccessException("Se esperaba borrar 1 fila y se han borrado: ".$conn->affected_rows); 
-        }
-        return $result;
+    public static function borraPorId(int $idEvento, int $idUsuario)
+{
+    if (!$idEvento || !$idUsuario) {
+        throw new \BadMethodCallException('$idEvento y $idUsuario no pueden ser nulos.');
     }
+
+    $conn = BD::getInstance()->getConexionBd();
+    // Consulta SQL para eliminar la entrada en la tabla 'inscritos' con los IDs proporcionados
+    $query = sprintf('DELETE FROM inscritos WHERE idEvento=%d AND userId=%d', $idEvento, $idUsuario);
+    
+    // Ejecutar la consulta
+    $result = $conn->query($query);
+    
+    // Verificar si se afectó una fila
+    if ($result && $conn->affected_rows == 1) {
+        return true;
+    } else {
+        // Si no se afectó ninguna fila, lanzar una excepción
+        if ($conn->affected_rows == 0) {
+            throw new EventoNoEncontradoException("No se ha encontrado el evento con ID: ".$idEvento." y usuario con ID: ".$idUsuario); 
+        }
+        // Si se afectó más de una fila (lo cual no debería suceder), lanzar una excepción
+        throw new DataAccessException("Se esperaba borrar 1 fila y se han borrado: ".$conn->affected_rows); 
+    }
+}
+
   
     /**
      * Crear un evento asociado a un usuario $userId y un título $title.
