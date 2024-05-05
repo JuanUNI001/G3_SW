@@ -114,7 +114,7 @@ if ($app->usuarioLogueado())  {
             <div class="carrito">
                 <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
 
-                <a href="<?= RUTA_APP?>/includes/carrito_usuario.php" class="sideBarDerButton cart-icon">
+                <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="sideBarDerButton cart-icon">
                     <span class="cart-count"><?= $cantidadEnCarrito ?></span>
                     &#x1F6D2;
                 </a>

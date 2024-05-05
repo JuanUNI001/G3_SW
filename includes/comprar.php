@@ -29,20 +29,32 @@ if ($pedido) {
         $producto = Producto::buscaPorId($idProductoPedido);
         
         if ($producto) {
-            if(! $producto->getCantidad() >= $producto->getCantidad()){
-                $idProductoPedido-> buscaPorIdPedidoProducto( $idPedido , $idProductoPedido);
+            if(!$productoPorPedido->getCantidad() < $producto->getCantidad()){
+               // $idProductoPedido-> buscaPorIdPedido_Producto( $idPedido , $idProductoPedido);
+                $producto->setCantidad($producto->getCantidad()-$productoPorPedido->getCantidad());
+                $producto->guarda();
+                
+            }
+            else{
+                $productoPorPedido->borrarProducto($idProductoPedido);
+                $precioARestar = $productoPorPedido->getCantidad() * $producto->getPrecio();
+                Pedido::actualizarPrecioTotalPedido($idPedido, -$precioARestar);
+                $mensajes = ['Ha habido modificaciones en los productos por falta de stock :('];
             }
           
         } else {
-            echo "Producto no encontrado con ID: $idProductoPedido <br>";
+            $mensajes =['Vaya parece que ha ocurrido un error'];
         }
     }
     
     $pedido->setEstado("comprado");
     $pedido->guarda();
     
-    $dir = resuelve('/includes/vistas/helpers/confirmacionCompra.php');
-    header("Location: $dir");
-    exit();
+   
 }
+$dir = resuelve('/includes/vistas/helpers/confirmacionCompra.php');
+                header("Location: $dir");
+                exit();
+$app->putAtributoPeticion('mensajes', $mensajes);
+
 ?>
