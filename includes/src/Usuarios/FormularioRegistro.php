@@ -199,9 +199,7 @@ class FormularioRegistro extends Formulario
         }
 
         $imagen = $_FILES['imagen']['tmp_name'];
-        if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK || count($_FILES) != 1 || empty($imagen)){
-            $this->errores['imagen'] = 'Debe introducir un archivo.';
-        }else{
+        if(isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && !empty($imagen)){
             $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
 
             if(self::comprobarExtension($extension)){
