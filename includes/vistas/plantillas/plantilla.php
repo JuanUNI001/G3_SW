@@ -65,7 +65,7 @@ $mensajes = mensajesPeticionAnterior();
         },
         timeGridDay: false // Desactivar la vista diaria
       },
-      events: 'eventos.php'
+      events: '<?php echo resuelve('/vistas/helpers/eventosInscritos.php'); ?>'
     });
     calendar.render();
   });
