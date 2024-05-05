@@ -14,21 +14,38 @@ if ($idForo !== null) {
     $output = '';
     if (!empty($mensajes)) {
         
-        
+
         foreach ($mensajes as $mensaje) {
             $idEmisor = $mensaje->getIdEmisor();
+            $autor = Usuario::buscaPorId($idEmisor);
+
             if ($idEmisor === $id_usuario_emisor) {
-                    $output .= '<div class="chat outgoing">
-                    <div class="details">
-                        <p>'. $mensaje->getTexto() .'</p>
-                    </div>
-                </div>';
+                $output .= '<div class="comentarioForoOutgoing">
+                                <div class="avatarComentarioForo">
+                                    <img src="'. $autor->getAvatar() .'" alt="Avatar">
+                                </div>
+                                <div class="contenidoComentarioForo">
+                                    <div class="autorComentarioForo">'. $autor->getNombre() .'</div>
+                                    <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
+                                    <div class="textoComentarioForo">
+                                        <p>'. $mensaje->getTexto() .'</p>
+                                    </div>
+                                </div>
+                            </div>';
                
             } else {
                 // El mensaje es entrante (del usuario receptor)
-                $output .= '<div class="chat incoming">
-                                <div class="details">
-                                    <p>'. $mensaje->getTexto() .'</p>
+
+                $output .= '<div class="comentarioForoIncoming">
+                                <div class="avatarComentarioForo">
+                                    <img src="'. $autor->getAvatar() .'" alt="Avatar">
+                                </div>
+                                <div class="contenidoComentarioForo">
+                                    <div class="autorComentarioForo">'. $autor->getNombre() .'</div>
+                                    <div class="fechaComentarioForo">'. $mensaje->getFechaYHora() .'</div>
+                                    <div class="textoComentarioForo">
+                                        <p>'. $mensaje->getTexto() .'</p>
+                                    </div>
                                 </div>
                             </div>';
             }

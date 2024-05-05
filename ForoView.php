@@ -11,7 +11,7 @@ use es\ucm\fdi\aw\src\Usuarios\Usuario;
 <?php
 function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
 {
-    $mensajes = Mensaje::GetMensajesInPrivateChat($idEmisor, $idReceptor);
+
     $mensaje_class = '';
     $usuario = Usuario::buscaUsuario($_SESSION['correo']);
     if ($usuario) {
@@ -35,11 +35,6 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
         <section class="chat-area">
             <header class="custom-header">          
                 <a href="javascript:history.back()" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-                <img src="{$imagenPath}" alt="Avatar de {$usuario->getNombre()}" class="avatar_usuario">               
-                <div class="details">
-                    <span>$autor</span>
-                    
-                    </div>
             </header>
             <div class="chat-box">
 HTML;
