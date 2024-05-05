@@ -2,6 +2,8 @@
 
 namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw\src\BD;
+use \DateTime;
+
 
 
 class Evento
@@ -33,6 +35,8 @@ class Evento
 
    private $tasaInscripcion;
 
+   const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
+
     private function __construct($idTorneo, $inscritos, $categoria, $numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion)
     {
         $this->idEvento = intval($idTorneo);
@@ -41,7 +45,8 @@ class Evento
         $this->numJugadores = $numJugadores;
         $this->nombre = $nombreTorneo;
         $this->descripcion = $descripcionEvento;
-        $this->fecha = $fecha;
+        $this->fecha = ($fecha instanceof DateTime) ? $fecha->format(self::MYSQL_DATE_TIME_FORMAT) : ($fecha ? date_create_from_format(self::MYSQL_DATE_TIME_FORMAT, $fecha) : null);
+
         $this->lugar = $lugar;
         $this->estado = $estado;
         $this->premio = $premio;
@@ -143,9 +148,10 @@ class Evento
             $evento->inscritos,
             $conn->real_escape_string($evento->categoria),
             $evento->numJugadores,
+            $evento->fecha->format(self::MYSQL_DATE_TIME_FORMAT),
             $conn->real_escape_string($evento->nombre),
             $conn->real_escape_string($evento->descripcion),
-            $conn->real_escape_string($evento->fecha),
+            //$conn->real_escape_string($evento->fecha),
             $conn->real_escape_string($evento->lugar),
             $conn->real_escape_string($evento->estado),
             $evento->premio,
