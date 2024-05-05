@@ -43,7 +43,8 @@ function mostrarEventosInscritos()
 
 
     // Convertir el array de eventos a formato JSON
-    return json_encode($eventos);
+    echo json_encode($eventos);
+    
 }
 
 
