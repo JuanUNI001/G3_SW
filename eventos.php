@@ -8,7 +8,7 @@ $form = new es\ucm\fdi\aw\src\Eventos\FormularioBusquedaEventos();
     
     $htmlFormLogin = $form->gestiona();
 
-    $tituloPagina = 'Búsqueda Producto';
+    $tituloPagina = 'Eventos';
     $contenidoPrincipal = <<<EOF
   	
     $htmlFormLogin

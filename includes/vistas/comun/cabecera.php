@@ -58,7 +58,8 @@ function mostrarInfoUsuario() {
         echo "<ul class='dropdown-content'>";
         echo "<li><a href='" . resuelve('/verPerfil.php') . "'>Ver mi cuenta</a></li>";
         echo "<li><a href='" . resuelve('/verPedidosAnteriores.php') . "'>Pedidos anteriores</a></li>";
-        echo "<li><a href='" . resuelve('/verEventosInscritos.php') . "'>Eventos Inscritos</a></li>";
+        echo "<li><a href='" . resuelve('/verEventosInscritos.php') . "'>Calendario</a></li>";
+        echo "<li><a href='" . resuelve('/verEventosInscritosSinCalendario.php') . "'>Eventos Inscritos</a></li>";
         echo "<li><a href='" . resuelve('/seguidos.php') . "'>Follows</a></li>"; // Enlace al carrito
         echo "</ul></div></div>";
     }
@@ -114,7 +115,7 @@ if ($app->usuarioLogueado())  {
             <div class="carrito">
                 <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
 
-                <a href="<?= RUTA_APP?>/includes/carrito_usuario.php" class="sideBarDerButton cart-icon">
+                <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="sideBarDerButton cart-icon">
                     <span class="cart-count"><?= $cantidadEnCarrito ?></span>
                     &#x1F6D2;
                 </a>

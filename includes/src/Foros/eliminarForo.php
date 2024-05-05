@@ -2,7 +2,7 @@
 require_once __DIR__.'/../../config.php';
 
 use \es\ucm\fdi\aw\src\Foros\Foro;
-
+use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 
 if(isset($_POST["id_foro"])&& isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
     
@@ -10,6 +10,13 @@ if(isset($_POST["id_foro"])&& isset($_SESSION["rolUser"]) && $_SESSION["rolUser"
     $foro = Foro::buscaForo($id_foro);
     
     if($foro) {
+        $mensajesForo = Mensaje::GetMensajesInForoChat($id_foro);
+        
+        foreach ($mensajesForo as $mensaje) {
+            $id_mensaje = $mensaje->getId();
+            Mensaje::borraPorId($id_mensaje);
+           
+        }
         $foroEliminado = Foro::borraPorId($id_foro);    
             if($foroEliminado) {
                 $mensajes = ['Foro eliminado correctamente'];

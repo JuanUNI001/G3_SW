@@ -218,7 +218,7 @@ class Pedido
             $conn->query($query);
 
             // Actualizar el precio total del pedido
-            $nuevoTotal = self::actualizaPrecioTotal($idPedido, $diferenciaPrecioTotal);
+            $nuevoTotal = self::actualizarPrecioTotalPedido($idPedido, $diferenciaPrecioTotal);
 
             return $nuevoTotal;
         }

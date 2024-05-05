@@ -586,6 +586,20 @@ nav li:last-child {
     padding: 20px; /* Espaciado interno */
     color: #666; /* Color del texto gris */
 }
+.boton-crear-foro {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+.boton-crear-foro:hover {
+    background-color: #45a049 !important;
+}
 
 .foro-container {
     border-radius: 12px; /* Bordes redondeados */
@@ -615,6 +629,7 @@ nav li:last-child {
 .button-foro:hover {
     background-color: #E64A19; /* Nuevo color de fondo al pasar el cursor */
 }
+
 
 
 
@@ -1055,3 +1070,51 @@ nav li:last-child {
     overflow: auto; /* Agrega barras de desplazamiento cuando sea necesario */
     padding-top: 20px; /* Agrega un espacio superior de 20px */
 }
+
+/* Estilos para el contenedor de eventos destacados */
+.eventos-destacados {
+    margin-top: 20px;
+  }
+  
+  /* Estilos para cada evento destacado */
+  .evento-destacado {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el título de cada evento */
+  .evento-destacado .titulo-evento {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para la descripción de cada evento */
+  .evento-destacado .descripcion-evento {
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para la fecha de cada evento */
+  .evento-destacado .fecha-evento {
+    color: #888;
+  }
+  
+  /* Estilos para el botón de leer más */
+  .evento-destacado .leer-mas {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para el botón de leer más al pasar el ratón por encima */
+  .evento-destacado .leer-mas:hover {
+    background-color: #0056b3;
+  }
+  
+

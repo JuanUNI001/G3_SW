@@ -24,28 +24,35 @@ class FormularioCrearForo extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['tituloForo', 'descripcion'], $this->errores, 'span', array('class' => 'error'));
 
-        // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
+        <fieldset class="formulario-llamativo">
             <legend>Datos del Foro</legend>
-            <div>
-                <label for="tituForo">Titulo del Foro:</label>
-                <input id="tituloForo" type="text" name="tituloForo" value="$tituloForo" />
-                {$erroresCampos['tituloForo']}
+            <div class="campos-container">
+                <div class="campo">
+                    <label for="tituloForo">Título del Foro:</label>
+                    <input id="tituloForo" type="text" name="tituloForo" value="$tituloForo" />
+                    {$erroresCampos['tituloForo']}
+                </div>
+                
+                <div class="campo">
+                    <label for="descripcion">Descripción del Foro:</label>
+                    <textarea id="descripcion" name="descripcion">$descripcion</textarea>
+                    {$erroresCampos['descripcion']}
+                </div>
             </div>
-
+            
             <div>
-            <label for="descripcion">Descripcion del Foro:</label>
-            <input id="descripcion" type="text" name="descripcion" value="$descripcion" />
-            {$erroresCampos['descripcion']}
-        </div>
-            <div>
-                <button type="submit" name="crear">crear</button>
+                <button type="submit" name="crear">Crear</button>
             </div>
         </fieldset>
         EOF;
-        return $html;
+
+        
+        
+
+return $html;
+
     }
 
     protected function procesaFormulario(&$datos)
@@ -65,7 +72,7 @@ class FormularioCrearForo extends Formulario
         }
 
         if (count($this->errores) === 0) {
-            $nuevoForo = Foro::crea(null, $idAutor, $tituloForo);
+            $nuevoForo = Foro::crea(null,  $this->idAutor, $tituloForo,$descripcion);
             $nuevoForo->guarda();         
         }
     }
