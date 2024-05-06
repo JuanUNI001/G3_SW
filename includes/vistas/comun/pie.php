@@ -1,10 +1,20 @@
+
+<?php
+use es\ucm\fdi\aw\src\BD;
+?>
+
 <footer>
     <div class="footer-content">
         <div>
         <a href="https://www.op.gg">Puede contactarnos a través del siguiente enlace</a>
             <ul>
+                <!--
                 <li><a href="/index.php">Inicio</a></li>
-                <li><a href="/terminos-y-condiciones">Términos y condiciones</a></li>
+                <li><a href="/terminosYCondiciones.php">Términos y condiciones</a></li>
+                <li><a href="/politica-de-privacidad">Política de privacidad</a></li>
+                --> 
+                <li><a href="/index.php">Inicio</a></li>
+                <li><a href="<?php echo resuelve('/terminosYCondiciones.php'); ?>">Términos y condiciones</a></li>
                 <li><a href="/politica-de-privacidad">Política de privacidad</a></li>
             </ul>      
         </div>
