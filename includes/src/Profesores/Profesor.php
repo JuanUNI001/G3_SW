@@ -26,14 +26,18 @@ class Profesor extends Usuario
     }
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
-        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, $valoracion,$id);
+        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, null,$id);
+        $user->setIdNull();
         $guardado = $user->guarda();
         if ($guardado) {
             $user->actualizaPrecio($precio);
         }
         return $guardado;
     }
-    
+    public function setIdNull()
+    {
+        $this->id = null;
+    }
     public function getValoracion()
     {
         return $this->valoracion;

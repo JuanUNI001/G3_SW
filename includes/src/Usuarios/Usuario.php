@@ -24,7 +24,7 @@ class Usuario
     {
         $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null);
         $user->id = null;
-            return  $user;
+        return  $user;
     }
     public function usuarioSigue($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
@@ -80,10 +80,10 @@ class Usuario
     
     public static function buscaUsuario($correo)
     {
-        $conn = \es\ucm\fdi\aw\src\BD::getInstance()->getConexionBd();
+        $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
         $rs = $conn->query($query);
-        $result = false;
+        $result = null;
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
@@ -95,7 +95,7 @@ class Usuario
         }
         return $result;
     }
-
+    
     public static function buscaPorId($idUsuario)
     {
         $conn = BD::getInstance()->getConexionBd();
@@ -334,7 +334,7 @@ class Usuario
     {
         $this->avatar = $nuevoAvatar;
     }
-
+    
     public function compruebaPassword($password)
     {
         $contra = $this->password;  
