@@ -3,12 +3,13 @@ require_once __DIR__.'/../../config.php';
 
 use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
 use \es\ucm\fdi\aw\src\Foros\Foro;
+use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 use \es\ucm\fdi\aw\src\BD;
 function forosDestacados()
 {
     $mensajes = Mensaje::obtenerDosMensajesForoDiferente();
-    $html = '<div class="custom-foros-destacados">';
-    $html .= '<h2>Foros Destacados</h2>' ;
+    
+    $html = '<h2>Foros Destacados</h2>' ;
     foreach ($mensajes as $mensaje) {
         $idForo = $mensaje->getIdForo();
         $foro = Foro::buscaForo($idForo);
@@ -21,50 +22,39 @@ function forosDestacados()
 
 function foroDestacadoVisualizado($foro, $mensaje)
 { 
+    $html = '<div class="custom-foro-destacado">';
+    
     $app = BD::getInstance();
-    $usuarioLogueado = $app->usuarioLogueado();
+    $usuarioLogueado = $app->usuarioLogueado();    
+    
+    $rutaForo = resuelve('ForoView.php?id=' . $foro->getId());
+    $idForo = $mensaje->getIdForo();
 
-    $rutaForo = resuelve('ForoView.php');
-    $idForo = $foro->getId();
-    $autorId = $mensaje->getIdEmisor(); 
+    $autor = $mensaje->getIdEmisor();
+    $usuario = Usuario::buscaPorId($autor);
+    $nombreAutor = $usuario ? $usuario->getNombre() : "Desconocido";
+    $rutaImagen = resuelve('/');
+    $avatar = $usuario ? $usuario->getAvatar() : "default_avatar.jpg";
+    $avatarImagen =  $rutaImagen . '/'. $avatar;
 
-    $autor = \es\ucm\fdi\aw\src\Usuarios\Usuario::buscaPorId($autorId);
-    $nombreAutor = $autor ? $autor->getNombre() : "Desconocido";
-   
-    $html = <<<EOF
-    <div class="custom-foro-destacado">
-        <div class="custom-foro-info">
-            <div class="custom-foro-titulo">
-                <strong>{$foro->getTitulo()}</strong> 
-            </div>
-            <div class="custom-foro-contenido">
-                <div class="custom-foro-descripcion">
-                    <p class="custom-foro-autor">{$nombreAutor}</p>
-                    
-                    <p>{$mensaje->getTexto()}</p>   
-                    
-                </div>
-                
-            </div>
-        
-    EOF;
+    $html .= '<div class="custom-foro-info">';
+    $html .= '<div class="custom-avatar"><img src="' .  $avatarImagen. '" alt="Avatar"></div>';
+    $html .= '<div class="custom-info-text">';
+    $html .= '<p class="custom-nombre">' . $nombreAutor . '</p>';
+    $html .= '<p class="custom-texto">' . $mensaje->getTexto() . '</p>';
+    $html .= '</div>';
+    $html .= '</div>'; 
 
-       
-        
+    // Si el usuario está logueado, envuelve el contenido del foro dentro de un formulario
     if ($usuarioLogueado) {
-        $html .= <<<EOF
-            <form action="{$rutaForo}" method="post">
-                <input type="hidden" name="id" value="{$idForo}">
-                <button type="submit" class="custom-button-foro" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Acceder</button>
-            </form>
-        EOF;    
+        $html .= '<form action="' . $rutaForo . '" method="post">';
+        $html .= '<input type="hidden" name="id" value="' . $idForo . '">';
+        $html .= '<button type="submit" class="custom-button-foro" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">' . $foro->getTitulo() . '</button>';
+        $html .= '</form>';
     }
-        
-        
-    $html .= '</div></div>'; // Cierre de las etiquetas div de custom-foro-info y custom-foro
-        
+
+    $html .= '</div>'; // Cierre de custom-foro-destacado
+
     return $html;
 }
 
-
-?>

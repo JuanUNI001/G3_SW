@@ -10,8 +10,7 @@ function productosDestacados()
     $html = '<div class="productos-destacados">';
     $html .= '<h1>Productos destacados</h1>';
     $html .= '<div class="contenedor-productos">';
-    $html .= '<div class="flecha-izquierda">&#10094;</div>';
-    $html .= '<div class="flecha-derecha">&#10095;</div>';
+    
    
     foreach ($productosDestacados as $producto) {
         $imagenPath = RUTA_IMGS . $producto->getImagen(); // Ruta completa de la imagen
@@ -31,32 +30,14 @@ function productosDestacados()
         </div>
 HTML;
     }
-    $html .= <<<HTML
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const flechaIzquierda = document.querySelector('.flecha-izquierda');
-        const flechaDerecha = document.querySelector('.flecha-derecha');
-        const contenedorProductos = document.querySelector('.contenedor-productos');
-
-        flechaDerecha.addEventListener('click', function() {
-            contenedorProductos.scrollBy({
-                left: 200,
-                behavior: 'smooth'
-            });
-        });
-
-        flechaIzquierda.addEventListener('click', function() {
-            contenedorProductos.scrollBy({
-                left: -200,
-                behavior: 'smooth'
-            });
-        });
-    });
-    </script>
-HTML;
+    
+    $html .= '<div class="flecha-izquierda-producto">&#10094;</div>';
+    $html .= '<div class="flecha-derecha-producto">&#10095;</div>';
+    
     $html .= '</div>'; // Cierre de div "contenedor-productos"
     $html .= '</div>'; // Cierre de div "productos-destacados"
-    
+    $rutaJs = resuelve('js/productosDestacados.js');
+    $html .= "<script src='$rutaJs'></script>";
     return $html;
 }
 

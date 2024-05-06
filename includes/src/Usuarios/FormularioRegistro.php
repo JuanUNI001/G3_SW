@@ -25,7 +25,7 @@ class FormularioRegistro extends Formulario
         // Se generan los mensajes de error si existen.
         self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio', 'imagen'], $this->errores, 'span', array('class' => 'error'));
-
+        
         $html = <<<EOF
            
         <fieldset class="fieldset-form">
@@ -34,30 +34,45 @@ class FormularioRegistro extends Formulario
             <div>
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
-                <span id="nombre-validacion"></span> 
+                <input type="hidden" id="nombre-valido" name="nombre-valido" value="0">
+                    <span id="validUser">✔️</span>
+                    <span id="invalidUser">❌ Debe tener más de 3 caracteres</span>
             </div>
             <div>
                 <label for="correo">Correo electrónico:</label>
                 <input id="correo" type="text" name="correo" value="$correo" />
-                <span id="correo-validacion"></span> 
+                <input type="hidden" id="correo-valido" name="correo-valido" value="0">
+                    <span id="email-valido">✔️</span>
+                    <span id="email-invalido">❌</span>
             </div>
             <div>
                 <label for="password">Password:</label>
                 <input id="password" type="password" name="password" />
-                <span id="password-validacion"></span> 
+                <input type="hidden" id="password-valido" name="password-valido" value="0">
+
+                    <span id="password-valida">✔️</span>
+                    <span id="password-invalida">❌ Debe contener un carácter especial y 8 caracteres</span>
+
             </div>
             <div>
                 <label for="password2">Reintroduce el password:</label>
                 <input id="password2" type="password" name="password2" />
-                <span id="password2-validacion"></span> 
-            </div>
+                <input type="hidden" id="password2-valido" name="password2-valido" value="0">
 
+                    <span id="password-match">✔️</span>
+                    <span id="password-nomatch">❌No coincide</span>
+
+            </div>
+    
+            
+            
+            
             <div class="input-file">
             <label for="imagen" class="input-label">Imagen:</label>
             <input id="imagen" type="file" name="imagen"/>
             </div>
             <div class="error-message">{$erroresCampos['imagen']}</div>
-
+    
             <div id="avatar-selector">
                 <button id="avatar-anterior" type="button">&lt;</button>
                 <img id="avatar-seleccionado" src="images/opcion2.png" alt="Avatar seleccionado" style="width: 150px;">     
@@ -82,173 +97,116 @@ class FormularioRegistro extends Formulario
                 
                 
             </div>
-            
-
+    
             <div class="enviar-button">
                 <button type="submit" name="registro">Registrar</button>
             </div>
         </fieldset>
-        EOF;
-
+    EOF;
+    
            
         $html .= '<script src="js/avatares.js" ></script>';
-        $html .= <<<EOF
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var nombreInput = document.getElementById('nombre');
-                var correoInput = document.getElementById('correo');
-                var passwordInput = document.getElementById('password');
-                var password2Input = document.getElementById('password2');
-                var nombreValidacion = document.getElementById('nombre-validacion');
-                var correoValidacion = document.getElementById('correo-validacion');
-                var passwordValidacion = document.getElementById('password-validacion');
-                var password2Validacion = document.getElementById('password2-validacion');
-
-                // Función para mostrar mensajes de error
-                function mostrarError(input, mensaje) {
-                    input.nextElementSibling.textContent = mensaje;
-                    input.nextElementSibling.style.color = 'red';
-                }
-
-                // Función para mostrar mensajes de éxito
-                function mostrarExito(input) {
-                    input.nextElementSibling.textContent = '✔️';
-                    input.nextElementSibling.style.color = 'green';
-                }
-
-                nombreInput.addEventListener('input', function() {
-                    if (nombreInput.value.length >= 3) {
-                        mostrarExito(nombreInput);
-                    } else {
-                        mostrarError(nombreInput, '❌ El nombre debe tener al menos 3 caracteres.');
-                    }
-                });
-
-                correoInput.addEventListener('input', function() {
-                    if (correoInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-                        mostrarExito(correoInput);
-                    } else {
-                        mostrarError(correoInput, '❌ El correo electrónico es inválido.');
-                    }
-                });
-
-                passwordInput.addEventListener('input', function() {
-                    // Expresión regular para verificar si hay al menos 8 caracteres, una mayúscula y un carácter especial
-                    var regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,})/;
-                    
-                    if (regex.test(passwordInput.value)) {
-                        mostrarExito(passwordInput);
-                    } else {
-                        mostrarError(passwordInput, '❌ La contraseña debe contener al menos 8 caracteres, una mayúscula y un carácter especial.');
-                    }
-                });
-                
-
-                password2Input.addEventListener('input', function() {
-                    if (password2Input.value === passwordInput.value) {
-                        mostrarExito(password2Input);
-                    } else {
-                        mostrarError(password2Input, '❌ Las contraseñas no coinciden.');
-                    }
-                });
-            });
-        </script>
-        EOF;
-
+        $html .= '<script src="js/validacionRegistro.js" ></script>';
+    
         return $html;
     }
     
     
+    
     protected function procesaFormulario(&$datos)
-    {
-        $this->errores = [];
-    
-        // Recoge los datos del formulario
-        $nombre = $datos['nombre'] ?? '';
-        $correo = $datos['correo'] ?? '';
-        $password = $datos['password'] ?? '';
-        $password2 = $datos['password2'] ?? '';
-        $rolSeleccionado = $datos['rol'] ?? '';
-        $rutaAvatar = $datos['rutaAvatar'] ?? '';
-        $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
-    
-        // Validación de campos
-        if (empty($nombre) || strlen($nombre) < 3) {
-            $this->errores[] = "El nombre debe tener al menos 3 caracteres.";
-        }
+{
+    $this->errores = [];
+  
+    $nombre = $datos['nombre'] ?? '';
+    $correo = $datos['correo'] ?? '';
+    $password = $datos['password'] ?? '';
+    $password2 = $datos['password2'] ?? '';
+    $rolSeleccionado = $datos['rol'] ?? '';
+    $rutaAvatar = $datos['rutaAvatar'] ?? '';
+    $precio = isset($datos['precio']) ? floatval($datos['precio']) : null;
+    $nombreValido = isset($datos['nombre-valido']) ? ($datos['nombre-valido'] === '1') : false;
+    $correoValido = isset($datos['correo-valido']) ? ($datos['correo-valido'] === '1') : false;
+    $passwordValido = isset($datos['password-valido']) ? ($datos['password-valido'] === '1') : false;
+    $password2Valido = isset($datos['password2-valido']) ? ($datos['password2-valido'] === '1') : false;
+
+
+
+    // Validar campos
+    if (!$nombreValido) {
+        $this->errores[] = "El nombre no es válido.";
+    }
+
+    if (!$correoValido) {
+        $this->errores[] = "El correo electrónico no es válido.";
         
-        if (empty($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            $this->errores[] = "El correo electrónico es inválido.";
-        }
-    
-        if (empty($password) || empty($password2)) {
-            $this->errores[] = "La contraseña no puede estar vacía.";
-        } elseif ($password !== $password2) {
-            $this->errores[] = "Las contraseñas no coinciden.";
-        } elseif (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-            $this->errores[] = "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula y un carácter especial.";
-        }
-        
-    
-        if (empty($rolSeleccionado) || !in_array($rolSeleccionado, ['Usuario', 'Profesor'])) {
-            $this->errores[] = "Debe seleccionar un rol válido.";
-        }
-    
-        if ($rolSeleccionado === 'Profesor' && (!$precio || $precio <= 0)) {
-            $this->errores[] = "Por favor, introduce un precio válido para el profesor.";
-        }
+    }
 
-        $imagen = $_FILES['imagen']['tmp_name'];
-        if(isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && !empty($imagen)){
-            $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+    if (!$passwordValido) {
+        $this->errores[] = "La contraseña no es válida.";
+    }
 
-            if(self::comprobarExtension($extension)){
+    if (!$password2Valido) {
+        $this->errores[] = "La confirmación de la contraseña no es válida.";
+    }
+
+
     
-                $numero_random = uniqid(); //para generar un numero random basado en la hora
-                $fichero = "{$numero_random}.{$extension}";
-                $ruta_imagen = RUTA_IMGS2 . $fichero;
-                if (!move_uploaded_file($imagen, $ruta_imagen)) {
-                    $this->errores['imagen'] = 'Error al mover el archivo.';
-                }else{
-                    $rutaAvatar = $ruta_imagen;
-                }     
-            }
-        }
+    if ($rolSeleccionado === 'Profesor' && (!$precio || $precio <= 0)) {
+        $this->errores[] = "Por favor, introduce un precio válido para el profesor.";
+    }
 
-        // Si no hay errores, crea el usuario o profesor y redirige
-        if (empty($this->errores)) {
-            if(!Usuario::buscaUsuario($correo) ){
-                if ($rolSeleccionado === 'Usuario') {
-                    $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
-                    $usuario ->guarda();
-                    if (!$usuario) {
-                        $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
-                    }
-                } elseif ($rolSeleccionado === 'Profesor') {
-                    $password = Profesor::anadeContrasena($password);
-                    $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar, null);
-                    if (!$profesor) {
-                        $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
-                    }
+    $imagen = $_FILES['imagen']['tmp_name'];
+    if(isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK && count($_FILES) == 1 && !empty($imagen)){
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+
+        if(self::comprobarExtension($extension)){
+
+            $numero_random = uniqid(); //para generar un numero random basado en la hora
+            $fichero = "{$numero_random}.{$extension}";
+            $ruta_imagen = RUTA_IMGS2 . $fichero;
+            if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                $this->errores['imagen'] = 'Error al mover el archivo.';
+            }else{
+                $rutaAvatar = $ruta_imagen;
+            }     
+        }
+    }
+    if (empty($this->errores)) {
+        // Validar si el correo ya está en uso
+        if (!Usuario::buscaUsuario($correo)) {
+            if ($rolSeleccionado === 'Usuario') {
+                $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
+                $usuario->guarda();
+                if (!$usuario) {
+                    $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
+                }
+            } elseif ($rolSeleccionado === 'Profesor') {
+                $password = Profesor::anadeContrasena($password);
+                $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar,null);
+                if (!$profesor) {
+                    $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
                 }
             }
-            else{
-                $this->errores[] = "Este correo ya es usado por un usuario";
-            }
-            // Si no hay errores después de intentar crear el usuario o profesor, inicia sesión y redirige
-            if (empty($this->errores)) {
-                $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $nombre;
-                $_SESSION['correo'] = $correo;
-                $_SESSION['rolUser'] = $rolSeleccionado;
-                header('Location: ' . $this->urlRedireccion);
-                exit;
-            }
+        } else {
+            $this->errores[] = "Este correo ya es usado por un usuario";
+            
         }
-    
-        $app = BD::getInstance();
-        $app->putAtributoPeticion('mensajes', $this->errores);
+
+        // Si no hay errores después de intentar crear el usuario o profesor, inicia sesión y redirige
+        if (empty($this->errores)) {
+            $_SESSION['login'] = true;
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['correo'] = $correo;
+            $_SESSION['rolUser'] = $rolSeleccionado;
+            header('Location: ' . $this->urlRedireccion);
+            exit;
+        }
     }
+    
+    $app = BD::getInstance();
+    $app->putAtributoPeticion('mensajes', $this->errores);
+}
+
     
     private function comprobarExtension($extension){
 

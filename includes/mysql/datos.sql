@@ -49,6 +49,7 @@ INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valora
 (63, '$2y$10$e6Pzqt2nZ8SNLYvg1aK1Vetfq9k2l/jJV2N3TZq6RV8L6A3N0WY6.', 'Mohammad Ali', 'mAli99@gmail.com', 3, NULL, 25.5, 'images/opcion6.png'),
 (64, '$2y$10$tCFohteHLRLXZENKQIVSKO5GEKiEz96oeOujwhWLQzqoKc7QXvMGO', 'Isabella Santos ', 'isaSantos@gmail.com', 3, NULL, 10.5, 'images/opcion1.png'),
 (3, '$2y$10$2SSp7WtxlOCu.lMjRfXCWeYUpOVsKo0pek9uzat3yx5nIQ/Z02oQa', 'jaime', 'jaime@ucm.es', 2, NULL, NULL, 'images/opcion2.png'),
+(99, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'profe', 'profe@gmail.com', 3, NULL, NULL, 'images/opcion2.png'),
 (65, '$2y$10$NAzedPnxD1zZhd9vSGu0ducjh3u2RA0jmFjY1IV4.u.MvHGHQb8Ha', 'Juan García ', 'jGarcia089@gmail.com', 3, NULL, 18.9, 'images/opcion2.png');
 
 
