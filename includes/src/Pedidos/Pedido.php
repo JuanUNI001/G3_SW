@@ -494,14 +494,13 @@ class Pedido
 
         return $result;
     }
-    public static function obtenerPedidosEnCarrito()
+    public static function obtenerPedidosEnCarrito($idUser)
     {
         $pedido = null;
     
         // Obtener el pedido con estado "carrito"
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT id_pedido, id_user, estado, fecha, total FROM pedidos WHERE estado = 'carrito' LIMIT 1";
-        $result = $conn->query($query);
+        $query = "SELECT * FROM pedidos WHERE estado = 'carrito' AND id_user = $idUser LIMIT 1";        $result = $conn->query($query);
     
         if ($result && $result->num_rows > 0) {
             $fila = $result->fetch_assoc();

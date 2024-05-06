@@ -17,7 +17,7 @@ $correo_usuario = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
 
-$pedido = Pedido::obtenerPedidosEnCarrito();
+$pedido = Pedido::obtenerPedidosEnCarrito($id_usuario);
 
 if ($pedido) {
     $idPedido =  $pedido->getIdPedido();
@@ -29,7 +29,7 @@ if ($pedido) {
         $producto = Producto::buscaPorId($idProductoPedido);
         
         if ($producto) {
-            if(!$productoPorPedido->getCantidad() < $producto->getCantidad()){
+            if(!$productoPorPedido->getCantidad() <= $producto->getCantidad()){
                // $idProductoPedido-> buscaPorIdPedido_Producto( $idPedido , $idProductoPedido);
                 $producto->setCantidad($producto->getCantidad()-$productoPorPedido->getCantidad());
                 $producto->guarda();
