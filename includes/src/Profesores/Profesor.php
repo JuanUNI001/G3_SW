@@ -92,6 +92,35 @@ class Profesor extends Usuario
         }
         return $profesores;
     }
+
+    public static function obtenerProfesoresDestacados()
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        // Consulta SQL para obtener los 3 mejores profesores ordenados por valoración
+        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE . " ORDER BY valoracion DESC LIMIT 3";
+        
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor(      
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['precio'],   
+                    $fila['avatar'],   
+                    $fila['valoracion'],
+                    $fila['id']
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
+        }
+        return $profesores;
+    }
+
     public static function listarProfesoresBusqueda($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden)
     {
         $conn = BD::getInstance()->getConexionBd();

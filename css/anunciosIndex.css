@@ -1,5 +1,5 @@
 .productos-destacados {
-    width: 90%;
+    width: 70%;
     overflow: hidden;
     background-color: #fff;
     padding: 10px;
@@ -40,27 +40,41 @@
     margin-bottom: 5px;
 }
 
-/* Flechas */
-.flecha-izquierda, .flecha-derecha {
+.flecha-izquierda-producto {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 10px; /* Ajusta la posición izquierda */
+    transform: translateY(-50%); /* Centra verticalmente */
+}
+
+.flecha-derecha-producto {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Ajusta la posición derecha */
+    transform: translateY(-50%); /* Centra verticalmente */
+   
+}
+
+.flecha-izquierda-producto,
+.flecha-derecha-producto {
+    background-color: #8458c9;
+    color: white;
+    border: none;
+    border-radius: 50%;
     font-size: 24px;
+    width: 60px; /* Ajusta el tamaño del círculo */
+    height: 60px; /* Ajusta el tamaño del círculo */
     cursor: pointer;
-    z-index: 1;
-    padding-left: 10px; /* Añadido */
-    color: rgb(255, 255, 255); /* Color de las flechas */
-    background: black; /* Fondo verde degradado a rosa */
+    display: flex; /* Utiliza flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
 }
 
-
-.flecha-izquierda {
-    left: 0;
+.flecha-izquierda-producto:hover,
+.flecha-derecha-producto:hover {
+    background-color: #9f58d5;
 }
 
-.flecha-derecha {
-    right: 0;
-}
 
 
 
@@ -81,15 +95,103 @@
 }
 
 
+.profesores-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los profesores se envuelvan a la siguiente línea si no hay suficiente espacio */
+    justify-content: space-between; /* Distribuye uniformemente los profesores a lo largo del contenedor */
+}
+
+.custom-profesor-destacado {
+    width: 25%; /* Ajusta el ancho del contenedor del profesor según sea necesario */
+    margin: 20px 10px; /* Margen entre profesores */
+    text-align: center; /* Alinea el contenido al centro */
+}
+
+.custom-profesor-info {
+    background: linear-gradient(180deg, #FFFFFF, #EFEFEF); /* Degradado suave */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.custom-profesor-info .custom-avatar {
+    width: 100px; /* Ancho del avatar */
+    height: 100px; /* Altura del avatar */
+    overflow: hidden;
+    border-radius: 50%;
+    margin: auto; /* Centra el avatar horizontalmente */
+}
+
+.custom-profesor-info .custom-avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.custom-profesor-info .custom-info-text {
+    margin-top: 10px;
+}
+
+.custom-profesor-info .custom-nombre {
+    font-weight: bold;
+}
+
+.custom-profesor-info .custom-valoracion {
+    margin-top: 5px;
+}
+.custom-boton-profesor {
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #55369c; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Quitar subrayado */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Borde redondeado */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+}
+
+.custom-boton-profesor:hover {
+    background-color: #af4c89; /* Color de fondo al pasar el ratón */
+}
+
+
+.custom-avatar {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.custom-avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.custom-foro-info {
+    display: flex; 
+    align-items: center;
+}
+
+.custom-nombre {
+    font-weight: bold;
+    margin-left: 10px; 
+}
+
+.custom-texto {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+
 
 .custom-foros-destacados {
-    width: 70%;
+    width: 100%;
     margin: 20px auto 0; /* Margen automático en los lados y 20px en la parte superior */
     background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado suave */
     padding: 20px;
     margin-bottom: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
 }
 .custom-foro-destacado {
     width: 80%;
@@ -110,19 +212,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.custom-foro-titulo {
-    color: #6B5B95; /* Púrpura suave */
-    font-size: 24px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
-.custom-foro-descripcion {
-    background: linear-gradient(180deg, #d7bee8, #cdd3fe); /* Degradado suave */
-    padding: 20px; /* Aumenta el espacio interior */
-    border-radius: 15px; /* Redondea aún más los bordes */
-    margin-top: 10px; /* Margen superior */
-}
 
 .custom-button-foro {
     background: linear-gradient(180deg, #6B5B95, #a154b5); /* Degradado de púrpura a naranja */
@@ -135,12 +225,101 @@
     margin-top: 10px;
     transition: background-color 0.3s;
 }
-.custom-foro-autor {
-    float: right; /* Alinea el autor a la derecha */
-    width: 30%; /* Ajusta el ancho del autor según sea necesario */
-    text-align: right; /* Alinea el texto del autor a la derecha */
-    margin-top: -10px;
-}
+
 .custom-button-foro:hover {
     background: linear-gradient(180deg, #4B0082, #FF4500); /* Degradado de violeta oscuro a naranja rojizo */
+}
+
+
+
+
+
+
+.eventos-destacados {
+    width: 70%;
+    overflow-x: auto; /* Agregar desplazamiento horizontal si es necesario */
+    overflow-y: hidden; /* Ocultar el desplazamiento vertical */
+    background-color: #fff;
+    padding: 10px;
+    margin: 0 auto; /* Centra horizontalmente */
+    position: relative; /* Añadido */
+    margin-top: 20px;
+    background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado suave */
+    border-radius: 15px;
+}
+
+.contenedor-eventos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.evento-custom {
+    border: 4px solid #914caf;
+    border-radius: 16px;
+    padding: 10px;
+    margin: 10px;
+    max-width: calc(100% - 20px); /* Ancho máximo ajustado */
+    height: 300px; /* Establecer un alto fijo */
+    overflow-y: auto; /* Agregar barra de desplazamiento vertical si es necesario */
+}
+
+.evento-custom h2 {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.evento-custom p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    overflow-wrap: break-word; /* Permite que el texto se ajuste al contenedor */
+}
+
+.navegacion-eventos {
+    margin-top: 10px;
+}
+
+.evento-custom .premio {
+    font-size: 18px; /* Tamaño de fuente más grande para el premio */
+    font-weight: bold; /* Texto en negrita para resaltarlo */
+}
+
+.custom-descripcion-evento {
+    background-color: #b8a1e4; /* Color de fondo más claro */
+    padding: 10px; /* Espacio interno para el texto */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.flecha-izquierda-evento,
+.flecha-derecha-evento {
+    background-color: #914caf;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.flecha-izquierda-evento:hover,
+.flecha-derecha-evento:hover {
+    background-color: #783dcf;
+}
+
+.boton-evento {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6a4caf; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Quitar subrayado */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Borde redondeado */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+}
+
+.boton-evento:hover {
+    background-color: #af4c89; /* Color de fondo */
 }

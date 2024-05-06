@@ -1,5 +1,5 @@
 body {
-	background-color: #e9a9e9;
+	background-color: #b3dcda;
 }
 
 div#contenedor {
@@ -81,12 +81,66 @@ aside {
 	background-color: #a0cee1;
 }
 
+
+#mi-contenedor {
+    margin: auto;
+    border: 5px solid rgb(159, 34, 205);
+    background-color:linear-gradient(135deg, #8d7ddf, #88c5db); /* Degradado suave */
+    margin-top: 5px;
+    overflow: hidden; /* Evitar que el contenido se salga del contenedor */
+}
+#sidebarDer {
+    width: 30%; /* Ancho deseado del sidebar */
+    background-color: transparent;
+    padding: 10px; /* Agregar espacio interno */
+   
+    margin-left: -20px;
+}
+#mi-main {
+    padding: 10px;
+    min-height: 900px;
+    background-color:linear-gradient(135deg, #8d7ddf, #88c5db); /* Degradado suave */
+    color: rgb(33, 32, 32);
+    box-sizing: border-box;
+    display: flex; /* Utilizar flexbox para alinear los elementos */
+    position: relative; /* Añadir posición relativa para z-index */
+    margin-right: 300px; /* Ajusta el margen derecho para dejar espacio para el sidebarDer */
+}
+
+.mi-article {
+    flex-grow: 1; /* Permitir que el artículo crezca para ocupar el espacio restante */
+    width: 70%; /* Ajusta el ancho del artículo según sea necesario */
+}
+
+
+.mi-aside {
+    padding: 10px;
+    width: 25%; /* Ancho del sidebar */
+    background-color: #a0cee1;
+    margin-right: 20px; /* Margen a la derecha del sidebar */
+}
+
+#mi-sidebar-der {
+    padding: 10px;
+    width: 25%; /* Ancho del sidebar derecho */
+    background-color: transparent;
+    position: fixed; /* Fijar el sidebar derecho */
+    top: 0;
+    right: 0;
+    height: 100vh; /* Altura del sidebar igual a la altura de la ventana */
+    overflow-y: auto; /* Permitir desplazamiento vertical si el contenido es demasiado largo */
+}
+
+.mi-article {
+    flex-grow: 1; /* Permitir que el artículo crezca para ocupar el espacio restante */
+}
+
+
 main {
-	margin: auto;
-    
+	margin: auto;    
     padding: 10px;
     min-height: 600px;
-    background-color: rgb(161, 213, 157);
+    background-color: linear-gradient(135deg, #8d7ddf, #88c5db); /* Degradado suave */
     color: rgb(33, 32, 32);
     width: 100%;
     box-sizing: border-box;
@@ -180,7 +234,12 @@ input {
 	text-align: right;
 	padding: 0 0.1em;
 }
-
+.h1-custom {
+    font-size: 40px;
+    background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado morado y rosa */
+    -webkit-background-clip: text; /* Aplicar degradado al texto */
+    -webkit-text-fill-color: transparent; /* Hacer el texto transparente para aplicar el degradado */
+}
 .mensaje .contenido {
 	padding: 0.2em 1em;
 	text-align: center;

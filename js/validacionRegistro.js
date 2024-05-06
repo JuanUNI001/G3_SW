@@ -49,9 +49,9 @@ $(document).ready(function() {
     
     $("#password").change(function(){
         const password = $("#password").val();
-        const contieneCaracterEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+       
     
-        if (password.length >= 8 && contieneCaracterEspecial) {
+        if (password.length >= 5 ) {
             $("#password-valida").show();
             $("#password-invalida").hide();
             $("#password-valido").val("1"); // Actualiza el campo oculto
@@ -59,7 +59,7 @@ $(document).ready(function() {
             $("#password-valida").hide();
             $("#password-invalida").show();
             $("#password-valido").val("0"); // Actualiza el campo oculto
-            $("#password")[0].setCustomValidity("La contraseña debe tener al menos 8 caracteres y contener al menos un carácter especial.");
+            $("#password")[0].setCustomValidity("La contraseña debe tener al menos 5 caracteres");
         }
     });
     
