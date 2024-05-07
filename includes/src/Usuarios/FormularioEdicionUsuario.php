@@ -2,7 +2,7 @@
 namespace es\ucm\fdi\aw\src\Usuarios;
 
 use es\ucm\fdi\aw\src\Formulario;
-
+use es\ucm\fdi\aw\src\BD;
 class FormularioEdicionUsuario extends Formulario
 {
     const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
@@ -181,8 +181,11 @@ class FormularioEdicionUsuario extends Formulario
     
                 $numero_random = uniqid(); //para generar un numero random basado en la hora
                 $fichero = "{$numero_random}.{$extension}";
-                $ruta_imagen = RUTA_IMGS2 . $fichero;
+                $ruta_imagen = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS2, $fichero]);
+                
                 if (!move_uploaded_file($imagen, $ruta_imagen)) {
+                    $error = error_get_last();
+                    echo "Error al mover el archivo: " . $error['message'];
                     $this->errores['imagen'] = 'Error al mover el archivo.';
                 }else{
                     $rutaAvatar = $ruta_imagen;
