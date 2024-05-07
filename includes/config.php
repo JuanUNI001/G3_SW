@@ -8,7 +8,7 @@
 define('RUTA_APP', '/G3_SW');
 
 define('RUTA_IMGS', RUTA_APP . '/');
-define('RUTA_IMGS2', "images/");
+define('RUTA_IMGS2', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'images']));
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
 define('RUTA_VISTAS_COMUN', __DIR__ . '/vistas/comun');

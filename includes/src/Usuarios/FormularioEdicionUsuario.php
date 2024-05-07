@@ -188,7 +188,8 @@ class FormularioEdicionUsuario extends Formulario
                     echo "Error al mover el archivo: " . $error['message'];
                     $this->errores['imagen'] = 'Error al mover el archivo.';
                 }else{
-                    $rutaAvatar = $ruta_imagen;
+
+                    $rutaAvatar ='images/'.$fichero;
                 }     
             }
         }
