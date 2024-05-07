@@ -606,15 +606,16 @@ nav li:last-child {
 
 .foro {
     margin: 10px; /* Márgenes entre los elementos foro */
-    border: 2px solid #4CAF50; /* Borde sólido con un tono de verde */
+     border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
     border-radius: 12px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
-    background-color: #f0f8f0; /* Color de fondo */
+    
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_info {
-    background-color: #d4ecd4; /* Color de fondo verde claro */
+    background-color: #bea2eb; /* Color de fondo verde claro */
     border-radius: 20px; /* Esquinas redondeadas */
     padding: 15px; /* Espaciado interno */
     margin-bottom: 20px; /* Espaciado inferior */
@@ -639,24 +640,27 @@ nav li:last-child {
 }
 
 .foro_descripcion {
-    background-color: #e0ffe0; /* Color de fondo verde claro */
+    background-color: #d2b7e3; /* Color de fondo verde claro */
     border-radius: 10px; /* Esquinas redondeadas */
     padding: 20px; /* Espaciado interno */
     color: #666; /* Color del texto gris */
 }
 .boton-crear-foro {
-    background-color: #4CAF50 !important;
-    color: white !important;
-    padding: 10px 20px !important;
-    font-size: 16px !important;
-    border: none !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s !important;
+    background-color: #4f2c8d83 ;
+    color: white ;
+    padding: 10px 20px ;
+    font-size: 16px ;
+    border: none ;
+    border-radius: 5px ;
+    cursor: pointer ;
+    transition: background-color 0.3s ;
+    margin-bottom: 10px ; /* Agregando margen inferior */
+    text-decoration: none ; /* Quitando subrayado */
 }
 
+
 .boton-crear-foro:hover {
-    background-color: #45a049 !important;
+    background-color: #5445a0 !important;
 }
 
 .foro-container {
@@ -681,7 +685,7 @@ nav li:last-child {
     cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
     font-weight: bold; /* Texto en negrita */
     transition: background-color 0.3s; /* Transición suave */
-    margin: 10px; /* Margen alrededor del botón */
+    margin-bottom: 10px !important;
 }
 
 .button-foro:hover {
@@ -970,8 +974,8 @@ nav li:last-child {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px; /* Bordes redondeados */
-    background-color: rgba(153, 177, 220, 0.467); /* Color de fondo rosa */
-    border: 2px solid #ff6e14; /* Borde rosa de 2px */
+    background-color: rgba(187, 153, 220, 0.467); /* Color de fondo rosa */
+    border: 5px solid #e714ff; /* Borde rosa de 2px */
     align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
 }
 
@@ -1040,14 +1044,18 @@ nav li:last-child {
 .valoraciones-container {
     overflow-y: auto !important;
     max-height: 300px; /* Altura máxima del contenedor para que aparezca la barra de desplazamiento */
-    border: 1px solid #ccc; /* Borde para el contenedor */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
+    border-radius: 10px; /* Borde redondeado */
     padding-right: 20px; /* Ajusta el espacio para evitar solapamiento con la barra de desplazamiento */
 }
+
 
 /* Estilo para las valoraciones */
 .valoracion {
     padding: 10px; /* Espaciado interior de las valoraciones */
-    border-bottom: 1px solid #ccc; /* Borde inferior para separar las valoraciones */
+    border-bottom: 3px solid #ccc; /* Borde inferior para separar las valoraciones */
+    
 }
 
 /* Estilo para la barra de desplazamiento */
@@ -1068,7 +1076,7 @@ nav li:last-child {
 
 /* Cambiar el color del pulgar cuando se pasa sobre él */
 .valoraciones-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Nuevo color del pulgar al pasar el ratón */
+    background: #555555; /* Nuevo color del pulgar al pasar el ratón */
 }
 /* Estilos para el contenedor de la compra */
 .producto_compra {
@@ -1094,7 +1102,7 @@ nav li:last-child {
     width: 100%;
 }
 .producto_compra_ {
-    background-image: linear-gradient(to right, #eb7be1, #9ffaff); /* Borde degradado rosa a verde */
+    background-image: linear-gradient(to right, #eb7be1, #ac9fff); /* Borde degradado rosa a verde */
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 20px;

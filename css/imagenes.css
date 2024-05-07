@@ -65,9 +65,11 @@
 /* Estilos para la imagen del producto en el carrito */
 .producto_caracteristica {
     width: auto; /* Ancho automático */
-    max-width: 80%; /* Ancho máximo de 250px */
+    max-width: 95%; /* Ancho máximo de 250px */
     height: auto; /* Altura automática */
     margin-right: 20px; /* Margen derecho de 20px */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
 }
 /* Estilos para los productos en el carrito */
 .producto_caracteristica {
