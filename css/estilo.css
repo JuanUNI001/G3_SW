@@ -237,7 +237,6 @@ input {
 .h1-custom {
     font-size: 40px;
     background: linear-gradient(135deg, #8d7ddf, #cc88db); /* Degradado morado y rosa */
-    -webkit-background-clip: text; /* Aplicar degradado al texto */
     -webkit-text-fill-color: transparent; /* Hacer el texto transparente para aplicar el degradado */
 }
 .mensaje .contenido {
