@@ -38,7 +38,16 @@ if(isset($_POST["id_usuario"]) && isset($_SESSION["rolUser"]) && $_SESSION["rolU
             }
         }
         eliminaIscritoUsuario($id_usuario);
-
+        if($resultado = Usuario::eliminarSiguiendorPorIdUsuario($id_usuario)) {
+            $mensajes[] =  'Se han eliminado todas las relaciones de seguimiento para el usuario con ID $idUsuario.';
+        } else {
+            $mensajes[] =  'Ha ocurrido un error al intentar eliminar las relaciones de seguimiento para el usuario con ID $idUsuario.';
+        }
+        if($resultado = Usuario::eliminarSeguirPorIdUsuario($id_usuario)) {
+            $mensajes[] =  'Se han eliminado todas las relaciones de seguimiento para el usuario con ID $idUsuario.';
+        } else {
+            $mensajes[] =  'Ha ocurrido un error al intentar eliminar las relaciones de seguimiento para el usuario con ID $idUsuario.';
+        }
 
         $usuarioEliminado = Usuario::ocultaUsuario($id_usuario);    
             if($usuarioEliminado) {

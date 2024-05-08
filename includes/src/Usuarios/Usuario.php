@@ -13,7 +13,7 @@ class Usuario
 
     public static function login($correo, $password)
     {
-        $usuario = self::buscaUsuario($correo);
+        $usuario = self::buscaUsuarioNoArchivado($correo);
         if ($usuario && $usuario->compruebaPassword($password)) {
             return true;
         }
@@ -26,7 +26,7 @@ class Usuario
         $user->id = null;
         return  $user;
     }
-    public function usuarioSigue($idUsuario, $idUsuarioSeguir) {
+    public static function usuarioSigue($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -45,7 +45,7 @@ class Usuario
             return false;
         }
     }
-    public function insertarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+    public static function insertarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -61,7 +61,7 @@ class Usuario
             return false;
         }
     }
-    public function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+    public static function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -77,8 +77,57 @@ class Usuario
             return false;
         }
     }
+    public static function eliminarSeguirPorIdUsuario($idUsuario) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar las relaciones de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuario = $idUsuario";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se han eliminado las relaciones de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar las relaciones de seguimiento para el usuario con ID $idUsuario: {$conexion->error}");
+            return false;
+        }
+    }
+    public static function eliminarSiguiendorPorIdUsuario($idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar las relaciones de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuarioSeguir = $idUsuarioSeguir";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se han eliminado las relaciones de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar las relaciones de seguimiento para el usuario con ID $idUsuarioSeguir: {$conexion->error}");
+            return false;
+        }
+    }
     
     public static function buscaUsuario($correo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
+        $rs = $conn->query($query);
+        $result = null;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+    public static function buscaUsuarioNoArchivado($correo)
     {
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
@@ -396,7 +445,7 @@ class Usuario
         $consulta = "SELECT U.*
                      FROM usuarios U
                      JOIN seguir S ON U.id = S.idUsuarioSeguir
-                     WHERE S.idUsuario = $idUsuario";
+                     WHERE S.idUsuario = $idUsuario AND archivado = '0'";
     
         $resultados = $conexion->query($consulta);
     
