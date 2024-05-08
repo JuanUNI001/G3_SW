@@ -174,9 +174,9 @@ fieldset {
 legend {
     font-size: 18px; /* Ajusta el tamaño de la fuente de la leyenda */
     font-weight: bold; /* Hace la leyenda en negrita */
-    color: #faf5f5; /* Cambia el color del texto de la leyenda */
+    color: #6b055d; /* Cambia el color del texto de la leyenda */
     padding: 5px 10px; /* Añade espacio interno a la leyenda */
-    background-color: #fc0adb; /* Cambia el color de fondo de la leyenda */
+    background-color: #e9c2ee; /* Cambia el color de fondo de la leyenda */
     border: 1px solid #ffffff; /* Define el borde de la leyenda */
     border-radius: 5px; /* Redondea los bordes de la leyenda */
     margin-bottom: 10px; /* Añade espacio entre la leyenda y el contenido del fieldset */
@@ -245,18 +245,19 @@ input {
 	text-align: center;
 }
 
+.terminado, .abierto {
+    background-color: #9dcfe2; /* Color de fondo */
+    border: 1px solid #e67dcf; /* Borde de 1px sólido */
+    padding: 2px 6px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
 .terminado {
-	color: #e61212;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
+    color: #e61212; /* Color de texto para eventos terminados */
 }
 
 .abierto {
-	color: #00a74b;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
+    color: #00a74b; /* Color de texto para eventos abiertos */
 }
 
 .mensajes input:checked + .mensaje {
@@ -1183,3 +1184,71 @@ nav li:last-child {
     background-color: #0056b3;
   }
   
+  .eventos {
+    display: flex; /* Mostrar los eventos en línea */
+    flex-wrap: wrap; /* Permitir que los eventos se envuelvan en filas */
+    justify-content: space-around; /* Distribuir uniformemente los eventos horizontalmente */
+    margin-top: 20px; /* Margen superior */
+}
+
+.Evento {
+    margin: 10px; /* Márgenes entre eventos */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    width: auto; /* Ancho del evento */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.Evento fieldset {
+    border: none; /* Eliminar borde del fieldset */
+    margin: 0; /* Eliminar margen */
+    padding: 0; /* Eliminar relleno */
+}
+
+.Evento legend {
+    color: #222; /* Color del texto gris */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 26px; /* Tamaño de la letra */
+}
+
+.Evento p {
+    color: #333; /* Color del texto gris oscuro */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.Evento ul {
+    list-style-type: none; /* Eliminar viñetas de la lista */
+    padding: 0; /* Eliminar relleno */
+}
+
+.Evento li {
+    color: #666; /* Color del texto gris */
+    margin-left: 10px; /* Espacio a la izquierda del ítem de lista */
+}
+
+.Evento.caracteristicas {
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    border: 2px solid #ccc; /* Borde gris de 2px */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin-top: 20px; /* Margen superior */
+}
+
+.Evento.caracteristicas p {
+    margin-bottom: 10px; /* Margen inferior entre párrafos */
+}
+
+.Evento.caracteristicas p strong {
+    font-weight: bold; /* Texto en negrita */
+    margin-right: 5px; /* Margen derecho */
+}
+.titulo-evento {
+    color: #333; /* Color del texto gris oscuro */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 24px; /* Tamaño de la fuente */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+
