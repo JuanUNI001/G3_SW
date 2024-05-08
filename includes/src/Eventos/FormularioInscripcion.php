@@ -7,6 +7,7 @@ use es\ucm\fdi\aw\src\Eventos\Evento;
 use es\ucm\fdi\aw\src\Formulario;
 use es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Inscritos\Inscrito;
+use \DateTime;
 
 
 class FormularioInscripcion extends Formulario
@@ -62,6 +63,8 @@ class FormularioInscripcion extends Formulario
         $even = Evento::buscaPorId($idEvento);
         $titulo =$even->getEvento();
         $fecha =$even->getFecha();
+
+       // $fechaFin = date('Y-m-d', strtotime($fecha . ' +1 day'));
 
         //$estado = $even.getEstado();
         $incripcion = new Inscrito();

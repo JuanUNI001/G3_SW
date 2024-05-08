@@ -17,7 +17,7 @@ function listaeventos()
 {
     $eventos = Evento::listarEventos();
 
-    $html = "<div class='eventos'>";
+    $html = '<div class="eventos">';
 
     foreach ($eventos as $evento) {
         $html .= visualizaEvento($evento);
@@ -30,7 +30,7 @@ function listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fe
 {
     $eventos = Evento::listaEventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
 
-    $html = "<div class='eventos'>";
+    $html = '<div class="eventos">';
 
     foreach ($eventos as $evento) {
         $html .= visualizaEvento($evento);
@@ -41,32 +41,24 @@ function listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fe
 }
 function visualizaEvento($evento)
 {
-
-
-    //mostrar eventos abiertos--> poner el estado como bool?
-    //dar opcion de mostar eventos finalizados
-    $html = '<div class="Evento">';
+    $html = '<div class="Evento">'; // Se cambió la clase "evento" por "Evento" para que coincida con el CSS
 
     $estado = $evento->getEstado();
-    $html .= '<div>';
     $rutaCaract = resuelve('/includes/src/Eventos/caracteristicasEvento.php'); 
     $html .= '<a href="'.$rutaCaract.'?id=' . $evento->getId() . '">';
 
-    $html .= '<fieldset>';
     $html .= '<legend>' . $evento->getEvento() . '</legend>';
     $html .= '<p>' . $evento->getEstado() . '</p>';
     $html .= '<ul>';
     $html .= '<li>' . $evento->getCategoria() . '</li>';
+    // Puedes agregar más características aquí
 
     $html .= '</ul>';
-    $html .= '</fieldset>';
 
 
-    $html .= '</div>';
-
+    $html .= '</a>'; // Cierre del enlace
 
     $html .= '</div>';
-
 
     return $html;
 }
