@@ -95,5 +95,14 @@ $params['app']->doInclude('/vistas/comun/cabecera.php', $params);
 $params['app']->doInclude('/vistas/comun/pie.php', $params);
 ?>
 </div>
+
+<?php
+$scripts = $params['scripts'];
+$scripts = $scripts ?? [];
+foreach ($scripts as $scriptSrc) {
+	echo "<script src=\"{$scriptSrc}\"></script>";
+}
+?>
+
 </body>
 </html>
