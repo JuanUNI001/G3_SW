@@ -84,7 +84,11 @@ $contenidoPrincipal = <<<HTML
     $mensajesView
 HTML;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Chat en línea'];
+$scripts = [
+    'js/chatView.js'
+];
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Chat en línea', 'scripts' => $scripts];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
 
@@ -95,5 +99,3 @@ $app->generaVista('/plantillas/plantilla.php', $params);
     let idUsuarioReceptor = "<?php echo $id_usuario_receptor; ?>";
 
 </script>
-
-<script src="js/chatView.js"></script>
