@@ -72,8 +72,7 @@ class Inscrito implements \JsonSerializable
         }
 
         $result = null;
-        $BD = BD::getInstance();
-        $conn = $BD->conexionBd();
+        $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT E.id, E.title, E.userId, E.startDate AS start, E.endDate AS end FROM inscritos E WHERE E.id = %d", $idEvento);
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
@@ -91,6 +90,22 @@ class Inscrito implements \JsonSerializable
         return $result;
     }
   
+    public static function estaInscrito(int $idUsuario, int $idEvento): bool
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT COUNT(*) as total FROM inscritos WHERE userId = %d AND idEvento = %d", $idUsuario, $idEvento);
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $total = $fila['total'];
+            $rs->free();
+            return $total > 0;
+        } else {
+            throw new DataAccessException("Error al verificar la inscripción.");
+        }
+    }
+
     /**
      * Busca los eventos de un usuario con id $userId en el rango de fechas $start y $end (si se proporciona).
      *
