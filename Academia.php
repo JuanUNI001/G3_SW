@@ -36,24 +36,32 @@ function listaProfesores($idAlumno)
     return $html;
 }
 
-
-$usuario = Usuario::buscaUsuario($_SESSION['correo']);
-
-
 $tituloPagina = 'Academia';
 
 $contenidoPrincipal =  '';
 
-if(isset($_SESSION["rolUser"]) && ( $_SESSION["rolUser"] == "user" || $_SESSION["rolUser"] == "admin"))
+$app = BD::getInstance();
+
+if($app->usuarioLogueado())
 {
-    $contenidoPrincipal.='<h1>Estos son Tus profesores contratados</h1>';
-    $contenidoPrincipal.=listaProfesores($usuario->getId());
+    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
+
+    if(isset($_SESSION["rolUser"]) && ( $_SESSION["rolUser"] == "user" || $_SESSION["rolUser"] == "admin"))
+    {
+        $contenidoPrincipal.='<h1>Estos son Tus profesores contratados</h1>';
+        $contenidoPrincipal.=listaProfesores($usuario->getId());
+    }
+    else
+    {
+        $contenidoPrincipal.='<h1>Estos son tus alumnos</h1>';
+        $contenidoPrincipal.=listaAlumnos($usuario->getId());
+    }
 }
 else
 {
-    $contenidoPrincipal.='<h1>Estos son tus alumnos</h1>';
-    $contenidoPrincipal.=listaAlumnos($usuario->getId());
+    $contenidoPrincipal.='<h1>Registrate en la página para ver tu academia</h1>';
 }
+
 
 
 
