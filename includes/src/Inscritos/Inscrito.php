@@ -598,4 +598,40 @@ public static function guardaOActualiza(Inscrito $evento)
         
         return $this;
     }
+
+
+    public static function buscaPorIdUsuario($userId)
+    {
+        if (!$userId) {
+            // Devolver null si el ID de usuario es nulo
+            return null;
+        }
+
+        $result = [];
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT E.idEvento, E.userId AS userId, E.title, E.startDate AS start, E.endDate AS end FROM inscritos E WHERE E.userId = %d'
+            , $userId);
+
+        $rs = $conn->query($query);
+        if ($rs) {
+            while($fila = $rs->fetch_assoc()) {
+                $evento = new Inscrito();
+                $evento->setIdEvento($fila['idEvento']);
+                $evento->setUserId($fila['userId']);
+                $evento->setTitle($fila['title']);
+
+                $start = new DateTime($fila['start']);
+                $end = new DateTime($fila['end']);
+
+                $evento->setStart($start);
+                $evento->setEnd($end);
+                
+                $result[] = $evento;
+            }
+            $rs->free();
+        } else {
+            return null;
+        }
+        return $result;
+    }
 }

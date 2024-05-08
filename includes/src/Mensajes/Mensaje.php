@@ -347,7 +347,22 @@ class Mensaje
     {
         return self::borraPorId($mensaje->id);
     }
-
+    public static function borrarMensajesPorUsuario($idUsuario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("DELETE FROM mensajes WHERE idEmisor = %d OR idDestinatario = %d",
+                         $idUsuario, $idUsuario);
+    
+        $result = $conn->query($query);
+        if (!$result) {
+            error_log($conn->error);
+            return false;
+        }
+    
+        return true;
+    }
+    
     public static function borraPorId($idMensaje)
     {
         if (!$idMensaje) {

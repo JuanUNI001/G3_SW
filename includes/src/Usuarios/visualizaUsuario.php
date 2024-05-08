@@ -5,22 +5,48 @@ use es\ucm\fdi\aw\src\BD;
 function visualizaUsuario($Usuario) {
     $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
     $id =  $Usuario->getId();
-   
 
-    $app = BD::getInstance();
-    if ($app->usuarioLogueado()) 
-    {
-        $correo_usuario = $_SESSION['correo'];
+    $follow = '';
+    $admins= '';
+    
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") { //para mostrar la papelera
+        
+        $eliminaUsuario = resuelve('includes/src/Usuarios/eliminarUsuario.php');
 
-        $usuario = Usuario::buscaUsuario($correo_usuario);
-        $idUser = $usuario->getId();
-        $rutaChat = resuelve('/ChatView.php');
-        $rutaSeguir = resuelve('js/seguir.js');
+        $admins =<<<EOF
+        <form class="eliminar-usuario" action="$eliminaUsuario" method="post">
+            <input type="hidden" name="id_usuario" value="$id">
+            <button type="submit">🗑️</button>
+        </form>
+
+        EOF;
+    }
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] != "admin") { //para mostrar corazon
+        
         // Verificar si el usuario logueado sigue al usuario actual
         $sigueUsuario = $Usuario->usuarioSigue($idUser, $id);
 
         // Determinar el estilo del corazón
         $corazonClase = $sigueUsuario ? 'corazon_lleno' : 'corazon_vacio';
+       
+
+        $follow =<<<EOF
+        <div class="corazon-container">
+            <div id="corazon_$id" class="corazon $corazonClase" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
+        </div>
+
+        EOF;
+    }
+
+    $app = BD::getInstance();
+    if ($app->usuarioLogueado()) 
+    {
+        $correo_usuario = $_SESSION['correo'];
+        $rutaSeguir = resuelve('js/seguir.js');
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $idUser = $usuario->getId();
+        $rutaChat = resuelve('/ChatView.php');
+       
 
         // Construir el HTML
         $html = <<<EOF
@@ -36,9 +62,8 @@ function visualizaUsuario($Usuario) {
                     </form>
                 </div>
             </div>
-            <div class="corazon-container">
-                <div id="corazon_$id" class="corazon $corazonClase" onclick="toggleSeguir($idUser, $id)">&hearts;</div>
-            </div>
+            $follow 
+            $admins
         </div>
     
 
@@ -58,7 +83,7 @@ EOF;
         </div>
 EOF;
     }
-
+   
     return $html;
 }
 ?>

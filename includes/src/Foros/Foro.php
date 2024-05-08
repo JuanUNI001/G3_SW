@@ -213,7 +213,17 @@ class Foro
         return true;
     }
     
-
+    public static function eliminarForosPorIdAutor($idAutor)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf("DELETE FROM foros WHERE autor_id = %d", $idAutor);
+    
+        $result = $conn->query($query);
+        
+        return $result !== false; 
+    }
+    
     public static function buscaPorId($id_foro)
     {
         $result = null;

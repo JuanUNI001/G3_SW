@@ -12,9 +12,9 @@ class Profesor extends Usuario
     private $anunciable;
 
    
-    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null)
+    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null,  $archivado)
     {
-        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id);
+        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id,$archivado);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
@@ -26,12 +26,14 @@ class Profesor extends Usuario
     }
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
-        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, null,$id);
+        $archivado =0;
+        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, null,$id, $archivado);
         $user->setIdNull();
         $guardado = $user->guarda();
         if ($guardado) {
             $user->actualizaPrecio($precio);
         }
+        
         return $guardado;
     }
     public function setIdNull()
@@ -70,7 +72,7 @@ class Profesor extends Usuario
     public static function listarProfesores()
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT * FROM usuarios WHERE rolUser = ".self::TEACHER_ROLE;
+        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE . " AND archivado = '0'";
          
         $rs = $conn->query($query);
         $profesores = array(); 
@@ -84,7 +86,8 @@ class Profesor extends Usuario
         $fila['precio'],   
         $fila['avatar'],   
         $fila['valoracion'],
-        $fila['id']
+        $fila['id'],
+        $fila['archivado']
         );
         $profesores[] = $profesor; 
         }
@@ -98,7 +101,7 @@ class Profesor extends Usuario
         $conn = BD::getInstance()->getConexionBd();
         
         // Consulta SQL para obtener los 3 mejores profesores ordenados por valoración
-        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE . " ORDER BY valoracion DESC LIMIT 3";
+        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE . " AND archivado = '0'" ." ORDER BY valoracion DESC LIMIT 3";
         
         $rs = $conn->query($query);
         $profesores = array(); 
@@ -112,7 +115,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $profesores[] = $profesor; 
             }
@@ -126,7 +130,7 @@ class Profesor extends Usuario
         $conn = BD::getInstance()->getConexionBd();
         
         // Inicializar la consulta SQL con la parte común
-        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE;
+        $query = "SELECT * FROM usuarios WHERE rolUser = " . self::TEACHER_ROLE. " AND archivado = '0'";
 
         // Agregar filtros según los parámetros proporcionados
         if (!empty($buscar)) {
@@ -174,7 +178,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $profesores[] = $profesor; 
             }
@@ -203,7 +208,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['valoracion'],   
                     $fila['avatar'],
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                     );
         }
         } finally {
@@ -308,6 +314,42 @@ class Profesor extends Usuario
             return false; // Error al ejecutar la eliminación
         }
     }
+    public static function eliminaAlumnos($idUsuario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Consulta para eliminar todas las filas de alumnos donde alumno = idUsuario
+        $query = "DELETE FROM alumnos WHERE idAlumno = $idUsuario";
+
+        // Ejecutar la consulta
+        if ($conn->query($query)) {
+            return true; // Eliminación exitosa
+        } else {
+            // Manejar errores de consulta
+            error_log("Error al eliminar filas de la tabla alumnos ({$conn->errno}): {$conn->error}");
+            return false; // Error al ejecutar la eliminación
+        }
+    }
+
+    public static function deleteAlumnos($idProfesor)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+
+        // Consulta para eliminar todas las filas de alumnos que coincidan con el profesor
+        $query = "DELETE FROM alumnos WHERE idProfesor = $idProfesor";
+
+        // Ejecutar la consulta
+        if ($conn->query($query)) {
+            // Liberar recursos
+            $conn->free();
+            return true; // Eliminación exitosa
+        } else {
+            // Manejar errores de consulta
+            error_log("Error al eliminar filas de la tabla alumnos ({$conn->errno}): {$conn->error}");
+            return false; // Error al ejecutar la eliminación
+        }
+    }
+
 
     public static function listarProfesoresDeAlumno($idAlumno)
     {
