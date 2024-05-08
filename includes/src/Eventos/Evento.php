@@ -168,7 +168,7 @@ class Evento
         $conn->real_escape_string($evento->fecha),
         $conn->real_escape_string($evento->lugar),
         $conn->real_escape_string($evento->estado),
-        $evento->real_escape_string($evento->premio),
+        $conn->real_escape_string($evento->premio),
         $conn->real_escape_string($evento->ganador),
         $evento->tasaInscripcion
     );

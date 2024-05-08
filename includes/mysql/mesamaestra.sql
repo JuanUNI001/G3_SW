@@ -51,7 +51,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `eventos` (
-  `idEvento` int(11) NOT NULL,
+  `idEvento` int(11) NOT NULL AUTO_INCREMENT,
   `inscritos` int(11) DEFAULT NULL,
   `categoria` varchar(255) DEFAULT NULL,
   `numJugadores` int(11) DEFAULT NULL,
