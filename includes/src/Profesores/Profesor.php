@@ -371,7 +371,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $profesores[] = $profesor; 
             }
