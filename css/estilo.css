@@ -455,11 +455,6 @@ ul.dropdown ul.dropdown-content {
     margin-right: 10px; /* Agrega un espacio entre cada imagen */
 }
 
-.redes-sociales img {
-    width: 3px !important; /* Define el ancho como el 20% del contenedor padre */
-    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
-}
-
 /* Estilos para los enlaces del pie de página */
 footer a {
     color: #fff; /* Color del texto de los enlaces */
@@ -469,6 +464,10 @@ footer a {
 
 footer a:hover {
     color: #ccc; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
+}
+
+.redes-sociales a:hover {
+    color: #e0a9d1; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
 }
 
 /* Estilos para el texto de derechos de autor */
