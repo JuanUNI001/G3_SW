@@ -1,9 +1,9 @@
 <?php
 
 require_once 'includes/config.php'; 
-use \es\ucm\fdi\aw\src\Productos\Producto;
+use \es\ucm\fdi\aw\src\Eventos\Evento;
 
-$form = new es\ucm\fdi\aw\src\Productos\FormularioAddEvento();
+$form = new es\ucm\fdi\aw\src\Eventos\FormularioAddEvento();
 
 
 $htmlFormLogin = $form->gestiona();

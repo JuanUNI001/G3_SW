@@ -56,17 +56,12 @@ class FormularioInscripcion extends Formulario
     if (empty($idEvento) || empty($idUsuario)) {
         $this->errores['campos'] = 'Faltan datos necesarios para la inscripción.';
     }
-    //$er=count($this->errores);
-   // echo $er; 
-   //if (count($this->errores) == 0) {
+   
+   if (count($this->errores) == 0) {
 
         $even = Evento::buscaPorId($idEvento);
         $titulo =$even->getEvento();
         $fecha =$even->getFecha();
-
-       // $fechaFin = date('Y-m-d', strtotime($fecha . ' +1 day'));
-
-        //$estado = $even.getEstado();
 
         $incripcion = new Inscrito();
         $incripcion->setIdEvento($idEvento);
@@ -92,7 +87,7 @@ class FormularioInscripcion extends Formulario
             $mensajes = ['Te has inscrito correctamente en el evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
-   //}
+    }
 
 
     }

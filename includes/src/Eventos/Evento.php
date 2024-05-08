@@ -56,7 +56,7 @@ class Evento
     }
 
     public static function Nuevo($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion){
-        $NuevoEvento =new  es\ucm\fdi\aw\Eventos\Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
+        $NuevoEvento =new  Evento($idTorneo,$inscritos,$categoria,$numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion);
         return $NuevoEvento;
 
     }
@@ -137,38 +137,53 @@ class Evento
         $this->descripcion = $descripcionEvento;
 
     }
-    private static function inserta($evento)
+
+    public function guarda()
     {
-        $result = false;
-
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "INSERT INTO eventos ( inscritos, categoria, numJugadores, nombre, descripcion, fecha, lugar, estado, premio, ganador, tasaInscripcion) VALUES ('%s', %f, '%s', '%s', %f, %d)",
-           // $evento->idEvento,
-            $evento->inscritos,
-            $conn->real_escape_string($evento->categoria),
-            $evento->numJugadores,
-            $evento->fecha->format(self::MYSQL_DATE_TIME_FORMAT),
-            $conn->real_escape_string($evento->nombre),
-            $conn->real_escape_string($evento->descripcion),
-            //$conn->real_escape_string($evento->fecha),
-            $conn->real_escape_string($evento->lugar),
-            $conn->real_escape_string($evento->estado),
-            $evento->premio,
-            $conn->real_escape_string($evento->ganador),
-            $evento->tasaInscripcion,
-
-        );
-        $result = $conn->query($query);
-        if ($result) {
-            $evento->id = $conn->insert_id;
-            $result = $evento;
+        if (!$this->idEvento) {
+            self::inserta($this);
         } else {
-            error_log($conn->error);
+            $result = self::actualiza($this);
+   
+            if ($result) {
+                return $this;
+            } else {
+                return false;
+            }
         }
-
-        return $result;
     }
+    private static function inserta($evento)
+{
+    $result = false;
+
+    $conn = BD::getInstance()->getConexionBd();
+    $query = sprintf(
+        "INSERT INTO eventos (inscritos, categoria, numJugadores, nombre, descripcion, fecha, lugar, estado, premio, ganador, tasaInscripcion) 
+        VALUES (%d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', %f)",
+        $evento->inscritos,
+        $conn->real_escape_string($evento->categoria),
+        $evento->numJugadores,
+        $conn->real_escape_string($evento->nombre),
+        $conn->real_escape_string($evento->descripcion),
+        $conn->real_escape_string($evento->fecha),
+        $conn->real_escape_string($evento->lugar),
+        $conn->real_escape_string($evento->estado),
+        $evento->real_escape_string($evento->premio),
+        $conn->real_escape_string($evento->ganador),
+        $evento->tasaInscripcion
+    );
+
+    $result = $conn->query($query);
+    if ($result) {
+        $evento->idEvento = $conn->insert_id;
+        $result = $evento;
+    } else {
+        error_log($conn->error);
+    }
+
+    return $result;
+}
+
 
     public static function elimina($idTorneo)
     {
