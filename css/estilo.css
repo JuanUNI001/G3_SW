@@ -27,6 +27,13 @@ header {
     left: 10px; /* Ajusta según sea necesario */
 }
 
+.cabecera_titulo {
+    font-size: 45px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
 .logo img {
     height: 120px; /* Aumentar la altura del logo */
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
@@ -1251,4 +1258,16 @@ nav li:last-child {
     margin-bottom: 10px; /* Margen inferior */
 }
 
+.eliminar-usuario {
+    float: right;
+    margin-top: 10px;
+}
 
+/* Estilo para el botón de eliminación */
+.eliminar-usuario button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 40px;
+    cursor: pointer;
+}

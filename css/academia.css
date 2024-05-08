@@ -1,0 +1,19 @@
+.contenedor-academia {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+}
+
+/* Estilos para los elementos dentro del contenedor */
+.contenedor-academia > * {
+    width: 100%;
+}
+
+.mensaje-academia {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center; 
+}

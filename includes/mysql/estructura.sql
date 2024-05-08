@@ -86,7 +86,8 @@ CREATE TABLE `usuarios` (
   `rolUser` int(11) NOT NULL,
   `valoracion` float DEFAULT NULL,
   `precio` float DEFAULT NULL,
-  `avatar` varchar(50) DEFAULT NULL
+  `avatar` varchar(50) DEFAULT NULL,
+  `archivado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `seguir` (
