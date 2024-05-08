@@ -2,6 +2,7 @@
 
 use \es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Eventos\Evento;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 require_once '../../config.php';
 
@@ -25,6 +26,7 @@ $contenidoPrincipal ='';
         $est = $evento->getEstado();
         $prem = $evento->getPremio();
         $gan = $evento->getGanador();
+       // $gan = Usuario ::getNombre();
         $ins = $evento->getTasaInscripcion();
 
    

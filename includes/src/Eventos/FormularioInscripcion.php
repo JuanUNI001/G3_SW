@@ -67,15 +67,18 @@ class FormularioInscripcion extends Formulario
        // $fechaFin = date('Y-m-d', strtotime($fecha . ' +1 day'));
 
         //$estado = $even.getEstado();
+
         $incripcion = new Inscrito();
         $incripcion->setIdEvento($idEvento);
         $incripcion->setUserId($idUsuario);
         $incripcion->setTitle($titulo);
         $incripcion->setStart($fecha);
         $incripcion->setEnd($fecha);
-        $inscripcionExitosa = Inscrito::guardaOActualiza($incripcion);
 
-        if (!$inscripcionExitosa) {
+        $verificarInscripcion = Inscrito:: estaInscrito($idUsuario,$idEvento);
+       
+
+        if ($verificarInscripcion>0) {
             $this->errores['inscripcion'] = 'Hubo un error al inscribirse en el evento.';
             $app = BD::getInstance();
             $mensajes = ['Ya estas inscrito en este evento, no puedes volver a inscribirte'];
@@ -85,6 +88,7 @@ class FormularioInscripcion extends Formulario
         else{
             $app = BD::getInstance();
             Evento ::inscribirseEvento($idEvento);
+            Inscrito::guardaOActualiza($incripcion);
             $mensajes = ['Te has inscrito correctamente en el evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
