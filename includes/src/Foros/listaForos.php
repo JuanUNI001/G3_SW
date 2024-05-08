@@ -40,7 +40,7 @@ function listarForosBusqueda($autor, $nombre,$orden)
     
     $botonAñadirForo = <<<EOF
     <div>
-        <a href="$AddForoRuta" class="button-like-link">Crear foro</a>
+        <a href="$AddForoRuta" class="boton-crear-foro">Crear foro</a>
     </div>
     EOF;
     

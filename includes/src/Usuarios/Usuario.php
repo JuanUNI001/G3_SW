@@ -13,7 +13,7 @@ class Usuario
 
     public static function login($correo, $password)
     {
-        $usuario = self::buscaUsuario($correo);
+        $usuario = self::buscaUsuarioNoArchivado($correo);
         if ($usuario && $usuario->compruebaPassword($password)) {
             return true;
         }
@@ -22,11 +22,11 @@ class Usuario
     
     public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
-        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null);
+        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null, 0);
         $user->id = null;
         return  $user;
     }
-    public function usuarioSigue($idUsuario, $idUsuarioSeguir) {
+    public static function usuarioSigue($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -45,7 +45,7 @@ class Usuario
             return false;
         }
     }
-    public function insertarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+    public static function insertarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -61,7 +61,7 @@ class Usuario
             return false;
         }
     }
-    public function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
+    public static function eliminarRelacionSeguir($idUsuario, $idUsuarioSeguir) {
         $app = BD::getInstance();
         $conexion = $app->getConexionBd();
     
@@ -77,6 +77,38 @@ class Usuario
             return false;
         }
     }
+    public static function eliminarSeguirPorIdUsuario($idUsuario) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar las relaciones de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuario = $idUsuario";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se han eliminado las relaciones de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar las relaciones de seguimiento para el usuario con ID $idUsuario: {$conexion->error}");
+            return false;
+        }
+    }
+    public static function eliminarSiguiendorPorIdUsuario($idUsuarioSeguir) {
+        $app = BD::getInstance();
+        $conexion = $app->getConexionBd();
+    
+        // Consulta SQL para eliminar las relaciones de seguimiento
+        $consultaDelete = "DELETE FROM seguir WHERE idUsuarioSeguir = $idUsuarioSeguir";
+        $resultadoDelete = $conexion->query($consultaDelete);
+    
+        if ($resultadoDelete) {
+            return true; // Se han eliminado las relaciones de seguimiento
+        } else {
+            // Manejar el error si la eliminación falla
+            error_log("Error al eliminar las relaciones de seguimiento para el usuario con ID $idUsuarioSeguir: {$conexion->error}");
+            return false;
+        }
+    }
     
     public static function buscaUsuario($correo)
     {
@@ -87,7 +119,24 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+    public static function buscaUsuarioNoArchivado($correo)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuarios U WHERE U.correo='%s'", $conn->real_escape_string($correo));
+        $rs = $conn->query($query);
+        $result = null;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
             }
             $rs->free();
         } else {
@@ -105,7 +154,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['id']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['id'],  $fila['archivado']);
             }
             $rs->free();
         } else {
@@ -138,7 +187,8 @@ class Usuario
             $password = $conn->real_escape_string($usuario->password);
             $correo = $conn->real_escape_string($usuario->correo);
             $avatar =  $conn->real_escape_string($usuario->avatar);
-            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo, avatar) VALUES ('$rolUser', '$nombre', '$password', '$correo', '$avatar')";
+            $archivado = $usuario->archivado;
+            $query = "INSERT INTO usuarios(rolUser, nombre, password, correo, avatar, archivado) VALUES ('$rolUser', '$nombre', '$password', '$correo', '$avatar', '$archivado')";
             
             if ($conn->query($query)) {
                 $usuario->id = $conn->insert_id;
@@ -180,13 +230,14 @@ class Usuario
     {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE usuarios U SET rolUser = '%d', nombre='%s', password='%s', correo='%s', avatar = '%s', archivado = '%d' WHERE U.id=%d"
             , $usuario->rolUser
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->correo)
             , $conn->real_escape_string($usuario->avatar)
             , $usuario->id
+            , $usuario->archivado
         );
        
         
@@ -235,7 +286,20 @@ class Usuario
         }
         return true;
     }
+    public static function ocultaUsuario($idUsuario)
+    {
+        if (!$idUsuario) {
+            return false;
+        } 
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE usuarios SET archivado = 1 WHERE id = %d", $idUsuario);
 
+        if ( ! $conn->query($query) ) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return true;
+    }
     public function cambiaAvatar($nuevoAvatar)
     {
         $conn = BD::getInstance()->getConexionBd();
@@ -264,8 +328,9 @@ class Usuario
 
     protected $avatar;//será la foto que el usuario puede incluir
 
+    protected $archivado;
 
-    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id )
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id, $archivado)
     {
         $this->id = intval($id);
         $this->rolUser = $rol;
@@ -273,6 +338,7 @@ class Usuario
         $this->nombre = $nombre;
         $this->correo = $correo;
         $this->avatar = $avatar;
+        $this->archivado = intval($archivado);
     }
     
 
@@ -284,6 +350,10 @@ class Usuario
     public function getrolUser()
     {
         return $this->rolUser;
+    }
+    public function getArchivado()
+    {
+        return $this->archivado;
     }
 
     public function getRolString()
@@ -375,7 +445,7 @@ class Usuario
         $consulta = "SELECT U.*
                      FROM usuarios U
                      JOIN seguir S ON U.id = S.idUsuarioSeguir
-                     WHERE S.idUsuario = $idUsuario";
+                     WHERE S.idUsuario = $idUsuario AND archivado = '0'";
     
         $resultados = $conexion->query($consulta);
     
@@ -391,7 +461,8 @@ class Usuario
                     '',
                     $fila['correo'],
                     $fila['avatar'],
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $usuariosSeguidos[] = $usuario;
             }
@@ -409,7 +480,7 @@ class Usuario
     public static function listarUsuarios($idUser)
     {
         $conn = BD::getInstance()->getConexionBd();
-        $query ="SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser";
+        $query ="SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser AND archivado = '0'";
          
         $rs = $conn->query($query);
         $usuarios = array(); 
@@ -421,7 +492,8 @@ class Usuario
         '',
         $fila['correo'],  
         $fila['avatar'],   
-        $fila['id']
+        $fila['id'],
+        $fila['archivado']
         );
         $usuarios[] = $usuario; 
         }
@@ -433,7 +505,7 @@ class Usuario
     {
         $conn = BD::getInstance()->getConexionBd();
         
-        $query = "SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser";
+        $query = "SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser AND archivado = '0'";
 
 
         if (!empty($buscar)) {
@@ -477,7 +549,8 @@ class Usuario
                     '',
                     $fila['correo'],
                     $fila['avatar'],   
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $profesores[] = $profesor; 
             }
@@ -489,7 +562,7 @@ class Usuario
 {
     $conn = BD::getInstance()->getConexionBd();
 
-    $query = "SELECT * FROM usuarios WHERE 1 = 1";
+    $query = "SELECT * FROM usuarios WHERE 1 = 1 AND archivado = '0'";
 
     if (!empty($buscar)) {
         $query .= " AND (nombre LIKE '%$buscar%' )";
@@ -531,7 +604,8 @@ class Usuario
                 '',
                 $fila['correo'],
                 $fila['avatar'],   
-                $fila['id']
+                $fila['id'],
+                $fila['archivado']
             );
             $profesores[] = $profesor; 
         }
@@ -547,7 +621,7 @@ class Usuario
         $query = "SELECT DISTINCT u.id, u.nombre, u.correo, u.rolUser, u.avatar
                     FROM usuarios u
                     JOIN mensajes m ON u.id = m.idEmisor OR u.id = m.idDestinatario
-                    WHERE (m.idEmisor = '$idUsuario' OR m.idDestinatario = '$idUsuario') AND u.id != '$idUsuario'";
+                    WHERE (m.idEmisor = '$idUsuario' OR m.idDestinatario = '$idUsuario') AND u.id != '$idUsuario' AND archivado = '0'";
          
          $rs = $conn->query($query);
          $usuarios = array(); 
@@ -559,7 +633,8 @@ class Usuario
          '',
          $fila['correo'],  
          $fila['avatar'],   
-         $fila['id']
+         $fila['id'],
+         $fila['archivado']
          );
          $usuarios[] = $usuario; 
          }
@@ -574,7 +649,7 @@ class Usuario
         $query = "SELECT u.* 
                   FROM usuarios u 
                   INNER JOIN alumnos a ON u.id = a.idAlumno 
-                  WHERE a.idProfesor = $idProfesor";
+                  WHERE a.idProfesor = $idProfesor AND archivado = '0'";
     
         $rs = $conn->query($query);
         $alumnos = array(); 
@@ -586,7 +661,8 @@ class Usuario
                     '',
                     $fila['correo'],  
                     $fila['avatar'],   
-                    $fila['id']
+                    $fila['id'],
+                    $fila['archivado']
                 );
                 $alumnos[] = $alumno; 
             }

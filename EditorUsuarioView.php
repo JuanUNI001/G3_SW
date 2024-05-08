@@ -25,5 +25,9 @@ $contenidoPrincipal=<<<EOF
     $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Editor Usuario'];
+$scripts = [
+  'js/edicionUsuario.js'
+];
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Editor Usuario', 'scripts' => $scripts];
 $app->generaVista('/plantillas/plantilla.php', $params);

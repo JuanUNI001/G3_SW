@@ -72,8 +72,7 @@ class Inscrito implements \JsonSerializable
         }
 
         $result = null;
-        $BD = BD::getInstance();
-        $conn = $BD->conexionBd();
+        $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("SELECT E.id, E.title, E.userId, E.startDate AS start, E.endDate AS end FROM inscritos E WHERE E.id = %d", $idEvento);
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
@@ -91,6 +90,22 @@ class Inscrito implements \JsonSerializable
         return $result;
     }
   
+    public static function estaInscrito(int $idUsuario, int $idEvento): bool
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT COUNT(*) as total FROM inscritos WHERE userId = %d AND idEvento = %d", $idUsuario, $idEvento);
+        $rs = $conn->query($query);
+
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $total = $fila['total'];
+            $rs->free();
+            return $total > 0;
+        } else {
+            throw new DataAccessException("Error al verificar la inscripción.");
+        }
+    }
+
     /**
      * Busca los eventos de un usuario con id $userId en el rango de fechas $start y $end (si se proporciona).
      *
@@ -582,5 +597,41 @@ public static function guardaOActualiza(Inscrito $evento)
         self::compruebaConsistenciaFechas($this->start, $this->end);
         
         return $this;
+    }
+
+
+    public static function buscaPorIdUsuario($userId)
+    {
+        if (!$userId) {
+            // Devolver null si el ID de usuario es nulo
+            return null;
+        }
+
+        $result = [];
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('SELECT E.idEvento, E.userId AS userId, E.title, E.startDate AS start, E.endDate AS end FROM inscritos E WHERE E.userId = %d'
+            , $userId);
+
+        $rs = $conn->query($query);
+        if ($rs) {
+            while($fila = $rs->fetch_assoc()) {
+                $evento = new Inscrito();
+                $evento->setIdEvento($fila['idEvento']);
+                $evento->setUserId($fila['userId']);
+                $evento->setTitle($fila['title']);
+
+                $start = new DateTime($fila['start']);
+                $end = new DateTime($fila['end']);
+
+                $evento->setStart($start);
+                $evento->setEnd($end);
+                
+                $result[] = $evento;
+            }
+            $rs->free();
+        } else {
+            return null;
+        }
+        return $result;
     }
 }

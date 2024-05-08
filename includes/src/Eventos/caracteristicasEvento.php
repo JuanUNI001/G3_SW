@@ -2,6 +2,7 @@
 
 use \es\ucm\fdi\aw\src\BD;
 use es\ucm\fdi\aw\src\Eventos\Evento;
+use es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 require_once '../../config.php';
 
@@ -25,6 +26,7 @@ $contenidoPrincipal ='';
         $est = $evento->getEstado();
         $prem = $evento->getPremio();
         $gan = $evento->getGanador();
+       // $gan = Usuario ::getNombre();
         $ins = $evento->getTasaInscripcion();
 
    
@@ -35,8 +37,6 @@ $contenidoPrincipal ='';
             </div>
         EOF;
 
-        if ($evento->getInscritos() < $evento->getNumJugadores()) {
-        }
 
         if ($evento->getEstado() == 'Terminado') {
             $contenidoPrincipal .= "<p class='terminado'>Evento finalizado</p>";
@@ -44,7 +44,7 @@ $contenidoPrincipal ='';
             $contenidoPrincipal .= "<p class='abierto'>Evento en curso...</p>";
         }
 
-        $fechaFormateada = $fec->format('Y-m-d H:i:s');
+        $fechaFormateada = $fec->format('Y-m-d');
         
         $contenidoPrincipal .= <<<EOF
             <div class="Evento caracteristicas">
@@ -65,18 +65,18 @@ $contenidoPrincipal ='';
 
 
        if (isset($_SESSION["login"])) {
-    
+            if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto') {
 
-            $direccion = resuelve("inscribirseEventoView.php");
-            $contenidoPrincipal .= <<<EOF
-                <div class="inscripcion">
-                    <a href="{$direccion}?id={$evento->getId()}">
-                    <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
-                    </a>
-                </div>
-            EOF;
+                $direccion = resuelve("inscribirseEventoView.php");
+                $contenidoPrincipal .= <<<EOF
+                    <div class="inscripcion">
+                        <a href="{$direccion}?id={$evento->getId()}">
+                        <button type="submit" name="inscribir" class="sideBarDerButton">Inscribirse</button>
+                        </a>
+                    </div>
+                EOF;
 
-    
+            }
         }
 
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){

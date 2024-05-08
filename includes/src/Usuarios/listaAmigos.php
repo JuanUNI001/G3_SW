@@ -12,7 +12,7 @@ function listaAmigos()
 {
     $correo_usuario = $_SESSION['correo'];
 
-    $usuario = Usuario::buscaUsuario($correo_usuario);
+    $usuario = Usuario::buscaUsuarioNoArchivado($correo_usuario);
     $idUser = $usuario->getId();
     
     $Usuarios = Usuario::obtenerUsuariosSeguidos($idUser); // Llamar al método en la instancia

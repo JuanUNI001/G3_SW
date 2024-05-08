@@ -51,7 +51,7 @@ class FormularioRegistro extends Formulario
                 <input type="hidden" id="password-valido" name="password-valido" value="0">
 
                     <span id="password-valida">✔️</span>
-                    <span id="password-invalida">❌ Debe contener un carácter especial y 8 caracteres</span>
+                    <span id="password-invalida">❌ Debe contener un al menos 5 caracteres</span>
 
             </div>
             <div>

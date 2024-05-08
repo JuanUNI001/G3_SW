@@ -96,7 +96,7 @@ if ($app->usuarioLogueado())  {
 ?>
 
 <header style="background-image: url('<?php echo resuelve("images/background.png"); ?>');">
-    <h1><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
+    <h1 class="cabecera_titulo"><?= $params['cabecera'] ?? 'Mesa Maestra' ?></h1>
 
     <div class="saludo">
         <?= mostrarSaludo(); ?>

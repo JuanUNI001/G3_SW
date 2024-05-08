@@ -121,7 +121,11 @@ $contenidoPrincipal = <<<HTML
     $mensajesView
 HTML;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Discusión en el Foro'];
+$scripts = [
+    'js/foro.js'
+];
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Discusión en el Foro', 'scripts' => $scripts];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
 
@@ -133,5 +137,3 @@ $app->generaVista('/plantillas/plantilla.php', $params);
     let idForo = <?php echo $idForo; ?>;
 
 </script>
-
-<script src="js/foro.js"></script>

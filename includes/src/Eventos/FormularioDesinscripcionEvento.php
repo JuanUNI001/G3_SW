@@ -68,6 +68,7 @@ class FormularioDesinscripcionEvento extends Formulario
       
         else{
             $app = BD::getInstance();
+            Evento::desinscribirseEvento($idEvento);
             
             $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);

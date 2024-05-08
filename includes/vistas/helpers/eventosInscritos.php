@@ -28,7 +28,7 @@ function mostrarEventosInscritos()
             $evento = [
                 'title' => $inscrito->getTitle(), // Utiliza el título del evento
                 'start' => $inscrito->getStart()->format('Y-m-d'), // Obtener la fecha de inicio del evento en el formato adecuado
-
+                'allDay' => true,
             ];
             // Agregar el evento al array de eventos
             $eventos[] = $evento;
@@ -43,7 +43,7 @@ function mostrarEventosInscritos()
 
 
     // Convertir el array de eventos a formato JSON
-    echo json_encode($eventos);
+    return json_encode($eventos);
     
 }
 

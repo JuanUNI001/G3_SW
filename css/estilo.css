@@ -27,6 +27,13 @@ header {
     left: 10px; /* Ajusta según sea necesario */
 }
 
+.cabecera_titulo {
+    font-size: 45px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
 .logo img {
     height: 120px; /* Aumentar la altura del logo */
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
@@ -174,9 +181,9 @@ fieldset {
 legend {
     font-size: 18px; /* Ajusta el tamaño de la fuente de la leyenda */
     font-weight: bold; /* Hace la leyenda en negrita */
-    color: #faf5f5; /* Cambia el color del texto de la leyenda */
+    color: #6b055d; /* Cambia el color del texto de la leyenda */
     padding: 5px 10px; /* Añade espacio interno a la leyenda */
-    background-color: #fc0adb; /* Cambia el color de fondo de la leyenda */
+    background-color: #e9c2ee; /* Cambia el color de fondo de la leyenda */
     border: 1px solid #ffffff; /* Define el borde de la leyenda */
     border-radius: 5px; /* Redondea los bordes de la leyenda */
     margin-bottom: 10px; /* Añade espacio entre la leyenda y el contenido del fieldset */
@@ -245,18 +252,19 @@ input {
 	text-align: center;
 }
 
+.terminado, .abierto {
+    background-color: #9dcfe2; /* Color de fondo */
+    border: 1px solid #e67dcf; /* Borde de 1px sólido */
+    padding: 2px 6px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
 .terminado {
-	color: #e61212;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
+    color: #e61212; /* Color de texto para eventos terminados */
 }
 
 .abierto {
-	color: #00a74b;
-	background: #eeeded;
-	border: 1px solid rgb(0, 0, 0);
-	padding: 2px 6px;
+    color: #00a74b; /* Color de texto para eventos abiertos */
 }
 
 .mensajes input:checked + .mensaje {
@@ -605,15 +613,16 @@ nav li:last-child {
 
 .foro {
     margin: 10px; /* Márgenes entre los elementos foro */
-    border: 2px solid #4CAF50; /* Borde sólido con un tono de verde */
+     border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
     border-radius: 12px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
-    background-color: #f0f8f0; /* Color de fondo */
+    
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .foro_info {
-    background-color: #d4ecd4; /* Color de fondo verde claro */
+    background-color: #bea2eb; /* Color de fondo verde claro */
     border-radius: 20px; /* Esquinas redondeadas */
     padding: 15px; /* Espaciado interno */
     margin-bottom: 20px; /* Espaciado inferior */
@@ -638,24 +647,27 @@ nav li:last-child {
 }
 
 .foro_descripcion {
-    background-color: #e0ffe0; /* Color de fondo verde claro */
+    background-color: #d2b7e3; /* Color de fondo verde claro */
     border-radius: 10px; /* Esquinas redondeadas */
     padding: 20px; /* Espaciado interno */
     color: #666; /* Color del texto gris */
 }
 .boton-crear-foro {
-    background-color: #4CAF50 !important;
-    color: white !important;
-    padding: 10px 20px !important;
-    font-size: 16px !important;
-    border: none !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s !important;
+    background-color: #4f2c8d83 ;
+    color: white ;
+    padding: 10px 20px ;
+    font-size: 16px ;
+    border: none ;
+    border-radius: 5px ;
+    cursor: pointer ;
+    transition: background-color 0.3s ;
+    margin-bottom: 10px ; /* Agregando margen inferior */
+    text-decoration: none ; /* Quitando subrayado */
 }
 
+
 .boton-crear-foro:hover {
-    background-color: #45a049 !important;
+    background-color: #5445a0 !important;
 }
 
 .foro-container {
@@ -680,7 +692,7 @@ nav li:last-child {
     cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
     font-weight: bold; /* Texto en negrita */
     transition: background-color 0.3s; /* Transición suave */
-    margin: 10px; /* Margen alrededor del botón */
+    margin-bottom: 10px !important;
 }
 
 .button-foro:hover {
@@ -969,8 +981,8 @@ nav li:last-child {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px; /* Bordes redondeados */
-    background-color: rgba(153, 177, 220, 0.467); /* Color de fondo rosa */
-    border: 2px solid #ff6e14; /* Borde rosa de 2px */
+    background-color: rgba(187, 153, 220, 0.467); /* Color de fondo rosa */
+    border: 5px solid #e714ff; /* Borde rosa de 2px */
     align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
 }
 
@@ -1039,14 +1051,18 @@ nav li:last-child {
 .valoraciones-container {
     overflow-y: auto !important;
     max-height: 300px; /* Altura máxima del contenedor para que aparezca la barra de desplazamiento */
-    border: 1px solid #ccc; /* Borde para el contenedor */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
+    border-radius: 10px; /* Borde redondeado */
     padding-right: 20px; /* Ajusta el espacio para evitar solapamiento con la barra de desplazamiento */
 }
+
 
 /* Estilo para las valoraciones */
 .valoracion {
     padding: 10px; /* Espaciado interior de las valoraciones */
-    border-bottom: 1px solid #ccc; /* Borde inferior para separar las valoraciones */
+    border-bottom: 3px solid #ccc; /* Borde inferior para separar las valoraciones */
+    
 }
 
 /* Estilo para la barra de desplazamiento */
@@ -1067,7 +1083,7 @@ nav li:last-child {
 
 /* Cambiar el color del pulgar cuando se pasa sobre él */
 .valoraciones-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Nuevo color del pulgar al pasar el ratón */
+    background: #555555; /* Nuevo color del pulgar al pasar el ratón */
 }
 /* Estilos para el contenedor de la compra */
 .producto_compra {
@@ -1093,7 +1109,7 @@ nav li:last-child {
     width: 100%;
 }
 .producto_compra_ {
-    background-image: linear-gradient(to right, #eb7be1, #9ffaff); /* Borde degradado rosa a verde */
+    background-image: linear-gradient(to right, #eb7be1, #ac9fff); /* Borde degradado rosa a verde */
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 20px;
@@ -1174,3 +1190,83 @@ nav li:last-child {
     background-color: #0056b3;
   }
   
+  .eventos {
+    display: flex; /* Mostrar los eventos en línea */
+    flex-wrap: wrap; /* Permitir que los eventos se envuelvan en filas */
+    justify-content: space-around; /* Distribuir uniformemente los eventos horizontalmente */
+    margin-top: 20px; /* Margen superior */
+}
+
+.Evento {
+    margin: 10px; /* Márgenes entre eventos */
+    border: 2px solid #FF69B4; /* Borde rosa de 2px */
+    background: linear-gradient(to bottom right, #5d9cd763, #ff69b475); /* Fondo verde degradado a rosa */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    width: auto; /* Ancho del evento */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.Evento fieldset {
+    border: none; /* Eliminar borde del fieldset */
+    margin: 0; /* Eliminar margen */
+    padding: 0; /* Eliminar relleno */
+}
+
+.Evento legend {
+    color: #222; /* Color del texto gris */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 26px; /* Tamaño de la letra */
+}
+
+.Evento p {
+    color: #333; /* Color del texto gris oscuro */
+    
+}
+
+.Evento ul {
+    list-style-type: none; /* Eliminar viñetas de la lista */
+    padding: 0; /* Eliminar relleno */
+}
+
+.Evento li {
+    color: #666; /* Color del texto gris */
+    margin-left: 10px; /* Espacio a la izquierda del ítem de lista */
+}
+
+.Evento.caracteristicas {
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    border: 2px solid #ccc; /* Borde gris de 2px */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin-top: 20px; /* Margen superior */
+}
+
+.Evento.caracteristicas p {
+    margin-bottom: 10px; /* Margen inferior entre párrafos */
+}
+
+.Evento.caracteristicas p strong {
+    font-weight: bold; /* Texto en negrita */
+    margin-right: 5px; /* Margen derecho */
+}
+.titulo-evento {
+    color: #333; /* Color del texto gris oscuro */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 24px; /* Tamaño de la fuente */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+.eliminar-usuario {
+    float: right;
+    margin-top: 10px;
+}
+
+/* Estilo para el botón de eliminación */
+.eliminar-usuario button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 40px;
+    cursor: pointer;
+}

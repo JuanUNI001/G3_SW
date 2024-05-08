@@ -12,7 +12,7 @@ function listaAlumnos($idProfesor)
 {
     $alumnos = Usuario::listarAlumnosDeProfesor($idProfesor);
 
-    $html = "<div class='alumnos-academia'>";
+    $html = "<div class='contenedor-academia'>";
 
     foreach ($alumnos as $alumno) {
         $html .= visualizaUsuario($alumno);
@@ -26,7 +26,7 @@ function listaProfesores($idAlumno)
 {
     $profesores = Profesor::listarProfesoresDeAlumno($idAlumno);
 
-    $html = "<div class='profesores-academia'>";
+    $html = "<div class='contenedor-academia'>";
 
     foreach ($profesores as $profesor) {
         $html .= visualizaProfesor($profesor);
@@ -36,24 +36,32 @@ function listaProfesores($idAlumno)
     return $html;
 }
 
-
-$usuario = Usuario::buscaUsuario($_SESSION['correo']);
-
-
 $tituloPagina = 'Academia';
 
 $contenidoPrincipal =  '';
 
-if(isset($_SESSION["rolUser"]) && ( $_SESSION["rolUser"] == "user" || $_SESSION["rolUser"] == "admin"))
+$app = BD::getInstance();
+
+if($app->usuarioLogueado())
 {
-    $contenidoPrincipal.='<h1>Estos son Tus profesores contratados</h1>';
-    $contenidoPrincipal.=listaProfesores($usuario->getId());
+    $usuario = Usuario::buscaUsuario($_SESSION['correo']);
+
+    if(isset($_SESSION["rolUser"]) && ( $_SESSION["rolUser"] == "user" || $_SESSION["rolUser"] == "admin"))
+    {
+        $contenidoPrincipal.='<h1 class="mensaje-academia">Estos son Tus profesores contratados</h1>';
+        $contenidoPrincipal.=listaProfesores($usuario->getId());
+    }
+    else
+    {
+        $contenidoPrincipal.='<h1 class="mensaje-academia">Estos son tus alumnos</h1>';
+        $contenidoPrincipal.=listaAlumnos($usuario->getId());
+    }
 }
 else
 {
-    $contenidoPrincipal.='<h1>Estos son tus alumnos</h1>';
-    $contenidoPrincipal.=listaAlumnos($usuario->getId());
+    $contenidoPrincipal.='<h1 class="mensaje-academia">Registrate en la página para ver tu academia</h1>';
 }
+
 
 
 

@@ -48,29 +48,6 @@ $mensajes = mensajesPeticionAnterior();
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js" integrity="sha256-GcByKJnun2NoPMzoBsuCb4O2MKiqJZLlHTw3PJeqSkI=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script>
-  $(document).ready(function() {
-    var calendarEl = $('#calendar')[0];
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth', // Establecer la vista inicial como "mes"
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: '' // Eliminar las opciones de vista semanal y diaria
-      },
-      views: { // Definir las opciones de vista disponibles
-        timeGridWeek: { // Desactivar la vista semanal
-          type: 'timeGrid',
-          duration: { weeks: 1 },
-          buttonText: 'Semana'
-        },
-        timeGridDay: false // Desactivar la vista diaria
-      },
-      events: '<?php echo resuelve('/vistas/helpers/eventosInscritos.php'); ?>'
-    });
-    calendar.render();
-  });
-</script>
 
 
 
@@ -95,5 +72,14 @@ $params['app']->doInclude('/vistas/comun/cabecera.php', $params);
 $params['app']->doInclude('/vistas/comun/pie.php', $params);
 ?>
 </div>
+
+<?php
+
+$scripts = $params['scripts'] ?? [];
+foreach ($scripts as $scriptSrc) {
+	echo "<script src=\"{$scriptSrc}\"></script>";
+}
+?>
+
 </body>
 </html>

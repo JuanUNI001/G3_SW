@@ -343,7 +343,7 @@ class Evento
     
         if (!$conn) {
             return false;
-            echo "er2";
+       
         }
     
         $evento = Evento::buscaPorId($idEvento);
@@ -355,6 +355,39 @@ class Evento
         $inscritosActuales = $evento->getInscritos();
     
         $nuevosInscritos = $inscritosActuales + 1;
+    
+        $idEventoEscapado = $conn->real_escape_string($idEvento);
+        $nuevosInscritosEscapado = $conn->real_escape_string($nuevosInscritos);
+    
+        $query = "UPDATE eventos SET inscritos = $nuevosInscritosEscapado WHERE idEvento = $idEventoEscapado";
+        $result = $conn->query($query);
+    
+        if ($result) {
+            return true;
+
+        } else {
+            return false;
+
+        }
+    }
+    
+    public static function desinscribirseEvento($idEvento) {
+        $conn = BD::getInstance()->getConexionBd();
+    
+        if (!$conn) {
+            return false;
+       
+        }
+    
+        $evento = Evento::buscaPorId($idEvento);
+        if (!$evento) {
+            return false;
+
+        }
+    
+        $inscritosActuales = $evento->getInscritos();
+    
+        $nuevosInscritos = $inscritosActuales -1;
     
         $idEventoEscapado = $conn->real_escape_string($idEvento);
         $nuevosInscritosEscapado = $conn->real_escape_string($nuevosInscritos);

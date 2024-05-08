@@ -4,13 +4,29 @@ require_once 'includes/vistas/helpers/eventosInscritos.php';
 
 $tituloPagina = 'Eventos Inscritos';
 
-// Obtener el JSON de los eventos utilizando la función mostrarEventosInscritos()
+// Obtener los eventos inscritos en formato JSON
 $eventosJSON = mostrarEventosInscritos();
 
 // Construir el contenido principal con el script de FullCalendar y el div con el id "calendar"
 $contenidoPrincipal = <<<HTML
 <div id="calendar" style="width: 1000px; height: 800px; font-size: 16px;"></div>
-<script>   $eventosJSON </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth', // Establecer la vista inicial como "mes"
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: '' // Eliminar las opciones de vista semanal y diaria
+      },
+      events: $eventosJSON // Pasar los eventos en formato JSON
+    });
+    calendar.render();
+  });
+</script>
+
+
 
 HTML;
 
