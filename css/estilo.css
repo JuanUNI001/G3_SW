@@ -27,6 +27,13 @@ header {
     left: 10px; /* Ajusta según sea necesario */
 }
 
+.cabecera_titulo {
+    font-size: 45px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
 .logo img {
     height: 120px; /* Aumentar la altura del logo */
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
