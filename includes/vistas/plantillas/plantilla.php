@@ -74,8 +74,8 @@ $params['app']->doInclude('/vistas/comun/pie.php', $params);
 </div>
 
 <?php
-$scripts = $params['scripts'];
-$scripts = $scripts ?? [];
+
+$scripts = $params['scripts'] ?? [];
 foreach ($scripts as $scriptSrc) {
 	echo "<script src=\"{$scriptSrc}\"></script>";
 }

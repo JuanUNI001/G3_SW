@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `numJugadores` int(11) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` text DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
+  `fecha` datetime NOT NULL,
   `lugar` varchar(255) DEFAULT NULL,
   `estado` varchar(50) DEFAULT NULL,
   `premio` varchar(255) DEFAULT NULL,
@@ -105,7 +105,11 @@ CREATE TABLE IF NOT EXISTS `eventos` (
 CREATE TABLE IF NOT EXISTS `inscritos` (
   `idEvento` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  PRIMARY KEY (`idEvento`,`idUsuario`)
+  `userId` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime NOT NULL,
+  PRIMARY KEY (`idEvento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `valoraciones` (
