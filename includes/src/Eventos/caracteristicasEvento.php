@@ -67,7 +67,7 @@ $contenidoPrincipal ='';
        if (isset($_SESSION["login"])) {
             if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto') {
 
-                $direccion = resuelve("InscribirseEventoView.php");
+                $direccion = resuelve("/InscribirseEventoView.php");
                 $contenidoPrincipal .= <<<EOF
                     <div class="inscripcion">
                         <a href="{$direccion}?id={$evento->getId()}">

@@ -5,40 +5,29 @@ use es\ucm\fdi\aw\src\Formulario;
 
 class FormularioEdicionEvento extends Formulario
 {
-    public $id;
-    public $nombre;
-    public $descripcion;
-    public $categoria;
-    public $fecha;
-    public $lugar;
-    public $premio;
-    public $tasa;   
-    public $inscritos;
-    public $numJugadores;
-    public $estado;
-    public $ganador;
+    private $evento
 
-
-    public function __construct() {
+    public function __construct($evento) {
         parent::__construct('formEdicionEvento', ['urlRedireccion' => 'eventos.php']);
+        $this->evento = $evento;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
 
-        $datos['id'] =  $this->id;
-        $nombre = $this->nombre;
-        $descripcion = $this->descripcion;
-        $categoria = $this->categoria;
-        $fecha = $this->fecha;
-        $lugar = $this->lugar;
-        $premio = $this->premio;
-        $tasa = $this->tasa;
-        $inscritos = $this->inscritos;
-        $aforo = $this->numJugadores;
+        $datos['id'] =  $this->evento->getId();
+        $nombre = $this->evento->getNombre();
+        $descripcion = $this->evento->getDescripcion();
+        $categoria = $this->evento->getCategoria();
+        $fecha = $this->evento->getFecha();
+        $lugar = $this->evento->getLugar();
+        $premio = $this->evento->getPremio();
+        $tasa = $this->evento->getTasaInscripcion();
+        $inscritos = $this->evento->getInscritos();
+        $aforo = $this->evento->getNumJugadores();
         $eliminar = 0;
-        $estado =$this->estado;
-        $ganador = $this->ganador;
+        $estado =$this->evento->getEstado();
+        $ganador = $this->evento->getGanador();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -116,11 +105,11 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['nombre'] = 'El nombre del evento no puede estar vacío';
         }
         
-        $precio = trim($datos['precio'] ?? '');
+        /*$precio = trim($datos['precio'] ?? '');
         $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $precio || empty($precio)) {
             $this->errores['precio'] = 'El precio no puede estar vacío.';
-        }
+        }*/
 
         $descripcion = trim($datos['descripcion'] ?? '');
         $descripcion = filter_var($descripcion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -191,8 +180,8 @@ class FormularioEdicionEvento extends Formulario
                 Evento::borraPorId($this->id);
             } else
             {
-                $eventoActual = Evento::buscaPorId($this->id);
-                $nuevoEvento = Evento::Nuevo($this->id,$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$tasa);
+                //$eventoActual = Evento::buscaPorId($this->id);
+                $nuevoEvento = Evento::Nuevo($this->evento->getId(),$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$tasa);
                 Evento::actualiza($nuevoEvento);
             }
         }

@@ -52,7 +52,7 @@ class FormularioBusquedaEventos extends Formulario
         $estado = $_SESSION['filtro_estado_ev'] ?? '';
         $fechaDesde =  $_SESSION['filtro_fecha_desde_ev']  ?? '';
         $fechaHasta = $_SESSION['filtro_fecha_hasta_ev'] ?? '';
-        $this->$eventos = listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
+        $this->eventos = listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
        
     
     // Generar el HTML del formulario
