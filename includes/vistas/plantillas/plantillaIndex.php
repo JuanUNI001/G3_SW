@@ -23,7 +23,6 @@ $mensajes = mensajesPeticionAnterior();
 
 
 
-    <script type="text/javascript" src="<?= $params['app']->resuelve('/js/mensajes.js') ?>"></script>
 
     
 </head>

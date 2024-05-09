@@ -13,7 +13,6 @@ $mensajes = mensajesPeticionAnterior();
 <head>
 	<meta charset="UTF-8">
     <title><?= $params['tituloPagina'] ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/anunciosIndex.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/imagenes.css') ?>" />
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/conversacion.css') ?>" />
@@ -42,8 +41,7 @@ $mensajes = mensajesPeticionAnterior();
 
 
 
-    <script type="text/javascript" src="<?= $params['app']->resuelve('/js/mensajes.js') ?>"></script>
-
+   
     
 </head>
 <body>

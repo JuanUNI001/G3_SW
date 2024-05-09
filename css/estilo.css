@@ -16,7 +16,7 @@ header {
     background-position: center;
     background-size: cover; /* Ajusta la imagen de fondo para que cubra todo el encabezado */
     padding: 30px;
-    height: 160px; /* Ajusta la altura del encabezado */
+    height: 220px; /* Ajusta la altura del encabezado */
     background-color: #84b8c4a4;
     color: rgb(10, 10, 10);
 }
@@ -39,20 +39,6 @@ header {
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
 
-.cart-icon {
-    position: relative;
-}
-
-.cart-count {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    border-radius: 50%;
-    padding: 3px 6px;
-}
 
 header a, header a:visited {
 	color: rgb(16, 16, 16);
@@ -496,6 +482,7 @@ footer {
     display: flex;
     align-items: center;
     margin-right: 5px; /* Añade un margen derecho para separar los elementos */
+    margin-bottom: 10px;
 }
 
 .info-usuario img {
@@ -503,7 +490,7 @@ footer {
     margin-right: 0px; /* Añade un espacio entre la imagen y el texto */
     width: 50px; /* Cambia el ancho de la imagen */
     height: 50px; /* Cambia la altura de la imagen */
-	margin-top: -50px; /* Mueve la imagen hacia arriba ajustando el margen superior */
+	margin-top: -70px; /* Mueve la imagen hacia arriba ajustando el margen superior */
 }
 .rectangulo-usuarios {
     background-color: #ffffff; /* Color de fondo del rectángulo */
@@ -541,12 +528,12 @@ nav li:last-child {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #e233c5;
+    background-color: #ab88e3f0;
     width: 120px; /* Aumenta un poco el ancho del dropdown */
     box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
     z-index: 1;
     left: 10;
-    top: 200px;
+    top: 250px;
     padding-left: 20;
     border-radius: 8px; /* Redondea los bordes del dropdown */
 }
@@ -602,7 +589,8 @@ nav li:last-child {
 
 /* Estilos para los enlaces del dropdown al pasar el ratón */
 .dropdown-content a:hover {
-    background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
+    background-color: #bc70e9d6; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
+    color: black; /* Cambia el color del texto a blanco */
 }
 
 /*
@@ -1270,3 +1258,109 @@ nav li:last-child {
     font-size: 40px;
     cursor: pointer;
 }
+
+.slide {
+    --color: #a766c8;
+    --hover: #8157cf;
+    --fondo: #d2abeb98;
+    color: var(--color);
+    background:  var(--fondo);
+    border: 2px solid var(--color);
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    display: inline-block; /* Mostrar como bloque en línea */
+    padding: 0.5em 1em; /* Ajuste del padding */
+    font-size: 18px; /* Tamaño de la fuente reducido */
+    position: relative;
+    overflow: hidden; /* Oculta el contenido que se desborde */
+    transition: color 0.25s, border-color 0.25s;
+    text-decoration: none; /* Evita el subrayado del texto */
+
+  }
+  
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Ancho inicial para que no tape el contenido */
+    height: 100%;
+    background-color: var(--hover);
+    opacity: 0.5; /* Opacidad del fondo para que el contenido sea visible */
+    transition: width 0.25s;
+    text-decoration: none; /* Evita el subrayado del texto */
+
+  }
+  
+  .slide:hover::before,
+  .slide:focus::before {
+    width: 100%; /* Ancho completo al pasar el cursor o enfocar */
+
+  }
+  .carrito {
+    display: flex;
+    align-items: center;
+  }
+  
+  .buttonaux {
+    font-size: 24px;
+    color: #969595;
+    background-color: #c894dbc6;
+    border: 2px solid #9c66c8; 
+    border-radius: 50%;
+    width: 60px; /* Ancho del botón */
+    height: 60px; /* Alto del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s, background-color 0.4s;
+    margin-right: 10px; /* Espacio entre los botones */
+    margin-bottom: -10px; /* Margen inferior */
+  }
+  
+  .buttonaux::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s, background-color 0.4s;
+    z-index: 0;
+  }
+  
+  .buttonaux:hover::before {
+    width: 0;
+    height: 0;
+  }
+  .cart-icon {
+    position: relative;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: 5px; /* Ajuste de posición vertical */
+    right: 10px; /* Ajuste de posición horizontal */
+    background-color: #e74c3c;
+    color: #fff;
+    font-size: 12px; /* Tamaño de la fuente del contador */
+    width: 20px; /* Ancho del contador */
+    height: 20px; /* Alto del contador */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Asegura que esté sobre el botón */
+  }
+  
+  
+  
+  
+  
