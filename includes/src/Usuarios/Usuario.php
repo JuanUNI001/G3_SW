@@ -119,7 +119,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['archivado'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -136,7 +136,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['archivado'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -154,7 +154,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['id'],  $fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['archivado'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -330,7 +330,7 @@ class Usuario
 
     protected $archivado;
 
-    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id, $archivado)
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar,  $archivado,$id)
     {
         $this->id = intval($id);
         $this->rolUser = $rol;
@@ -461,8 +461,8 @@ class Usuario
                     '',
                     $fila['correo'],
                     $fila['avatar'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $usuariosSeguidos[] = $usuario;
             }
@@ -491,9 +491,10 @@ class Usuario
         $fila['nombre'],   
         '',
         $fila['correo'],  
-        $fila['avatar'],   
-        $fila['id'],
-        $fila['archivado']
+        $fila['avatar'],  
+        $fila['archivado'], 
+        $fila['id']
+        
         );
         $usuarios[] = $usuario; 
         }
@@ -548,9 +549,10 @@ class Usuario
                     $fila['nombre'],   
                     '',
                     $fila['correo'],
-                    $fila['avatar'],   
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['avatar'], 
+                    $fila['archivado'],  
+                    $fila['id']
+                   
                 );
                 $profesores[] = $profesor; 
             }
@@ -604,8 +606,9 @@ class Usuario
                 '',
                 $fila['correo'],
                 $fila['avatar'],   
-                $fila['id'],
-                $fila['archivado']
+                $fila['archivado'],
+                $fila['id']
+               
             );
             $profesores[] = $profesor; 
         }
@@ -633,8 +636,8 @@ class Usuario
          '',
          $fila['correo'],  
          $fila['avatar'],   
-         $fila['id'],
-         $fila['archivado']
+         $fila['archivado'],
+         $fila['id']
          );
          $usuarios[] = $usuario; 
          }
@@ -661,8 +664,8 @@ class Usuario
                     '',
                     $fila['correo'],  
                     $fila['avatar'],   
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $alumnos[] = $alumno; 
             }

@@ -26,6 +26,7 @@ function visualizaUsuario($Usuario) {
     if ($app->usuarioLogueado()) 
     {
         $correo_usuario = $_SESSION['correo'];
+        
         $rutaSeguir = resuelve('js/seguir.js');
         $usuario = Usuario::buscaUsuario($correo_usuario);
         $idUser = $usuario->getId();

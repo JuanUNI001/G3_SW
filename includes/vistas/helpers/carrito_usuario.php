@@ -105,8 +105,13 @@ if($pedido){
     $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
     <div class="producto_carrito">
-        <button onclick="location.href='{$rutaComprar}'" type="button" class="botonCarrito">Comprar</button> Total compra: {$total} €
+        <form action="{$rutaComprar}" method="post">
+            <button type="submit" class="botonCarrito">Comprar</button>
+            <input type="hidden" name="total" value="{$total}">
+        </form>
+        Total compra: {$total} €
     </div>
+
     EOF;
 
 }
