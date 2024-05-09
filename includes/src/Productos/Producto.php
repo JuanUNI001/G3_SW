@@ -48,7 +48,7 @@ class Producto
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
        
-        $query = sprintf("SELECT * FROM productos WHERE archivado = 0 ");
+        $query = sprintf("SELECT * FROM productos WHERE archivado = '0' ");
             
         $rs = $conn->query($query);
         $productos = array(); 
@@ -76,7 +76,7 @@ class Producto
         $conn = BD::getInstance()->getConexionBd();
         $query =" ";
        
-        $query = "SELECT * FROM productos WHERE archivado = 0 ORDER BY valoracion DESC LIMIT 8";
+        $query = "SELECT * FROM productos WHERE archivado = '0' ORDER BY valoracion DESC LIMIT 8";
             
         $rs = $conn->query($query);
         $productos = array(); 

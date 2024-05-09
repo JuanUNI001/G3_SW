@@ -20,7 +20,7 @@ class Mensaje
 
     private $fechaHora;
 
-    private function __construct($id = null, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
+    private function __construct($idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null, $id = null)
     {
         $this->id = intval($id);
         $this->idForo = $idForo;

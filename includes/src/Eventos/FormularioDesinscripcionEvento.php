@@ -11,13 +11,13 @@ use es\ucm\fdi\aw\src\Inscritos\Inscrito;
 
 class FormularioDesinscripcionEvento extends Formulario
 {
-    public $idEvento;
-    public $idUsuario;
+    private $idEvento;
+    private $idUsuario;
     
-    public function __construct() {
+    public function __construct($idEvento, $idUsuario) {
         parent::__construct('formInscripcion', ['urlRedireccion' => 'eventos.php']);
-
-
+        $this->idUsuario = $idEvento;
+        $this->idEvento = $idUsuario;
     }
     
     protected function generaCamposFormulario(&$datos)

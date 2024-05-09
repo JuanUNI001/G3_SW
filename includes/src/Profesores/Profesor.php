@@ -12,7 +12,7 @@ class Profesor extends Usuario
     private $anunciable;
 
    
-    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null,  $archivado)
+    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion, $archivado, $id = null)
     {
         parent::__construct($rol, $nombre, $password, $correo, $avatar, $id,$archivado);
         
