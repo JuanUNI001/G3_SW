@@ -19,12 +19,12 @@ class FormularioRegistro extends Formulario
     
     protected function generaCamposFormulario(&$datos)
     {
-        $nombre = $datos['nombre'] ?? '';
-        $correo = $datos['correo'] ?? '';
+        $nombre_busca = $datos['nombre_busca'] ?? '';
+        $correo_busca = $datos['correo_busca'] ?? '';
         
         // Se generan los mensajes de error si existen.
         self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'password', 'password2', 'correo', 'precio', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre_busca', 'password', 'password2', 'correo_busca', 'precio', 'imagen'], $this->errores, 'span', array('class' => 'error'));
         
         $html = <<<EOF
            
@@ -32,15 +32,15 @@ class FormularioRegistro extends Formulario
             <legend class="legend-form">Datos para el registro</legend>
                 
             <div>
-                <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" name="nombre" value="$nombre" />
+                <label for="nombre_busca">Nombre:</label>
+                <input id="nombre_busca" type="text" name="nombre_busca" value="$nombre_busca" />
                 <input type="hidden" id="nombre-valido" name="nombre-valido" value="0">
                     <span id="validUser">✔️</span>
                     <span id="invalidUser">❌ Debe tener más de 3 caracteres</span>
             </div>
             <div>
-                <label for="correo">Correo electrónico:</label>
-                <input id="correo" type="text" name="correo" value="$correo" />
+                <label for="correo_busca">Correo electrónico:</label>
+                <input id="correo_busca" type="text" name="correo_busca" value="$correo_busca" />
                 <input type="hidden" id="correo-valido" name="correo-valido" value="0">
                     <span id="email-valido">✔️</span>
                     <span id="email-invalido">❌</span>
@@ -117,8 +117,8 @@ class FormularioRegistro extends Formulario
 {
     $this->errores = [];
   
-    $nombre = $datos['nombre'] ?? '';
-    $correo = $datos['correo'] ?? '';
+    $nombre_busca = $datos['nombre_busca'] ?? '';
+    $correo_busca = $datos['correo_busca'] ?? '';
     $password = $datos['password'] ?? '';
     $password2 = $datos['password2'] ?? '';
     $rolSeleccionado = $datos['rol'] ?? '';
@@ -173,16 +173,16 @@ class FormularioRegistro extends Formulario
     }
     if (empty($this->errores)) {
         // Validar si el correo ya está en uso
-        if (!Usuario::buscaUsuario($correo)) {
+        if (!Usuario::buscaUsuario($correo_busca)) {
             if ($rolSeleccionado === 'Usuario') {
-                $usuario = Usuario::crea(2, $nombre, $password, $correo, $rutaAvatar);
+                $usuario = Usuario::crea(2, $nombre_busca, $password, $correo_busca, $rutaAvatar);
                 $usuario->guarda();
                 if (!$usuario) {
                     $this->errores[] = "Error al crear el usuario. Por favor, inténtalo de nuevo.";
                 }
             } elseif ($rolSeleccionado === 'Profesor') {
                 $password = Profesor::anadeContrasena($password);
-                $profesor = Profesor::creaProfesor($nombre, $password, $correo, $precio, $rutaAvatar,null);
+                $profesor = Profesor::creaProfesor($nombre_busca, $password, $correo_busca, $precio, $rutaAvatar,null);
                 if (!$profesor) {
                     $this->errores[] = "Error al crear el profesor. Por favor, inténtalo de nuevo.";
                 }
@@ -195,8 +195,8 @@ class FormularioRegistro extends Formulario
         // Si no hay errores después de intentar crear el usuario o profesor, inicia sesión y redirige
         if (empty($this->errores)) {
             $_SESSION['login'] = true;
-            $_SESSION['nombre'] = $nombre;
-            $_SESSION['correo'] = $correo;
+            $_SESSION['nombre_busca'] = $nombre_busca;
+            $_SESSION['correo_busca'] = $correo_busca;
             $_SESSION['rolUser'] = $rolSeleccionado;
             header('Location: ' . $this->urlRedireccion);
             exit;
