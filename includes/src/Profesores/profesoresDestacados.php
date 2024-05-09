@@ -47,7 +47,7 @@ function profesorDestacadoVisualizado($profesor)
     $rutaImagen = resuelve('/');
     $idProfesor = $profesor->getId();
     $rutaChat = resuelve('/ChatView.php');
-    $avatarImagen = $rutaImagen . '/' . $avatar;
+    $avatarImagen = RUTA_IMGS . $avatar;
             
     $html .= '<div class="custom-profesor-info">';        
     $html .= '<div class="custom-avatar"><img src="' .  $avatarImagen . '" alt="Avatar"></div>';

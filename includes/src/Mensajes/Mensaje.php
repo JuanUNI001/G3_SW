@@ -20,7 +20,7 @@ class Mensaje
 
     private $fechaHora;
 
-    private function __construct($idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null, $id = null)
+    private function __construct( $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null, $id = null)
     {
         $this->id = intval($id);
         $this->idForo = $idForo;
@@ -41,7 +41,7 @@ class Mensaje
 
     public static function crea($id, $idEmisor, $idDestinatario, $idForo, $texto, $fechaHora = null)
     {
-        $m = new Mensaje($id, $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'));
+        $m = new Mensaje( $idEmisor, $idDestinatario, $idForo, $texto, date('Y-m-d H:i:s'), $id);
         return $m;
     }
 
@@ -109,8 +109,8 @@ class Mensaje
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Mensaje($fila['id'], $idEmisor, $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'],
-                                        $fila['fechaHora']);
+                $result[] = new Mensaje($idEmisor, $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'],
+                                        $fila['fechaHora'],$fila['id']);
             }
             $rs->free();
         }else {
@@ -131,8 +131,8 @@ class Mensaje
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Mensaje($fila['id'],$fila['idEmisor'], $idDestinatario, $fila['idForo'], $fila['mensaje'],
-                                        $fila['fechaHora']);
+                $result[] = new Mensaje($fila['idEmisor'], $idDestinatario, $fila['idForo'], $fila['mensaje'],
+                                        $fila['fechaHora'],$fila['id']);
             }
             $rs->free();
         }else {
@@ -154,7 +154,7 @@ class Mensaje
     if ($rs) {
         while ($fila = $rs->fetch_assoc()) {
             $result[] = new Mensaje($idEmisor, $idDestinatario, $fila['idForo'], $fila['mensaje'],
-                                    $fila['fechaHora']);
+                                    $fila['fechaHora'], $fila['id']);
         }
         $rs->free();
     } else {
@@ -277,12 +277,12 @@ class Mensaje
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
             $result = new Mensaje(
-                $fila['id'],
                 $fila['idEmisor'],
                 $fila['idDestinatario'],
                 $fila['idForo'],
                 $fila['mensaje'],
-                $fila['fechaHora']
+                $fila['fechaHora'],
+                $fila['id']
             );
         }
 
@@ -418,7 +418,7 @@ class Mensaje
         $mensajes = array(); 
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $mensaje = new Mensaje($fila['id'], $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora']);
+                $mensaje = new Mensaje($fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora'],$fila['id']);
                 $mensajes[] = $mensaje; 
             }
             $rs->free();
@@ -439,7 +439,7 @@ class Mensaje
         $mensajes = array(); 
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $mensaje = new Mensaje($fila['id'], $fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora']);
+                $mensaje = new Mensaje($fila['idEmisor'], $fila['idDestinatario'], $fila['idForo'], $fila['mensaje'], $fila['fechaHora'],$fila['id']);
                 $mensajes[] = $mensaje; 
             }
             $rs->free();
@@ -465,12 +465,12 @@ class Mensaje
             if ($rs) {
                 while ($fila = $rs->fetch_assoc()) {
                     $mensaje = new Mensaje(
-                        $fila['id'],
                         $fila['idEmisor'],
                         $fila['idDestinatario'],
                         $fila['idForo'],
                         $fila['mensaje'],
-                        $fila['fechaHora']
+                        $fila['fechaHora'],
+                        $fila['id']
                     );
                     $mensajes[] = $mensaje;
                 }
