@@ -35,7 +35,7 @@ function foroDestacadoVisualizado($foro, $mensaje)
     $nombreAutor = $usuario ? $usuario->getNombre() : "Desconocido";
     $rutaImagen = resuelve('/');
     $avatar = $usuario ? $usuario->getAvatar() : "default_avatar.jpg";
-    $avatarImagen =  $rutaImagen . '/'. $avatar;
+    $avatarImagen =  RUTA_IMGS . $avatar;
 
     $html .= '<div class="custom-foro-info">';
     $html .= '<div class="custom-avatar"><img src="' .  $avatarImagen. '" alt="Avatar"></div>';
