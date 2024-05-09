@@ -2,16 +2,7 @@
 require_once __DIR__.'/../../config.php';
 
 use es\ucm\fdi\aw\src\BD;
-// Incluye el CSS necesario
-echo '<link rel="stylesheet" type="text/css" href="../css/imagenes.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/conversacion.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/busqueda.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/formulario.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/usuarios.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/chat.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/anuncios.css">';
-echo '<link rel="stylesheet" type="text/css" href="../css/anunciosIndex.css">';
-echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>';
+
 
 $params['app']->doInclude('/vistas/helpers/plantilla.php');
 $mensajes = mensajesPeticionAnterior();
