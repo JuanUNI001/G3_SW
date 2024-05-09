@@ -11,10 +11,10 @@ $(document).ready(function() {
     $("#password-nomatch").hide();
     // Email field change event
 
-    $("#nombre").change(function(){
-        const nombre = $("#nombre").val();
+    $("#nombre_busca").change(function(){
+        const nombre_busca = $("#nombre_busca").val();
     
-        if (nombre.length >= 3) {
+        if (nombre_busca.length >= 3) {
             $("#validUser").show();
             $("#invalidUser").hide();
             $("#nombre-valido").val("1"); // Actualiza el campo oculto
@@ -25,8 +25,8 @@ $(document).ready(function() {
         }
     });
     
-    $("#correo").change(function(){
-        const campo = $("#correo");
+    $("#correo_busca").change(function(){
+        const campo = $("#correo_busca");
         campo[0].setCustomValidity("");
         
         const esCorreoValido = campo[0].checkValidity();
@@ -35,7 +35,7 @@ $(document).ready(function() {
             $("#email-valido").show(); // Muestra el tick de correo válido
             $("#email-invalido").hide(); // Oculta la marca de correo inválido
             $("#correo-valido").val("1"); // Actualiza el campo oculto
-            $("#correo")[0].setCustomValidity(""); // Restablece la validación personalizada
+            $("#correo_busca")[0].setCustomValidity(""); // Restablece la validación personalizada
         } else {
             $("#correo-valido").val("0"); // Actualiza el campo oculto
             $("#email-valido").hide(); // Oculta el tick de correo válido
