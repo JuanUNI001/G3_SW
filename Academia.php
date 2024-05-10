@@ -29,7 +29,7 @@ function listaProfesores($idAlumno)
     $html = "<div class='contenedor-academia'>";
 
     foreach ($profesores as $profesor) {
-        $html .= visualizaProfesor($profesor);
+        $html .= visualizaProfesorAcademia($profesor);
     }
 
     $html .= "</div>";
