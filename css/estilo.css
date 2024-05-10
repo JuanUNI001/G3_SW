@@ -1413,7 +1413,7 @@ nav li:last-child {
   }
   
  .buttonEditor {
-    background-color: #4CAF50; /* Color de fondo */
+    background-color: #e211e2; /* Color de fondo */
     color: white; /* Color del texto */
     padding: 10px 20px; /* Espaciado interno */
     font-size: 16px; /* Tamaño de la fuente */
@@ -1426,8 +1426,8 @@ nav li:last-child {
     z-index: 1; /* Índice Z */
     position: absolute;
     overflow: hidden;
-    left: -4px;
-    right: -4px;
+    left: 0px;
+    right: 0px;
     bottom : 100%;
     height: 40px;
     z-index: 1;
@@ -1435,7 +1435,7 @@ nav li:last-child {
  } 
   
  .buttonEditor:hover {
-    background-color: #45a049; /* Cambio de color de fondo */
+    background-color: #000000; /* Cambio de color de fondo */
 }
 
 /* Estilo cuando el botón está activo (clicado) */
