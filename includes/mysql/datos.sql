@@ -43,6 +43,7 @@ INSERT INTO `usuarios` (`id`, `password`, `nombre`, `correo`, `rolUser`, `valora
 (1, '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Administrador', 'admin@gmail.com', 1, NULL, NULL, 'images/opcion1.png', 0),
 (2, '$2y$10$uM6NtF.f6e.1Ffu2rMWYV.j.X8lhWq9l8PwJcs9/ioVKTGqink6DG', 'user', 'user@gmail.com', 2, NULL, NULL, 'images/opcion2.png', 0),
 (32, '$2y$10$q32AJBCGnO/WSjvkolrkxuJ8UeuQlE0kaKV7cXTqTk9OUsxe/bSVm', 'Paula', 'p@ucm.es', 2, NULL, NULL, 'images/opcion6.png', 0),
+(49, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'profesor', 'profesor@gmail.com', 3, 4.75, 34.55, 'images/opcion3.png', 0),
 (50, '$2y$10$r4tKx.VndaEsQiMnkJ9A2.sgo5BEHgSN4d1ARu.f6JGXfzzAj5bRe', 'Josh Tyler', 'joshTyler@gmail.com', 3, 4.75, 34.55, 'images/opcion3.png', 0),
 (61, '$2y$10$QZ0Une9VvkzJCb20G7jUPuPLDJi0aVDOwINAuDd6OVQHWtM92Jz5W', 'Mei Wong ', 'mei@hotmail.com', 3, NULL, 15.5, 'images/opcion1.png', 0),
 (62, '$2y$10$HuOjATRyoVgfnEwCO5xEKuAWZVgM1zMdTbsWTm4tlh6UuOwTbxCLa', 'Sarah Johnson', 'sarahJ@gmail.com', 3, NULL, 32.21, 'images/opcion3.png', 0),
