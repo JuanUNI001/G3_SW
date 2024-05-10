@@ -12,7 +12,7 @@ if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
     $AddEventoRuta = resuelve('AddEventoView.php');
 
     $BotonAddEvento = <<<EOF
-    <div>
+    <div class="addEvento">
         <a href="$AddEventoRuta" class="button-like-link">Añadir evento</a>
     </div>
     EOF;

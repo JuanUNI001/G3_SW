@@ -53,3 +53,10 @@
 .button-evento:hover {
     background-color: #000000; /* Verde más oscuro al pasar el ratón */
 }
+
+.addEvento {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
