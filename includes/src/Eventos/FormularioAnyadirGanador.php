@@ -56,7 +56,7 @@ class FormularioAnyadirGanador extends Formulario
             $app = BD::getInstance();
 
             $nuevoEvento = Evento::Nuevo($this->evento->getId(),$this->evento->getInscritos(),$this->evento->getCategoria(),$this->evento->getNumJugadores(), $this->evento->getEvento(),$this->evento->getDescripcion(),$this->evento->getFecha(),$this->evento->getLugar(),"Terminado",$this->evento->getPremio(),$ganador,$this->evento->getTasaInscripcion());
-         
+            Evento::actualiza($nuevoEvento);
             $mensajes = ['¡Has actualizado al ganador!'];
             $app->putAtributoPeticion('mensajes', $mensajes);
             

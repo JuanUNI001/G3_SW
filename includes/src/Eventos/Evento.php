@@ -461,23 +461,28 @@ class Evento
         $result = false;
     
         $conn = BD::getInstance()->getConexionBd();
+        $fechaFormateada = $evento->fecha->format('Y-m-d H:i:s');
+        $fechaEscapada = $conn->real_escape_string($fechaFormateada);
         $query = sprintf(
-            "UPDATE eventos E SET inscritos = %d, categoria = '%s', numJugadores = %d, nombre = '%s', descripcion = '%s', fecha = '%s', lugar = '%f', estado = '%s', premio = '%s', ganador = '%s', tasaInscripcion = %f WHERE E.idEvento = %d",
+            "UPDATE eventos E SET inscritos = %d, categoria = '%s', numJugadores = %d, nombre = '%s', descripcion = '%s', fecha = '%s', lugar = '%s', estado = '%s', premio = '%s', ganador = %s, tasaInscripcion = %f WHERE E.idEvento = %d",
             $evento->inscritos,
             $conn->real_escape_string($evento->categoria),
             $evento->numJugadores,
             $conn->real_escape_string($evento->nombre),
             $conn->real_escape_string($evento->descripcion),
-            $conn->real_escape_string($evento->fecha),
+            $fechaEscapada,
             $conn->real_escape_string($evento->lugar),
             $conn->real_escape_string($evento->estado),
             $evento->premio,
-            $conn->real_escape_string($evento->ganador),
+            $evento->ganador, // No es necesario escapar el valor numérico
             $evento->tasaInscripcion,
+            $evento->idEvento // Agrega el identificador del evento aquí
         );
         $result = $conn->query($query);        
         return $result;
     }
+    
+
     
     
 

@@ -65,7 +65,7 @@ $contenidoPrincipal ='';
 
 
        if (isset($_SESSION["login"])) {
-            if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto') {
+            if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto' && $evento->getGanador()!=NULL)  {
 
                 $direccion = resuelve("/InscribirseEventoView.php");
                 $contenidoPrincipal .= <<<EOF

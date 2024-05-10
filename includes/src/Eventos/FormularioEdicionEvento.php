@@ -55,7 +55,7 @@ class FormularioEdicionEvento extends Formulario
                 {$erroresCampos['categoria']}
             </div>
             <div>
-                <label for="fecha">Fecha del evento:</label>
+                <label for="fecha">Fecha del evento (Y-M-D):</label>
                 <input id="fecha" type="text" name="fecha" value="{$fecha->format('Y-m-d H:i:s')}" />
                 {$erroresCampos['fecha']}
             </div>
@@ -98,7 +98,7 @@ class FormularioEdicionEvento extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
-        $idEvento = $datos['id'];
+    
 
         $this->errores = [];
         $nombre = trim($datos['nombre'] ?? '');
@@ -143,23 +143,25 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['estado'] = 'El estado no puede estar vacío.';
         }
 
-        $tasa = trim($datos['tasaInscripcion'] ?? '');
-        $tasa = filter_var($tasa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $tasa || empty($tasa)) {
-            $this->errores['tasa'] = 'La tasa no puede estar vacía.';
+        $tasa = trim($datos['tasa'] ?? '');
+        $tasa = filter_var($tasa, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION); // Filtrar como número de coma flotante
+        if (!filter_var($tasa, FILTER_VALIDATE_FLOAT) || $tasa < 0) {
+            $this->errores['tasa'] = 'La tasa debe ser un número positivo.';
         }
 
         $inscritos = trim($datos['inscritos'] ?? '');
-        $inscritos = filter_var($inscritos, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $inscritos || empty($inscritos)) {
-            $this->errores['inscritos'] = 'El número de inscritos no puede estar vacío.';
+        $inscritos = filter_var($inscritos, FILTER_SANITIZE_NUMBER_INT); // Filtrar como número entero
+        if (!filter_var($inscritos, FILTER_VALIDATE_INT) || $inscritos < 0) {
+            $this->errores['inscritos'] = 'El número de inscritos debe ser un número entero positivo.';
         }
 
-        $aforo = trim($datos['numJugadores'] ?? '');
-        $aforo = filter_var($aforo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $aforo || empty($aforo)) {
-            $this->errores['numJugadores'] = 'El aforo no puede estar vacío.';
+        $aforo = trim($datos['aforo'] ?? '');
+        $aforo = filter_var($aforo, FILTER_SANITIZE_NUMBER_INT); // Filtrar como número entero
+        if (!filter_var($aforo, FILTER_VALIDATE_INT) || $aforo < 0) {
+            $this->errores['aforo'] = 'El número de inscritos debe ser un número entero positivo.';
         }
+
+        
 
         $eliminar = isset($_POST['eliminar']);
         
@@ -167,7 +169,7 @@ class FormularioEdicionEvento extends Formulario
             if ($eliminar)
             {
                 $app = BD::getInstance();
-                Evento::borraPorId($idEvento);
+                Evento::borraPorId($this->evento->getId());
                 $mensajes = ['Se ha eliminado el evento!'];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } else
