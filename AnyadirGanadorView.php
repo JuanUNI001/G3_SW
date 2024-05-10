@@ -1,20 +1,21 @@
+
 <?php
 
 require_once 'includes/config.php'; 
-use \es\ucm\fdi\aw\src\Productos\Producto;
+use \es\ucm\fdi\aw\src\Eventos\Evento;
 
 
-$id_producto = $_GET['id_producto'];
+$idEvento = $_GET['id'];
 
-$producto = Producto::buscaPorId($id_producto);
+$evento = Evento::buscaPorId($idEvento);
 
-$form = new es\ucm\fdi\aw\src\Productos\FormularioEdicionProducto($producto);
+$form = new es\ucm\fdi\aw\src\Eventos\FormularioAnyadirGanador($evento);
 
 $htmlFormLogin = $form->gestiona();
 
-$tituloPagina = 'Editor producto';
+$tituloPagina = 'Editor evento';
 $contenidoPrincipal=<<<EOF
-  	
+  	<h1>Acceso al sistema</h1>
     $htmlFormLogin
 EOF;
 

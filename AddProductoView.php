@@ -10,7 +10,7 @@ $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Creador producto';
 $contenidoPrincipal=<<<EOF
-  	<h1>Acceso al sistema</h1>
+  	
     $htmlFormLogin
 EOF;
 

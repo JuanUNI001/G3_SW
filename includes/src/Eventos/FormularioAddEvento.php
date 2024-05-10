@@ -50,7 +50,7 @@ class FormularioAddEvento extends Formulario
             <div class="error-message">{$erroresCampos['categoria']}</div>
 
             <div class="input-text">
-                <label for="fecha" class="input-label">Fecha:</label>
+                <label for="fecha" class="input-label">Fecha (Y-M-D):</label>
                 <textarea id="fecha" name="fecha">$fecha</textarea>
             </div>
             <div class="error-message">{$erroresCampos['fecha']}</div>
@@ -139,7 +139,7 @@ class FormularioAddEvento extends Formulario
 
         } else  {
             $dateTime = DateTime::createFromFormat('Y-m-d', $fecha);
-            if($dateTime === false || array_sum($dateTime->getLastErrors()) > 0){
+            if($dateTime === false ){
                 $this->errores['fecha'] = 'La fecha no es válida.';
             }
         } 

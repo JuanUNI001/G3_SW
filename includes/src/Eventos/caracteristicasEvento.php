@@ -11,7 +11,7 @@ $tituloPagina = 'Características Evento';
 
 $contenidoPrincipal ='';
 
-    $idEvento = $_GET['id'];
+    $idEvento = $_POST['id'];
 
     $evento = Evento::buscaPorId($idEvento);
 
@@ -65,7 +65,7 @@ $contenidoPrincipal ='';
 
 
        if (isset($_SESSION["login"])) {
-            if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto') {
+            if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto' && $evento->getGanador()!=NULL)  {
 
                 $direccion = resuelve("/InscribirseEventoView.php");
                 $contenidoPrincipal .= <<<EOF
@@ -80,16 +80,25 @@ $contenidoPrincipal ='';
         }
 
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
-
-            $direccionEditor = resuelve("/editorEventoView.php");
-            $imagenRuta=resuelve('/images/editar_producto.png');
-            $contenidoPrincipal .=<<<EOF
-            <div class="editar_Evento">
+            $direccionEditor = resuelve("/EditorEventoView.php");
+            $imagenEditarRuta = resuelve('/images/editor.png');
+            $imagenEliminarRuta = resuelve('/images/cubo.png'); // Ruta de la imagen para eliminar
+            $eliminarEvento = resuelve("eliminarEvento.php");
+            $establecerGanador = resuelve("/AnyadirGanadorView.php");
+            
+            $contenidoPrincipal .= <<<EOF
+            <div class="inscripcion">
+                        <a href="{$establecerGanador}?id={$evento->getId()}">
+                            <button type="submit" name="inscribir" class="sideBarDerButton">Establecer Ganador</button>
+                        </a>
+                    </div>
+            <div class="editar-evento">
                 <a href="{$direccionEditor}?id={$evento->getId()}">
-                    <img src=" $imagenRuta" alt="Editor Producto" width="50" height="50">
-                </a>   
+                    <img src="{$imagenEditarRuta}" alt="Editar Producto" width="50" height="55">
+                </a>
             </div>
-            EOF; 
+
+            EOF;
         }
 
     } else {

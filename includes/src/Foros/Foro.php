@@ -75,10 +75,10 @@ class Foro
         
         switch ($orden) {
             case '1':
-                $query .= " ORDER BY autor ASC";
+                $query .= " ORDER BY autor_id ASC";
                 break;
             case '2':
-                $query .= " ORDER BY titulo ASC";
+                $query .= " ORDER BY autor_id ASC";
                 break;
             default:
                 break;
@@ -301,9 +301,8 @@ class Foro
         $result = false;
 
         $conn = BD::getInstance()->getConexionBd();
-       // $autor_id=$foro->getAutor();
         $query = sprintf(
-            "INSERT INTO foros (id, titulo, autor_id, descripcion) VALUES ('','%s', %d, '%s')",
+            "INSERT INTO foros ( titulo, autor_id, descripcion) VALUES ('%s', '%d', '%s')",
             $conn->real_escape_string($foro->getTitulo()),
             $foro->getAutor(),
             $conn->real_escape_string($foro->getDescripcion())

@@ -1,44 +1,55 @@
 .evento_container {
-    border: 2px solid #000000; /* Green border */
+    border: 2px solid #cf1a99; /* Borde verde */
+    border-radius: 10px; /* Bordes redondeados */
     padding: 15px;
-    margin-bottom: 20px;
-    background-color: #f2f2f2; /* Light gray background */
+    margin: 10px;
+    background-image: linear-gradient(to bottom, #e4c9ec, #ffffff); /* Fondo de gradiente de gris claro a blanco */
 }
 
 .evento_info_container {
-    margin-bottom: 10px;
+    border: 2px solid #cf1a99;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px; /* Margen inferior para separar los contenedores */
+    background-image: linear-gradient(to bottom, #e4c9ec, #ffffff);
 }
 
 .evento_nombre {
     font-weight: bold;
-    color: #333; /* Dark gray text */
+    font-size: 1.2em; /* Tamaño de fuente un poco más grande */
+    background-image: linear-gradient(to right, #cf1a99, #0c0e0d); /* Gradiente de color para el texto */
+    -webkit-background-clip: text; /* Esto es necesario para que el gradiente se aplique al texto */
+    -webkit-text-fill-color: transparent; /* Hace que el texto sea transparente para que se vea el gradiente de fondo */
 }
 
 .separator_horizontal {
-    border-top: 1px solid #333; /* Dark gray separator */
+    border-top: 1px solid #333; /* Separador gris oscuro */
+
     margin: 10px 0;
 }
 
 .evento_estado,
 .evento_categoria {
     margin-bottom: 5px;
-    color: #666; /* Medium gray text */
+    color: #666; /* Texto gris medio */
 }
 
 .evento_info_container {
     margin-bottom: 10px;
-    text-align: center; /* Center align the contents */
+    text-align: center; /* Centrar el contenido */
 }
 
 .button-evento {
-    background-color: #007bff;
+    background-color: #ee06b4;
     color: #fff;
     border: none;
     padding: 10px 10px;
     cursor: pointer;
-    display: inline-block; /* Make the button behave as an inline-block element */
+    display: inline-block; /* Hacer que el botón se comporte como un elemento en línea */
+    border-radius: 5px; /* Bordes redondeados para el botón */
+    transition: background-color 0.3s; /* Animación de transición para el cambio de color de fondo */
 }
 
 .button-evento:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #000000; /* Verde más oscuro al pasar el ratón */
 }

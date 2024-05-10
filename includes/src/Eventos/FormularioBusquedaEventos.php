@@ -1,8 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\src\Eventos;
 
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/imagenes.css">';
-echo '<link rel="stylesheet" type="text/css" href="' . RUTA_CSS . '/busqueda.css">';
+
 
 use es\ucm\fdi\aw\src\Formulario;
 
@@ -97,6 +96,7 @@ class FormularioBusquedaEventos extends Formulario
                                                     Fecha:
                                                     <input type="date" id="fechaDesde" name="fechaDesde" class="form-control mt-2" value="' . $fechaDesde . '" style="border: #bababa 1px solid; color:#000000;">
                                                 </th>
+                                               
                                                
                                             </tr>                                     
                                         </thead>

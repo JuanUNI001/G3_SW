@@ -14,14 +14,14 @@ $usuario = Usuario::buscaUsuario($correo_usuario);
 
 $idAutor = $usuario->getId();
 
-$form = new es\ucm\fdi\aw\src\Foros\FormularioCrearForo(resuelve('foros.php'), $idAutor);
+$form = new es\ucm\fdi\aw\src\Foros\FormularioCrearForo(resuelve('/foros.php'), $idAutor);
 
 
 $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Creador foro';
 $contenidoPrincipal=<<<EOF
-  	<h1>Acceso al sistema</h1>
+  	
     $htmlFormLogin
 EOF;
 

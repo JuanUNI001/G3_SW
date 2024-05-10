@@ -2,6 +2,7 @@
 
 namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw\src\BD;
+use es\ucm\fdi\aw\src\Usuarios;
 use \DateTime;
 
 
@@ -35,8 +36,11 @@ class Evento
 
    private $tasaInscripcion;
 
-   const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
+   private $idGanador;
 
+   const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
+    
+   
     private function __construct($idTorneo, $inscritos, $categoria, $numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion)
     {
         $this->idEvento = intval($idTorneo);
@@ -226,6 +230,21 @@ class Evento
         return $result; 
     }
 
+    public function actualizarGanador($idEvento, $nuevoGanador)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('UPDATE eventos SET ganador = "%s" , estado = "Terminado" WHERE idEvento = %d;', $nuevoGanador, $idEvento); 
+        $rs = null;
+        try {
+            $rs = $conn->query($query);
+            return true;
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
+        }
+        return false;
+    }
 
     public static function listarEventos()
     {
@@ -438,27 +457,31 @@ class Evento
 
 
     public static function actualiza($evento)
-    {
-        $result = false;
-    
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE eventos E SET inscritos = %d, categoria = '%s', numJugadores = %d, nombre = '%s', descripcion = '%s', fecha = '%s', lugar = '%f', estado = '%s', premio = '%s', ganador = '%s', tasaInscripcion = %f WHERE E.idEvento = %d",
-            $evento->inscritos,
-            $conn->real_escape_string($evento->categoria),
-            $evento->numJugadores,
-            $conn->real_escape_string($evento->nombre),
-            $conn->real_escape_string($evento->descripcion),
-            $conn->real_escape_string($evento->fecha),
-            $conn->real_escape_string($evento->lugar),
-            $conn->real_escape_string($evento->estado),
-            $evento->premio,
-            $conn->real_escape_string($evento->ganador),
-            $evento->tasaInscripcion,
-        );
-        $result = $conn->query($query);        
-        return $result;
-    }
+{
+    $result = false;
+
+    $conn = BD::getInstance()->getConexionBd();
+    $fechaFormateada = $evento->fecha->format('Y-m-d');
+    $fechaEscapada = $conn->real_escape_string($fechaFormateada);
+    $query = sprintf(
+        "UPDATE eventos E SET inscritos = %d, categoria = '%s', numJugadores = %d, nombre = '%s', descripcion = '%s', fecha = '%s', lugar = '%s', estado = '%s', premio = '%s', ganador = '%s', tasaInscripcion = %f WHERE E.idEvento = %d",
+        $evento->inscritos,
+        $conn->real_escape_string($evento->categoria),
+        $evento->numJugadores,
+        $conn->real_escape_string($evento->nombre),
+        $conn->real_escape_string($evento->descripcion),
+        $fechaEscapada,
+        $conn->real_escape_string($evento->lugar),
+        $conn->real_escape_string($evento->estado),
+        $evento->premio,
+        $conn->real_escape_string($evento->ganador),
+        $evento->tasaInscripcion,
+        $evento->idEvento // Agrega el identificador del evento aquí
+    );
+    $result = $conn->query($query);        
+    return $result;
+}
+
     
     
 
