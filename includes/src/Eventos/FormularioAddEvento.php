@@ -139,7 +139,7 @@ class FormularioAddEvento extends Formulario
 
         } else  {
             $dateTime = DateTime::createFromFormat('Y-m-d', $fecha);
-            if($dateTime === false || array_sum($dateTime->getLastErrors()) > 0){
+            if($dateTime === false ){
                 $this->errores['fecha'] = 'La fecha no es válida.';
             }
         } 

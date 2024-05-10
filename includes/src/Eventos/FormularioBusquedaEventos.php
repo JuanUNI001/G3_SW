@@ -96,10 +96,7 @@ class FormularioBusquedaEventos extends Formulario
                                                     Fecha:
                                                     <input type="date" id="fechaDesde" name="fechaDesde" class="form-control mt-2" value="' . $fechaDesde . '" style="border: #bababa 1px solid; color:#000000;">
                                                 </th>
-                                                <th>
-                                                    Fecha:
-                                                    <input type="date" id="fechaHasta" name="fechaHasta" class="form-control mt-2" value="' . $fechaHasta . '" style="border: #bababa 1px solid; color:#000000;">
-                                                </th>
+                                               
                                                
                                             </tr>                                     
                                         </thead>

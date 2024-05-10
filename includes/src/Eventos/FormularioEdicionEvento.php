@@ -174,6 +174,7 @@ class FormularioEdicionEvento extends Formulario
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } else
             {
+              
                 $app = BD::getInstance();
                 $nuevoEvento = Evento::Nuevo($this->evento->getId(),$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,NULL,$tasa);
                 Evento::actualiza($nuevoEvento);
