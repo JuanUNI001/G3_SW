@@ -55,7 +55,7 @@
                 $botonClass = ($cantidad > 0) ? 'botonCaracteristica' : 'botonCaracteristicaDisabled';
                 $disabled = ($cantidad > 0) ? '' : 'disabled';
                 $htmlBoton = '<input type="submit" class="' . $botonClass . '" value="Agregar al carrito" ' . $disabled . '>';
-                $direccion = resuelve("includes/agregar_al_carrito.php");
+                $direccion = resuelve("/includes/agregar_al_carrito.php");
                 $contenidoPrincipal .= <<<HTML
                     <form action='$direccion' method='post'>
                     <div class="producto_detalle">
