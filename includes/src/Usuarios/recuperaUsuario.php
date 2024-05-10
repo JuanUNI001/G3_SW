@@ -2,9 +2,7 @@
 require_once __DIR__.'/../../config.php';
 
 
-use \es\ucm\fdi\aw\src\Mensajes\Mensaje;
-use \es\ucm\fdi\aw\src\Foros\Foro;
-use \es\ucm\fdi\aw\src\Profesores\Profesor;
+
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
