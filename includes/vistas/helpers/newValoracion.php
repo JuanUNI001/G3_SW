@@ -17,23 +17,7 @@ $correo_usuario = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
 
-// Verificar si se ha enviado el formulario de valoración
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener el ID del producto y la valoración del formulario
-    $id_producto = $_POST['id_producto'];
-    $valoracion = $_POST['valoracion'];
-    $comentario = $_POST['comentario'];
-    
-    $nuevaValoracion = Valoracion::crea($id_usuario, $id_producto, $valoracion, $comentario);
-    
-    if ($nuevaValoracion->guarda()) {
-        $rutaDetalleProducto = resuelve('includes/carrito_usuario.php');
-        header("Location: $rutaDetalleProducto");
-        exit();
-    } else {
-        $error = "Error al enviar la valoración. Por favor, inténtalo de nuevo.";
-    }
-}
+
 
 $id_producto = $_GET['id_producto'];
 
@@ -47,10 +31,10 @@ if (!$producto) {
 // Título de la página
 $tituloPagina = 'Valorar Producto: ' . $producto->getNombre();
 
-
+$rutaValoracion = resuelve('/includes/src/Valoraciones/nuevaValoracion.php');
 $contenidoPrincipal = <<<EOF
 <div class="formulario-container-val">
-    <form id="formulario-valoracion" action="nuevaValoracion.php" method="post">
+    <form id="formulario-valoracion" action=$rutaValoracion method="post">
         <input type="hidden" name="id_producto" value="{$producto->getIdProducto()}">
         
         <h2>Valoración:</h2> <!-- Encabezado para la valoración -->

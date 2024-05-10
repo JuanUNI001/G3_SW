@@ -75,7 +75,7 @@ if($pedido){
                                 <form id="$formActualizarId" action="$direccion_actualizar" method="post">
                                     <input type="hidden" name="idPedido" value="$idPedido">
                                     <input type="hidden" name="idProducto" value="$idProducto">
-                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
+                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" max="10" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
                                 </form>
                             </div>
                             
@@ -105,8 +105,13 @@ if($pedido){
     $rutaComprar =  resuelve('/includes/comprar.php');
     $contenidoPrincipal .= <<<EOF
     <div class="producto_carrito">
-        <button onclick="location.href='{$rutaComprar}'" type="button" class="botonCarrito">Comprar</button> Total compra: {$total} €
+        <form action="{$rutaComprar}" method="post">
+            <button type="submit" class="botonCarrito">Comprar</button>
+            <input type="hidden" name="total" value="{$total}">
+        </form>
+        Total compra: {$total} €
     </div>
+
     EOF;
 
 }
@@ -119,7 +124,7 @@ else{
     </div>
     EOF;
 }
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Carrito Usuario'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 
 

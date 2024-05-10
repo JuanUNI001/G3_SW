@@ -54,6 +54,12 @@ function  listarUsuariosBusqueda($buscar, $correo,$tipo, $orden)
     foreach ($Usuarios as $Usuario) {
         $html .= visualizaUsuario($Usuario);
     }
+    if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") {
+        $Usuarios = Usuario::listarUsuariosBusquedaArchivados($buscar, $correo,$tipo, $orden,$idUser);
+        foreach ($Usuarios as $Usuario) {
+            $html .= visualizaUsuarioArchivados($Usuario);
+        }
+    }
 
     $html .= "</div>";
     return $html;

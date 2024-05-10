@@ -61,7 +61,7 @@
                     <div class="producto_detalle">
                         <div style="display: flex; align-items: center;">
                             <span style="margin-right: 10px;">Cantidad:</span>
-                            <input type='number'  name='cantidad' value= '1' min='1' style='width: 40px; margin-right: 10px;'>
+                            <input type='number'  name='cantidad' value= '1' min='1' max="10" style='width: 40px; margin-right: 10px;'>
                         </div>                   
                         <p style="margin-top: 15px;">
                             <input type='hidden' name='id_producto' value='$id_producto'> 
@@ -75,16 +75,32 @@
             
 
             if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
-                $editarProductoRuta=resuelve('EditorProductoView.php');
-                $imagenRuta=resuelve('/images/editar_producto.png');
-
-                $contenidoPrincipal .=<<<EOF
-                <div class="editar_Producto">
-                    <a href="$editarProductoRuta?id_producto={$producto->getIdProducto()}">
-                        <img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
-                    </a>   
-                </div>
-                EOF; 
+                if($producto->getArchivado() === 0){
+                    $editarProductoRuta=resuelve('/EditorProductoView.php');
+                    $imagenRuta=resuelve('/images/editar_producto.png');
+    
+                    $contenidoPrincipal .=<<<EOF
+                    <div class="editar_Producto">
+                        <a href="$editarProductoRuta?id_producto={$producto->getIdProducto()}">
+                            <img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
+                        </a>   
+                    </div>
+                    EOF; 
+                }
+                else{
+                    $editarProductoRuta=resuelve('/EditorProductoViewArchivado.php');
+                    $imagenRuta=resuelve('/images/editar_producto.png');
+    
+                    $contenidoPrincipal .=<<<EOF
+                    <div class="editar_Producto">
+                        <a href="$editarProductoRuta?id_producto={$producto->getIdProducto()}">
+                            <img src="$imagenRuta" alt="Editor Producto" width="50" height="50">
+                        </a>   
+                    </div>
+                
+                    EOF; 
+                }
+               
             }
             $contenidoPrincipal .= "</div>";
 

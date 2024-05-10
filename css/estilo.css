@@ -533,7 +533,7 @@ nav li:last-child {
     box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
     z-index: 1;
     left: 10;
-    top: 250px;
+    top: 220px;
     padding-left: 20;
     border-radius: 8px; /* Redondea los bordes del dropdown */
 }
@@ -865,6 +865,7 @@ nav li:last-child {
 
 /* Estilos para la imagen del producto dentro del detalle del pedido */
 .deta_detalle {
+    width:95%;
     max-width: 200px; /* Ancho máximo de la imagen */
     height: auto; /* Altura automática para mantener la proporción de aspecto */
     border-radius: 5px; /* Bordes redondeados de 5px */
@@ -904,10 +905,18 @@ nav li:last-child {
     font-size: 16px; /* Tamaño de fuente de 16px */
     text-decoration: none; /* Sin subrayado */
 }
-
+.botonPedido:hover {
+    background-color: #c588ee; /* Cambiar el color de fondo al pasar el ratón por encima */
+    color: white; /* Cambiar el color del texto al pasar el ratón por encima */
+}
 .botonValorar {
     margin-left: 10px; /* Agregar margen izquierdo para separar del enlace "Ir a la página" */
+    margin-top: 10px; /* Agregar margen superior */
+    transition: background-color 0.3s ease; /* Efecto de transición al cambio de color de fondo */
 }
+
+
+
 /* Estilos para las estrellas */
 .estrella {
     font-size: 90px; /* Tamaño de fuente grande para las estrellas */
@@ -922,7 +931,7 @@ nav li:last-child {
     border: 2px solid #FF1493; /* Borde rosa de 2px */
     border-radius: 8px; /* Bordes redondeados */
     padding: 10px; /* Espaciado interno */
-    width: 100%; /* Ancho del input al 100% */
+    width: 95%; /* Ancho del input al 100% */
     background-color: #d2abeb; /* Color de fondo azul cian */
     margin-top: 10px; /* Margen superior */
     margin-bottom: 10px; /* Margen inferior */

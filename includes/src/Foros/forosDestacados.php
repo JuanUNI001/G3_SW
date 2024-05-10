@@ -27,7 +27,7 @@ function foroDestacadoVisualizado($foro, $mensaje)
     $app = BD::getInstance();
     $usuarioLogueado = $app->usuarioLogueado();    
     
-    $rutaForo = resuelve('ForoView.php?id=' . $foro->getId());
+    $rutaForo = resuelve('/ForoView.php?id=' . $foro->getId());
     $idForo = $mensaje->getIdForo();
 
     $autor = $mensaje->getIdEmisor();

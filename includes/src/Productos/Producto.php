@@ -242,7 +242,22 @@ class Producto
         } 
         return $result;
     }
+    public static function recuperarPorId($id_producto)
+    {
+        $result = false;
+        if (!$id_producto) {
+            return $result;
+        }
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE productos SET archivado = %d WHERE id = %d",
+            0, $id_producto);
 
+        $result = $conn->query($query);
+        if (!$result) {
+            error_log($conn->error);
+        } 
+        return $result;
+    }
     public static function buscaPorId($idProducto)
     {
         $result = null;
@@ -295,7 +310,7 @@ class Producto
             $conn = BD::getInstance()->getConexionBd();
 
             // Preparar la consulta SQL base
-            $query = "SELECT * FROM productos WHERE 1";
+            $query = "SELECT * FROM productos WHERE 1 AND archivado = '0'";
 
             // Agregar condiciones según los filtros proporcionados
             if ($nombre !== '') {
@@ -352,7 +367,70 @@ class Producto
             return array();
         }
     }
+    public static function buscarProductosConFiltrosArchivado($nombre, $precioDesde, $precioHasta, $orden)
+    {
+        // Verificar si al menos uno de los filtros no es null
+        if ($nombre !== null || $precioDesde !== null || $precioHasta !== null || $orden !== null) {
+            $conn = BD::getInstance()->getConexionBd();
 
+            // Preparar la consulta SQL base
+            $query = "SELECT * FROM productos WHERE 1 AND archivado = '1'";
+
+            // Agregar condiciones según los filtros proporcionados
+            if ($nombre !== '') {
+                $query .= " AND nombre LIKE '%$nombre%'";
+            }
+            if ($precioDesde !== '') {
+                $query .= " AND precio >= $precioDesde";
+            }
+            if ($precioHasta !== '') {
+                $query .= " AND precio <= $precioHasta";
+            }
+
+            // Agregar ordenamiento según el filtro proporcionado
+            if ($orden !== '') {
+                switch ($orden) {
+                    case '1':
+                        $query .= " ORDER BY nombre";
+                        break;
+                    case '2':
+                        $query .= " ORDER BY precio";
+                        break;
+                    case '3':
+                        $query .= " ORDER BY valoracion";
+                        break;
+                    default:
+                        // No se especifica ningún orden, se mantiene el orden predeterminado
+                        break;
+                }
+            }
+
+            // Ejecutar la consulta
+            $rs = $conn->query($query);
+            $productos = array(); 
+            if ($rs) {
+                while ($fila = $rs->fetch_assoc()) {
+                    $producto = new Producto(
+                        $fila['id'],
+                        $fila['nombre'],
+                        $fila['precio'],
+                        $fila['descripcion'],
+                        $fila['imagen'],
+                        $fila['valoracion'],
+                        $fila['num_valoraciones'],
+                        $fila['cantidad'],
+                        $fila['archivado']
+                    );
+                    $productos[] = $producto; 
+                }
+                $rs->free();
+            }
+            return $productos;
+        } else {
+            // Si todos los filtros son null, devolver un array vacío
+            return array();
+        }
+    }
     public static function actualizaCantidad($id_producto, $nueva_cantidad)
     {
         $result = false;

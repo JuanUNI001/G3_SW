@@ -17,40 +17,44 @@ $correo_usuario = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo_usuario);
 $id_usuario = $usuario->getId();
 
-$pedido = Pedido::obtenerPedidosEnCarrito($id_usuario);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-if ($pedido) {
-    $idPedido =  $pedido->getIdPedido();
-    
-    $productosPorPedido = Pedidos_producto::buscaPorIdPedido_Producto($idPedido);
-    
-    foreach ($productosPorPedido as $productoPorPedido) {
-        $idProductoPedido = $productoPorPedido->getId_producto_pedido();
-        $producto = Producto::buscaPorId($idProductoPedido);
+
+    $pedido = Pedido::obtenerPedidosEnCarrito($id_usuario);
+
+    if ($pedido) {
+        $idPedido =  $pedido->getIdPedido();
         
-        if ($producto) {
-            if(!$productoPorPedido->getCantidad() <= $producto->getCantidad()){
-               // $idProductoPedido-> buscaPorIdPedido_Producto( $idPedido , $idProductoPedido);
-                $producto->setCantidad($producto->getCantidad()-$productoPorPedido->getCantidad());
-                $producto->guarda();
-                
+        $productosPorPedido = Pedidos_producto::buscaPorIdPedido_Producto($idPedido);
+        
+        foreach ($productosPorPedido as $productoPorPedido) {
+            $idProductoPedido = $productoPorPedido->getId_producto_pedido();
+            $producto = Producto::buscaPorId($idProductoPedido);
+            
+            if ($producto && $producto->getArchivado() === 0) {
+                if(!$productoPorPedido->getCantidad() <= $producto->getCantidad()){
+                // $idProductoPedido-> buscaPorIdPedido_Producto( $idPedido , $idProductoPedido);
+                    $producto->setCantidad($producto->getCantidad()-$productoPorPedido->getCantidad());
+                    $producto->guarda();
+                    
+                }
+                else{
+                    $productoPorPedido->borrarProducto($idProductoPedido);
+                    $precioARestar = $productoPorPedido->getCantidad() * $producto->getPrecio();
+                    Pedido::actualizarPrecioTotalPedido($idPedido, -$precioARestar);
+                    $mensajes = ['Ha habido modificaciones en los productos por falta de stock :('];
+                }
+            
+            } else {
+                $mensajes =['Vaya parece que ha ocurrido un error'];
             }
-            else{
-                $productoPorPedido->borrarProducto($idProductoPedido);
-                $precioARestar = $productoPorPedido->getCantidad() * $producto->getPrecio();
-                Pedido::actualizarPrecioTotalPedido($idPedido, -$precioARestar);
-                $mensajes = ['Ha habido modificaciones en los productos por falta de stock :('];
-            }
-          
-        } else {
-            $mensajes =['Vaya parece que ha ocurrido un error'];
         }
+        
+        $pedido->setEstado("comprado");
+        $pedido->guarda();
+        
+    
     }
-    
-    $pedido->setEstado("comprado");
-    $pedido->guarda();
-    
-   
 }
 $dir = resuelve('/includes/vistas/helpers/confirmacionCompra.php');
                 header("Location: $dir");

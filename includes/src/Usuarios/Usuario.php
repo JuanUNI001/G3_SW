@@ -119,7 +119,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['archivado'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -136,7 +136,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['id'],$fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'], $fila['password'],$fila['correo'], $fila['avatar'],$fila['archivado'],$fila['id']);
             }
             $rs->free();
         } else {
@@ -154,7 +154,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['id'],  $fila['archivado']);
+                $result = new Usuario($fila['rolUser'], $fila['nombre'],$fila['password'],$fila['correo'], $fila['avatar'],  $fila['archivado'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -300,6 +300,20 @@ class Usuario
         }
         return true;
     }
+    public static function recuperaUsuario($idUsuario)
+    {
+        if (!$idUsuario) {
+            return false;
+        } 
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE usuarios SET archivado = 0 WHERE id = %d", $idUsuario);
+
+        if ( ! $conn->query($query) ) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return true;
+    }
     public function cambiaAvatar($nuevoAvatar)
     {
         $conn = BD::getInstance()->getConexionBd();
@@ -330,7 +344,7 @@ class Usuario
 
     protected $archivado;
 
-    protected  function __construct($rol,$nombre, $password, $correo, $avatar, $id, $archivado)
+    protected  function __construct($rol,$nombre, $password, $correo, $avatar,  $archivado,$id)
     {
         $this->id = intval($id);
         $this->rolUser = $rol;
@@ -341,7 +355,12 @@ class Usuario
         $this->archivado = intval($archivado);
     }
     
-
+    public function esArchivado(){
+        if($this->archivado === 0){
+            return false;
+        }
+        return true;
+    }
     public function getId()
     {
         return $this->id;
@@ -461,8 +480,8 @@ class Usuario
                     '',
                     $fila['correo'],
                     $fila['avatar'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $usuariosSeguidos[] = $usuario;
             }
@@ -491,9 +510,10 @@ class Usuario
         $fila['nombre'],   
         '',
         $fila['correo'],  
-        $fila['avatar'],   
-        $fila['id'],
-        $fila['archivado']
+        $fila['avatar'],  
+        $fila['archivado'], 
+        $fila['id']
+        
         );
         $usuarios[] = $usuario; 
         }
@@ -548,9 +568,68 @@ class Usuario
                     $fila['nombre'],   
                     '',
                     $fila['correo'],
-                    $fila['avatar'],   
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['avatar'], 
+                    $fila['archivado'],  
+                    $fila['id']
+                   
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
+        }
+        return $profesores;
+    }
+    public static function listarUsuariosBusquedaArchivados($buscar, $correo, $tipo, $orden, $idUser)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        
+        $query = "SELECT * FROM usuarios WHERE rolUser != '1' AND id != $idUser AND archivado = '1'";
+
+
+        if (!empty($buscar)) {
+            $query .= " AND (nombre LIKE '%$buscar%' )";
+        }
+        if (!empty($correo)) {
+            $query .= " AND (correo LIKE '%$correo%')";
+        }
+        
+        if (!empty($tipo)) {
+            switch ($tipo) {
+                case 'Usuario':
+                    $query .= " AND rolUser = '2'";
+                    break;
+                case 'Profesor':
+                    $query .= " AND rolUser = '3'";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        switch ($orden) {
+            case '1':
+                $query .= " ORDER BY nombre ASC";
+                break;
+            case '2':
+                $query .= " ORDER BY correo ASC";
+                break;
+            default:
+                break;
+        }
+
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Usuario(
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['avatar'], 
+                    $fila['archivado'],  
+                    $fila['id']
+                   
                 );
                 $profesores[] = $profesor; 
             }
@@ -559,60 +638,61 @@ class Usuario
         return $profesores;
     }
     public static function listarUsuariosBusquedaForo($buscar, $correo, $tipo, $orden)
-{
-    $conn = BD::getInstance()->getConexionBd();
+    {
+        $conn = BD::getInstance()->getConexionBd();
 
-    $query = "SELECT * FROM usuarios WHERE 1 = 1 AND archivado = '0'";
+        $query = "SELECT * FROM usuarios WHERE 1 = 1 AND archivado = '0'";
 
-    if (!empty($buscar)) {
-        $query .= " AND (nombre LIKE '%$buscar%' )";
-    }
-    if (!empty($correo)) {
-        $query .= " AND (correo LIKE '%$correo%')";
-    }
-    
-    if (!empty($tipo)) {
-        switch ($tipo) {
-            case 'Usuario':
-                $query .= " AND rolUser = '2'";
+        if (!empty($buscar)) {
+            $query .= " AND (nombre LIKE '%$buscar%' )";
+        }
+        if (!empty($correo)) {
+            $query .= " AND (correo LIKE '%$correo%')";
+        }
+        
+        if (!empty($tipo)) {
+            switch ($tipo) {
+                case 'Usuario':
+                    $query .= " AND rolUser = '2'";
+                    break;
+                case 'Profesor':
+                    $query .= " AND rolUser = '3'";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        switch ($orden) {
+            case '1':
+                $query .= " ORDER BY nombre ASC";
                 break;
-            case 'Profesor':
-                $query .= " AND rolUser = '3'";
+            case '2':
+                $query .= " ORDER BY correo ASC";
                 break;
             default:
                 break;
         }
-    }
-    
-    switch ($orden) {
-        case '1':
-            $query .= " ORDER BY nombre ASC";
-            break;
-        case '2':
-            $query .= " ORDER BY correo ASC";
-            break;
-        default:
-            break;
-    }
-    $rs = $conn->query($query);
-    $profesores = array(); 
-    if ($rs) {
-        while ($fila = $rs->fetch_assoc()) {
-            $profesor = new Usuario(
-                $fila['rolUser'],         
-                $fila['nombre'],   
-                '',
-                $fila['correo'],
-                $fila['avatar'],   
-                $fila['id'],
-                $fila['archivado']
-            );
-            $profesores[] = $profesor; 
+        $rs = $conn->query($query);
+        $profesores = array(); 
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Usuario(
+                    $fila['rolUser'],         
+                    $fila['nombre'],   
+                    '',
+                    $fila['correo'],
+                    $fila['avatar'],   
+                    $fila['archivado'],
+                    $fila['id']
+                
+                );
+                $profesores[] = $profesor; 
+            }
+            $rs->free();
         }
-        $rs->free();
+        return $profesores;
     }
-    return $profesores;
-}
 
     public static function listarUsuariosEnConversacion($idUsuario)
     {
@@ -633,8 +713,8 @@ class Usuario
          '',
          $fila['correo'],  
          $fila['avatar'],   
-         $fila['id'],
-         $fila['archivado']
+         $fila['archivado'],
+         $fila['id']
          );
          $usuarios[] = $usuario; 
          }
@@ -661,8 +741,8 @@ class Usuario
                     '',
                     $fila['correo'],  
                     $fila['avatar'],   
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $alumnos[] = $alumno; 
             }

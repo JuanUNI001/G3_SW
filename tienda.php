@@ -26,6 +26,6 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 // Parámetros para generar la vista
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Tienda'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

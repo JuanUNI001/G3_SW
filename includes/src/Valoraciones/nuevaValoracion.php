@@ -23,21 +23,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_producto = $_POST['id_producto'];
     $valoracion = $_POST['valoracion'];
     $comentario = $_POST['comentario'];
-    
-    $nuevaValoracion = Valoracion::crea($id_usuario, $id_producto, $valoracion, $comentario);
-    
-    if ($nuevaValoracion->guarda()) {
-        $producto = Producto::buscaPorId($id_producto);
-        if ($producto) {
-            $producto->actualizarValoracion($valoracion);
+    if ($valoracion != 0) {
+        $nuevaValoracion = Valoracion::crea($id_usuario, $id_producto, $valoracion, $comentario);
+        
+        if ($nuevaValoracion->guarda()) {
+            $producto = Producto::buscaPorId($id_producto);
+            if ($producto) {
+                $producto->actualizarValoracion($valoracion);
+            }
+            $rutaDetalleProducto = resuelve('/verPedidosAnteriores.php');
+            header("Location: $rutaDetalleProducto");
+            $mensajes = ['Producto valorado correctamente'];
+           
+        } else {
+            $mensajes = ['Parece que algo ha salido mal :('];
+            $rutaDetalleProducto = resuelve('/verPedidosAnteriores.php');
+            header("Location: $rutaDetalleProducto");
+            $mensajes = ['Producto valorado correctamente'];
+            
         }
-        $rutaDetalleProducto = resuelve('verPedidosAnteriores.php');
-        header("Location: $rutaDetalleProducto");
-        $mensajes = ['Producto valorado correctamente'];
-        exit();
-    } else {
-        $mensajes = ['Parece que algo ha salido mal :('];
+    }
+    else {
+        $mensajes = ['La valoración no puede ser 0'];
+        $rutaValoracion = resuelve('/includes/vistas/helpers/newValoracion.php?id_producto=' . $id_producto);
+        header("Location: $rutaValoracion");
+        $mensajes = ['La valoracion no puede ser 0'];
+       
     }
 }
 $app->putAtributoPeticion('mensajes', $mensajes);
+exit();
 ?>
