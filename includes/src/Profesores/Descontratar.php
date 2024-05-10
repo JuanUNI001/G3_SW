@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     EOF;
 }
-$contenidoPrincipal = 'Algo ha ido mal';
+else{
+    $contenidoPrincipal = 'Algo ha ido mal';
+}
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantilla.php', $params);
