@@ -2,7 +2,7 @@
 
     use es\ucm\fdi\aw\src\Eventos\Evento;
     require_once __DIR__.'/../../config.php';
-
+    require_once __DIR__.'/visualizaEvento.php';
 
     $tituloPagina = 'Eventos';
     $contenidoPrincipal = listaEventos();
@@ -37,29 +37,6 @@ function listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fe
     }
 
     $html .= "</div>";
-    return $html;
-}
-function visualizaEvento($evento)
-{
-    $html = '<div class="Evento">'; // Se cambió la clase "evento" por "Evento" para que coincida con el CSS
-
-    $estado = $evento->getEstado();
-    $rutaCaract = resuelve('/includes/src/Eventos/caracteristicasEvento.php'); 
-    $html .= '<a href="'.$rutaCaract.'?id=' . $evento->getId() . '">';
-
-    $html .= '<legend>' . $evento->getEvento() . '</legend>';
-    $html .= '<p>' . $evento->getEstado() . '</p>';
-    $html .= '<ul>';
-    $html .= '<li>' . $evento->getCategoria() . '</li>';
-    // Puedes agregar más características aquí
-
-    $html .= '</ul>';
-
-
-    $html .= '</a>'; // Cierre del enlace
-
-    $html .= '</div>';
-
     return $html;
 }
 

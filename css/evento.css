@@ -1,0 +1,44 @@
+.evento_container {
+    border: 2px solid #000000; /* Green border */
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f2f2f2; /* Light gray background */
+}
+
+.evento_info_container {
+    margin-bottom: 10px;
+}
+
+.evento_nombre {
+    font-weight: bold;
+    color: #333; /* Dark gray text */
+}
+
+.separator_horizontal {
+    border-top: 1px solid #333; /* Dark gray separator */
+    margin: 10px 0;
+}
+
+.evento_estado,
+.evento_categoria {
+    margin-bottom: 5px;
+    color: #666; /* Medium gray text */
+}
+
+.evento_info_container {
+    margin-bottom: 10px;
+    text-align: center; /* Center align the contents */
+}
+
+.button-evento {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    display: inline-block; /* Make the button behave as an inline-block element */
+}
+
+.button-evento:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
