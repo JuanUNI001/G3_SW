@@ -8,21 +8,30 @@ class FormularioEdicionProducto extends Formulario
     const EXTENSIONES_PERMITIDAS = array('jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
     private $producto;
+    private $precio;
+    private $nombreProducto;
+    private $descripcion;
+    private $eliminar;
+    private $cantidad;
+    private $imagen;
+    private $id;
 
     public function __construct($producto) {
         parent::__construct('formEdicionProducto', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
         $this->producto = $producto;
+        $this->id =  $producto->getIdProducto();
+        $this->nombreProducto = $producto->getNombre();
+        $this->precio = $producto->getPrecio();
+        $this->descripcion = $producto->getDescripcion();
+        $this->imagen = $producto->getImagen();
+        $this->eliminar = 0;
+        $this->cantidad = $producto->getCantidad();
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-        $datos['id'] =  $this->$producto->getIdProducto();
-        $nombreProducto = $this->$producto->getIdNombre();
-        $precio = $this->$producto->getPrecio();
-        $descripcion = $this->$producto->getDescripcion();
-        $imagen = $this->$producto->getImagen();
-        $eliminar = 0;
-        $cantidad = $this->$producto->getCantidad();
+        $datos['id'] =  $this->producto->getIdProducto();
+        
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -35,16 +44,16 @@ class FormularioEdicionProducto extends Formulario
         <fieldset class="fieldset-form">
             <legend class="legend-form">Datos producto</legend>
 
-            <img id="imagen_producto" src="{$imagen}" alt="Imagen Producto" style="width: 30%;">
+            <img id="imagen_producto" src="{$this->imagen}" alt="Imagen Producto" style="width: 30%;">
 
             <div class="input-text">
                 <label for="nombreProducto" class="input-label">Nombre:</label>
-                <input id="nombreProducto" type="text" name="nombreProducto" value="$nombreProducto" />
+                <input id="nombreProducto" type="text" name="nombreProducto" value="$this->nombreProducto" />
             </div>
             <div class="error-message">{$erroresCampos['nombreProducto']}</div>
             <div class="input-text">
                 <label for="precio" class="input-label">Precio:</label>
-                <input id="precio" type="text" name="precio" value="$precio"/>
+                <input id="precio" type="text" name="precio" value="$this->precio"/>
             </div>
             <div class="error-message">{$erroresCampos['precio']}</div>
 
@@ -56,20 +65,20 @@ class FormularioEdicionProducto extends Formulario
 
             <div class="input-textarea">
                 <label for="descripcion" class="input-label">Descripcion:</label>
-                <textarea id="descripcion" name="descripcion">$descripcion</textarea>
+                <textarea id="descripcion" name="descripcion">$this->descripcion</textarea>
             </div>
             <div class="error-message">{$erroresCampos['descripcion']}</div>
 
             <div>
             <label for="cantidad" class="input-label">Cantidad:</label>
-            <input id="cantidad" type="number"  name="cantidad" class="input-label" value="$cantidad"
+            <input id="cantidad" type="number"  name="cantidad" class="input-label" value="$this->cantidad"
              style="border: #bababa 1px solid; color:#000000;" step="1" min="0">
 
             </div>
             <div class="error-message">{$erroresCampos['cantidad']}</div>
 
             <div>
-                <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
+                <input type="checkbox" id="eliminar" name="eliminar" value="$this->eliminar">
                 <label for="eliminar" class="input-label">Eliminar</label>
             </div>
             <div class="enviar-button">
