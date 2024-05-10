@@ -2,6 +2,7 @@
 
 namespace es\ucm\fdi\aw\src\Eventos;
 use es\ucm\fdi\aw\src\BD;
+use es\ucm\fdi\aw\src\Usuarios;
 use \DateTime;
 
 
@@ -35,8 +36,11 @@ class Evento
 
    private $tasaInscripcion;
 
-   const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
+   private $idGanador;
 
+   const MYSQL_DATE_TIME_FORMAT= 'Y-m-d H:i:s';
+    
+   
     private function __construct($idTorneo, $inscritos, $categoria, $numJugadores, $nombreTorneo,$descripcionEvento,$fecha,$lugar,$estado,$premio,$ganador,$inscripcion)
     {
         $this->idEvento = intval($idTorneo);
@@ -226,6 +230,21 @@ class Evento
         return $result; 
     }
 
+    public function actualizarGanador($idEvento, $nuevoGanador)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf('UPDATE eventos SET ganador = "%s" , estado = "Terminado" WHERE idEvento = %d;', $nuevoGanador, $idEvento); 
+        $rs = null;
+        try {
+            $rs = $conn->query($query);
+            return true;
+        } finally {
+            if ($rs != null) {
+                $rs->free();
+            }
+        }
+        return false;
+    }
 
     public static function listarEventos()
     {
