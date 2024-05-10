@@ -23,6 +23,7 @@ $pedidosAnteriores = Pedido::buscarPedidosAnteriores($id_usuario);
 // Verificar si se encontraron pedidos
 if ($pedidosAnteriores) {
     $contenidoPrincipal = '<div class="pedidos-container">';
+    $contenidoPrincipal .= '<div class="pedidos">';
     $contenidoPrincipal .= <<<EOF
     <ul id="listaPedidos">
     EOF;
@@ -56,6 +57,9 @@ if ($pedidosAnteriores) {
     
     $contenidoPrincipal .= <<<EOF
     </ul>
+    </div>
+
+    
     EOF;
 } else {
     $contenidoPrincipal = "No tienes pedidos anteriores :(";

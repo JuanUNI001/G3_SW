@@ -812,59 +812,84 @@ nav li:last-child {
     padding: 0;
     margin: 0;
 }
+/* Estilos para el contenedor de pedidos */
+.pedidos-container {
+    width: 130%;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+    background-color: rgba(255, 255, 255, 0.8); /* Color de fondo con transparencia */
+}
 
+/* Estilos para cada pedido */
 .pedido {
     border: 1px solid #ccc;
-    margin-bottom: 20px;
-    margin-top: 20px; /* Margen superior */
+    margin: 20px auto;
     padding: 20px;
-    width: 95%; /* Establecer el ancho al 95% */
-    margin-left: auto; /* Centrar horizontalmente */
-    margin-right: auto; /* Centrar horizontalmente */
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Dirección de flexbox: columna */
-    position: relative; /* Establecer la posición relativa */
-    background-color: rgb(206, 145, 174);
+    width: 95%;
+    max-width: 500px; /* Limitar el ancho máximo */
+    background-color: rgba(160, 125, 221, 0.763);
     color: white;
-    text-decoration: none;
-    padding: 10px 20px;
     border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
-
-/* Estilos para el precio */
-.precio {
-    position: absolute; /* Establecer la posición absoluta */
-    top: 10px; /* Espacio desde arriba */
-    right: 10px; /* Espacio desde la derecha */
-    margin-left: 60px;
+/* Estilos para el encabezado de cada pedido */
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
+
+/* Estilos para la fecha */
 .fecha {
-    margin-right: 80px; /* Margen derecho */
-    color: black;
-    font-size: 18px; /* Tamaño de fuente más grande */
+    font-size: 16px;
 }
+
+/* Estilos para el precio total */
+.total {
+    font-size: 18px;
+}
+
+/* Estilos para el enlace de total productos */
 .total-productos {
-    background-color: rgb(133, 66, 227);
+    background-color: rgb(115, 75, 226);
     color: white;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
 }
-/* Estilos para la tabla de detalles del pedido */
+
+.total-productos:hover {
+    background-color: #c476e3;
+}
+
+/* Estilos para la tabla de productos */
 .pedido table {
     width: 100%;
+    border-collapse: collapse; /* Colapsar bordes de la tabla */
+    margin-top: 10px;
 }
 
 /* Estilos para las celdas de la tabla */
 .pedido th, .pedido td {
     padding: 10px;
     text-align: center;
+    border-bottom: 1px solid #ddd; /* Borde inferior */
 }
 
 /* Estilos para el encabezado de la tabla */
 .pedido th {
     background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Estilos para el contenido de la tabla */
+.pedido-content {
+    margin-top: 10px;
 }
 
 /* Estilos para el contenedor principal del detalle del pedido */
@@ -1157,16 +1182,7 @@ nav li:last-child {
 }
 
 
-.pedidos-container {
-    height: 100vh;
-    width: 180%;
-    display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
-    background-color: #f0f0f0; /* Color de fondo opcional */
-    overflow: auto; /* Agrega barras de desplazamiento cuando sea necesario */
-    padding-top: 20px; /* Agrega un espacio superior de 20px */
-}
+
 
 /* Estilos para el contenedor de eventos destacados */
 .eventos-destacados {
