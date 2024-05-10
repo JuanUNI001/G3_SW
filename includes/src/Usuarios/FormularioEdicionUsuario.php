@@ -5,33 +5,25 @@ use es\ucm\fdi\aw\src\Formulario;
 use es\ucm\fdi\aw\src\BD;
 class FormularioEdicionUsuario extends Formulario
 {
-    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+    const EXTENSIONES_PERMITIDAS = array('jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
     const MAX_FILENAME = 250;
 
-    public $id;
-    public $nombre;
-    public $rol;
-    public $correo;
-    public $avatar;
-    //public $imagen;
+   private $usuario;
 
-
-    public function __construct() {
+    public function __construct($usuario) {
         parent::__construct('formEdicionUsuario', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'verPerfil.php']);
+        $this->usuario = $usuario;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
 
-        $datos['id'] =  $this->id;
-        $nombre = $this->nombre;
-        $rol = $this->rol;
-        $correo = $this->correo;
-        $avatar = $this->avatar;
-        $rutaAvatar = $avatar;//la ruta del usuario  avatar
-        $avatarActual = intval(preg_replace('/[^0-9]+/', '', $this->avatar)); //coge el numero del avatar que tiene el usuario
-        //$imagen = $this->imagen;
-        $imagen = "";
+        $datos['id'] = $this->usuario->getId();
+        $nombre = $this->usuario->getNombre();
+        $rol = $this->usuario->getrolUser();
+        $correo = $this->usuario->getCorreo();
+        $rutaAvatar = $this->usuario->getAvatar();//la ruta del usuario  avatar
+        $avatarActual = intval(preg_replace('/[^0-9]+/', '', $rutaAvatar)); //coge el numero del avatar que tiene el usuario
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -68,7 +60,7 @@ class FormularioEdicionUsuario extends Formulario
 
             <div class="input-file">
             <label for="imagen" class="input-label">Subir Avatar:</label>
-            <input id="imagen" type="file" name="imagen" value="$imagen"/>
+            <input id="imagen" type="file" name="imagen"/>
             </div>
             <div class="error-message">{$erroresCampos['imagen']}</div>
 
@@ -147,13 +139,13 @@ class FormularioEdicionUsuario extends Formulario
         }
 
         if (count($this->errores) === 0) {
-
-            $nuevoUsuario = Usuario::buscaPorId($this->id);
+            $userId = $this->usuario->getId();
+            $nuevoUsuario = Usuario::buscaPorId($userId);
             $nuevoUsuario->setNombre($nombre);    
             $nuevoUsuario->setCorreo($correo);       
             $nuevoUsuario->setRol($rol);
             $nuevoUsuario->setAvatar($rutaAvatar);
-            Usuario::actualizaDatosFormulario($this->id,$nuevoUsuario);
+            Usuario::actualizaDatosFormulario($userId, $nuevoUsuario);
             $_SESSION['nombre'] = $nombre;
             $_SESSION['correo'] = $correo;
             $_SESSION['rolUser'] = $rol;            

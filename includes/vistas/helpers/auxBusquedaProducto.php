@@ -5,8 +5,8 @@ use \es\ucm\fdi\aw\src\Productos\Producto;
 
 function generarHTML() {
     
-    $form = new es\ucm\fdi\aw\src\Productos\FormularioBusquedaProducto();
-    $form->productos = listaproductos();
+    $productos = listaproductos();
+    $form = new es\ucm\fdi\aw\src\Productos\FormularioBusquedaProducto($productos);
     
     $htmlFormLogin = $form->gestiona();
 

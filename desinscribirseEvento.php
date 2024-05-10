@@ -7,15 +7,10 @@ use \es\ucm\fdi\aw\src\Eventos\FormularioDesinscripcionEvento;
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
 $idEvento = intval($_GET['id']);
-
-//$evento = Evento::buscaPorId($idEvento);
-
 $correo = $_SESSION['correo'];
+
 $usuario = Usuario::buscaUsuario($correo);
 $idUsuario = $usuario->getId();
-
-//$form->idEvento = $idEvento;
-//$form->idUsuario = $idUsuario;
 
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioDesinscripcionEvento($idEvento, $idUsuario);
 $tituloPagina = 'Desinscripcion Evento';

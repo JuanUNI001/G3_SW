@@ -5,30 +5,24 @@ use es\ucm\fdi\aw\src\Formulario;
 
 class FormularioEdicionProducto extends Formulario
 {
-    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+    const EXTENSIONES_PERMITIDAS = array('jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
-    public $id;
-    public $nombre;
-    public $precio;
-    public $descripcion;
-    public $imagen;
-    public $cantidad = null;
-    public $nueva_imagen;
+    private $producto;
 
-    public function __construct() {
+    public function __construct($producto) {
         parent::__construct('formEdicionProducto', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
+        $this->producto = $producto;
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-        $datos['id'] =  $this->id;
-        $nombreProducto = $this->nombre;
-        $precio = $this->precio;
-        $descripcion = $this->descripcion;
-        $imagen = $this->imagen;
+        $datos['id'] =  $this->$producto->getIdProducto();
+        $nombreProducto = $this->$producto->getIdNombre();
+        $precio = $this->$producto->getPrecio();
+        $descripcion = $this->$producto->getDescripcion();
+        $imagen = $this->$producto->getImagen();
         $eliminar = 0;
-        $cantidad = $this->cantidad;
-        $nueva_imagen = $this->nueva_imagen;
+        $cantidad = $this->$producto->getCantidad();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -56,7 +50,7 @@ class FormularioEdicionProducto extends Formulario
 
             <div class="input-file">
             <label for="nueva_imagen" class="input-label">Nueva Imagen:</label>
-            <input id="nueva_imagen" type="file" name="nueva_imagen" value="$nueva_imagen"/>
+            <input id="nueva_imagen" type="file" name="nueva_imagen"/>
             </div>
             <div class="error-message">{$erroresCampos['nueva_imagen']}</div>
 

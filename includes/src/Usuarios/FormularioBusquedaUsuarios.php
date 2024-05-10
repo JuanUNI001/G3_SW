@@ -7,7 +7,7 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioBusquedaUsuarios extends Formulario
 {
     
-    public $usuarios;
+    private $usuarios;
 
     public function __construct() {
         parent::__construct('FormularioBusquedaUsuarios', ['urlRedireccion' => 'usuariosView.php']);
@@ -34,7 +34,7 @@ class FormularioBusquedaUsuarios extends Formulario
         $correo = $_SESSION['filtro_buscar_correo_usr'] ?? '';
         $tipo = $_SESSION['filtro_tipo_usr'] ?? '';
         $orden = $_SESSION['filtro_orden_usr'] ?? '';
-        $usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
+        $this->usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
        
     
     
@@ -91,7 +91,7 @@ class FormularioBusquedaUsuarios extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $usuarios . '
+                                ' . $this->usuarios . '
                             </div>
                         </div>	
                     </div>
@@ -143,7 +143,7 @@ class FormularioBusquedaUsuarios extends Formulario
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
+            $this->usuarios = listarUsuariosBusqueda($buscar, $correo,$tipo, $orden);
         }
     }
     
