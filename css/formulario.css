@@ -184,7 +184,7 @@
     padding: 30px; /* Espaciado interior */
     width: 400px;
     font-family: 'Arial', sans-serif;
-    background-color: #7aacde; /* Fondo amarillo */
+    background-color: #a494eb; /* Fondo amarillo */
 }
 
 .formulario-llamativo legend {
@@ -192,7 +192,7 @@
     font-size: 24px; /* Tamaño de fuente grande */
     font-weight: bold; /* Texto en negrita */
     margin-bottom: 20px; /* Espaciado inferior */
-    background-color: #71bccb; /* Fondo rosa claro */
+    background-color: #f09ffa; /* Fondo rosa claro */
     padding: 5px 10px; /* Espaciado interior */
     border-radius: 10px; /* Bordes redondeados */
 }
@@ -204,7 +204,7 @@
 
 .formulario-llamativo input[type="text"] {
     padding: 10px; /* Espaciado interior */
-    border: 2px solid #ff7f00; /* Borde naranja */
+    border: 2px solid #4a0feb; /* Borde naranja */
     border-radius: 10px; /* Bordes redondeados */
     font-size: 16px; /* Tamaño de fuente */
 }
@@ -215,7 +215,7 @@
 }
 
 .formulario-llamativo button[type="submit"] {
-    background-color: #ff7f00; /* Botón naranja */
+    background-color: #a985f5; /* Botón naranja */
     color: white; /* Texto blanco */
     padding: 12px 20px; /* Espaciado interior */
     border: none; /* Sin borde */
@@ -230,7 +230,7 @@
     height: 100px; /* Altura inicial */
     resize: vertical; /* Permitir redimensionar verticalmente */
     padding: 10px; /* Espaciado interior */
-    border: 2px solid #ff7f00; /* Borde naranja */
+    border: 2px solid #6e04f8; /* Borde naranja */
     border-radius: 10px; /* Bordes redondeados */
     font-size: 16px; /* Tamaño de fuente */
 }

@@ -8,7 +8,7 @@ require_once __DIR__.'/includes/config.php';
 
   $tituloPagina = 'Editor producto';
   $contenidoPrincipal=<<<EOF
-      <h1>Acceso al sistema</h1>
+      
       $htmlFormLogin
   EOF;
 

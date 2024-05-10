@@ -21,7 +21,7 @@ $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Creador foro';
 $contenidoPrincipal=<<<EOF
-  	<h1>Acceso al sistema</h1>
+  	
     $htmlFormLogin
 EOF;
 
