@@ -14,7 +14,7 @@ class Profesor extends Usuario
    
     public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,  $archivado,$id = null)
     {
-        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id,$archivado);
+        parent::__construct($rol, $nombre, $password, $correo, $avatar, $archivado, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;

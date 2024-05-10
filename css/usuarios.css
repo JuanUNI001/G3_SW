@@ -14,6 +14,33 @@
 .tarjeta_usuario {
     position: relative;
 }
+.tarjeta_usuario_oculto {
+    display: flex;
+    align-items: center;
+    width: 90%; /* Utiliza el ancho completo disponible */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #c13c3cd2; /* Fondo gris claro */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-height: 400px; /* Altura máxima de la tarjeta */
+    overflow: auto; /* Agrega una barra de desplazamiento si el contenido excede la altura máxima */
+}
+.tarjeta_usuario_oculto {
+    position: relative;
+}
+.tarjeta_usuario_oculto .info_usuario {
+    flex-grow: 1;
+}
+
+.tarjeta_usuario_oculto .texto {
+    margin-bottom: 8px;
+    color: #333; /* Color del texto más oscuro */
+}
+
+.tarjeta_usuario_oculto .button-user:hover {
+    background-color: #d85894;
+}
 .Usuarios{
    
     width: 100%; /* Utiliza el ancho completo disponible */  
