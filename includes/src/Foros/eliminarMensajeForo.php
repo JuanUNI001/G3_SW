@@ -20,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $mensajes = ['El mensaje del foro no se encontró.'];
         }
-        $url = resuelve('foros.php');
+        $url = resuelve('/foros.php');
         
     }
 }  
 else {
     $mensajes = ['Acceso no autorizado.'];
-    $url = resuelve('foros.php');
+    $url = resuelve('/foros.php');
 }
 
 
