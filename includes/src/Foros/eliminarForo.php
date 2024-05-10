@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
     }
 }
-$url .= resuelve('foros.php');
+$url = resuelve('/foros.php');
 
 header("Location: $url");
 $app->putAtributoPeticion('mensajes', $mensajes);
