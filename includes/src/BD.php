@@ -250,7 +250,7 @@ class BD
         $this->compruebaInstanciaInicializada();
         $_SESSION['login'] = true;
         $_SESSION['nombre'] = $user->getNombre();
-        $_SESSION['idUsuario'] = $user->getId();
+        $_SESSION['correo'] = $user->getCorreo();
         $_SESSION['roles'] = $user->getRoles();
     }
 
@@ -260,7 +260,7 @@ class BD
         //Doble seguridad: unset + destroy
         unset($_SESSION['login']);
         unset($_SESSION['nombre']);
-        unset($_SESSION['idUsuario']);
+        unset($_SESSION['correo']);
         unset($_SESSION['roles']);
 
 

@@ -22,7 +22,7 @@ class Usuario
     
     public static function crea($rolUser,$nombre, $password, $correo, $avatar )
     {
-        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null, 0);
+        $user = new Usuario($rolUser,$nombre, self::hashPassword($password), $correo, $avatar, null, '0');
         $user->id = null;
         return  $user;
     }

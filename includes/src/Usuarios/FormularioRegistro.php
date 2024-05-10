@@ -195,9 +195,9 @@ class FormularioRegistro extends Formulario
         // Si no hay errores después de intentar crear el usuario o profesor, inicia sesión y redirige
         if (empty($this->errores)) {
             $_SESSION['login'] = true;
-            $_SESSION['nombre_busca'] = $nombre_busca;
-            $_SESSION['correo_busca'] = $correo_busca;
+            $_SESSION['correo'] = $correo_busca;
             $_SESSION['rolUser'] = $rolSeleccionado;
+            $_SESSION['nombre'] = $nombre_busca;
             header('Location: ' . $this->urlRedireccion);
             exit;
         }
