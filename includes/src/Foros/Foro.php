@@ -58,7 +58,7 @@ class Foro
     {
         $conn = BD::getInstance()->getConexionBd();
         
-        $query = "SELECT * FROM foros WHERE 1";
+        $query = "SELECT * FROM foros WHERE 1 = 1";
         
         if (!empty($autor)) {
             // Buscar usuario por nombre
@@ -75,10 +75,10 @@ class Foro
         
         switch ($orden) {
             case '1':
-                $query .= " ORDER BY autor ASC";
+                $query .= " ORDER BY autor_id ASC";
                 break;
             case '2':
-                $query .= " ORDER BY titulo ASC";
+                $query .= " ORDER BY autor_id ASC";
                 break;
             default:
                 break;
