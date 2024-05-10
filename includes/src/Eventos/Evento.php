@@ -161,6 +161,8 @@ class Evento
     $result = false;
 
     $conn = BD::getInstance()->getConexionBd();
+    $fechaFormateada = $evento->fecha->format('Y-m-d'); // Formatea la fecha
+    $fechaEscapada = $conn->real_escape_string($fechaFormateada); // Escapa la fecha formateada
     $query = sprintf(
         "INSERT INTO eventos (inscritos, categoria, numJugadores, nombre, descripcion, fecha, lugar, estado, premio, ganador, tasaInscripcion) 
         VALUES (%d, '%s', %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', %f)",
@@ -169,7 +171,7 @@ class Evento
         $evento->numJugadores,
         $conn->real_escape_string($evento->nombre),
         $conn->real_escape_string($evento->descripcion),
-        $conn->real_escape_string($evento->fecha),
+        $fechaEscapada, // Usa la fecha escapada
         $conn->real_escape_string($evento->lugar),
         $conn->real_escape_string($evento->estado),
         $conn->real_escape_string($evento->premio),
@@ -187,6 +189,7 @@ class Evento
 
     return $result;
 }
+
 
 
     public static function elimina($idTorneo)

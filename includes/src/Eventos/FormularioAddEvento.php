@@ -20,7 +20,8 @@ class FormularioAddEvento extends Formulario
 
         $nombre='';
         $categoria='';
-        $fecha='';
+        $fecha=$fecha = new DateTime();
+        $fecha_formateada = $fecha->format('Y-m-d H:i:s');
         $lugar='';
         $premio='';
         $tasa='';
@@ -49,11 +50,12 @@ class FormularioAddEvento extends Formulario
             </div>
             <div class="error-message">{$erroresCampos['categoria']}</div>
 
-            <div class="input-text">
-                <label for="fecha" class="input-label">Fecha (Y-M-D):</label>
-                <textarea id="fecha" name="fecha">$fecha</textarea>
+            <div>
+                <label for="fecha">Fecha del evento (Y-M-D):</label>
+                <input id="fecha" type="text" name="fecha" value="{$fecha->format('Y-m-d H:i:s')}" />
+                {$erroresCampos['fecha']}
             </div>
-            <div class="error-message">{$erroresCampos['fecha']}</div>
+          
 
             <div class="input-text">
                 <label for="lugar" class="input-label">Lugar:</label>
@@ -137,11 +139,6 @@ class FormularioAddEvento extends Formulario
 
             $this->errores['fecha'] = 'La fecha no puede estar vacía.';
 
-        } else  {
-            $dateTime = DateTime::createFromFormat('Y-m-d', $fecha);
-            if($dateTime === false ){
-                $this->errores['fecha'] = 'La fecha no es válida.';
-            }
         } 
         
         $lugar = trim($datos['lugar'] ?? '');
@@ -158,9 +155,9 @@ class FormularioAddEvento extends Formulario
 
      
         if(count($this->errores) ==0 ){
-            $fechaDateTime = DateTime::createFromFormat('Y-m-d', $fecha);
+            //$fechaDateTime = DateTime::createFromFormat('Y-m-d', $fecha);
 
-            $nuevEvento = Evento::Nuevo(null, 0, $categoria, $aforo, $nombre, $descripcion, $fechaDateTime, $lugar,'Abierto',$premio,NULL,$tasa);
+            $nuevEvento = Evento::Nuevo(null, 0, $categoria, $aforo, $nombre, $descripcion, $fecha, $lugar,'Abierto',$premio,NULL,$tasa);
             $nuevEvento->guarda();
         }
                
