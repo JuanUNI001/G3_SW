@@ -61,7 +61,7 @@
                     <div class="producto_detalle">
                         <div style="display: flex; align-items: center;">
                             <span style="margin-right: 10px;">Cantidad:</span>
-                            <input type='number'  name='cantidad' value= '1' min='1' style='width: 40px; margin-right: 10px;'>
+                            <input type='number'  name='cantidad' value= '1' min='1' max="10" style='width: 40px; margin-right: 10px;'>
                         </div>                   
                         <p style="margin-top: 15px;">
                             <input type='hidden' name='id_producto' value='$id_producto'> 

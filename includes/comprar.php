@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $idProductoPedido = $productoPorPedido->getId_producto_pedido();
             $producto = Producto::buscaPorId($idProductoPedido);
             
-            if ($producto) {
+            if ($producto && $producto->getArchivado() === 0) {
                 if(!$productoPorPedido->getCantidad() <= $producto->getCantidad()){
                 // $idProductoPedido-> buscaPorIdPedido_Producto( $idPedido , $idProductoPedido);
                     $producto->setCantidad($producto->getCantidad()-$productoPorPedido->getCantidad());

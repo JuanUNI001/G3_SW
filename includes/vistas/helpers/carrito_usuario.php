@@ -75,7 +75,7 @@ if($pedido){
                                 <form id="$formActualizarId" action="$direccion_actualizar" method="post">
                                     <input type="hidden" name="idPedido" value="$idPedido">
                                     <input type="hidden" name="idProducto" value="$idProducto">
-                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
+                                    <input type="number" name="nuevaCantidad" value="$cantidad" min="1" max="10" style="width: 50px;" onchange="actualizarCantidad(this.value, '$formActualizarId')">
                                 </form>
                             </div>
                             
