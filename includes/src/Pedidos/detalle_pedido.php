@@ -57,7 +57,7 @@ if ($detallesProductos) {
         $valoracionRealizada = Valoracion::comrpuebaExisteValoracion($id_usuario, $pedido_producto->getId_producto_pedido());
        
         if (!$valoracionRealizada) {
-            $rutaValoracion = resuelve('includes/vistas/helpers/newValoracion.php?id_producto=' . $pedido_producto->getId_producto_pedido());
+            $rutaValoracion = resuelve('/includes/vistas/helpers/newValoracion.php?id_producto=' . $pedido_producto->getId_producto_pedido());
             $enlaceValorar = '<a href="' . $rutaValoracion . '" class="botonPedido botonValorar">Valorar</a>';
         } else {
             // Si ya se ha realizado una valoración, mostrar un mensaje indicándolo
