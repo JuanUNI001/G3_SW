@@ -75,7 +75,7 @@
             
 
             if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
-                if($producto->getArchivado() === '0'){
+                if($producto->getArchivado() === 0){
                     $editarProductoRuta=resuelve('EditorProductoView.php');
                     $imagenRuta=resuelve('/images/editar_producto.png');
     
