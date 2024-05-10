@@ -31,13 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($producto) {
                 $producto->actualizarValoracion($valoracion);
             }
-            $rutaDetalleProducto = resuelve('verPedidosAnteriores.php');
+            $rutaDetalleProducto = resuelve('/verPedidosAnteriores.php');
             header("Location: $rutaDetalleProducto");
             $mensajes = ['Producto valorado correctamente'];
            
         } else {
             $mensajes = ['Parece que algo ha salido mal :('];
-            $rutaDetalleProducto = resuelve('verPedidosAnteriores.php');
+            $rutaDetalleProducto = resuelve('/verPedidosAnteriores.php');
             header("Location: $rutaDetalleProducto");
             $mensajes = ['Producto valorado correctamente'];
             
