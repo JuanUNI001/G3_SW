@@ -367,7 +367,17 @@ ul.dropdown ul.dropdown-content {
 	border: 1px solid black;
 	padding: 2px 4px;
 }
+.avatar-container {
+    height: 20px; /* Altura fija del contenedor del avatar */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    position: relative; /* Posicionamiento relativo para el número del carrito */
+}
 
+.avatar-dropdown {
+    width: 100%; /* Asegura que la imagen del avatar ocupe todo el contenedor */
+    border-radius: 50%; /* Hace que la imagen del avatar sea circular */
+}
 /*
  * - Submenús opacos
  * - Tamaño mínimo
