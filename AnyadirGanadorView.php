@@ -1,3 +1,4 @@
+
 <?php
 
 require_once 'includes/config.php'; 
@@ -8,7 +9,7 @@ $idEvento = $_GET['id'];
 
 $evento = Evento::buscaPorId($idEvento);
 
-$form = new es\ucm\fdi\aw\src\Eventos\FormularioEdicionEvento($evento);
+$form = new es\ucm\fdi\aw\src\Eventos\FormularioAnyadirGanador($evento);
 
 $htmlFormLogin = $form->gestiona();
 
