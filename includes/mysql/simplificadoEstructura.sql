@@ -23,6 +23,41 @@ CREATE TABLE IF NOT EXISTS `foros` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(70) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `rolUser` int(11) NOT NULL,
+  `valoracion` float DEFAULT NULL,
+  `precio` float DEFAULT NULL,
+  `avatar` varchar(50) DEFAULT NULL,
+  `archivado` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_rolUser` (`rolUser`),
+  CONSTRAINT `fk_rolUser` FOREIGN KEY (`rolUser`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `productos` (
+  `nombre` varchar(30) NOT NULL,
+  `precio` decimal(11,2) NOT NULL,
+  `descripcion` varchar(400) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `imagen` varchar(40) NOT NULL,
+  `valoracion` decimal(4,2) DEFAULT NULL,
+  `num_valoraciones` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `archivado` int(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 CREATE TABLE IF NOT EXISTS `pedidos` (
   `id_pedido` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
@@ -44,38 +79,8 @@ CREATE TABLE IF NOT EXISTS `pedidos_productos` (
   CONSTRAINT `pedidos_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `productos` (
-  `nombre` varchar(30) NOT NULL,
-  `precio` decimal(11,2) NOT NULL,
-  `descripcion` varchar(400) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imagen` varchar(40) NOT NULL,
-  `valoracion` decimal(4,2) DEFAULT NULL,
-  `num_valoraciones` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `archivado` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(15) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(70) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `rolUser` int(11) NOT NULL,
-  `valoracion` float DEFAULT NULL,
-  `precio` float DEFAULT NULL,
-  `avatar` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_rolUser` (`rolUser`),
-  CONSTRAINT `fk_rolUser` FOREIGN KEY (`rolUser`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `seguir` (
   `idUsuario` int(11) NOT NULL,
