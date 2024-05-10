@@ -12,7 +12,7 @@ $htmlFormLogin = $form->gestiona();
 
 $tituloPagina = 'Editor Usuario';
 $contenidoPrincipal=<<<EOF
-  	<h1>Acceso al sistema</h1>
+  	
     $htmlFormLogin
 EOF;
 
