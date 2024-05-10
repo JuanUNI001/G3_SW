@@ -356,7 +356,7 @@ class Usuario
     }
     
     public function esArchivado(){
-        if($this->archivado === '0'){
+        if($this->archivado === 0){
             return false;
         }
         return true;

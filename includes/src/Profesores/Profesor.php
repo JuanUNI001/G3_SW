@@ -342,7 +342,7 @@ class Profesor extends Usuario
         // Ejecutar la consulta
         if ($conn->query($query)) {
             // Liberar recursos
-            $conn->free();
+            
             return true; // Eliminación exitosa
         } else {
             // Manejar errores de consulta
