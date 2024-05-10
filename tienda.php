@@ -9,7 +9,7 @@ $direccionBusca = generarHTML();
 
 // Verificar si el usuario es administrador para mostrar el botón "Añadir producto"
 if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
-    $AddProductoRuta = resuelve('AddProductoView.php');
+    $AddProductoRuta = resuelve('/AddProductoView.php');
 
     $botonAñadirProducto .= <<<EOF
     <div>
