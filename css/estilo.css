@@ -1,3 +1,19 @@
+@import url("imagenes.css");
+@import url("conversacion.css");
+@import url("busqueda.css");
+@import url("formulario.css");
+@import url("usuarios.css");
+@import url("chat.css");
+@import url("contratar.css");
+@import url("anuncio.css");
+@import url("academia.css");
+@import url("foro.css");
+@import url("anunciosIndex.css");
+@import url("foro.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
+@import url("https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css");
+
 body {
 	background-color: #b3dcda;
 }
