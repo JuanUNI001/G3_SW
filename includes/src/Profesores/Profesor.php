@@ -12,9 +12,9 @@ class Profesor extends Usuario
     private $anunciable;
 
    
-    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,$id = null,  $archivado)
+    public function __construct($rol, $nombre, $password, $correo,  $precio, $avatar,$valoracion,  $archivado,$id = null)
     {
-        parent::__construct($rol, $nombre, $password, $correo, $avatar, $id,$archivado);
+        parent::__construct($rol, $nombre, $password, $correo, $avatar, $archivado, $id);
         
         $this->valoracion =  $valoracion;
         $this->precio =  $precio;
@@ -27,7 +27,7 @@ class Profesor extends Usuario
     public static function creaProfesor($nombre, $password, $correo, $precio, $avatar,$id = null)
     {
         $archivado =0;
-        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, null,$id, $archivado);
+        $user = new Profesor(self::TEACHER_ROLE, $nombre, $password, $correo,  $precio, $avatar, null, $archivado,$id);
         $user->setIdNull();
         $guardado = $user->guarda();
         if ($guardado) {
@@ -86,8 +86,9 @@ class Profesor extends Usuario
         $fila['precio'],   
         $fila['avatar'],   
         $fila['valoracion'],
-        $fila['id'],
-        $fila['archivado']
+        $fila['archivado'],
+        $fila['id']
+
         );
         $profesores[] = $profesor; 
         }
@@ -115,8 +116,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $profesores[] = $profesor; 
             }
@@ -178,8 +179,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $profesores[] = $profesor; 
             }
@@ -208,8 +209,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['valoracion'],   
                     $fila['avatar'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                     );
         }
         } finally {
@@ -341,7 +342,7 @@ class Profesor extends Usuario
         // Ejecutar la consulta
         if ($conn->query($query)) {
             // Liberar recursos
-            $conn->free();
+            
             return true; // Eliminación exitosa
         } else {
             // Manejar errores de consulta
@@ -371,8 +372,8 @@ class Profesor extends Usuario
                     $fila['precio'],   
                     $fila['avatar'],   
                     $fila['valoracion'],
-                    $fila['id'],
-                    $fila['archivado']
+                    $fila['archivado'],
+                    $fila['id']
                 );
                 $profesores[] = $profesor; 
             }

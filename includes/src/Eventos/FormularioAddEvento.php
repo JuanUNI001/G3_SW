@@ -73,9 +73,11 @@ class FormularioAddEvento extends Formulario
             </div>
             <div class="error-message">{$erroresCampos['tasa']}</div>
 
-            <div class="input-text">
-                <label for="aforo" class="input-label">Aforo:</label>
-                <input id="aforo" type="text" name="aforo" value="$aforo"/>
+            <div>
+            <label for="aforo" class="input-label">Aforo:</label>
+            <input id="aforo" type="number"  name="aforo" class="input-label" value="$aforo"
+             style="border: #bababa 1px solid; color:#000000;" step="2" min="0">
+
             </div>
             <div class="error-message">{$erroresCampos['aforo']}</div>
 
@@ -126,15 +128,22 @@ class FormularioAddEvento extends Formulario
         $aforo = trim($datos['aforo'] ?? '');
         $aforo = filter_var($aforo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($aforo < 0 || $aforo == NULL) {
-            $this->errores['aforo'] = 'La cantidad no puede estar vacía.';
+            $this->errores['aforo'] = 'Debe haber un numero máximo de participantes.';
         }
 
         $fecha = trim($datos['fecha'] ?? '');
         $fecha = filter_var($fecha, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$fecha  || $fecha == NULL) {
-            $this->errores['fecha'] = 'La fecha no puede estar vacía.';
-        }
 
+            $this->errores['fecha'] = 'La fecha no puede estar vacía.';
+
+        } else  {
+            $dateTime = DateTime::createFromFormat('Y-m-d', $fecha);
+            if($dateTime === false || array_sum($dateTime->getLastErrors()) > 0){
+                $this->errores['fecha'] = 'La fecha no es válida.';
+            }
+        } 
+        
         $lugar = trim($datos['lugar'] ?? '');
         $lugar = filter_var($lugar, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$lugar || $lugar == NULL) {

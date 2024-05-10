@@ -9,7 +9,7 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioBusquedaForo extends Formulario
 {
     
-    public $foros;
+    private $foros;
 
     public function __construct() {
         parent::__construct('FormularioBusquedaForo', ['urlRedireccion' => 'foros.php']);
@@ -23,7 +23,7 @@ class FormularioBusquedaForo extends Formulario
         $autor = $_SESSION['filtro_autor'] ?? '';
         $tema = $_SESSION['filtro_tema'] ?? '';       
         $orden = $_SESSION['filtro_orden_foro'] ?? '';
-        $foros = listarForosBusqueda($autor, $tema,$orden);
+        $this->foros = listarForosBusqueda($autor, $tema,$orden);
        
     
     
@@ -76,7 +76,7 @@ class FormularioBusquedaForo extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $foros . '
+                                ' . $this->foros . '
                             </div>
                         </div>	
                     </div>
@@ -127,7 +127,7 @@ class FormularioBusquedaForo extends Formulario
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $foros = listarForosBusqueda($autor, $tema, $orden);
+            $this->foros = listarForosBusqueda($autor, $tema, $orden);
         }
     }
     

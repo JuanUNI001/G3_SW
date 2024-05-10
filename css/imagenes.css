@@ -9,11 +9,21 @@
     border: 3px solid #ccc;
     margin: 10px; /* Margen alrededor del producto */
     float: left;
+  
     background: linear-gradient(to bottom right, #50c6e4, #FF69B4); /* Fondo verde degradado a rosa */
     text-align: center; /* Alineación del contenido */
     
 }
-
+.producto_oculto {
+    width: calc(33.33% - 20px); /* Ancho del contenedor del producto (1/3 del ancho total menos el espacio entre productos) */
+    border: 3px solid #ccc;
+    margin: 10px; /* Margen alrededor del producto */
+    float: left;
+   
+    background:rgb(224, 98, 98); /* Fondo verde degradado a rosa */
+    text-align: center; /* Alineación del contenido */
+    
+}
 .producto_enlace {
     display: inline-block;
     text-decoration: none;
@@ -22,12 +32,26 @@
     padding: 8px 16px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
     transition: background-image 0.3s; /* Transición suave del fondo */
+     height: 80%;
 }
 
 .producto_enlace:hover {
-    background-image: linear-gradient(to bottom right, #FF69B4, #93c53f); /* Fondo rosa claro degradado a rosa */
+    background-image: linear-gradient(to bottom right, #ad69ff, #d69eee); /* Fondo rosa claro degradado a rosa */
 }
-
+.producto_enlace_oculto {
+    display: inline-block;
+    text-decoration: none;
+    background-image: linear-gradient(to bottom right, #f05151, #e89191); /* Fondo verde degradado a rosa */
+    color: #fff; /* Color del texto */
+    padding: 8px 16px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: background-image 0.3s; /* Transición suave del fondo */
+    height: 80%;
+    
+}
+.producto_enlace_oculto:hover {
+    background-image: linear-gradient(to bottom right, #ff6976, #f67492); /* Fondo rosa claro degradado a rosa */
+}
 
 .producto_imagen {
     width: 50%; /* Ancho de la imagen */

@@ -67,7 +67,7 @@ $contenidoPrincipal ='';
        if (isset($_SESSION["login"])) {
             if ($evento->getInscritos() < $evento->getNumJugadores() && $evento->getEstado() == 'Abierto') {
 
-                $direccion = resuelve("inscribirseEventoView.php");
+                $direccion = resuelve("/InscribirseEventoView.php");
                 $contenidoPrincipal .= <<<EOF
                     <div class="inscripcion">
                         <a href="{$direccion}?id={$evento->getId()}">
@@ -81,7 +81,7 @@ $contenidoPrincipal ='';
 
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 
-            $direccionEditor = resuelve("editorEventoView.php");
+            $direccionEditor = resuelve("/editorEventoView.php");
             $imagenRuta=resuelve('/images/editar_producto.png');
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">

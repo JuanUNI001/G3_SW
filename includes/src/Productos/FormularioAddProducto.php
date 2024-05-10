@@ -6,8 +6,7 @@ require_once __DIR__.'/../../config.php';
 
 class FormularioAddProducto extends Formulario
 {
-    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
-    const MAX_FILENAME = 250;
+    const EXTENSIONES_PERMITIDAS = array('jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
     public function __construct() {
         parent::__construct('formAddProducto', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
@@ -97,6 +96,8 @@ class FormularioAddProducto extends Formulario
         $cantidad = filter_var($cantidad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($cantidad < 0 || $cantidad == NULL) {
             $this->errores['cantidad'] = 'La cantidad no puede estar vacía.';
+        }else if(!filter_var($cantidad, FILTER_VALIDATE_INT)){
+            $this->errores['cantidad'] = 'La cantidad debe ser un numero.';
         }
 
         $imagen = $_FILES['imagen']['tmp_name'];

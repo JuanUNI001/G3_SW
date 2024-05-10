@@ -21,8 +21,7 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $receptor = Usuario::buscaPorId($idReceptor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
-    $rutaNew = resuelve('includes/src/Mensajes/put_mensaje.php');
-    $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje.php');
+   
 
     $mensaje_class .= <<<HTML
     <div class="conv-mensaje ">
@@ -69,21 +68,23 @@ HTML;
 ?>
 
 <?php
+  $contenidoPrincipal='';
+  $tituloPagina = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_usuario_receptor = $_POST['id'];
 
-$id_usuario_receptor = $_POST['id'];
+    $usuario_receptor = Usuario::buscaPorId($id_usuario_receptor);
 
-$usuario_receptor = Usuario::buscaPorId($id_usuario_receptor);
+    $usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
+    $id_usuario_emisor = $usuario_emisor->getId();
+    $mensajesView = visualizaMensajes($id_usuario_emisor, $id_usuario_receptor, $id_usuario_emisor);
 
-$usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
-$id_usuario_emisor = $usuario_emisor->getId();
-$mensajesView = visualizaMensajes($id_usuario_emisor, $id_usuario_receptor, $id_usuario_emisor);
-
-$tituloPagina = 'Chat Usuario';
-$contenidoPrincipal = <<<HTML
-    <h1>Chat en linea</h1>
-    $mensajesView
-HTML;
-
+    $tituloPagina = 'Chat Usuario';
+    $contenidoPrincipal = <<<HTML
+        <h1>Chat en linea</h1>
+        $mensajesView
+    HTML;
+}
 $scripts = [
     'js/chatView.js'
 ];

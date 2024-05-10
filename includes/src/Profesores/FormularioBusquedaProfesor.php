@@ -9,7 +9,7 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioBusquedaProfesor extends Formulario
 {
     
-    public $profesores;
+    private $profesores;
 
     public function __construct() {
         parent::__construct('FormularioBusquedaProfesor', ['urlRedireccion' => 'profesores.php']);
@@ -25,7 +25,7 @@ class FormularioBusquedaProfesor extends Formulario
         $buscaPrecioDesde = $_SESSION['filtro_precio_desde_pr'] ?? '';
         $buscaPrecioHasta = $_SESSION['filtro_precio_hasta_pr'] ?? '';
         $orden = $_SESSION['filtro_orden_pr'] ?? '';
-        $profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
+        $this->profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
        
     
     
@@ -95,7 +95,7 @@ class FormularioBusquedaProfesor extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $profesores . '
+                                ' . $this->profesores . '
                             </div>
                         </div>	
                     </div>
@@ -153,7 +153,7 @@ class FormularioBusquedaProfesor extends Formulario
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
+            $this->profesores = listaProfesoresFiltrada($buscar, $correo,$buscaPrecioDesde, $buscaPrecioHasta, $orden);
         }
     }
     

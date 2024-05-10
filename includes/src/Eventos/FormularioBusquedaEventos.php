@@ -9,7 +9,7 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioBusquedaEventos extends Formulario
 {
     
-    public $eventos;
+    private $eventos;
 
     public function __construct() {
         parent::__construct('FormularioBusquedaEventos', ['urlRedireccion' => 'eventos.php']);
@@ -52,7 +52,7 @@ class FormularioBusquedaEventos extends Formulario
         $estado = $_SESSION['filtro_estado_ev'] ?? '';
         $fechaDesde =  $_SESSION['filtro_fecha_desde_ev']  ?? '';
         $fechaHasta = $_SESSION['filtro_fecha_hasta_ev'] ?? '';
-        $eventos = listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
+        $this->eventos = listaeventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
        
     
     // Generar el HTML del formulario
@@ -139,7 +139,7 @@ class FormularioBusquedaEventos extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $eventos . '
+                                ' . $this->eventos . '
                             </div>
                         </div>	
                     </div>
@@ -208,7 +208,7 @@ class FormularioBusquedaEventos extends Formulario
 
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $eventos = listaEventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
+            $this->eventos = listaEventosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $fechaDesde, $fechaHasta, $orden, $categoria, $estado);
         }
     }
 

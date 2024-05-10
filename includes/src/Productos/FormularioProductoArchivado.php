@@ -1,28 +1,42 @@
 <?php
 namespace es\ucm\fdi\aw\src\Productos;
+use es\ucm\fdi\aw\src\Productos\Producto;
 
 use es\ucm\fdi\aw\src\Formulario;
 
-class FormularioEdicionProducto extends Formulario
+class FormularioProductoArchivado extends Formulario
 {
-    const EXTENSIONES_PERMITIDAS = array('jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
+    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
-    private $producto;
+    public $id;
+    public $nombre;
+    public $precio;
+    public $descripcion;
+    public $imagen;
+    public $cantidad = null;
+    public $nueva_imagen;
 
-    public function __construct($producto) {
-        parent::__construct('formEdicionProducto', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
-        $this->producto = $producto;
+    public function __construct( $idProducto) {
+        parent::__construct('formEdicionProductoA', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'tienda.php']);
+        $this->id = $idProducto;
+        $producto = Producto::buscaPorId($idProducto);
+        $this->nombre = $producto->getNombre();
+        $this->precio = $producto->getPrecio(); 
+        $this->descripcion = $producto->getDescripcion(); 
+        $this->cantidad = $producto->getCantidad();  
+        $this->imagen = $producto->getImagen(); 
     }
     
     protected function generaCamposFormulario(&$datos)
     {
-        $datos['id'] =  $this->$producto->getIdProducto();
-        $nombreProducto = $this->$producto->getIdNombre();
-        $precio = $this->$producto->getPrecio();
-        $descripcion = $this->$producto->getDescripcion();
-        $imagen = $this->$producto->getImagen();
-        $eliminar = 0;
-        $cantidad = $this->$producto->getCantidad();
+        $datos['id'] =  $this->id;
+        $nombreProducto = $this->nombre;
+        $precio = $this->precio;
+        $descripcion = $this->descripcion;
+        $imagen = $this->imagen;
+        $recuperar = 0;
+        $cantidad = $this->cantidad;
+        $nueva_imagen = $this->nueva_imagen;
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
@@ -50,7 +64,7 @@ class FormularioEdicionProducto extends Formulario
 
             <div class="input-file">
             <label for="nueva_imagen" class="input-label">Nueva Imagen:</label>
-            <input id="nueva_imagen" type="file" name="nueva_imagen"/>
+            <input id="nueva_imagen" type="file" name="nueva_imagen" value="$nueva_imagen"/>
             </div>
             <div class="error-message">{$erroresCampos['nueva_imagen']}</div>
 
@@ -69,8 +83,8 @@ class FormularioEdicionProducto extends Formulario
             <div class="error-message">{$erroresCampos['cantidad']}</div>
 
             <div>
-                <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
-                <label for="eliminar" class="input-label">Eliminar</label>
+                <input type="checkbox" id="recuperar" name="recuperar" value="$recuperar" $recuperar>
+                <label for="recuperar" class="input-label">Desarchivar</label>
             </div>
             <div class="enviar-button">
                 <button type="submit" name="crear">Aceptar</button>
@@ -128,16 +142,16 @@ class FormularioEdicionProducto extends Formulario
             }
         }
 
-        $eliminar = isset($_POST['eliminar']);
+        $recuperar = isset($_POST['recuperar']);
         
         if (count($this->errores) === 0) {
-           
+          
             $prodActual = Producto::buscaPorId($this->id);
             $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $imagen, $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
             Producto::actualiza($nuevoProducto);
-            if ($eliminar)
+            if ($recuperar)
             {
-                Producto::borraPorId($this->id);
+                Producto::recuperarPorId($this->id);
             } 
         }
     }

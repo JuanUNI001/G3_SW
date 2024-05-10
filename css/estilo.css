@@ -1,3 +1,19 @@
+@import url("imagenes.css");
+@import url("conversacion.css");
+@import url("busqueda.css");
+@import url("formulario.css");
+@import url("usuarios.css");
+@import url("chat.css");
+@import url("contratar.css");
+@import url("anuncio.css");
+@import url("academia.css");
+@import url("foro.css");
+@import url("anunciosIndex.css");
+@import url("foro.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
+@import url("https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css");
+
 body {
 	background-color: #b3dcda;
 }
@@ -16,7 +32,7 @@ header {
     background-position: center;
     background-size: cover; /* Ajusta la imagen de fondo para que cubra todo el encabezado */
     padding: 30px;
-    height: 160px; /* Ajusta la altura del encabezado */
+    height: 220px; /* Ajusta la altura del encabezado */
     background-color: #84b8c4a4;
     color: rgb(10, 10, 10);
 }
@@ -39,20 +55,6 @@ header {
     width: auto; /* Permitir que la anchura se ajuste automáticamente */
 }
 
-.cart-icon {
-    position: relative;
-}
-
-.cart-count {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    border-radius: 50%;
-    padding: 3px 6px;
-}
 
 header a, header a:visited {
 	color: rgb(16, 16, 16);
@@ -496,6 +498,7 @@ footer {
     display: flex;
     align-items: center;
     margin-right: 5px; /* Añade un margen derecho para separar los elementos */
+    margin-bottom: 10px;
 }
 
 .info-usuario img {
@@ -503,7 +506,7 @@ footer {
     margin-right: 0px; /* Añade un espacio entre la imagen y el texto */
     width: 50px; /* Cambia el ancho de la imagen */
     height: 50px; /* Cambia la altura de la imagen */
-	margin-top: -50px; /* Mueve la imagen hacia arriba ajustando el margen superior */
+	margin-top: -70px; /* Mueve la imagen hacia arriba ajustando el margen superior */
 }
 .rectangulo-usuarios {
     background-color: #ffffff; /* Color de fondo del rectángulo */
@@ -541,12 +544,12 @@ nav li:last-child {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #e233c5;
+    background-color: #ab88e3f0;
     width: 120px; /* Aumenta un poco el ancho del dropdown */
     box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
     z-index: 1;
     left: 10;
-    top: 200px;
+    top: 220px;
     padding-left: 20;
     border-radius: 8px; /* Redondea los bordes del dropdown */
 }
@@ -602,7 +605,8 @@ nav li:last-child {
 
 /* Estilos para los enlaces del dropdown al pasar el ratón */
 .dropdown-content a:hover {
-    background-color: #d413b4; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
+    background-color: #bc70e9d6; /* Cambia el color de fondo al pasar el ratón sobre el enlace */
+    color: black; /* Cambia el color del texto a blanco */
 }
 
 /*
@@ -877,6 +881,7 @@ nav li:last-child {
 
 /* Estilos para la imagen del producto dentro del detalle del pedido */
 .deta_detalle {
+    width:95%;
     max-width: 200px; /* Ancho máximo de la imagen */
     height: auto; /* Altura automática para mantener la proporción de aspecto */
     border-radius: 5px; /* Bordes redondeados de 5px */
@@ -916,10 +921,18 @@ nav li:last-child {
     font-size: 16px; /* Tamaño de fuente de 16px */
     text-decoration: none; /* Sin subrayado */
 }
-
+.botonPedido:hover {
+    background-color: #c588ee; /* Cambiar el color de fondo al pasar el ratón por encima */
+    color: white; /* Cambiar el color del texto al pasar el ratón por encima */
+}
 .botonValorar {
     margin-left: 10px; /* Agregar margen izquierdo para separar del enlace "Ir a la página" */
+    margin-top: 10px; /* Agregar margen superior */
+    transition: background-color 0.3s ease; /* Efecto de transición al cambio de color de fondo */
 }
+
+
+
 /* Estilos para las estrellas */
 .estrella {
     font-size: 90px; /* Tamaño de fuente grande para las estrellas */
@@ -934,7 +947,7 @@ nav li:last-child {
     border: 2px solid #FF1493; /* Borde rosa de 2px */
     border-radius: 8px; /* Bordes redondeados */
     padding: 10px; /* Espaciado interno */
-    width: 100%; /* Ancho del input al 100% */
+    width: 95%; /* Ancho del input al 100% */
     background-color: #d2abeb; /* Color de fondo azul cian */
     margin-top: 10px; /* Margen superior */
     margin-bottom: 10px; /* Margen inferior */
@@ -1270,3 +1283,109 @@ nav li:last-child {
     font-size: 40px;
     cursor: pointer;
 }
+
+.slide {
+    --color: #a766c8;
+    --hover: #8157cf;
+    --fondo: #d2abeb98;
+    color: var(--color);
+    background:  var(--fondo);
+    border: 2px solid var(--color);
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    display: inline-block; /* Mostrar como bloque en línea */
+    padding: 0.5em 1em; /* Ajuste del padding */
+    font-size: 18px; /* Tamaño de la fuente reducido */
+    position: relative;
+    overflow: hidden; /* Oculta el contenido que se desborde */
+    transition: color 0.25s, border-color 0.25s;
+    text-decoration: none; /* Evita el subrayado del texto */
+
+  }
+  
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Ancho inicial para que no tape el contenido */
+    height: 100%;
+    background-color: var(--hover);
+    opacity: 0.5; /* Opacidad del fondo para que el contenido sea visible */
+    transition: width 0.25s;
+    text-decoration: none; /* Evita el subrayado del texto */
+
+  }
+  
+  .slide:hover::before,
+  .slide:focus::before {
+    width: 100%; /* Ancho completo al pasar el cursor o enfocar */
+
+  }
+  .carrito {
+    display: flex;
+    align-items: center;
+  }
+  
+  .buttonaux {
+    font-size: 24px;
+    color: #969595;
+    background-color: #c894dbc6;
+    border: 2px solid #9c66c8; 
+    border-radius: 50%;
+    width: 60px; /* Ancho del botón */
+    height: 60px; /* Alto del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s, background-color 0.4s;
+    margin-right: 10px; /* Espacio entre los botones */
+    margin-bottom: -10px; /* Margen inferior */
+  }
+  
+  .buttonaux::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s, background-color 0.4s;
+    z-index: 0;
+  }
+  
+  .buttonaux:hover::before {
+    width: 0;
+    height: 0;
+  }
+  .cart-icon {
+    position: relative;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: 5px; /* Ajuste de posición vertical */
+    right: 10px; /* Ajuste de posición horizontal */
+    background-color: #e74c3c;
+    color: #fff;
+    font-size: 12px; /* Tamaño de la fuente del contador */
+    width: 20px; /* Ancho del contador */
+    height: 20px; /* Alto del contador */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Asegura que esté sobre el botón */
+  }
+  
+  
+  
+  
+  

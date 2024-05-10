@@ -10,10 +10,11 @@ use es\ucm\fdi\aw\src\Formulario;
 class FormularioBusquedaProducto extends Formulario
 {
     
-    public $productos;
+    private $productos;
 
-    public function __construct() {
+    public function __construct($productos) {
         parent::__construct('FormularioBusquedaProducto', ['urlRedireccion' => 'tienda.php']);
+        $this->productos = $productos;
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -25,7 +26,7 @@ class FormularioBusquedaProducto extends Formulario
         $buscaPrecioDesde = $_SESSION['filtro_precio_desde'] ?? '';
         $buscaPrecioHasta = $_SESSION['filtro_precio_hasta'] ?? '';
         $orden = $_SESSION['filtro_orden'] ?? '';
-        $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+        $this->productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
        
     
     
@@ -91,7 +92,7 @@ class FormularioBusquedaProducto extends Formulario
                             </form>
                             <p style="font-weight: bold; color: pink;"><i class="mdi mdi-file-document"></i>Resultados encontrados</p>
                             <div class="table-responsive">
-                                ' . $productos . '
+                                ' . $this->productos . '
                             </div>
                         </div>	
                     </div>
@@ -146,7 +147,7 @@ class FormularioBusquedaProducto extends Formulario
     
         // Si no hay errores, se procesan los datos
         if (count($this->errores) === 0) {
-            $productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
+            $this->productos = listaproductosBusqueda($buscar, $buscaPrecioDesde, $buscaPrecioHasta, $orden);
         }
     }
     

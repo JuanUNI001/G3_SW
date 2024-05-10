@@ -3,19 +3,10 @@
 require_once 'includes/config.php'; 
 use \es\ucm\fdi\aw\src\Usuarios\Usuario;
 
-$form = new es\ucm\fdi\aw\src\Usuarios\FormularioEdicionUsuario();
-
 $id_usuario = $_GET['id'];
-$Usuario = Usuario::buscaPorId($id_usuario);
-$nombre = $Usuario->getNombre();
+$usuario = Usuario::buscaPorId($id_usuario);
 
-$form->id = $id_usuario;
-$form->nombre = $nombre;
-$form->rol = $Usuario->getrolUser();
-$form->correo = $Usuario->getCorreo();
-$form->avatar = $Usuario->getAvatar();
-//$form->imagen = "";
-
+$form = new es\ucm\fdi\aw\src\Usuarios\FormularioEdicionUsuario($usuario);
 
 $htmlFormLogin = $form->gestiona();
 

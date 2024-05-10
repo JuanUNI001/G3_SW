@@ -52,7 +52,7 @@ function mostrarInfoUsuario() {
 
         echo "<div class='info-usuario'>";
         echo "<div class='dropdown'>";
-        echo "<div class='avatar-container' style='height: 60px;'>"; // Contenedor con altura fija
+        echo "<div class='avatar-container' style='height: 20px;'>"; // Contenedor con altura fija
         echo "<img src='{$avatar}' alt='Avatar de {$usuario->getNombre()}' class='avatar-dropdown'>";
         echo "</div>";
         echo "<ul class='dropdown-content'>";
@@ -104,18 +104,20 @@ if ($app->usuarioLogueado())  {
 
     <nav>
         <ul class="button-container-header">
-            <li><a href="<?= RUTA_APP?>/index.php"class="sideBarDerButton">Inicio</a></li>
-            <li><a href="<?= RUTA_APP?>/tienda.php" class="sideBarDerButton">Tienda</a></li>
-            <li><a href="<?= RUTA_APP?>/foros.php"class="sideBarDerButton">Foro</a></li>
-            <li><a href="<?= RUTA_APP?>/eventos.php"class="sideBarDerButton">Eventos</a></li>
-            <li><a href="<?= RUTA_APP?>/profesores.php"class="sideBarDerButton">Anuncios Profesores</a></li>
-            <li><a href="<?= RUTA_APP?>/usuariosView.php"class="sideBarDerButton">Usuarios &#129485;</a></li>
-            <li><a href="<?= RUTA_APP?>/Academia.php"class="sideBarDerButton">Academia &#127979;</a></li>
+            
+            
+            <li><a href="<?= RUTA_APP?>/index.php" class="slide">Inicio</a></li>          
+            <li><a href="<?= RUTA_APP?>/tienda.php" class="slide">Tienda</a></li>
+            <li><a href="<?= RUTA_APP?>/foros.php"class="slide">Foro</a></li>
+            <li><a href="<?= RUTA_APP?>/eventos.php"class="slide">Eventos</a></li>
+            <li><a href="<?= RUTA_APP?>/profesores.php"class="slide">Anuncios Profesores</a></li>
+            <li><a href="<?= RUTA_APP?>/usuariosView.php"class="slide">Usuarios &#129485;</a></li>
+            <li><a href="<?= RUTA_APP?>/Academia.php"class="slide">Academia &#127979;</a></li>
             <li>
                 <div class="carrito">
-                    <a href="<?= RUTA_APP?>/Conversaciones.php" class="sideBarDerButton">✉</a>
+                    <a href="<?= RUTA_APP?>/Conversaciones.php" class="buttonaux">✉</a>
 
-                    <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="sideBarDerButton cart-icon">
+                    <a href="<?= RUTA_APP?>/includes/vistas/helpers/carrito_usuario.php" class="buttonaux cart-icon">
                         <span class="cart-count"><?= $cantidadEnCarrito ?></span>
                         &#x1F6D2;
                     </a>

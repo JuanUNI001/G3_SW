@@ -7,10 +7,11 @@ $tituloPagina = 'Eventos';
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioBusquedaEventos();
 
 $AddEventoRuta = '';
+$BotonAddEvento = '';
 if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
     $AddEventoRuta = resuelve('AddEventoView.php');
 
-    $AddEventoRuta .= <<<EOF
+    $BotonAddEvento = <<<EOF
     <div>
         <a href="$AddEventoRuta" class="button-like-link">Añadir evento</a>
     </div>
@@ -20,10 +21,10 @@ if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 $htmlFormLogin = $form->gestiona();
 
 $contenidoPrincipal = <<<EOF
-    $AddEventoRuta
+    $BotonAddEvento
     $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Eventos'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

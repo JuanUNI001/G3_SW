@@ -26,7 +26,7 @@ $contenidoPrincipal = <<<HTML
     </div>
 HTML;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Conversaciones'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 
 
