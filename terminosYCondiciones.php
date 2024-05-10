@@ -6,11 +6,13 @@ require_once __DIR__.'/includes/src/Usuarios/ListaUsuarios.php';
 $tituloPagina = 'Términos y Condiciones';
 
 $contenidoPrincipal = <<<HTML
+<div class="contenido">
     <section class="terminos-y-condiciones">
-
+        <article>
         <h2>Términos y Condiciones de Uso</h2>
         <p>¡Bienvenido a nuestra plataforma de juegos de mesa en línea! Antes de comenzar a disfrutar de todos los servicios que ofrecemos, te pedimos que leas detenidamente estos Términos y Condiciones de Uso. Al acceder y utilizar nuestros servicios, aceptas cumplir con estos términos y cualquier otra política que podamos publicar en el sitio.</p>
-        
+        </article>
+
         <article>
         <h3>Servicios Ofrecidos</h3>
         <p>Ofrecemos una plataforma en línea para la venta de juegos de mesa, así como foros y chat privados para la comunidad.
@@ -58,11 +60,14 @@ $contenidoPrincipal = <<<HTML
         <p>Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Te recomendamos que revises periódicamente esta página para estar al tanto de cualquier cambio.</p>
         </article>
 
+        <article>
         <p>Al utilizar nuestros servicios, aceptas estos Términos y Condiciones en su totalidad. Si tienes alguna pregunta o inquietud, no dudes en contactarnos.</p>
        
         <p>Fecha de entrada en vigencia: [6/5/2024]</p>
         <p>Última actualización: [8/5/2024]</p>
+        </article>
     </section>
+</div>
 HTML;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

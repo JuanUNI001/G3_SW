@@ -2,12 +2,16 @@
     border: 2px solid #cf1a99; /* Borde verde */
     border-radius: 10px; /* Bordes redondeados */
     padding: 15px;
-    margin-bottom: 20px;
+    margin: 10px;
     background-image: linear-gradient(to bottom, #e4c9ec, #ffffff); /* Fondo de gradiente de gris claro a blanco */
 }
 
 .evento_info_container {
-    margin-bottom: 10px;
+    border: 2px solid #cf1a99;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px; /* Margen inferior para separar los contenedores */
+    background-image: linear-gradient(to bottom, #e4c9ec, #ffffff);
 }
 
 .evento_nombre {

@@ -1,0 +1,95 @@
+/* Estilos para los términos y condiciones y la política de privacidad */
+
+.contenido {
+    max-width: 80%; 
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos para la sección de términos y condiciones */
+.terminos-y-condiciones {
+    margin-bottom: 2%; 
+}
+
+.terminos-y-condiciones h2 {
+    text-align: center;
+    margin-bottom: 3%; 
+}
+
+.terminos-y-condiciones article,
+.politica-privacidad article {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 3%; 
+    margin-bottom: 3%;
+    border: 1px solid black; /* Agregamos borde negro */
+}
+
+.terminos-y-condiciones h3 {
+    text-align: center;
+    margin-bottom: 2%; 
+}
+
+.terminos-y-condiciones p {
+    text-align: justify;
+    margin-bottom: 2%; 
+}
+
+.terminos-y-condiciones p:last-child {
+    margin-bottom: 0;
+}
+
+.terminos-y-condiciones p:hover,
+.politica-privacidad p:hover {
+    color: #6b055d; 
+}
+
+.terminos-y-condiciones h2:hover {
+    color: #6b055d; 
+}
+
+.terminos-y-condiciones h3:hover {
+    color: #6b055d; 
+}
+
+/* Estilos para la sección de política de privacidad */
+.politica-privacidad {
+    margin-bottom: 5%; 
+}
+
+.politica-privacidad h2 {
+    text-align: center;
+    margin-bottom: 3%; 
+}
+
+.politica-privacidad h3 {
+    text-align: center;
+    margin-bottom: 2%; 
+}
+
+.politica-privacidad p {
+    text-align: justify;
+    margin-bottom: 2%; 
+}
+
+.politica-privacidad p:last-child {
+    margin-bottom: 0;
+}
+
+.politica-privacidad p:hover {
+    color: #6b055d; 
+}
+
+.politica-privacidad h2:hover {
+    color: #6b055d; 
+}
+
+.politica-privacidad h3:hover {
+    color: #6b055d; 
+}
+
+
+
+
+
+
