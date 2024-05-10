@@ -81,7 +81,7 @@ $contenidoPrincipal ='';
 
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
 
-            $direccionEditor = resuelve("editorEventoView.php");
+            $direccionEditor = resuelve("/editorEventoView.php");
             $imagenRuta=resuelve('/images/editar_producto.png');
             $contenidoPrincipal .=<<<EOF
             <div class="editar_Evento">
