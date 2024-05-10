@@ -59,18 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $mensajes = ['El usuario no se encontró.'];
         }
-        $url = resuelve('usuariosView.php');
+        $url = resuelve('/usuariosView.php');
         
     }
         
     else {
         $mensajes = ['Acceso no autorizado.'];
-        $url = resuelve('usuarios.php');
+        $url = resuelve('/usuarios.php');
     }
 }
 else {
     $mensajes = ['Acceso no autorizado.'];
-    $url = resuelve('usuarios.php');
+    $url = resuelve('/usuarios.php');
 }
 header("Location: $url");
 $app->putAtributoPeticion('mensajes', $mensajes);

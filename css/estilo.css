@@ -865,6 +865,7 @@ nav li:last-child {
 
 /* Estilos para la imagen del producto dentro del detalle del pedido */
 .deta_detalle {
+    width:95%;
     max-width: 200px; /* Ancho máximo de la imagen */
     height: auto; /* Altura automática para mantener la proporción de aspecto */
     border-radius: 5px; /* Bordes redondeados de 5px */
