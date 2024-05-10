@@ -32,7 +32,7 @@
     padding: 8px 16px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
     transition: background-image 0.3s; /* Transición suave del fondo */
-     height: 80%;
+    
 }
 
 .producto_enlace:hover {
@@ -46,7 +46,7 @@
     padding: 8px 16px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
     transition: background-image 0.3s; /* Transición suave del fondo */
-    height: 80%;
+   
     
 }
 .producto_enlace_oculto:hover {
@@ -54,7 +54,7 @@
 }
 
 .producto_imagen {
-    width: 50%; /* Ancho de la imagen */
+    width: 50% !important;
     height: auto; /* Altura automática para mantener la proporción */
     border: 2px solid #FF69B4; /* Borde rosa de 2px */
     background: linear-gradient(to bottom right, #FF69B4, #69d2ff); /* Fondo verde degradado a rosa */
