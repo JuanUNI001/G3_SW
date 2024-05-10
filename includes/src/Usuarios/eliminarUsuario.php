@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_usuario = $_POST["id_usuario"];
         $usuario = Usuario::buscaPorId($id_usuario);
         
-        if($usuario) {
+        if($usuario && !$usuario->esArchivado()) {
             if(Mensaje::borrarMensajesPorUsuario($id_usuario)) {
                 $mensajes[] = 'Mensajes del usuario eliminados correctamente';
             } else {

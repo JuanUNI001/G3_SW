@@ -87,4 +87,71 @@ EOF;
    
     return $html;
 }
+function visualizaUsuarioArchivados($Usuario){
+    $imagenPath = $Usuario->getAvatar() ? RUTA_IMGS . $Usuario->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
+    $id =  $Usuario->getId();
+
+    $follow = '';
+    $admins= '';
+    
+    if (isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin") { //para mostrar la papelera
+        
+        $recuperarUsuario = resuelve('includes/src/Usuarios/recuperaUsuario.php');
+
+        $admins =<<<EOF
+        <form action="$recuperarUsuario" method="post">
+            <input type="hidden" name="id_usuario" value="$id">
+            <button type="submit"class="button-user">Recuperar</button>
+        </form>
+
+        EOF;
+    }
+   
+    $app = BD::getInstance();
+    if ($app->usuarioLogueado()) 
+    {
+        $correo_usuario = $_SESSION['correo'];
+        
+        $rutaSeguir = resuelve('js/seguir.js');
+        $usuario = Usuario::buscaUsuario($correo_usuario);
+        $idUser = $usuario->getId();
+        $rutaChat = resuelve('/ChatView.php');
+        
+    
+
+        // Construir el HTML
+        $html = <<<EOF
+        <div class="tarjeta_usuario_oculto">
+            <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
+            <div class="info_usuario">
+                <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
+                <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+                
+            </div>
+            $follow 
+            $admins
+        </div>
+    
+
+        <script src=$rutaSeguir></script>
+EOF;
+    }
+    else
+    {
+        $html = <<<EOF
+        <div class="tarjeta_usuario">
+            <img src="{$imagenPath}" alt="Avatar de {$Usuario->getNombre()}" class="avatar_usuario">
+            <div class="info_usuario">
+                <div class="texto"><strong>Nombre:</strong> {$Usuario->getNombre()}</div>
+                <div class="texto"><strong>Correo:</strong> {$Usuario->getCorreo()}</div>
+                <div class="texto"><strong>Rol:</strong> {$Usuario->getRolString()}</div>
+            </div>
+        </div>
+EOF;
+    }
+   
+    return $html;
+}
+
+
 ?>
