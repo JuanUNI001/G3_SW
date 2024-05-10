@@ -80,7 +80,7 @@ $contenidoPrincipal ='';
         }
 
         if(isset($_SESSION["rolUser"]) && $_SESSION["rolUser"] == "admin"){
-            $direccionEditor = resuelve("/editorEventoView.php");
+            $direccionEditor = resuelve("/EditorEventoView.php");
             $imagenEditarRuta = resuelve('/images/editor.png');
             $imagenEliminarRuta = resuelve('/images/cubo.png'); // Ruta de la imagen para eliminar
             $eliminarEvento = resuelve("eliminarEvento.php");
