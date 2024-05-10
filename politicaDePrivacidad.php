@@ -5,6 +5,7 @@ require_once __DIR__.'/includes/config.php';
 $tituloPagina = 'Términos y Condiciones';
 
 $contenidoPrincipal = <<<HTML
+<div class="contenido">
     <section class="politica-privacidad">
         <article>
             <h2>Política de Privacidad</h2>
@@ -47,6 +48,7 @@ $contenidoPrincipal = <<<HTML
             <p>Última actualización: [8/5/2024]</p>
         </article>
     </section>
+</div>
 HTML;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

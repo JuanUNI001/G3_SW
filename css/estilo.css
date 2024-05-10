@@ -11,6 +11,7 @@
 @import url("anunciosIndex.css");
 @import url("foro.css");
 @import url("evento.css");
+@import url("estilos-legales.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
 @import url("https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css");
@@ -459,24 +460,52 @@ ul.dropdown ul.dropdown-content {
 
 
 /* Estilos para el contenido del pie de página */
+footer {
+    position: relative; /* Cambia la posición a relativa */
+    width: 100%;
+    background-color: #333; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 1px; 
+    clear: both; /* Limpia los flotantes */
+}
+
 .footer-content {
     display: flex; /* Utiliza flexbox para organizar el contenido */
-    margin-left: 5%; /* Establece el margen izquierdo automático */
     justify-content: space-between; /* Distribuye el espacio disponible entre los elementos */
     align-items: center; /* Alinea verticalmente los elementos */
+    margin-top: 2%; /* Establece el margen superior automático */
 }
 
-.footer-content .redes-sociales {
-    margin-left: auto; /* Establece el margen izquierdo automático */
-    margin-right: 5%; /* Ajusta el margen derecho para separarlo un poco */
+.footer-content > div {
+    flex: 0 1 30%; /* Establece el ancho de cada columna */
+    margin-bottom: 20px; /* Agrega espacio entre las columnas */
 }
 
-.redes-sociales a {
+.footer-content #vistas a,
+.footer-content #contenido-legal a {
+    display: flex; /* Utiliza flexbox para organizar el contenido */
+    flex-direction: column; /* Alinea los elementos en dirección vertical */
+    padding: 1%; /* Espaciado interno */
+}
+
+.footer-content #redes-sociales {
+    display: flex; /* Utiliza flexbox para organizar el contenido */
+    justify-content: center; /* Centra horizontalmente los elementos */
+    flex-direction: column;
+}
+
+.iconos-redes-sociales {
     display: inline-block; /* Hace que las imágenes se muestren en línea */
-    margin-right: 10px; /* Agrega un espacio entre cada imagen */
 }
 
-/* Estilos para los enlaces del pie de página */
+.iconos-redes-sociales a{
+    padding: 2%; /* Espaciado interno */
+}
+
+footer p {
+    max-width: 100%; /* Asegurarse de que los párrafos no sean más anchos que su contenedor */
+}
+
 footer a {
     color: #fff; /* Color del texto de los enlaces */
     text-decoration: none; /* Elimina el subrayado de los enlaces */
@@ -487,22 +516,13 @@ footer a:hover {
     color: #ccc; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
 }
 
-.redes-sociales a:hover {
+.iconos-redes-sociales a:hover {
     color: #e0a9d1; /* Cambia el color del texto al pasar el ratón sobre los enlaces */
 }
 
 /* Estilos para el texto de derechos de autor */
 .copyright {
     font-size: 14px; /* Tamaño del texto */
-}
-/* Estilos para el contenido principal */
-footer {
-    position: relative; /* Cambia la posición a relativa */
-    width: 100%;
-    background-color: #333; /* Color de fondo */
-    color: #fff; /* Color del texto */
-    padding: 1px; /* Espaciado interno */
-    clear: both; /* Limpia los flotantes */
 }
 
 .info-usuario {
@@ -668,9 +688,12 @@ nav li:last-child {
     color: #666; /* Color del texto gris */
 }
 .boton-crear-foro {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
     background-color: #4f2c8d83 ;
     color: white ;
-    padding: 10px 20px ;
+    padding: 20px 20px ;
     font-size: 16px ;
     border: none ;
     border-radius: 5px ;
@@ -678,6 +701,7 @@ nav li:last-child {
     transition: background-color 0.3s ;
     margin-bottom: 10px ; /* Agregando margen inferior */
     text-decoration: none ; /* Quitando subrayado */
+    font-size: 22px;
 }
 
 

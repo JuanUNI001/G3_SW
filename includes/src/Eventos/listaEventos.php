@@ -17,7 +17,9 @@ function listaeventos()
 {
     $eventos = Evento::listarEventos();
 
-    $html = '<div class="eventos">';
+    $html = '';
+
+    $html .= '<div class="eventos">';
 
     foreach ($eventos as $evento) {
         $html .= visualizaEvento($evento);
