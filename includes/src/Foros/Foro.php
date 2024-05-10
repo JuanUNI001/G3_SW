@@ -58,7 +58,7 @@ class Foro
     {
         $conn = BD::getInstance()->getConexionBd();
         
-        $query = "SELECT * FROM foros WHERE 1 = 1";
+        $query = "SELECT * FROM foros WHERE 1";
         
         if (!empty($autor)) {
             // Buscar usuario por nombre
