@@ -11,7 +11,8 @@ function eventossDestacados()
         <div class="contenedor-eventos">
     HTML;
     $rutaCaract = resuelve('/includes/src/Eventos/caracteristicasEvento.php'); 
-
+    
+            
     foreach ($eventos as $evento) {
         $html .= <<<HTML
         <div class="evento-custom">
@@ -20,7 +21,10 @@ function eventossDestacados()
                 <p>{$evento->getDescripcion()}</p>
             </div>
             <p class="premio">Premio: {$evento->getPremio()}</p>
-            <a href="{$rutaCaract}?id={$evento->getId()}" class="boton-evento">Ver más</a>
+           <form action="{$rutaCaract}" method="post">
+                <input type="hidden" name="id" value="{$evento->getId()}">
+                <button type="submit" class="boton-evento">Informacion</button>
+            </form>
         </div> 
         HTML;
         
