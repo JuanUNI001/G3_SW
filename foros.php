@@ -13,7 +13,7 @@ $htmlFormLogin
 
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Foros'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>
 

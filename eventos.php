@@ -25,6 +25,6 @@ $contenidoPrincipal = <<<EOF
     $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Eventos'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

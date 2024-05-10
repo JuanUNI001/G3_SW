@@ -12,6 +12,6 @@ $contenidoPrincipal = <<<EOF
 $htmlFormLogin
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Profesores'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 ?>

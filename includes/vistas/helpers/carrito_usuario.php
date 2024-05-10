@@ -124,7 +124,7 @@ else{
     </div>
     EOF;
 }
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Login'];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Carrito Usuario'];
 $app->generaVista('/plantillas/plantilla.php', $params);
 
 
