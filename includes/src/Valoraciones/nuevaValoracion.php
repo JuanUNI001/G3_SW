@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $mensajes = ['La valoración no puede ser 0'];
-        $rutaValoracion = resuelve('/includes/src/Valoraciones/newValoracion.php?id_producto=' . $id_producto);
+        $rutaValoracion = resuelve('/includes/vistas/helpers/newValoracion.php?id_producto=' . $id_producto);
         header("Location: $rutaValoracion");
         $mensajes = ['La valoracion no puede ser 0'];
        

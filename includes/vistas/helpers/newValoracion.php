@@ -31,10 +31,10 @@ if (!$producto) {
 // Título de la página
 $tituloPagina = 'Valorar Producto: ' . $producto->getNombre();
 
-
+$rutaValoracion = resuelve('/includes/src/Valoraciones/nuevaValoracion.php');
 $contenidoPrincipal = <<<EOF
 <div class="formulario-container-val">
-    <form id="formulario-valoracion" action="nuevaValoracion.php" method="post">
+    <form id="formulario-valoracion" action=$rutaValoracion method="post">
         <input type="hidden" name="id_producto" value="{$producto->getIdProducto()}">
         
         <h2>Valoración:</h2> <!-- Encabezado para la valoración -->
