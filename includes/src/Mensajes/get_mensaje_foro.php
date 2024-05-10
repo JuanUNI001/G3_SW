@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 }
 
-                $eliminarMensaje = resuelve('includes/src/Foros/eliminarMensajeForo.php');
+                $eliminarMensaje = resuelve('/includes/src/Foros/eliminarMensajeForo.php');
                 if ($idEmisor === $id_usuario_emisor) {
                     $output .= '<div class="comentarioForoOutgoing">
                                     <div class="avatarComentarioForo">

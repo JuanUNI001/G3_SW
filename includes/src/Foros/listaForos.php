@@ -58,7 +58,7 @@ function visualizaForo($foro) {
     $app = BD::getInstance();
     $usuarioLogueado = $app->usuarioLogueado();
 
-    $rutaForo = resuelve('ForoView.php');
+    $rutaForo = resuelve('/includes/vistas/helpers/ForoView.php');
     $idForo = $foro->getId();
     $autorId = $foro->getAutor(); // Obtener el ID del autor del foro
 

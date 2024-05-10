@@ -1,6 +1,6 @@
 <?php
 
-require_once 'includes/config.php';
+require_once __DIR__.'/../../config.php';
 
 
 use es\ucm\fdi\aw\src\Mensajes\Mensaje;
@@ -25,8 +25,8 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $receptor = Usuario::buscaPorId($idEmisor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
-    $rutaNew = resuelve('includes/src/Mensajes/put_mensaje_foro.php');
-    $rutaGetter = resuelve('includes/src/Mensajes/get_mensaje_foro.php');
+    $rutaNew = resuelve('/includes/src/Mensajes/put_mensaje_foro.php');
+    $rutaGetter = resuelve('/includes/src/Mensajes/get_mensaje_foro.php');
 
     $mensaje_class .= <<<HTML
     <div class="conv-mensaje ">
