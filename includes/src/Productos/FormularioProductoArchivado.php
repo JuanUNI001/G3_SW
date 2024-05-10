@@ -145,15 +145,14 @@ class FormularioProductoArchivado extends Formulario
         $recuperar = isset($_POST['recuperar']);
         
         if (count($this->errores) === 0) {
+          
+            $prodActual = Producto::buscaPorId($this->id);
+            $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $imagen, $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
+            Producto::actualiza($nuevoProducto);
             if ($recuperar)
             {
                 Producto::recuperarPorId($this->id);
-            } else
-            {
-                $prodActual = Producto::buscaPorId($this->id);
-                $nuevoProducto = Producto::crea($this->id, $nombreProducto, $precio, $descripcion, $imagen, $prodActual->getValoracion(), $prodActual->getNumValoraciones(),$cantidad);
-                Producto::actualiza($nuevoProducto);
-            }
+            } 
         }
     }
 
