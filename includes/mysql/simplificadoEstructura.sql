@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 CREATE TABLE IF NOT EXISTS `foros` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(25) NOT NULL,
-  `descripcion` varchar(25) NOT NULL,
+  `descripcion` varchar(700) NOT NULL,
   `autor_id` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
