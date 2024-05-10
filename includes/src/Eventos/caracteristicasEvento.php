@@ -11,7 +11,7 @@ $tituloPagina = 'Características Evento';
 
 $contenidoPrincipal ='';
 
-    $idEvento = $_GET['id'];
+    $idEvento = $_POST['id'];
 
     $evento = Evento::buscaPorId($idEvento);
 
