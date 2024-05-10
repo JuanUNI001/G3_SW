@@ -16,7 +16,7 @@ if (!$app->usuarioLogueado())  {
 
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['id_producto'],  $_POST['cantidad'])) {
     $id_producto = $_POST['id_producto'] ?? null;
     $cantidad = $_POST['cantidad'] ?? 1;
 
@@ -84,6 +84,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $url = resuelve('/tienda.php');
         header("Location: $url");
     }
+}
+else {
+        
+    $mensajes = ['Parece que algo ha salido mal :('];
+    
+
+    $url = resuelve('/tienda.php');
+    header("Location: $url");
 }
 $app->putAtributoPeticion('mensajes', $mensajes);
 exit();
