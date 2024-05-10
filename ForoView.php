@@ -25,9 +25,7 @@ function visualizaMensajes($idEmisor, $idReceptor, $viewPoint)
     $receptor = Usuario::buscaPorId($idEmisor);
     $autor = $receptor->getNombre();
     $imagenPath = $receptor->getAvatar() ? RUTA_IMGS . $receptor->getAvatar() : RUTA_IMGS . 'images/avatarPorDefecto.png'; 
-    $rutaNew = resuelve('/includes/src/Mensajes/put_mensaje_foro.php');
-    $rutaGetter = resuelve('/includes/src/Mensajes/get_mensaje_foro.php');
-
+   
     $mensaje_class .= <<<HTML
     <div class="conv-mensaje ">
         
@@ -107,22 +105,24 @@ function visualizaForo($idForo) {
 ?>
 
 <?php
+ $contenidoPrincipal='';
+ $tituloPagina = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $idForo = $_POST['id'];
 
-$idForo = $_POST['id'];
 
+    $usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
+    $id_usuario_emisor = $usuario_emisor->getId();
 
-$usuario_emisor = Usuario::buscaUsuario($_SESSION['correo']);
-$id_usuario_emisor = $usuario_emisor->getId();
+    $mensajesView = visualizaMensajes($id_usuario_emisor, $idForo, $id_usuario_emisor);
 
-$mensajesView = visualizaMensajes($id_usuario_emisor, $idForo, $id_usuario_emisor);
-
-$tituloPagina = 'Chat Usuario';
-$contenidoPrincipal = <<<HTML
-    $mensajesView
-HTML;
-
+    $tituloPagina = 'Chat Usuario';
+    $contenidoPrincipal = <<<HTML
+        $mensajesView
+    HTML;
+}
 $scripts = [
-    'js/foro.js'
+    'js/Foro.js'
 ];
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'cabecera' => 'Discusión en el Foro', 'scripts' => $scripts];
