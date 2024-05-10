@@ -2,10 +2,11 @@
 namespace es\ucm\fdi\aw\src\Eventos;
 
 use es\ucm\fdi\aw\src\Formulario;
+use es\ucm\fdi\aw\src\BD;
 
 class FormularioEdicionEvento extends Formulario
 {
-    private $evento
+    private $evento;
 
     public function __construct($evento) {
         parent::__construct('formEdicionEvento', ['urlRedireccion' => 'eventos.php']);
@@ -40,7 +41,7 @@ class FormularioEdicionEvento extends Formulario
             <legend>Datos Evento</legend>
             <div>
                 <label for="nombre">Nombre del evento:</label>
-                <input id="nombre" type="text" name="nombreProducto" value="$nombre" />
+                <input id="nombre" type="text" name="nombre" value="$nombre" />
                 {$erroresCampos['nombre']}
             </div>
             <div>
@@ -55,7 +56,7 @@ class FormularioEdicionEvento extends Formulario
             </div>
             <div>
                 <label for="fecha">Fecha del evento:</label>
-                <input id="fecha" type="text" name="fecha" value="$fecha" />
+                <input id="fecha" type="text" name="fecha" value="{$fecha->format('Y-m-d H:i:s')}" />
                 {$erroresCampos['fecha']}
             </div>
             <div>
@@ -85,10 +86,10 @@ class FormularioEdicionEvento extends Formulario
             </div>
             <div>
                 <input type="checkbox" id="eliminar" name="eliminar" value="$eliminar" $eliminar>
-                <label for="eliminar">Eliminar</label>
+                <label for="eliminar" class="input-label">Eliminar</label>
             </div>
-            <div>
-                <button type="submit" name="login">Entrar</button>
+            <div class="enviar-button">
+                <button type="submit" name="crear">Aceptar</button>
             </div>
         </fieldset>
         EOF;
@@ -97,6 +98,7 @@ class FormularioEdicionEvento extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
+        $idEvento = $datos['id'];
 
         $this->errores = [];
         $nombre = trim($datos['nombre'] ?? '');
@@ -105,12 +107,6 @@ class FormularioEdicionEvento extends Formulario
             $this->errores['nombre'] = 'El nombre del evento no puede estar vacío';
         }
         
-        /*$precio = trim($datos['precio'] ?? '');
-        $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $precio || empty($precio)) {
-            $this->errores['precio'] = 'El precio no puede estar vacío.';
-        }*/
-
         $descripcion = trim($datos['descripcion'] ?? '');
         $descripcion = filter_var($descripcion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (! $descripcion || empty($descripcion)) {
@@ -134,13 +130,6 @@ class FormularioEdicionEvento extends Formulario
         if (! $lugar || empty($lugar)) {
             $this->errores['lugar'] = 'El lugar no puede estar vacío.';
         }
-
-        $ganador = trim($datos['ganador'] ?? '');
-        $ganador = filter_var($ganador, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (! $ganador || empty($ganador)) {
-            $this->errores['ganador'] = 'El lugar no puede estar vacío.';
-        }
-
 
         $premio = trim($datos['premio'] ?? '');
         $premio = filter_var($premio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -174,15 +163,20 @@ class FormularioEdicionEvento extends Formulario
 
         $eliminar = isset($_POST['eliminar']);
         
-        if (count($this->errores) === 0) {
+        if (count($this->errores) == 0) {
             if ($eliminar)
             {
-                Evento::borraPorId($this->id);
+                $app = BD::getInstance();
+                Evento::borraPorId($idEvento);
+                $mensajes = ['Se ha eliminado el evento!'];
+                $app->putAtributoPeticion('mensajes', $mensajes);
             } else
             {
-                //$eventoActual = Evento::buscaPorId($this->id);
-                $nuevoEvento = Evento::Nuevo($this->evento->getId(),$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,$ganador,$tasa);
+                $app = BD::getInstance();
+                $nuevoEvento = Evento::Nuevo($this->evento->getId(),$inscritos,$categoria,$aforo, $nombre,$descripcion,$fecha,$lugar,$estado,$premio,NULL,$tasa);
                 Evento::actualiza($nuevoEvento);
+                $mensajes = ['Se ha actualizado el evento!'];
+                $app->putAtributoPeticion('mensajes', $mensajes);
             }
         }
     }

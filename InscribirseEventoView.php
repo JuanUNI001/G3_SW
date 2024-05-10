@@ -11,11 +11,7 @@ $idEvento = $_GET['id'];
 $correo = $_SESSION['correo'];
 $usuario = Usuario::buscaUsuario($correo);
 $idUsuario = $usuario->getId();
-/*$evento = Evento::buscaPorId($id);
-$idEvento = $evento->getId();
 
-$form->idEvento =$idEvento;
-$form->idUsuario=$idUsuario;*/
 
 $form = new es\ucm\fdi\aw\src\Eventos\FormularioInscripcion($idEvento, $idUsuario);
 $tituloPagina = 'Inscripción en Evento';

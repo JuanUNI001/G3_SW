@@ -55,9 +55,8 @@ class FormularioDesinscripcionEvento extends Formulario
     if (empty($idEvento) || empty($idUsuario)) {
         $this->errores['campos'] = 'Faltan datos necesarios para la inscripción.';
     }
-    //$er=count($this->errores);
-   // echo $er; 
-   //if (count($this->errores) == 0) {
+ 
+   if (count($this->errores) == 0) {
         $desinscripcion = Inscrito::borraPorId($idEvento, $idUsuario);
 
         if (!$desinscripcion) {
@@ -73,7 +72,7 @@ class FormularioDesinscripcionEvento extends Formulario
             $mensajes = ['Te has desinscrito correctamente del evento !'];
             $app->putAtributoPeticion('mensajes', $mensajes);
         }
-    //}
+    }
 
 
     }

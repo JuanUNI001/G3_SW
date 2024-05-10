@@ -10,7 +10,7 @@ use es\ucm\fdi\aw\src\BD;
             <ul>
                 <li><a href="/index.php">Inicio</a></li>
                 <li><a href="<?php echo resuelve('/terminosYCondiciones.php'); ?>">Términos y condiciones</a></li>
-                <li><a href="/politica-de-privacidad">Política de privacidad</a></li>
+                <li><a href="<?php echo resuelve('/politicaDePrivacidad.php'); ?>">Política de privacidad</a></li>
             </ul>      
         </div>
 

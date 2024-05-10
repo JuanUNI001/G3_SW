@@ -56,11 +56,9 @@ function profesorDestacadoVisualizado($profesor)
     $html .= '<p class="custom-nombre">' . $nombre . '</p>';
     $html .= valoracionConEstrellas($valoracion); 
     if($usuarioLogueado){
-        $correo_usuario = $_SESSION['correo'];
-        $usuario = Usuario::buscaUsuario($correo_usuario);
-        $id_usuario = $usuario->getId();
+        
         $html .= '<form action="' . $rutaChat . '" method="post">'; // Formulario oculto
-        $html .= '<input type="hidden" name="id" value="' . $id_usuario  . '">';
+        $html .= '<input type="hidden" name="id" value="' . $profesor->getId()  . '">';
         $html .= '<button type="submit" class="custom-boton-profesor">Contactar</button>';
         $html .= '</form>';
     }
